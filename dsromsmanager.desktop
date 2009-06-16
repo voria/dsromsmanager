@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=DsRomsManager
+Type=Application
+Comment=Manage Nintendo DS games list
+Exec=drm
+TryExec=drm
+Path=
+Icon=/usr/share/dsromsmanager/images/icon.png
+Categories=Application;Game;
