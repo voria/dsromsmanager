@@ -1,0 +1,12 @@
+drm (0.2-4) jaunty; urgency=low
+
+  * Disabled CRC check for images.
+  * Moved from libglade to gtkbuilder.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 30 Apr 2009 18:49:31 +0200
+
+drm (0.1) jaunty; urgency=low
+
+  * Initial Release.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 05 Oct 2008 20:55:41 +0200
