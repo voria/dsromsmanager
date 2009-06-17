@@ -55,31 +55,27 @@ class DatUpdater(threading.Thread):
 		self.dat_version = dat_version
 		self.dat_version_url = dat_version_url
 		self.gui = gui
-		self.statusbar = self.gui.get_statusbar()
 	
 	def run(self):
-		self.statusbar.push(self.statusbar.get_context_id("DatUpdater"),
-						"Searching for a new DAT file...")
+		self.gui.update_statusbar("DatUpdater", "Searching for a new DAT file...")
 		try:
 			new_version_file = urlopen(self.dat_version_url)
 			new_version = new_version_file.read()
 			
 			if self.dat_version < new_version:
-				self.statusbar.push(self.statusbar.get_context_id("DatUpdater"),
-							"New DAT file available!")
-				datdownloader = DatDownloader(self.statusbar)
+				self.gui.update_statusbar("DatUpdater", "New DAT file available!")
+				datdownloader = DatDownloader(self.gui)
 				datdownloader.start()
 				datdownloader.join()
-				self.statusbar.push(self.statusbar.get_context_id("DatUpdater"), "Loading the new DAT file...")
+				self.gui.update_statusbar("DatUpdater", "Loading the new DAT file...")
 				dat = Dat(DAT_NAME)
 				self.gui.add(dat)
-				self.statusbar.push(self.statusbar.get_context_id("DatUpdater"), "New DAT file loaded")
+				self.gui.update_statusbar("DatUpdater", "New DAT file loaded")
 			else:
-				self.statusbar.push(self.statusbar.get_context_id("DatUpdater"),
-							"DAT file is already up to date")		
+				self.gui.update_statusbar("DatUpdater", "DAT file is already up to date")
+				pass		
 		except:
-			self.statusbar.push(self.statusbar.get_context_id("DatUpdater"),
-							"Can't download DAT version file!")
+			self.gui.update_statusbar("DatUpdater", "Can't download DAT version file!")
 			raise
 		
 	def stop(self):
@@ -87,16 +83,15 @@ class DatUpdater(threading.Thread):
 
 class DatDownloader(threading.Thread):
 	""" Download and unzip DAT file """
-	def __init__(self, statusbar):
+	def __init__(self, gui):
 		threading.Thread.__init__(self, name="DatDownloader")
 		self.dat_url = DAT_URL
 		self.dat_name_zip = DAT_NAME_ZIP
 		self.dat_name = DAT_NAME
-		self.statusbar = statusbar
+		self.gui = gui
 	
 	def run(self):
-		self.statusbar.push(self.statusbar.get_context_id("DatDownloader"),
-						"Downloading a new DAT file...")
+		self.gui.update_statusbar("DatDownloader", "Downloading a new DAT file...")
 		try:
 			input = urlopen(self.dat_url)
 			output = open(self.dat_name_zip, "wb")
@@ -104,10 +99,10 @@ class DatDownloader(threading.Thread):
 				output.write(data)
 			output.close()
 		except:
-			self.statusbar.push(self.statusbar.get_context_id("DatDownloader"), "Can't download DAT!")
+			self.gui.update_statusbar("DatDownloader", "Can't download DAT!")
 			raise
 		
-		self.statusbar.push(self.statusbar.get_context_id("FirstRun"), "Unzipping the new DAT file...")
+		self.gui.update_statusbar("FirstRun", "Unzipping the new DAT file...")
 		zip = ZipFile(self.dat_name_zip, "r")
 		file(self.dat_name, "wb").write(zip.read(self.dat_name))
 		zip.close()
@@ -119,7 +114,7 @@ class DatDownloader(threading.Thread):
 class ImagesDownloader(threading.Thread):
 	""" Download 'game' images and show them (if possible).
 	Take care of local path's creation when needed """
-	def __init__(self, game, treeview, image1, image2, statusbar):
+	def __init__(self, gui, game):
 		threading.Thread.__init__(self)
 
 		self.game = game
@@ -132,10 +127,7 @@ class ImagesDownloader(threading.Thread):
 		if not os.path.exists(range_dir):
 			os.mkdir(range_dir)
 		
-		self.treeview = treeview
-		self.image1 = image1
-		self.image2 = image2
-		self.statusbar = statusbar
+		self.gui = gui
 	
 	def run(self):
 		if not os.path.exists(self.filename1):
@@ -144,19 +136,13 @@ class ImagesDownloader(threading.Thread):
 				output = open(self.filename1, "wb")
 				for data in input:
 					output.write(data)
-				output.close()								
+				output.close()
 			except HTTPError:
 				file = self.filename1.split(os.sep)[len(self.filename1.split(os.sep))-1]
-				self.statusbar.push(self.statusbar.get_context_id("ImageDownloader"),
-				"Error while downloading image '" + file + "' for '" + str(game) + "': File not found")
+				self.gui.update_statusbar("ImageDownloader",
+					"Error while downloading image '" + file + "' for '" + str(game) + "': File not found")
 			else:
-				selection = self.treeview.get_selection()
-				model, iter = selection.get_selected()
-				try:
-					if model.get_value(iter, 1) == self.game.get_release_number():
-						self.image1.set_from_file(self.filename1)
-				except:
-					pass
+				self.gui.update_image(self.game.get_release_number(), 1, self.filename1)
 		
 		if not os.path.exists(self.filename2):
 			try:
@@ -167,40 +153,25 @@ class ImagesDownloader(threading.Thread):
 				output.close()
 			except HTTPError:
 				file = self.filename2.split(os.sep)[len(self.filename2.split(os.sep))-1]
-				self.statusbar.push(self.statusbar.get_context_id("ImageDownloader"),
-				"Error while downloading image '" + file + "' for '" + str(game) + "': File not found")
+				self.gui.update_statusbar("ImageDownloader",
+				    "Error while downloading image '" + file + "' for '" + str(game) + "': File not found")
 			else:
-				selection = self.treeview.get_selection()
-				model, iter = selection.get_selected()
-				try:
-					if model.get_value(iter, 1) == self.game.get_release_number():
-						self.image2.set_from_file(self.filename2)
-				except:
-					pass
-		
-	
+				self.gui.update_image(self.game.get_release_number(), 2, self.filename2)
+			
 	def stop(self):
 		return
 		
 class AllImagesDownloader(threading.Thread):
-	""" Take control over a gui button, while downloading all missing images """
-	def __init__(self, games, statusbar, button, button_signal_id):
+	""" Update the gui button and download all missing images """
+	def __init__(self, gui, games):
 		threading.Thread.__init__(self, name="AllImagesDownloader")
 		self.games = games
-		self.statusbar = statusbar
-		self.button = button
-		self.button_signal_id = button_signal_id
+		self.gui = gui
 		self.stopnow = False
 	
 	def run(self):
-		oldlabel = self.button.get_label()
-		oldstockid = self.button.get_stock_id()
-		self.button.set_stock_id(gtk.STOCK_CANCEL)
-		self.button.set_label("Stop images download")
-		self.button.handler_block(self.button_signal_id)
-		sid = self.button.connect("clicked", self.on_button_clicked)
-		self.statusbar.push(self.statusbar.get_context_id("AllImagesDownloader"),
-								"Searching for invalid images...")
+		self.gui.toggle_all_images_download_toolbutton(self)
+		self.gui.update_statusbar("AllImagesDownloader", "Searching for invalid images...")
 		for game in self.games:
 			if self.stopnow == False:
 				img1 = game.get_img1_local()
@@ -213,6 +184,7 @@ class AllImagesDownloader(threading.Thread):
 				if not os.path.exists(range_dir):
 					os.mkdir(range_dir)
 				
+				# check images CRC (disabled for now)
 #				if os.path.exists(img1):
 #					if game.get_img1_crc() != get_crc32(img1):
 #						os.remove(img1)
@@ -222,8 +194,7 @@ class AllImagesDownloader(threading.Thread):
 #						os.remove(img2)
 #				
 				if not os.path.exists(img1) or not os.path.exists(img2):
-					self.statusbar.push(self.statusbar.get_context_id("AllImagesDownloader"),
-									"Downloading images for '" + str(game) + "'...")
+					self.gui.update_statusbar("AllImagesDownloader", "Downloading images for '" + str(game) + "'...")
 				
 				if not os.path.exists(img1):
 					try:
@@ -244,24 +215,16 @@ class AllImagesDownloader(threading.Thread):
 						output.close()
 					except:
 						pass
-					
-		self.button.disconnect(sid)
-		self.button.set_label(oldlabel)
-		self.button.set_stock_id(oldstockid)
-		self.button.handler_unblock(self.button_signal_id)
 		
 		if self.stopnow == True:
-			self.statusbar.push(self.statusbar.get_context_id("AllImagesDownloader"),
-							"Download of all images stopped")
+			self.gui.update_statusbar("AllImagesDownloader", "Download of all images stopped")
 		else:
-			self.statusbar.push(self.statusbar.get_context_id("AllImagesDownloader"),
-							"Download of all images completed")
-			
-	
+			self.gui.update_statusbar("AllImagesDownloader", "Download of all images completed")
+		
+		# restore original button
+		self.gui.toggle_all_images_download_toolbutton(self)
+				
 	def stop(self):
 		""" Stop the thread """
-		self.statusbar.push(self.statusbar.get_context_id("AllImagesDownloader"), "Stopping images download...")
+		self.gui.update_statusbar("AllImagesDownloader", "Stopping images download...")
 		self.stopnow = True
-	
-	def on_button_clicked(self, button):
-		self.stop()

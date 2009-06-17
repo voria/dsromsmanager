@@ -11,7 +11,7 @@
     <property name="type_hint">dialog</property>
     <property name="has_separator">False</property>
     <property name="program_name">DsRomsManager</property>
-    <property name="version">0.2</property>
+    <property name="version">0.3</property>
     <property name="copyright" translatable="yes">Released under GPL3 terms
 
 Copyleft by

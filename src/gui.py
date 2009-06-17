@@ -305,7 +305,7 @@ class Gui(threading.Thread):
 		else:
 			self.image1.clear()
 			self.image2.clear()
-			thread = ImagesDownloader(game, self.list_treeview, self.image1, self.image2, self.statusbar)
+			thread = ImagesDownloader(self, game)
 			thread.start()
 		
 		# Search for duplicates
@@ -350,7 +350,7 @@ class Gui(threading.Thread):
 		title = self.games[relnum-1].get_title()
 		title = title.replace("&", " ")
 		url = "http://www.google.com/search?hl=en&q="
-		url += title + " ds site:metacritic.com" 
+		url += title + " NDS site:metacritic.com" 
 		url += "&btnI=I%27m+Feeling+Lucky&aq=f&oq="
 		import webbrowser
 		webbrowser.open(url)
@@ -363,8 +363,7 @@ class Gui(threading.Thread):
 	def on_all_images_download_toolbutton_clicked(self, button):
 		if len(self.games) == 0:
 			return
-		aid = AllImagesDownloader(self.games, self.statusbar,
-								self.all_images_download_toolbutton, self.aidtb_sid)
+		aid = AllImagesDownloader(self, self.games)
 		self.threads.append(aid)
 		aid.start()
 	
@@ -446,8 +445,36 @@ class Gui(threading.Thread):
 		dialog.destroy()
 		gtk.gdk.threads_leave()
 		
-	def get_statusbar(self):
-		return self.statusbar
+	def update_statusbar(self, context, text):
+		self.statusbar.push(self.statusbar.get_context_id(context), text)
+	
+	def update_image(self, game_release_number, image_index, filename):
+		""" Update showed image if needed """
+		selection = self.list_treeview.get_selection()
+		model, iter = selection.get_selected()
+		try:
+			if model.get_value(iter, 1) == game_release_number:
+				if image_index == 1:
+					self.image1.set_from_file(filename)
+				else:
+					self.image2.set_from_file(filename)
+		except:
+			pass
+	
+	def toggle_all_images_download_toolbutton(self, aid):
+		if self.all_images_download_toolbutton.get_stock_id() == gtk.STOCK_JUMP_TO:
+			# switch to cancel button
+			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
+			self.all_images_download_toolbutton.set_label("Stop images download")
+			self.all_images_download_toolbutton.disconnect(self.aidtb_sid)
+			self.aidtb_sid = self.all_images_download_toolbutton.connect("clicked", aid.stop)
+		else:
+			# restore original button
+			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
+			self.all_images_download_toolbutton.set_label("Download all images")
+			self.all_images_download_toolbutton.disconnect(self.aidtb_sid)
+			self.aidtb_sid = self.all_images_download_toolbutton.connect("clicked",
+																		 self.on_all_images_download_toolbutton_clicked)
 	
 	def add(self, dat):
 		""" Add games from 'dat' to the treeview model.

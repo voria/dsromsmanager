@@ -22,7 +22,7 @@ DATA_DIR = os.path.join(os.getcwd(), "data")
 DATA_IMG_DIR = os.path.join(DATA_DIR, "images")
 
 APP_NAME = "DsRomsManager"
-APP_VERSION = "0.2"
+APP_VERSION = "0.3"
 
 WORK_DIR = os.path.expanduser("~") + "/." + APP_NAME.lower()
 IMG_DIR = os.path.join(WORK_DIR, "images")

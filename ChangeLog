@@ -1,3 +1,8 @@
+DsRomsManager - 0.3
+	* Do not pass gui elements to external functions.
+	  Instead, pass the gui reference and use its specific
+	  methods to update elements.
+	  
 DsRomsManager - 0.2
     
     * Disabled CRC check for images
