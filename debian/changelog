@@ -1,6 +1,7 @@
 drm (0.2) jaunty; urgency=low
 
   * Disabled CRC check for images.
+  * Moved from libglade to gtkbuilder.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 30 Apr 2009 18:49:31 +0200
 

@@ -1,6 +1,7 @@
 DsRomsManager - 0.2
     
-    * Images resized
+    * Disabled CRC check for images.
+    * Moved from libglade to gtkbuilder
 
 DsRomsManager - 0.1
 
