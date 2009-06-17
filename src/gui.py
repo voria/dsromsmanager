@@ -446,10 +446,13 @@ class Gui(threading.Thread):
 		gtk.gdk.threads_leave()
 		
 	def update_statusbar(self, context, text):
+		gtk.gdk.threads_enter()
 		self.statusbar.push(self.statusbar.get_context_id(context), text)
+		gtk.gdk.threads_leave()
 	
 	def update_image(self, game_release_number, image_index, filename):
 		""" Update showed image if needed """
+		gtk.gdk.threads_enter()
 		selection = self.list_treeview.get_selection()
 		model, iter = selection.get_selected()
 		try:
@@ -460,8 +463,10 @@ class Gui(threading.Thread):
 					self.image2.set_from_file(filename)
 		except:
 			pass
+		gtk.gdk.threads_leave()
 	
 	def toggle_all_images_download_toolbutton(self, aid):
+		gtk.gdk.threads_enter()
 		if self.all_images_download_toolbutton.get_stock_id() == gtk.STOCK_JUMP_TO:
 			# switch to cancel button
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
@@ -475,6 +480,7 @@ class Gui(threading.Thread):
 			self.all_images_download_toolbutton.disconnect(self.aidtb_sid)
 			self.aidtb_sid = self.all_images_download_toolbutton.connect("clicked",
 																		 self.on_all_images_download_toolbutton_clicked)
+		gtk.gdk.threads_leave()
 	
 	def add(self, dat):
 		""" Add games from 'dat' to the treeview model.

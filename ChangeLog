@@ -2,6 +2,7 @@ DsRomsManager - 0.3
 	* Do not pass gui elements to external functions.
 	  Instead, pass the gui reference and use its specific
 	  methods to update elements.
+	* Fix random hangs on Ubuntu 9.04
 	  
 DsRomsManager - 0.2
     
