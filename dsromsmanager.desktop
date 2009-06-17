@@ -7,5 +7,5 @@ Comment=Manage Nintendo DS games list
 Exec=drm
 TryExec=drm
 Path=
-Icon=/usr/share/dsromsmanager/images/icon.png
+Icon=/usr/share/dsromsmanager/data/images/icon.png
 Categories=Application;Game;
