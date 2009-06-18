@@ -463,8 +463,8 @@ class Gui(threading.Thread):
 		""" Update showed image if needed """
 		gtk.gdk.threads_enter()
 		selection = self.list_treeview.get_selection()
-		model, iter = selection.get_selected()
 		try:
+			model, iter = selection.get_selected()
 			if model.get_value(iter, 1) == game_release_number:
 				if image_index == 1:
 					self.image1.set_from_file(filename)
@@ -509,6 +509,8 @@ class Gui(threading.Thread):
 	def quit(self):
 		for thread in self.threads:
 			if thread.isAlive() and thread.getName() != "Gui":
+				print thread.getName(),
 				thread.stop()
 				thread.join()
+				print "killed"
 		gtk.main_quit()
