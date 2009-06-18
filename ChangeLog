@@ -4,6 +4,7 @@ DsRomsManager - 0.3
 	  methods to update elements.
 	* Fix random hangs on Ubuntu 9.04
 	* Fix threads interactions (I hope)
+	* Change URL for reviews
 	  
 DsRomsManager - 0.2
     
