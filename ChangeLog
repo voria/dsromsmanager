@@ -5,6 +5,8 @@ DsRomsManager - 0.3
 	* Fix random hangs on Ubuntu 9.04
 	* Fix threads interactions (I hope)
 	* Change URL for reviews
+	* Resize games images to 50% and use a smaller game title
+	  when screen vertical resolution is < 800
 	  
 DsRomsManager - 0.2
     

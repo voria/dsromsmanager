@@ -1,3 +1,10 @@
+drm (0.3-5) jaunty; urgency=low
+
+  * Resize games images to 50% and use a smaller game title when
+    screen vertical resolution is < 800 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 19 Jun 2009 01:30:43 +0200
+
 drm (0.3-4) jaunty; urgency=low
 
   * Changed URL for reviews
