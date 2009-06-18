@@ -351,9 +351,9 @@ class Gui(threading.Thread):
 		relnum = model.get_value(iter, 1)
 		title = self.games[relnum-1].get_title()
 		title = title.replace("&", " ")
-		url = "http://www.google.com/search?hl=en&q="
-		url += title + " NDS site:metacritic.com" 
-		url += "&btnI=I%27m+Feeling+Lucky&aq=f&oq="
+		title = title.replace("-", " ")
+		url = "http://apps.metacritic.com/search/process?ty=3&ts="
+		url += title + "&tfs=game_title&game_platform=DS"
 		import webbrowser
 		webbrowser.open(url)
 	
