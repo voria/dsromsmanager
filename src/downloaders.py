@@ -170,61 +170,61 @@ class AllImagesDownloader(threading.Thread):
 		self.stopnow = False
 	
 	def run(self):
-		self.gui.toggle_all_images_download_toolbutton(self)
+		self.gui.toggle_all_images_download_toolbutton()
 		self.gui.update_statusbar("AllImagesDownloader", "Searching for invalid images...")
 		for game in self.games:
-			if self.stopnow == False:
-				img1 = game.get_img1_local()
-				range_dir = os.path.join(IMG_DIR, img1.split(os.sep)[0])
-				url1 = game.get_img1_url()
-				url2 = game.get_img2_url()
-				img1 = os.path.join(IMG_DIR, img1)
-				img2 = os.path.join(IMG_DIR, game.get_img2_local())
-				
-				if not os.path.exists(range_dir):
-					os.mkdir(range_dir)
-				
-				# check images CRC (disabled for now)
-#				if os.path.exists(img1):
-#					if game.get_img1_crc() != get_crc32(img1):
-#						os.remove(img1)
+			if self.stopnow == True:
+				break
+			img1 = game.get_img1_local()
+			range_dir = os.path.join(IMG_DIR, img1.split(os.sep)[0])
+			url1 = game.get_img1_url()
+			url2 = game.get_img2_url()
+			img1 = os.path.join(IMG_DIR, img1)
+			img2 = os.path.join(IMG_DIR, game.get_img2_local())
+			
+			if not os.path.exists(range_dir):
+				os.mkdir(range_dir)
+			
+			# check images CRC (disabled for now)
+#			if os.path.exists(img1):
+#				if game.get_img1_crc() != get_crc32(img1):
+#					os.remove(img1)
+#			
+#			if os.path.exists(img2):
+#				if game.get_img2_crc() != get_crc32(img2):
+#					os.remove(img2)
 #				
-#				if os.path.exists(img2):
-#					if game.get_img2_crc() != get_crc32(img2):
-#						os.remove(img2)
-#				
-				if not os.path.exists(img1) or not os.path.exists(img2):
-					self.gui.update_statusbar("AllImagesDownloader", "Downloading images for '" + str(game) + "'...")
-				
-				if not os.path.exists(img1):
-					try:
-						input = urlopen(url1)
-						output = open(img1, "wb")
-						for data in input:
-							output.write(data)
-						output.close()
-					except HTTPError:
-						pass
 
-				if not os.path.exists(img2):
-					try:
-						input = urlopen(url2)
-						output = open(img2, "wb")
-						for data in input:
-							output.write(data)
-						output.close()
-					except:
-						pass
+			if not os.path.exists(img1) or not os.path.exists(img2):
+				if self.stopnow == False:
+					self.gui.update_statusbar("AllImagesDownloader", "Downloading images for '" + str(game) + "'...")
+			
+			if not os.path.exists(img1):
+				try:
+					input = urlopen(url1)
+					output = open(img1, "wb")
+					for data in input:
+						output.write(data)
+					output.close()
+				except HTTPError:
+					pass
+
+			if not os.path.exists(img2):
+				try:
+					input = urlopen(url2)
+					output = open(img2, "wb")
+					for data in input:
+						output.write(data)
+					output.close()
+				except:
+					pass
 		
-		if self.stopnow == True:
-			self.gui.update_statusbar("AllImagesDownloader", "Download of all images stopped")
-		else:
+		if self.stopnow == False:
 			self.gui.update_statusbar("AllImagesDownloader", "Download of all images completed")
 		
 		# restore original button
-		self.gui.toggle_all_images_download_toolbutton(self)
+		self.gui.toggle_all_images_download_toolbutton()
 				
 	def stop(self):
 		""" Stop the thread """
-		self.gui.update_statusbar("AllImagesDownloader", "Stopping images download...")
 		self.stopnow = True

@@ -361,11 +361,20 @@ class Gui(threading.Thread):
 		thread.start()
 	
 	def on_all_images_download_toolbutton_clicked(self, button):
-		if len(self.games) == 0:
-			return
-		aid = AllImagesDownloader(self, self.games)
-		self.threads.append(aid)
-		aid.start()
+		if button.get_stock_id() == gtk.STOCK_JUMP_TO:
+			if len(self.games) == 0:
+				return
+			aid = AllImagesDownloader(self, self.games)
+			self.threads.append(aid)
+			aid.start()
+		else: # stop images downloading
+			for thread in self.threads:
+				if thread.isAlive() and thread.getName() == "AllImagesDownloader":
+					thread.stop()
+					while thread.isAlive(): # wait while the thread finishs its job 
+						pass
+					break
+			self.statusbar.push(self.statusbar.get_context_id("AllImagesDownloader"), "Download of all images stopped")
 	
 	def on_filter_triggered(self, widget):
 		""" Filter list """
@@ -465,22 +474,15 @@ class Gui(threading.Thread):
 			pass
 		gtk.gdk.threads_leave()
 	
-	def toggle_all_images_download_toolbutton(self, aid):
-		gtk.gdk.threads_enter()
+	def toggle_all_images_download_toolbutton(self):
 		if self.all_images_download_toolbutton.get_stock_id() == gtk.STOCK_JUMP_TO:
 			# switch to cancel button
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
 			self.all_images_download_toolbutton.set_label("Stop images download")
-			self.all_images_download_toolbutton.disconnect(self.aidtb_sid)
-			self.aidtb_sid = self.all_images_download_toolbutton.connect("clicked", aid.stop)
 		else:
 			# restore original button
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
 			self.all_images_download_toolbutton.set_label("Download all images")
-			self.all_images_download_toolbutton.disconnect(self.aidtb_sid)
-			self.aidtb_sid = self.all_images_download_toolbutton.connect("clicked",
-																		 self.on_all_images_download_toolbutton_clicked)
-		gtk.gdk.threads_leave()
 	
 	def add(self, dat):
 		""" Add games from 'dat' to the treeview model.

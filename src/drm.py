@@ -42,22 +42,21 @@ class Main(threading.Thread):
 		self.threads.append(self.gui)
 		self.gui.start()
 		
-		if self.stopnow == False:	# Avoid warning if user close main window
-									# while this thread is running yet
-			if not os.path.exists(os.path.join(WORK_DIR, DAT_NAME)):
+		if not os.path.exists(os.path.join(WORK_DIR, DAT_NAME)):
+			if self.stopnow == False:
 				self.gui.show_info_dialog("DAT file not found.\n\nA new one will be automatically downloaded.")
-				self.datdownloader = DatDownloader(self.gui)
-				self.threads.append(self.datdownloader)
-				self.datdownloader.start()
-				self.datdownloader.join()
+			self.datdownloader = DatDownloader(self.gui)
+			self.threads.append(self.datdownloader)
+			self.datdownloader.start()
+			self.datdownloader.join()
 		
-		if self.stopnow == False:	# Avoid warning if user close main window
-									# while this thread is running
-			if os.path.exists(DAT_NAME):
+		if os.path.exists(DAT_NAME):
+			if self.stopnow == False:
 				self.gui.update_statusbar("Dat", "Loading DAT file...")
-				self.dat = Dat(DAT_NAME)
+			self.dat = Dat(DAT_NAME)
 
-				self.gui.add(self.dat)
+			self.gui.add(self.dat)
+			if self.stopnow == False:
 				self.gui.update_statusbar("Ready", "DAT file loaded")
 	
 	def stop(self):

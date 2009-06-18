@@ -3,6 +3,7 @@ DsRomsManager - 0.3
 	  Instead, pass the gui reference and use its specific
 	  methods to update elements.
 	* Fix random hangs on Ubuntu 9.04
+	* Fix threads interactions (I hope)
 	  
 DsRomsManager - 0.2
     
