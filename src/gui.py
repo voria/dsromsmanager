@@ -53,6 +53,8 @@ class Gui(threading.Thread):
 		self.list_game_label = self.builder.get_object("list_games_label")
 		self.image1 = self.builder.get_object("image1")
 		self.image2 = self.builder.get_object("image2")
+		self.image1_frame = self.builder.get_object("image1_frame")
+		self.image2_frame = self.builder.get_object("image2_frame")
 		self.info_title_label = self.builder.get_object("info_title_label")
 		self.info_location_label = self.builder.get_object("info_location_label")
 		self.info_publisher_label = self.builder.get_object("info_publisher_label")
@@ -69,13 +71,15 @@ class Gui(threading.Thread):
 		self.filter_clear_button = self.builder.get_object("filter_clear_button")
 		self.statusbar = self.builder.get_object("statusbar")
 		self.about_dialog = self.builder.get_object("about_dialog")
-		self.about_dialog.set_version(APP_VERSION)
 		# Widgets needed for hiding informations
 		self.images_hbox = self.builder.get_object("images_hbox")
 		self.info_label_vbox = self.builder.get_object("info_label_vbox")
 		
+		# Get screen's height
+		self.screen_height = self.main_window.get_screen().get_height()
 		
 		self.main_window.set_title(APP_NAME + " - " + APP_VERSION)
+		self.about_dialog.set_version(APP_VERSION)
 		self.main_window_visible = True
 		
 		try:
@@ -87,7 +91,6 @@ class Gui(threading.Thread):
 		self.statusicon.set_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
 		self.statusicon.set_tooltip(self.main_window.get_title())
 		self.statusicon.set_visible(True)
-		
 		
 		self.image1.clear()
 		self.image2.clear()
@@ -301,8 +304,17 @@ class Gui(threading.Thread):
 		img2 = os.path.join(IMG_DIR, game.get_img2_local())	
 		
 		if os.path.exists(img1) and os.path.exists(img2):
-			self.image1.set_from_file(img1)
-			self.image2.set_from_file(img2)
+			pixbuf1 = gtk.gdk.pixbuf_new_from_file(img1)
+			pixbuf2 = gtk.gdk.pixbuf_new_from_file(img2)
+			if self.screen_height < 800: # resize images to 75%
+				pixbuf1 = pixbuf1.scale_simple(pixbuf1.get_width()/4*3, pixbuf1.get_height()/4*3, gtk.gdk.INTERP_BILINEAR)
+				pixbuf2 = pixbuf2.scale_simple(pixbuf2.get_width()/4*3, pixbuf2.get_height()/4*3, gtk.gdk.INTERP_BILINEAR)
+				# resize images frames too
+				self.image1_frame.set_size_request(pixbuf1.get_width(), pixbuf1.get_height())
+				self.image2_frame.set_size_request(pixbuf2.get_width(), pixbuf2.get_height())
+				
+			self.image1.set_from_pixbuf(pixbuf1)
+			self.image2.set_from_pixbuf(pixbuf2)
 		else:
 			self.image1.clear()
 			self.image2.clear()
@@ -470,10 +482,17 @@ class Gui(threading.Thread):
 		try:
 			model, iter = selection.get_selected()
 			if model.get_value(iter, 1) == game_release_number:
+				pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
+				if self.screen_height < 800: #resize images to 75%
+					pixbuf = pixbuf.scale_simple(pixbuf.get_width()/4*3, pixbuf.get_height()/4*3, gtk.gdk.INTERP_BILINEAR)
 				if image_index == 1:
-					self.image1.set_from_file(filename)
+					self.image1.set_from_pixbuf(pixbuf)
+					# resize image frame too
+					self.image1_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
 				else:
-					self.image2.set_from_file(filename)
+					self.image2.set_from_pixbuf(pixbuf)
+					# resize image frame too
+					self.image2_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
 		except:
 			pass
 		gtk.gdk.threads_leave()
