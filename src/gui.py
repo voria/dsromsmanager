@@ -69,6 +69,7 @@ class Gui(threading.Thread):
 		self.filter_clear_button = self.builder.get_object("filter_clear_button")
 		self.statusbar = self.builder.get_object("statusbar")
 		self.about_dialog = self.builder.get_object("about_dialog")
+		self.about_dialog.set_version(APP_VERSION)
 		# Widgets needed for hiding informations
 		self.images_hbox = self.builder.get_object("images_hbox")
 		self.info_label_vbox = self.builder.get_object("info_label_vbox")
