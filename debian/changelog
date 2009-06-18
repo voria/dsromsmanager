@@ -1,3 +1,9 @@
+drm (0.3-3) jaunty; urgency=low
+
+  * Fix threads interactions (again) 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 18 Jun 2009 12:15:47 +0200
+
 drm (0.3-2) jaunty; urgency=low
 
   * Fix "Download all images" button
