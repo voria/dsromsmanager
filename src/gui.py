@@ -306,6 +306,7 @@ class Gui(threading.Thread):
 			self.image1.clear()
 			self.image2.clear()
 			thread = ImagesDownloader(self, game)
+			self.threads.append(thread)
 			thread.start()
 		
 		# Search for duplicates
@@ -375,6 +376,8 @@ class Gui(threading.Thread):
 						pass
 					break
 			self.statusbar.push(self.statusbar.get_context_id("AllImagesDownloader"), "Download of all images stopped")
+			# toggle button
+			self.toggle_all_images_download_toolbutton()
 	
 	def on_filter_triggered(self, widget):
 		""" Filter list """
@@ -509,8 +512,5 @@ class Gui(threading.Thread):
 	def quit(self):
 		for thread in self.threads:
 			if thread.isAlive() and thread.getName() != "Gui":
-				print thread.getName(),
 				thread.stop()
-				thread.join()
-				print "killed"
 		gtk.main_quit()

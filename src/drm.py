@@ -55,8 +55,8 @@ class Main(threading.Thread):
 				self.gui.update_statusbar("Dat", "Loading DAT file...")
 			self.dat = Dat(DAT_NAME)
 
-			self.gui.add(self.dat)
 			if self.stopnow == False:
+				self.gui.add(self.dat)
 				self.gui.update_statusbar("Ready", "DAT file loaded")
 	
 	def stop(self):

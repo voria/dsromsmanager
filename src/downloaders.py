@@ -115,7 +115,7 @@ class ImagesDownloader(threading.Thread):
 	""" Download 'game' images and show them (if possible).
 	Take care of local path's creation when needed """
 	def __init__(self, gui, game):
-		threading.Thread.__init__(self)
+		threading.Thread.__init__(self,  name="ImagesDownloader")
 
 		self.game = game
 		self.url1 = game.get_img1_url()
@@ -124,13 +124,14 @@ class ImagesDownloader(threading.Thread):
 		self.url2 = game.get_img2_url()
 		self.filename2 = os.path.join(IMG_DIR, game.get_img2_local())
 				
+		self.gui = gui
+		self.stopnow = False
+		
 		if not os.path.exists(range_dir):
 			os.mkdir(range_dir)
-		
-		self.gui = gui
 	
 	def run(self):
-		if not os.path.exists(self.filename1):
+		if self.stopnow == False and not os.path.exists(self.filename1):
 			try:
 				input = urlopen(self.url1)
 				output = open(self.filename1, "wb")
@@ -138,13 +139,15 @@ class ImagesDownloader(threading.Thread):
 					output.write(data)
 				output.close()
 			except HTTPError:
-				file = self.filename1.split(os.sep)[len(self.filename1.split(os.sep))-1]
-				self.gui.update_statusbar("ImageDownloader",
-					"Error while downloading image '" + file + "' for '" + str(game) + "': File not found")
+				if self.stopnow == False:
+					file = self.filename1.split(os.sep)[len(self.filename1.split(os.sep))-1]
+					self.gui.update_statusbar("ImageDownloader",
+									"Error while downloading image '" + file + "' for '" + str(game) + "': File not found")
 			else:
-				self.gui.update_image(self.game.get_release_number(), 1, self.filename1)
+				if self.stopnow == False:
+					self.gui.update_image(self.game.get_release_number(), 1, self.filename1)
 		
-		if not os.path.exists(self.filename2):
+		if self.stopnow == False and not os.path.exists(self.filename2):
 			try:
 				input = urlopen(self.url2)
 				output = open(self.filename2, "wb")
@@ -152,14 +155,16 @@ class ImagesDownloader(threading.Thread):
 					output.write(data)
 				output.close()
 			except HTTPError:
-				file = self.filename2.split(os.sep)[len(self.filename2.split(os.sep))-1]
-				self.gui.update_statusbar("ImageDownloader",
-				    "Error while downloading image '" + file + "' for '" + str(game) + "': File not found")
+				if self.stopnow == False:
+					file = self.filename2.split(os.sep)[len(self.filename2.split(os.sep))-1]
+					self.gui.update_statusbar("ImageDownloader",
+				    				"Error while downloading image '" + file + "' for '" + str(game) + "': File not found")
 			else:
-				self.gui.update_image(self.game.get_release_number(), 2, self.filename2)
+				if self.stopnow == False:
+					self.gui.update_image(self.game.get_release_number(), 2, self.filename2)
 			
 	def stop(self):
-		return
+		self.stopnow = True
 		
 class AllImagesDownloader(threading.Thread):
 	""" Update the gui button and download all missing images """
@@ -221,9 +226,8 @@ class AllImagesDownloader(threading.Thread):
 		
 		if self.stopnow == False:
 			self.gui.update_statusbar("AllImagesDownloader", "Download of all images completed")
-		
-		# restore original button
-		self.gui.toggle_all_images_download_toolbutton()
+			# restore original button
+			self.gui.toggle_all_images_download_toolbutton()
 				
 	def stop(self):
 		""" Stop the thread """
