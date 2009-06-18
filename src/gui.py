@@ -306,9 +306,9 @@ class Gui(threading.Thread):
 		if os.path.exists(img1) and os.path.exists(img2):
 			pixbuf1 = gtk.gdk.pixbuf_new_from_file(img1)
 			pixbuf2 = gtk.gdk.pixbuf_new_from_file(img2)
-			if self.screen_height < 800: # resize images to 75%
-				pixbuf1 = pixbuf1.scale_simple(pixbuf1.get_width()/4*3, pixbuf1.get_height()/4*3, gtk.gdk.INTERP_BILINEAR)
-				pixbuf2 = pixbuf2.scale_simple(pixbuf2.get_width()/4*3, pixbuf2.get_height()/4*3, gtk.gdk.INTERP_BILINEAR)
+			if self.screen_height < 800: # resize images to 50%
+				pixbuf1 = pixbuf1.scale_simple(pixbuf1.get_width()/2, pixbuf1.get_height()/2, gtk.gdk.INTERP_BILINEAR)
+				pixbuf2 = pixbuf2.scale_simple(pixbuf2.get_width()/2, pixbuf2.get_height()/2, gtk.gdk.INTERP_BILINEAR)
 				# resize images frames too
 				self.image1_frame.set_size_request(pixbuf1.get_width(), pixbuf1.get_height())
 				self.image2_frame.set_size_request(pixbuf2.get_width(), pixbuf2.get_height())
@@ -339,11 +339,13 @@ class Gui(threading.Thread):
 		else:
 			self.info_title_label.set_tooltip_text("No duplicates")
 		
-		
 		# Show informations
-		#self.info_title_label.set_text(str(game))
 		title = str(game).replace("&", "&amp;")
-		self.info_title_label.set_markup("<span size=\"x-large\" weight=\"bold\">" + title + "</span>")
+		if self.screen_height < 800:
+			self.info_title_label.set_markup("<span weight=\"bold\">" + title + "</span>")
+		else:
+			self.info_title_label.set_markup("<span size=\"x-large\" weight=\"bold\">" +
+											  title + "</span>")
 		self.info_location_label.set_text(game.get_location())
 		self.info_publisher_label.set_text(game.get_publisher())
 		self.info_source_label.set_text(game.get_source_rom())
@@ -483,8 +485,8 @@ class Gui(threading.Thread):
 			model, iter = selection.get_selected()
 			if model.get_value(iter, 1) == game_release_number:
 				pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
-				if self.screen_height < 800: #resize images to 75%
-					pixbuf = pixbuf.scale_simple(pixbuf.get_width()/4*3, pixbuf.get_height()/4*3, gtk.gdk.INTERP_BILINEAR)
+				if self.screen_height < 800: #resize images to 50%
+					pixbuf = pixbuf.scale_simple(pixbuf.get_width()/2, pixbuf.get_height()/2, gtk.gdk.INTERP_BILINEAR)
 				if image_index == 1:
 					self.image1.set_from_pixbuf(pixbuf)
 					# resize image frame too
