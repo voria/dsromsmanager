@@ -82,6 +82,15 @@ class Gui(threading.Thread):
 		self.about_dialog.set_version(APP_VERSION)
 		self.main_window_visible = True
 		
+		# Enable click on website url in about dialog
+		def about_dialog_url_clicked(dialog, link, user_data):
+			pass
+		gtk.about_dialog_set_url_hook(about_dialog_url_clicked, None)
+		
+		# Set icon and logo in about_dialog
+		self.about_dialog.set_icon_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
+		self.about_dialog.set_logo(gtk.gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.png")))
+		
 		try:
 			self.main_window.set_icon_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
 		except:

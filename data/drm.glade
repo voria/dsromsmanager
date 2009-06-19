@@ -17,8 +17,7 @@
 Copyleft by
 Fortunato Ventre (voRia)
 vorione@gmail.com</property>
-    <property name="comments" translatable="yes">(What 'DRM' should always mean :P)</property>
-    <property name="website">http://www.voria.org</property>
+    <property name="website">http://www.voria.org/dsromsmanager/</property>
     <property name="website_label" translatable="yes">http://www.voria.org</property>
     <accelerator key="c" signal="close" modifiers="GDK_CONTROL_MASK"/>
     <child internal-child="vbox">
