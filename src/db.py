@@ -25,66 +25,124 @@ except:
 
 from globals import *
 
+CREATE_GAMES_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS games (
+							image_number TEXT,
+							release_number INT,
+							title TEXT,
+							fullinfo TEXT,
+							save_type TEXT,
+							rom_size INT,
+							publisher TEXT,
+							location_index INT,
+							location TEXT,
+							location_short TEXT,
+							source_rom TEXT,
+							language TEXT,
+							rom_crc TEXT,
+							range_dir TEXT,
+							img1_crc TEXT,
+							img1_local_path TEXT,
+							img1_remote_url TEXT,
+							img2_crc TEXT,
+							img2_local_url TEXT,
+							img2_remote_url TEXT,
+							comment TEXT,
+							duplicate_id INT
+							)"""
+
+# db_game_table info indexes
+GAME_IMAGE_NUMBER = 0
+GAME_RELEASE_NUMBER = 1
+GAME_TITLE = 2
+GAME_FULLINFO = 3
+GAME_SAVE_TYPE = 4
+GAME_ROM_SIZE = 5
+GAME_PUBLISHER = 6
+GAME_LOCATION_INDEX = 7
+GAME_LOCATION = 8
+GAME_LOCATION_SHORT = 9
+GAME_SOURCE_ROM = 10
+GAME_LANGUAGE = 11
+GAME_ROM_CRC = 12
+GAME_RANGE_DIR = 13
+GAME_IMG1_CRC = 14
+GAME_IMG1_LOCAL_PATH = 15
+GAME_IMG1_REMOTE_URL = 16
+GAME_IMG2_CRC = 17
+GAME_IMG2_LOCAL_PATH = 18
+GAME_IMG2_REMOTE_URL = 19
+GAME_COMMENT = 20
+GAME_DUPLICATE_ID = 21
+
+CREATE_DATINFO_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS datinfo (
+							dat_name TEXT,
+							img_dir TEXT,
+							dat_version INT,
+							system TEXT,
+							screenshots_width INT,
+							screenshots_height INT,
+							dat_version_url TEXT,
+							dat_url TEXT,
+							img_url TEXT
+							)"""
+
+DATINFO_DAT_NAME = 0
+DATINFO_IMG_DIR = 1
+DATINFO_DAT_VERSION = 2
+DATINFO_SYSTEM = 3
+DATINFO_SCREENSHOTS_WIDTH = 4
+DATINFO_SCREENSHOTS_HEIGHT = 5
+DATINFO_DAT_VERSION_URL = 6
+DATINFO_DAT_URL = 7
+DATINFO_IMG_URL = 8
+
+INSERT_GAME_QUERY="INSERT INTO games VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+INSERT_DATINFO_QUERY="INSERT INTO datinfo VALUES (?,?,?,?,?,?,?,?,?)"
+
 class DB():
-	def __init__(self):
-		self.connection = sqlite3.connect(":memory:")
+	def __init__(self, filename=":memory:"):
+		self.connection = sqlite3.connect(filename)
 		self.cursor = self.connection.cursor()
 		
-		self.games = 0
+		# Create 'games' table
+		self.cursor.execute(CREATE_GAMES_TABLE_QUERY)
 		
-		# Create table
-		self.cursor.execute("""CREATE TABLE games (
-		image_number TEXT,
-		release_number INT,
-		title TEXT,
-		fullinfo TEXT,
-		save_type TEXT,
-		rom_size INT,
-		publisher TEXT,
-		location TEXT,
-		location_short TEXT,
-		source_rom TEXT,
-		language TEXT,
-		rom_crc TEXT,
-		img1_crc TEXT,
-		img2_crc TEXT,
-		comment TEXT,
-		duplicate_id INT
-		)""")
-	
-	def add(self, game):
-		"""	Add 'game' to database """		
-		infos = []
-		infos.append(game.get_image_number())
-		infos.append(game.get_release_number())
-		infos.append(game.get_title())
-		infos.append(str(game))
-		infos.append(game.get_save_type())
-		infos.append(game.get_rom_size())
-		infos.append(game.get_publisher())
-		infos.append(game.get_location())
-		infos.append(game.get_location_short())
-		infos.append(game.get_source_rom())
-		infos.append(game.get_language())
-		infos.append(game.get_rom_crc())
-		infos.append(game.get_img1_crc())
-		infos.append(game.get_img2_crc())
-		infos.append(game.get_comment())
-		infos.append(game.get_duplicate_id())
+		# Create 'datinfo' table
+		self.cursor.execute(CREATE_DATINFO_TABLE_QUERY)
 		
-		self.cursor.execute("INSERT INTO games VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", tuple(infos))
+		# Count games in database
+		self.cursor.execute("SELECT * FROM games")
+		self.games = len(self.cursor.fetchall())
+		
+	def add_game(self, game_infos):
+		"""	Add 'game_infos' to database """		
+		self.cursor.execute(INSERT_GAME_QUERY, tuple(game_infos))
 		self.connection.commit()
 		self.games += 1
 	
-	def adds(self, games):
-		""" Add 'games' (a list of games) to database """
-		for game in games:
-			self.add(game)
+	def add_datinfo(self, datinfo):
+		""" Add 'datinfo' to database """
+		self.cursor.execute(INSERT_DATINFO_QUERY, tuple(datinfo))
+		self.connection.commit()
 	
-	def get_all(self):
+	def get_datinfo(self):
+		""" Return datinfo """
+		self.cursor.execute("SELECT * FROM datinfo")
+		return self.cursor.fetchone()
+	
+	def get_all_games(self):
 		""" Return all games """
 		self.cursor.execute("SELECT * FROM games")
 		return self.cursor.fetchall()
+	
+	def get_game(self, number):
+		""" Return info for game number 'number' """
+		self.cursor.execute("SELECT * FROM games WHERE release_number = " + str(number))
+		return self.cursor.fetchone()
+	
+	def get_games_number(self):
+		""" Return the number of games in database """
+		return self.games
 			
 	def filter_by(self, string, location, language, size):
 		""" Return games filtered by location, language and size infos """
@@ -104,12 +162,24 @@ class DB():
 			command = command[:len(command)-6]
 		self.cursor.execute(command)
 		return self.cursor.fetchall()
-	
-#	def get_by_str(self, string):
-#		""" Return games infos matching string in fullinfo """
-#		self.cursor.execute("SELECT * FROM games WHERE fullinfo LIKE ?", ("%" + string + "%", ))
-#		return self.cursor.fetchall()
-#	
-#	def get_gamesnumber(self):
-#		""" Return games number """
-#		return self.games
+
+	def save_as(self, filename):
+		""" Save database in memory on disk as 'filename' """
+		if os.path.exists(filename):
+			os.remove(filename)
+		
+		self.cursor.execute("ATTACH '%s' AS extern" % filename)
+		
+		# Create tables on external file
+		self.cursor.execute(CREATE_GAMES_TABLE_QUERY.replace("games", "extern.games", 1))
+		self.cursor.execute(CREATE_DATINFO_TABLE_QUERY.replace("datinfo", "extern.datinfo", 1))
+		
+		# Copy data from memory database to extern database
+		self.cursor.execute("SELECT * FROM games")
+		for game in self.cursor.fetchall():
+			self.cursor.execute(INSERT_GAME_QUERY.replace("games", "extern.games", 1), game)
+		self.cursor.execute("SELECT * FROM datinfo")
+		self.cursor.execute(INSERT_DATINFO_QUERY.replace("datinfo", "extern.datinfo", 1), self.cursor.fetchone())
+		
+		self.connection.commit()
+		

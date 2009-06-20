@@ -28,7 +28,7 @@ except:
 	exit(1)
 
 from globals import *
-from db import DB
+from db import *
 
 from downloaders import *
 
@@ -177,7 +177,6 @@ class Gui(threading.Thread):
 		
 		self.__deactivate_widgets()
 		
-		self.games = []
 		self.db = None
 		
 	def run(self):
@@ -186,56 +185,25 @@ class Gui(threading.Thread):
 	def stop(self):
 		self.quit()
 	
-	def __prepare_db(self):
-		""" Create games' database if it does not exist """
-		if self.db == None:
-			self.db = DB()
-			self.db.adds(self.games)
-	
 	def __update_list(self, games):
 		""" List 'games' in treeview """
 		num = 0
 		self.list_treeview_model.clear()
 		for game in reversed(games):
-			region = game.get_location_index()
-			flag = self.flags[countries_short.keys().index(region)]
-			relnum = game.get_release_number()
-			title = game.get_title()
-			self.list_treeview_model.append((flag, relnum, title))
-			num += 1
-		if num != 0:
-			self.list_game_label.set_text(str(num) + " games in list")
-		else:
-			self.list_game_label.set_text("No games in list")
-	
-	def __update_list_from_db(self, games):
-		""" List 'games' infos (taken from database) in treeview """
-		num = 0
-		self.list_treeview_model.clear()
-		for game in reversed(games):
 			relnum = game[1]
-			region = game[8]
-			key = -1
-			for i in countries_short.keys():
-				if countries_short[i] == region:
-					key = i
-					break
-			flag = self.flags[countries_short.keys().index(key)]
 			title = game[2]
+			region = game[7]
+			flag = self.flags[countries_short.keys().index(region)]
 			self.list_treeview_model.append((flag, relnum, title))
 			num += 1
 		if num != 0:
 			self.list_game_label.set_text(str(num) + " games in list")
 		else:
 			self.list_game_label.set_text("No games in list")
-		self.list_treeview.set_cursor(0)
 	
 	def __filter(self):
 		""" Filter list by all criteria """
-		self.__prepare_db()
-				
 		self.__hide_infos()
-		
 		string = self.filter_name_entry.get_text()
 		location_iter = self.filter_location_combobox.get_active_iter()
 		location = self.filter_location_model.get_value(location_iter, 0)
@@ -243,7 +211,11 @@ class Gui(threading.Thread):
 		language = self.filter_language_model.get_value(language_iter, 0)
 		size_iter = self.filter_size_combobox.get_active_iter()
 		size = self.filter_size_model.get_value(size_iter, 0)
-		self.__update_list_from_db(self.db.filter_by(string, location, language, size))
+		try:
+			self.__update_list(self.db.filter_by(string, location, language, size))
+		except:
+			# Open a new database connection
+			self.__update_list(DB(DB_FILE).filter_by(string, location, language, size))
 		self.show_review_toolbutton.set_sensitive(False)
 	
 	def __deactivate_widgets(self):
@@ -294,10 +266,9 @@ class Gui(threading.Thread):
 			self.main_window_visible = True
 	
 	def on_statusbar_text_pushed(self, statusbar, context_id, text):
-		self.statusicon.set_tooltip(APP_NAME + " - " + text)
+		self.statusicon.set_tooltip(text)
 	
 	def on_list_treeview_cursor_changed(self, treeview):
-		self.__prepare_db()
 		selection = treeview.get_selection()
 		model, iter = selection.get_selected()
 		
@@ -306,11 +277,15 @@ class Gui(threading.Thread):
 		except: # model is empty
 			return
 		
-		game = self.games[relnum-1]
+		try:
+			game = self.db.get_game(relnum)
+		except:
+			self.db = DB(DB_FILE)
+			game = self.db.get_game(relnum)
 		
 		# Show images if available, or else download them
-		img1 = os.path.join(IMG_DIR, game.get_img1_local())
-		img2 = os.path.join(IMG_DIR, game.get_img2_local())	
+		img1 = game[GAME_IMG1_LOCAL_PATH]
+		img2 = game[GAME_IMG2_LOCAL_PATH]	
 		
 		if os.path.exists(img1) and os.path.exists(img2):
 			pixbuf1 = gtk.gdk.pixbuf_new_from_file(img1)
@@ -333,12 +308,13 @@ class Gui(threading.Thread):
 		
 		# Search for duplicates
 		duplicates = []
-		id = game.get_duplicate_id()
-		relnum = game.get_release_number()
+		id = game[GAME_DUPLICATE_ID]
+		relnum = game[GAME_RELEASE_NUMBER]
 		if id != 0: # Games with id == 0 have no duplicates
-			for g in self.games:
-				if g.get_duplicate_id() == id and g.get_release_number() != relnum:
-					duplicates.append(str(g))
+			games = self.db.get_all_games()
+			for g in games:
+				if g[GAME_DUPLICATE_ID] == id and g[GAME_RELEASE_NUMBER] != relnum:
+					duplicates.append(game[GAME_FULLINFO])
 		
 		if len(duplicates) != 0:
 			text = "Duplicates:"
@@ -349,21 +325,21 @@ class Gui(threading.Thread):
 			self.info_title_label.set_tooltip_text("No duplicates")
 		
 		# Show informations
-		title = str(game).replace("&", "&amp;")
+		title = game[GAME_TITLE].replace("&", "&amp;")
 		if self.screen_height < 800:
 			self.info_title_label.set_markup("<span weight=\"bold\">" + title + "</span>")
 		else:
 			self.info_title_label.set_markup("<span size=\"x-large\" weight=\"bold\">" +
 											  title + "</span>")
-		self.info_location_label.set_text(game.get_location())
-		self.info_publisher_label.set_text(game.get_publisher())
-		self.info_source_label.set_text(game.get_source_rom())
-		self.info_save_label.set_text(game.get_save_type())
-		size = game.get_rom_size()/1048576
+		self.info_save_label.set_text(game[GAME_SAVE_TYPE])
+		size = game[GAME_ROM_SIZE]/1048576
 		self.info_size_label.set_text(str(size) + " MB")
-		self.info_comment_label.set_text(game.get_comment())
-		self.info_crc_label.set_text(game.get_rom_crc())
-		self.info_language_label.set_text(game.get_language())
+		self.info_publisher_label.set_text(game[GAME_PUBLISHER])
+		self.info_location_label.set_text(game[GAME_LOCATION])
+		self.info_source_label.set_text(game[GAME_SOURCE_ROM])
+		self.info_language_label.set_text(game[GAME_LANGUAGE])
+		self.info_crc_label.set_text(game[GAME_ROM_CRC])
+		self.info_comment_label.set_text(game[GAME_COMMENT])
 		
 		self.show_review_toolbutton.set_sensitive(True)
 		self.__show_infos()
@@ -372,7 +348,13 @@ class Gui(threading.Thread):
 		selection = self.list_treeview.get_selection()
 		model, iter = selection.get_selected()
 		relnum = model.get_value(iter, 1)
-		title = self.games[relnum-1].get_title()
+		try:
+			game = self.db.get_game(relnum)
+		except:
+			self.db = DB(DB_FILE)
+			game = self.db.get_game(relnum) 
+		
+		title = game[GAME_TITLE]
 		title = title.replace("&", " ")
 		title = title.replace("-", " ")
 		url = "http://apps.metacritic.com/search/process?ty=3&ts="
@@ -381,15 +363,31 @@ class Gui(threading.Thread):
 		webbrowser.open(url)
 	
 	def on_dat_update_toolbutton_clicked(self, button):
-		thread = DatUpdater(self, self.dat.get_version(), self.dat.get_version_url())
+		try:
+			datinfo = self.db.get_datinfo()
+		except:
+			self.db = DB(DB_FILE)
+			datinfo = self.db.get_datinfo()
+			
+		thread = DatUpdater(self, datinfo[DATINFO_DAT_VERSION], datinfo[DATINFO_DAT_VERSION_URL])
 		self.threads.append(thread)
 		thread.start()
 	
 	def on_all_images_download_toolbutton_clicked(self, button):
+		try:
+			games_number = self.db.get_games_number()
+		except:
+			self.db = DB(DB_FILE)
+			games_number = self.db.get_games_number()
+		
 		if button.get_stock_id() == gtk.STOCK_JUMP_TO:
-			if len(self.games) == 0:
+			if games_number == 0:
 				return
-			aid = AllImagesDownloader(self, self.games)
+			try:
+				aid = AllImagesDownloader(self, self.db.get_all_games())
+			except:
+				self.db = DB(DB_FILE)
+				aid = AllImagesDownloader(self, self.db.get_all_games())
 			self.threads.append(aid)
 			aid.start()
 		else: # stop images downloading
@@ -399,7 +397,7 @@ class Gui(threading.Thread):
 					while thread.isAlive(): # wait while the thread finishs its job 
 						pass
 					break
-			self.statusbar.push(self.statusbar.get_context_id("AllImagesDownloader"), "Download of all images stopped")
+			self.statusbar.push(self.statusbar.get_context_id("AllImagesDownloader"), "Download of all images stopped.")
 			# toggle button
 			self.toggle_all_images_download_toolbutton()
 	
@@ -488,7 +486,7 @@ class Gui(threading.Thread):
 	
 	def update_image(self, game_release_number, image_index, filename):
 		""" Update showed image if needed """
-		gtk.gdk.threads_enter()
+		#gtk.gdk.threads_enter()
 		selection = self.list_treeview.get_selection()
 		try:
 			model, iter = selection.get_selected()
@@ -506,7 +504,7 @@ class Gui(threading.Thread):
 					self.image2_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
 		except:
 			pass
-		gtk.gdk.threads_leave()
+		#gtk.gdk.threads_leave()
 	
 	def toggle_all_images_download_toolbutton(self):
 		if self.all_images_download_toolbutton.get_stock_id() == gtk.STOCK_JUMP_TO:
@@ -518,14 +516,21 @@ class Gui(threading.Thread):
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
 			self.all_images_download_toolbutton.set_label("Download all images")
 	
-	def add(self, dat):
-		""" Add games from 'dat' to the treeview model.
-		This function must be used only once per DAT file """
-		self.db = None
-		self.dat = dat
-		self.games = self.dat.get_games()
+	def open_db(self):
+		""" Open database """
+		if self.db == None:
+			self.db = DB(DB_FILE)
+	
+	def add_games(self):
+		""" Add games from database 'DB_FILE' to the treeview model. """
 		self.__deactivate_widgets()
-		self.__update_list(self.games)
+		self.update_statusbar("Games", "Loading games list...")
+		try:
+			self.__update_list(self.db.get_all_games())
+		except:
+			self.db = DB(DB_FILE)
+			self.__update_list(self.db.get_all_games())
+		self.update_statusbar("Games", "Games list loaded.")
 		self.__activate_widgets()
 		# Clear up all filter
 		self.filter_name_entry.handler_block(self.fne_sid)

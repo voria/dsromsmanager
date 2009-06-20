@@ -22,9 +22,8 @@ from globals import *
 
 class Game():
 	""" Hold informations about a game """
-	def __init__(self, infos, img_url):
-		self.img_url = img_url
-		
+	def __init__(self, infos):
+				
 		self.image_number = infos.getElementsByTagName("imageNumber")[0].firstChild.data
 		self.release_number = int(infos.getElementsByTagName("releaseNumber")[0].firstChild.data)
 		self.title = infos.getElementsByTagName("title")[0].firstChild.data
@@ -80,21 +79,21 @@ class Game():
 		""" Return game's image range """
 		return self.__get_range()
 	
-	def get_img1_local(self):
-		""" Return relative local path of img1 """
-		return os.path.join(self.__get_range(), self.image_number + "a.png")
+	def get_img1_local(self, path):
+		""" Return absolute local path of img1 """
+		return os.path.join(path, self.__get_range(), self.image_number + "a.png")
 		
-	def get_img2_local(self):
-		""" Return relative local path of img2 """
-		return os.path.join(self.__get_range(),	self.image_number + "b.png")
+	def get_img2_local(self, path):
+		""" Return absolute local path of img2 """
+		return os.path.join(path, self.__get_range(), self.image_number + "b.png")
 	
-	def get_img1_url(self):
+	def get_img1_url(self, url):
 		""" Return remote URL of img1 """
-		return os.path.join(self.img_url, self.__get_range(), self.image_number + "a.png")
+		return os.path.join(url, self.__get_range(), self.image_number + "a.png")
 						
-	def get_img2_url(self):
+	def get_img2_url(self, url):
 		""" Return remote URL of img2 """
-		return os.path.join(self.img_url, self.__get_range(), self.image_number + "b.png")
+		return os.path.join(url, self.__get_range(), self.image_number + "b.png")
 	
 	def get_release_number(self):
 		""" Return game's release number """

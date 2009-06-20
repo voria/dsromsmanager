@@ -16,56 +16,63 @@
 # See the GNU General Public License for more details.
 # <http://www.gnu.org/licenses/gpl.txt>
 
+import os
 import xml.dom.minidom
+
+from globals import *
 from game import Game
+from db import DB
 
 class Dat():
 	""" Holds all DAT info """
 	def __init__(self, filename):		
-		self.games = []
-		self.dat = xml.dom.minidom.parse(filename)
-		# Read DAT general infos
-		self.dat_name = self.dat.getElementsByTagName("datName")[0].firstChild.data
-		self.img_dir = self.dat.getElementsByTagName("imFolder")[0].firstChild.data
-		self.dat_version = self.dat.getElementsByTagName("datVersion")[0].firstChild.data
-		self.system = self.dat.getElementsByTagName("system")[0].firstChild.data
-		self.screenshots_width = self.dat.getElementsByTagName("screenshotsWidth")[0].firstChild.data
-		self.screenshots_height = self.dat.getElementsByTagName("screenshotsHeight")[0].firstChild.data
-		self.dat_version_url = self.dat.getElementsByTagName("datVersionURL")[0].firstChild.data
-		self.dat_url = self.dat.getElementsByTagName("datURL")[0].firstChild.data
-		self.img_url = self.dat.getElementsByTagName("imURL")[0].firstChild.data
-		
-		for game in self.dat.getElementsByTagName("game"):
-				self.games.append(Game(game, self.img_url))
-	
-	def get_dat_name(self):
-		""" Returns DAT internal name """
-		return self.dat_name
-	
-	def get_version(self):
-		""" Returns DAT version """
-		return self.dat_version
-	
-	def get_version_url(self):
-		""" Returns DAT version URL """
-		return self.dat_version_url
-	
-	def get_dat_url(self):
-		""" Returns DAT URL """
-		return self.dat_url
-	
-	def get_game(self, number):
-		""" Returns game n. 'number'."""
-		return self.games[number-1]
-	
-	def get_games(self):
-		""" Returns games' list """
-		return self.games
-	
-	def get_games_number(self):
-		""" Returns number of games in list """
-		gamesnum = 0
-		for game in self.get_games():
-			gamesnum += 1
-		return gamesnum
-	
+		dat = xml.dom.minidom.parse(filename)
+		# Create a new database
+		db = DB()
+		# Read DAT general infos and insert them into database
+		datinfo = []
+		datinfo.append(dat.getElementsByTagName("datName")[0].firstChild.data)
+		datinfo.append(dat.getElementsByTagName("imFolder")[0].firstChild.data)
+		datinfo.append(dat.getElementsByTagName("datVersion")[0].firstChild.data)
+		datinfo.append(dat.getElementsByTagName("system")[0].firstChild.data)
+		datinfo.append(dat.getElementsByTagName("screenshotsWidth")[0].firstChild.data)
+		datinfo.append(dat.getElementsByTagName("screenshotsHeight")[0].firstChild.data)
+		datinfo.append(dat.getElementsByTagName("datVersionURL")[0].firstChild.data)
+		datinfo.append(dat.getElementsByTagName("datURL")[0].firstChild.data)
+		# we need to save img_url info because we need them when adding games info
+		img_url = dat.getElementsByTagName("imURL")[0].firstChild.data
+		datinfo.append(img_url)
+		db.add_datinfo(datinfo)
+		# Read games info and insert them into database
+		for game in dat.getElementsByTagName("game"):
+			g = Game(game)
+			infos = []
+			infos.append(g.get_image_number())
+			infos.append(g.get_release_number())
+			infos.append(g.get_title())
+			infos.append(str(g))
+			infos.append(g.get_save_type())
+			infos.append(g.get_rom_size())
+			infos.append(g.get_publisher())
+			infos.append(g.get_location_index())
+			infos.append(g.get_location())
+			infos.append(g.get_location_short())
+			infos.append(g.get_source_rom())
+			infos.append(g.get_language())
+			infos.append(g.get_rom_crc())
+			infos.append(g.get_img_range())
+			infos.append(g.get_img1_crc())
+			infos.append(g.get_img1_local(IMG_DIR))
+			infos.append(g.get_img1_url(img_url))
+			infos.append(g.get_img2_crc())
+			infos.append(g.get_img2_local(IMG_DIR))
+			infos.append(g.get_img2_url(img_url))
+			infos.append(g.get_comment())
+			infos.append(g.get_duplicate_id())
+			db.add_game(infos)
+		# Save the newly create database on disk
+		db.save_as(DB_FILE)
+		# Remove DAT file
+		os.remove(filename)
+
+

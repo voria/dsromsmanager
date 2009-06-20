@@ -24,6 +24,7 @@ from globals import *
 from gui import Gui
 from downloaders import DatDownloader
 from dat import Dat
+from db import DB
 
 class Main(threading.Thread):
 	def __init__(self):
@@ -35,37 +36,37 @@ class Main(threading.Thread):
 	def run(self):
 		if not os.path.exists(WORK_DIR): # First run
 			os.mkdir(WORK_DIR)
-			os.mkdir(os.path.join(WORK_DIR, IMG_DIR))
+			os.mkdir(IMG_DIR)
 		os.chdir(WORK_DIR)
 		
 		self.gui = Gui(self.threads)
-		self.threads.append(self.gui)
+		#self.threads.append(self.gui)
 		self.gui.start()
 		
-		if not os.path.exists(os.path.join(WORK_DIR, DAT_NAME)):
+		if not os.path.exists(DB_FILE):
 			if self.stopnow == False:
-				self.gui.show_info_dialog("DAT file not found.\n\nA new one will be automatically downloaded.")
-			self.datdownloader = DatDownloader(self.gui)
-			self.threads.append(self.datdownloader)
-			self.datdownloader.start()
-			self.datdownloader.join()
+				self.gui.show_info_dialog("No database found.\n\nA new DAT file will be automatically downloaded.")
+			datdownloader = DatDownloader(self.gui)
+			self.threads.append(datdownloader)
+			datdownloader.start()
+			datdownloader.join()
+			# Now we have the DAT file
+			if self.stopnow == False:
+				self.gui.update_statusbar("Dat", "Loading DAT file and creating database...")
+				dat = Dat(DAT_NAME)
+			if self.stopnow == False:
+				self.gui.update_statusbar("Dat", "Database created.")
 		
-		if os.path.exists(DAT_NAME):
-			if self.stopnow == False:
-				self.gui.update_statusbar("Dat", "Loading DAT file...")
-			self.dat = Dat(DAT_NAME)
+		# Pass control to the gui
+		if self.stopnow == False:
+			self.gui.update_statusbar("DB", "Loading database...")
+		self.gui.open_db()
+		if self.stopnow == False:
+			self.gui.update_statusbar("DB", "Database loaded.")
+		self.gui.add_games()
 
-			if self.stopnow == False:
-				self.gui.add(self.dat)
-				self.gui.update_statusbar("Ready", "DAT file loaded")
-	
 	def stop(self):
 		self.stopnow = True
-		
-	def get_dat(self):
-		""" Returns the loaded DAT file """
-		return self.dat
-
 		
 if __name__ == "__main__":
 	m = Main()
