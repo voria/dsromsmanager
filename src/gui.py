@@ -88,17 +88,42 @@ class Gui(threading.Thread):
 		gtk.about_dialog_set_url_hook(about_dialog_url_clicked, None)
 		
 		# Set icon and logo in about_dialog
-		self.about_dialog.set_icon_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
-		self.about_dialog.set_logo(gtk.gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.png")))
+		try:
+			self.about_dialog.set_icon_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
+			self.about_dialog.set_logo(gtk.gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.png")))
+		except:
+			pass
 		
 		try:
 			self.main_window.set_icon_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
 		except:
 			pass
 		
+		## StatusIcon stuff (menu, callback functions, etc)
+		# callback functions
+		def statusicon_about_cb(widget, data = None):
+			self.on_about_toolbutton_clicked(widget)
+		def statusicon_quit_cb(widget, data = None):
+			self.quit()
+		def statusicon_popup_menu_cb(widget, button, time, data = None):
+			if button == 3:
+				if data:
+					data.show_all()
+					data.popup(None, None, None, 3, time)
+			pass
+		# popup menu
+		menu = gtk.Menu()
+		menuitem = gtk.ImageMenuItem(gtk.STOCK_ABOUT)
+		menuitem.connect('activate', statusicon_about_cb)
+		menu.append(menuitem)
+		menuitem = gtk.ImageMenuItem(gtk.STOCK_QUIT)
+		menuitem.connect('activate', statusicon_quit_cb)
+		menu.append(menuitem)
+		# status icon
 		self.statusicon = gtk.StatusIcon()
 		self.statusicon.set_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
 		self.statusicon.set_tooltip(self.main_window.get_title())
+		self.statusicon.connect('popup-menu', statusicon_popup_menu_cb, menu)
 		self.statusicon.set_visible(True)
 		
 		self.image1.clear()
