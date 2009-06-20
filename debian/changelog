@@ -1,3 +1,13 @@
+drm (0.3-6) jaunty; urgency=low
+
+  * Big rewrite of application (mainly on database).
+	Now used RAM is greatly decreased, due to the fact that
+	the database on disk is used. In addition, DAT file is only
+	parsed once, when downloaded/updated. When it's parsed, a
+	new database is created and then used.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sat, 20 Jun 2009 22:28:15 +0200
+
 drm (0.3-5) jaunty; urgency=low
 
   * Resize games images to 50% and use a smaller game title when
