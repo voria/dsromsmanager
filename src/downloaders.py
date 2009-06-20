@@ -192,6 +192,8 @@ class AllImagesDownloader(threading.Thread):
 	
 	def run(self):
 		self.gui.toggle_all_images_download_toolbutton()
+		if self.stopnow == False:
+			self.gui.update_statusbar("AllImagesDownloader", "Downloading all images...")
 
 		for game in self.games:
 			if self.stopnow == True:
@@ -241,7 +243,7 @@ class AllImagesDownloader(threading.Thread):
 					pass
 		
 		if self.stopnow == False:
-			self.gui.update_statusbar("AllImagesDownloader", "Download of all images completed")
+			self.gui.update_statusbar("AllImagesDownloader", "Download of all images completed.")
 			# restore original button
 			self.gui.toggle_all_images_download_toolbutton()
 				
