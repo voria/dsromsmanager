@@ -42,6 +42,7 @@ class Main(threading.Thread):
 		if not os.path.exists(CFG_FILE):
 			config_file = open(CFG_FILE, "w")
 			config_file.write(DEFAULT_CFG_FILE)
+			config_file.flush()
 		
 		self.gui = Gui(self.threads)
 		self.gui.start()
