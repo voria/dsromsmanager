@@ -124,20 +124,27 @@ class Gui(threading.Thread):
 		for i in countries_short.keys():
 			file = os.path.join(DATA_IMG_DIR, countries_short[i].lower() + ".png")
 			self.flags.append(gtk.gdk.pixbuf_new_from_file(file))
+		# Load checks images
+		self.checks = []
+		image = gtk.Image()
+		self.checks.append(image.render_icon(gtk.STOCK_OK, gtk.ICON_SIZE_BUTTON))
+		self.checks.append(image.render_icon(gtk.STOCK_NO, gtk.ICON_SIZE_BUTTON))
 		
 		# Setup all needed stuff for main list treeview
-		self.list_treeview_model = gtk.ListStore(gtk.gdk.Pixbuf, int, str)
+		self.list_treeview_model = gtk.ListStore(gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, int, str)
 		self.list_treeview.set_model(self.list_treeview_model)
 		self.list_treeview_crt = gtk.CellRendererText()
 		self.list_treeview_crt_img = gtk.CellRendererPixbuf()
-		self.list_treeview_tvc1 = gtk.TreeViewColumn("Region", self.list_treeview_crt_img, pixbuf=0)
+		self.list_treeview_tvc1 = gtk.TreeViewColumn("Found", self.list_treeview_crt_img, pixbuf=0)
 		self.list_treeview.append_column(self.list_treeview_tvc1)
-		self.list_treeview_tvc2 = gtk.TreeViewColumn("#", self.list_treeview_crt, text=1)
-		self.list_treeview_tvc2.set_sort_column_id(1)
+		self.list_treeview_tvc2 = gtk.TreeViewColumn("Region", self.list_treeview_crt_img, pixbuf=1)
 		self.list_treeview.append_column(self.list_treeview_tvc2)
-		self.list_treeview_tvc3 = gtk.TreeViewColumn("Name", self.list_treeview_crt, text=2)
+		self.list_treeview_tvc3 = gtk.TreeViewColumn("#", self.list_treeview_crt, text=2)
 		self.list_treeview_tvc3.set_sort_column_id(2)
 		self.list_treeview.append_column(self.list_treeview_tvc3)
+		self.list_treeview_tvc4 = gtk.TreeViewColumn("Name", self.list_treeview_crt, text=3)
+		self.list_treeview_tvc4.set_sort_column_id(3)
+		self.list_treeview.append_column(self.list_treeview_tvc4)
 		
 		# Setup all needed stuff for location combobox
 		self.filter_location_model = gtk.ListStore(str)
@@ -208,7 +215,12 @@ class Gui(threading.Thread):
 			title = game[GAME_TITLE]
 			region = game[GAME_LOCATION_INDEX]
 			flag = self.flags[countries_short.keys().index(region)]
-			self.list_treeview_model.append((flag, relnum, title))
+			# Just test if check icons work for now
+			if num%2:
+				check = self.checks[0]
+			else:
+				check = self.checks[1]
+			self.list_treeview_model.append((check, flag, relnum, title))
 			num += 1
 		if num != 0:
 			self.list_game_label.set_text(str(num) + " games in list")
@@ -300,7 +312,7 @@ class Gui(threading.Thread):
 		model, iter = selection.get_selected()
 		
 		try:
-			relnum = model.get_value(iter, 1)
+			relnum = model.get_value(iter, 2)
 		except: # model is empty
 			return
 		
