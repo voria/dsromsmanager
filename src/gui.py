@@ -339,7 +339,7 @@ class Gui(threading.Thread):
 			games = self.db.get_all_games()
 			for g in games:
 				if g[GAME_DUPLICATE_ID] == id and g[GAME_RELEASE_NUMBER] != relnum:
-					duplicates.append(game[GAME_FULLINFO])
+					duplicates.append(g[GAME_FULLINFO])
 		
 		if len(duplicates) != 0:
 			text = "Duplicates:"
@@ -350,7 +350,7 @@ class Gui(threading.Thread):
 			self.info_title_label.set_tooltip_text("No duplicates")
 		
 		# Show informations
-		title = game[GAME_TITLE].replace("&", "&amp;")
+		title = game[GAME_FULLINFO].replace("&", "&amp;")
 		if self.screen_height < 800:
 			self.info_title_label.set_markup("<span weight=\"bold\">" + title + "</span>")
 		else:
