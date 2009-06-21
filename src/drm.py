@@ -21,10 +21,10 @@ import threading
 
 from globals import *
 
-from gui import Gui
+from gui import *
 from downloaders import DatDownloader
-from dat import Dat
-from db import DB
+from dat import *
+from db import *
 
 class Main(threading.Thread):
 	def __init__(self):
@@ -40,12 +40,28 @@ class Main(threading.Thread):
 		os.chdir(WORK_DIR)
 		
 		self.gui = Gui(self.threads)
-		#self.threads.append(self.gui)
 		self.gui.start()
 		
+		db_deleted = False
+		
+		if os.path.exists(DB_FILE):
+			# check db version
+			self.db = DB(DB_FILE)
+			db_info = self.db.get_info()
+			if db_info == None or db_info[INFO_DB_VERSION] != DB_VERSION:
+				# current db is out of date, remove it
+				os.remove(DB_FILE)
+				db_deleted = True				
+				
 		if not os.path.exists(DB_FILE):
-			if self.stopnow == False:
-				self.gui.show_info_dialog("No database found.\n\nA new DAT file will be automatically downloaded.")
+			if db_deleted == True:
+				if self.stopnow == False:
+					self.gui.show_info_dialog("""Database out of date, it has been deleted.\n\n
+A new DAT file will be automatically downloaded and a new database will be created.""")
+			else:
+				if self.stopnow == False:
+					self.gui.show_info_dialog("""No database found.\n\n
+A new DAT file will be automatically downloaded and a new database will be created.""")
 			datdownloader = DatDownloader(self.gui)
 			self.threads.append(datdownloader)
 			datdownloader.start()

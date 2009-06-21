@@ -74,7 +74,8 @@ GAME_IMG2_REMOTE_URL = 19
 GAME_COMMENT = 20
 GAME_DUPLICATE_ID = 21
 
-CREATE_DATINFO_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS datinfo (
+CREATE_INFO_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS info (
+							db_version TEXT,
 							dat_name TEXT,
 							img_dir TEXT,
 							dat_version INT,
@@ -86,18 +87,19 @@ CREATE_DATINFO_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS datinfo (
 							img_url TEXT
 							)"""
 
-DATINFO_DAT_NAME = 0
-DATINFO_IMG_DIR = 1
-DATINFO_DAT_VERSION = 2
-DATINFO_SYSTEM = 3
-DATINFO_SCREENSHOTS_WIDTH = 4
-DATINFO_SCREENSHOTS_HEIGHT = 5
-DATINFO_DAT_VERSION_URL = 6
-DATINFO_DAT_URL = 7
-DATINFO_IMG_URL = 8
+INFO_DB_VERSION = 0
+INFO_DAT_NAME = 1
+INFO_IMG_DIR = 2
+INFO_DAT_VERSION = 3
+INFO_SYSTEM = 4
+INFO_SCREENSHOTS_WIDTH = 5
+INFO_SCREENSHOTS_HEIGHT = 6
+INFO_DAT_VERSION_URL = 7
+INFO_DAT_URL = 8
+INFO_IMG_URL = 9
 
 INSERT_GAME_QUERY="INSERT INTO games VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-INSERT_DATINFO_QUERY="INSERT INTO datinfo VALUES (?,?,?,?,?,?,?,?,?)"
+INSERT_INFO_QUERY="INSERT INTO info VALUES (?,?,?,?,?,?,?,?,?,?)"
 
 class DB():
 	def __init__(self, filename=":memory:"):
@@ -108,26 +110,26 @@ class DB():
 		self.cursor.execute(CREATE_GAMES_TABLE_QUERY)
 		
 		# Create 'datinfo' table
-		self.cursor.execute(CREATE_DATINFO_TABLE_QUERY)
+		self.cursor.execute(CREATE_INFO_TABLE_QUERY)
 		
 		# Count games in database
 		self.cursor.execute("SELECT * FROM games")
 		self.games = len(self.cursor.fetchall())
 		
-	def add_game(self, game_infos):
-		"""	Add 'game_infos' to database """		
-		self.cursor.execute(INSERT_GAME_QUERY, tuple(game_infos))
+	def add_game(self, game_info):
+		"""	Add 'game_info' to database """		
+		self.cursor.execute(INSERT_GAME_QUERY, tuple(game_info))
 		self.connection.commit()
 		self.games += 1
 	
-	def add_datinfo(self, datinfo):
-		""" Add 'datinfo' to database """
-		self.cursor.execute(INSERT_DATINFO_QUERY, tuple(datinfo))
+	def add_info(self, info):
+		""" Add 'info' to database """
+		self.cursor.execute(INSERT_INFO_QUERY, tuple(info))
 		self.connection.commit()
 	
-	def get_datinfo(self):
-		""" Return datinfo """
-		self.cursor.execute("SELECT * FROM datinfo")
+	def get_info(self):
+		""" Return info """
+		self.cursor.execute("SELECT * FROM info")
 		return self.cursor.fetchone()
 	
 	def get_all_games(self):
@@ -172,14 +174,14 @@ class DB():
 		
 		# Create tables on external file
 		self.cursor.execute(CREATE_GAMES_TABLE_QUERY.replace("games", "extern.games", 1))
-		self.cursor.execute(CREATE_DATINFO_TABLE_QUERY.replace("datinfo", "extern.datinfo", 1))
+		self.cursor.execute(CREATE_INFO_TABLE_QUERY.replace("info", "extern.info", 1))
 		
 		# Copy data from memory database to extern database
 		self.cursor.execute("SELECT * FROM games")
 		for game in self.cursor.fetchall():
 			self.cursor.execute(INSERT_GAME_QUERY.replace("games", "extern.games", 1), game)
-		self.cursor.execute("SELECT * FROM datinfo")
-		self.cursor.execute(INSERT_DATINFO_QUERY.replace("datinfo", "extern.datinfo", 1), self.cursor.fetchone())
+		self.cursor.execute("SELECT * FROM info")
+		self.cursor.execute(INSERT_INFO_QUERY.replace("info", "extern.info", 1), self.cursor.fetchone())
 		
 		self.connection.commit()
 		

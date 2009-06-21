@@ -99,31 +99,21 @@ class Gui(threading.Thread):
 		except:
 			pass
 		
-		## StatusIcon stuff (menu, callback functions, etc)
-		# callback functions
-		def statusicon_about_cb(widget, data = None):
-			self.on_about_toolbutton_clicked(widget)
-		def statusicon_quit_cb(widget, data = None):
-			self.quit()
-		def statusicon_popup_menu_cb(widget, button, time, data = None):
-			if button == 3:
-				if data:
-					data.show_all()
-					data.popup(None, None, None, 3, time)
-			pass
+		## StatusIcon stuff
 		# popup menu
 		menu = gtk.Menu()
 		menuitem = gtk.ImageMenuItem(gtk.STOCK_ABOUT)
-		menuitem.connect('activate', statusicon_about_cb)
+		menuitem.connect('activate', self.on_statusicon_about_activate)
 		menu.append(menuitem)
 		menuitem = gtk.ImageMenuItem(gtk.STOCK_QUIT)
-		menuitem.connect('activate', statusicon_quit_cb)
+		menuitem.connect('activate', self.on_statusicon_quit_activate)
 		menu.append(menuitem)
 		# status icon
 		self.statusicon = gtk.StatusIcon()
 		self.statusicon.set_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
 		self.statusicon.set_tooltip(self.main_window.get_title())
-		self.statusicon.connect('popup-menu', statusicon_popup_menu_cb, menu)
+		self.statusicon.connect('activate', self.on_statusicon_activate)
+		self.statusicon.connect('popup-menu', self.on_statusicon_popup_menu, menu)
 		self.statusicon.set_visible(True)
 		
 		self.image1.clear()
@@ -185,7 +175,6 @@ class Gui(threading.Thread):
 		
 		# Connect signals
 		self.main_window.connect("delete_event", self.on_main_window_delete_event)
-		self.statusicon.connect('activate', self.on_statusicon_activate)
 		self.statusbar.connect("text-pushed", self.on_statusbar_text_pushed)
 		self.dat_update_toolbutton.connect("clicked", self.on_dat_update_toolbutton_clicked)
 		self.filter_clear_button.connect("clicked", self.on_filter_clear_button_clicked)
@@ -290,6 +279,19 @@ class Gui(threading.Thread):
 			self.main_window.show()
 			self.main_window_visible = True
 	
+	def on_statusicon_about_activate(self, widget):
+		self.on_about_toolbutton_clicked(widget)
+	
+	def on_statusicon_quit_activate(self, widget, data = None):
+		self.quit()
+	
+	def on_statusicon_popup_menu(self, widget, button, time, data = None):
+		if button == 3:
+			if data:
+				data.show_all()
+				data.popup(None, None, None, button, time)
+		pass
+	
 	def on_statusbar_text_pushed(self, statusbar, context_id, text):
 		self.statusicon.set_tooltip(text)
 	
@@ -389,12 +391,12 @@ class Gui(threading.Thread):
 	
 	def on_dat_update_toolbutton_clicked(self, button):
 		try:
-			datinfo = self.db.get_datinfo()
+			info = self.db.get_info()
 		except:
 			self.db = DB(DB_FILE)
-			datinfo = self.db.get_datinfo()
+			info = self.db.get_info()
 			
-		thread = DatUpdater(self, datinfo[DATINFO_DAT_VERSION], datinfo[DATINFO_DAT_VERSION_URL])
+		thread = DatUpdater(self, info[INFO_DAT_VERSION], info[INFO_DAT_VERSION_URL])
 		self.threads.append(thread)
 		thread.start()
 	

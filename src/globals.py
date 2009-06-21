@@ -27,6 +27,7 @@ APP_VERSION = "0.3"
 WORK_DIR = os.path.expanduser("~") + "/." + APP_NAME.lower()
 IMG_DIR = os.path.join(WORK_DIR, "images")
 DB_FILE = os.path.join(WORK_DIR, "db")
+DB_VERSION = "0.1"
 
 DAT_URL = "http://www.advanscene.com/offline/datas/ADVANsCEne_NDS_S.zip"
 DAT_NAME_ZIP = "ADVANsCEne_NDS_S.zip"

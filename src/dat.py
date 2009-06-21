@@ -30,49 +30,49 @@ class Dat():
 		# Create a new database
 		db = DB()
 		# Read DAT general infos and insert them into database
-		datinfo = []
-		datinfo.append(dat.getElementsByTagName("datName")[0].firstChild.data)
-		datinfo.append(dat.getElementsByTagName("imFolder")[0].firstChild.data)
-		datinfo.append(dat.getElementsByTagName("datVersion")[0].firstChild.data)
-		datinfo.append(dat.getElementsByTagName("system")[0].firstChild.data)
-		datinfo.append(dat.getElementsByTagName("screenshotsWidth")[0].firstChild.data)
-		datinfo.append(dat.getElementsByTagName("screenshotsHeight")[0].firstChild.data)
-		datinfo.append(dat.getElementsByTagName("datVersionURL")[0].firstChild.data)
-		datinfo.append(dat.getElementsByTagName("datURL")[0].firstChild.data)
+		info = []
+		info.append(DB_VERSION)
+		info.append(dat.getElementsByTagName("datName")[0].firstChild.data)
+		info.append(dat.getElementsByTagName("imFolder")[0].firstChild.data)
+		info.append(dat.getElementsByTagName("datVersion")[0].firstChild.data)
+		info.append(dat.getElementsByTagName("system")[0].firstChild.data)
+		info.append(dat.getElementsByTagName("screenshotsWidth")[0].firstChild.data)
+		info.append(dat.getElementsByTagName("screenshotsHeight")[0].firstChild.data)
+		info.append(dat.getElementsByTagName("datVersionURL")[0].firstChild.data)
+		info.append(dat.getElementsByTagName("datURL")[0].firstChild.data)
 		# we need to save img_url info because we need them when adding games info
 		img_url = dat.getElementsByTagName("imURL")[0].firstChild.data
-		datinfo.append(img_url)
-		db.add_datinfo(datinfo)
-		# Read games info and insert them into database
+		info.append(img_url)
+		db.add_info(info)
+		# Read games and insert them into database
 		for game in dat.getElementsByTagName("game"):
 			g = Game(game)
-			infos = []
-			infos.append(g.get_image_number())
-			infos.append(g.get_release_number())
-			infos.append(g.get_title())
-			infos.append(str(g))
-			infos.append(g.get_save_type())
-			infos.append(g.get_rom_size())
-			infos.append(g.get_publisher())
-			infos.append(g.get_location_index())
-			infos.append(g.get_location())
-			infos.append(g.get_location_short())
-			infos.append(g.get_source_rom())
-			infos.append(g.get_language())
-			infos.append(g.get_rom_crc())
-			infos.append(g.get_img_range())
-			infos.append(g.get_img1_crc())
-			infos.append(g.get_img1_local(IMG_DIR))
-			infos.append(g.get_img1_url(img_url))
-			infos.append(g.get_img2_crc())
-			infos.append(g.get_img2_local(IMG_DIR))
-			infos.append(g.get_img2_url(img_url))
-			infos.append(g.get_comment())
-			infos.append(g.get_duplicate_id())
-			db.add_game(infos)
+			info = []
+			info.append(g.get_image_number())
+			info.append(g.get_release_number())
+			info.append(g.get_title())
+			info.append(str(g))
+			info.append(g.get_save_type())
+			info.append(g.get_rom_size())
+			info.append(g.get_publisher())
+			info.append(g.get_location_index())
+			info.append(g.get_location())
+			info.append(g.get_location_short())
+			info.append(g.get_source_rom())
+			info.append(g.get_language())
+			info.append(g.get_rom_crc())
+			info.append(g.get_img_range())
+			info.append(g.get_img1_crc())
+			info.append(g.get_img1_local(IMG_DIR))
+			info.append(g.get_img1_url(img_url))
+			info.append(g.get_img2_crc())
+			info.append(g.get_img2_local(IMG_DIR))
+			info.append(g.get_img2_url(img_url))
+			info.append(g.get_comment())
+			info.append(g.get_duplicate_id())
+			db.add_game(info)
 		# Save the newly create database on disk
 		db.save_as(DB_FILE)
 		# Remove DAT file
 		os.remove(filename)
-
-
+		
