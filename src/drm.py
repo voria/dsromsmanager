@@ -39,6 +39,10 @@ class Main(threading.Thread):
 			os.mkdir(IMG_DIR)
 		os.chdir(WORK_DIR)
 		
+		if not os.path.exists(CFG_FILE):
+			config_file = open(CFG_FILE, "w")
+			config_file.write(DEFAULT_CFG_FILE)
+		
 		self.gui = Gui(self.threads)
 		self.gui.start()
 		

@@ -786,13 +786,57 @@ vorione@gmail.com</property>
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
         <child>
-          <placeholder/>
+          <object class="GtkLabel" id="options_review_url_description_label">
+            <property name="visible">True</property>
+            <property name="xpad">10</property>
+            <property name="ypad">10</property>
+            <property name="label" translatable="yes">Use '{FOOBAR}' (without quotes) as substitute of the game title in the search URL.
+
+Example:
+http://www.google.it/search?q={FOOBAR}
+
+Set an empty string to use the default URL.</property>
+            <property name="wrap">True</property>
+          </object>
+          <packing>
+            <property name="padding">10</property>
+            <property name="position">0</property>
+          </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkHBox" id="options_review_hbox">
+            <property name="visible">True</property>
+            <property name="spacing">5</property>
+            <child>
+              <object class="GtkLabel" id="options_review_url_label">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Review URL:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="options_review_url_entry">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="invisible_char">&#x25CF;</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="padding">2</property>
+            <property name="position">1</property>
+          </packing>
         </child>
         <child>
-          <object class="GtkHBox" id="options_hbox">
+          <object class="GtkHBox" id="options_button_hbox">
             <property name="visible">True</property>
             <property name="homogeneous">True</property>
             <child>

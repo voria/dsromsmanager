@@ -27,10 +27,17 @@ except:
 	from sys import exit
 	exit(1)
 
+from ConfigParser import *
+
 from globals import *
 from db import *
 
 from downloaders import *
+
+TVC_CHECK = 0
+TVC_FLAG = 1
+TVC_RELEASE_NUMBER = 2
+TVC_TITLE = 3
 
 gtk.gdk.threads_init()
 
@@ -41,6 +48,11 @@ class Gui(threading.Thread):
 		
 		self.threads = threads
 		
+		self.config = RawConfigParser()
+		self.config.readfp(open(CFG_FILE))
+		self.showfoundgamesonly = self.config.getboolean("DEFAULT", "show_found_games_only")
+		self.review_url = self.config.get("DEFAULT", "review_url")
+		
 		self.builder = gtk.Builder()
 		self.builder.add_from_file(os.path.join(DATA_DIR, "drm.glade"))
 		
@@ -50,6 +62,7 @@ class Gui(threading.Thread):
 		self.all_images_download_toolbutton = self.builder.get_object("all_images_download_toolbutton")
 		self.show_review_toolbutton = self.builder.get_object("show_review_toolbutton")
 		self.options_toolbutton = self.builder.get_object("options_toolbutton")
+		self.options_review_url_entry = self.builder.get_object("options_review_url_entry")
 		self.options_ok_button = self.builder.get_object("options_ok_button")
 		self.options_cancel_button = self.builder.get_object("options_cancel_button")
 		self.about_toolbutton = self.builder.get_object("about_toolbutton")
@@ -135,20 +148,23 @@ class Gui(threading.Thread):
 		self.checks.append(image.render_icon(gtk.STOCK_NO, gtk.ICON_SIZE_BUTTON))
 		self.checks.append(image.render_icon(gtk.STOCK_OK, gtk.ICON_SIZE_BUTTON))
 		
+		# Set checkbuttons state
+		self.show_found_only_checkbutton.set_active(self.showfoundgamesonly)
+		
 		# Setup all needed stuff for main list treeview
 		self.list_treeview_model = gtk.ListStore(gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, int, str)
 		self.list_treeview.set_model(self.list_treeview_model)
 		self.list_treeview_crt = gtk.CellRendererText()
 		self.list_treeview_crt_img = gtk.CellRendererPixbuf()
-		self.list_treeview_tvc1 = gtk.TreeViewColumn("Found", self.list_treeview_crt_img, pixbuf=0)
+		self.list_treeview_tvc1 = gtk.TreeViewColumn("Found", self.list_treeview_crt_img, pixbuf=TVC_CHECK)
 		self.list_treeview.append_column(self.list_treeview_tvc1)
-		self.list_treeview_tvc2 = gtk.TreeViewColumn("Region", self.list_treeview_crt_img, pixbuf=1)
+		self.list_treeview_tvc2 = gtk.TreeViewColumn("Region", self.list_treeview_crt_img, pixbuf=TVC_FLAG)
 		self.list_treeview.append_column(self.list_treeview_tvc2)
-		self.list_treeview_tvc3 = gtk.TreeViewColumn("#", self.list_treeview_crt, text=2)
-		self.list_treeview_tvc3.set_sort_column_id(2)
+		self.list_treeview_tvc3 = gtk.TreeViewColumn("#", self.list_treeview_crt, text=TVC_RELEASE_NUMBER)
+		self.list_treeview_tvc3.set_sort_column_id(TVC_RELEASE_NUMBER)
 		self.list_treeview.append_column(self.list_treeview_tvc3)
-		self.list_treeview_tvc4 = gtk.TreeViewColumn("Name", self.list_treeview_crt, text=3)
-		self.list_treeview_tvc4.set_sort_column_id(3)
+		self.list_treeview_tvc4 = gtk.TreeViewColumn("Name", self.list_treeview_crt, text=TVC_TITLE)
+		self.list_treeview_tvc4.set_sort_column_id(TVC_TITLE)
 		self.list_treeview.append_column(self.list_treeview_tvc4)
 		
 		# Setup all needed stuff for location combobox
@@ -209,7 +225,8 @@ class Gui(threading.Thread):
 		self.__deactivate_widgets()
 		
 		self.db = None
-		self.showfoundsonly = False
+		
+		self.show_found_only_checkbutton.hide() # disabled for now
 		
 	def run(self):
 		gtk.main()
@@ -227,11 +244,13 @@ class Gui(threading.Thread):
 			region = game[GAME_LOCATION_INDEX]
 			flag = self.flags[countries_short.keys().index(region)]
 			# Just test if check icons work for now
-			if relnum%2:
-				check = self.checks[NO]
-			else:
-				check = self.checks[YES]
-			if self.showfoundsonly == True:
+			#if relnum%2:
+			#	check = self.checks[NO]
+			#else:
+			#	check = self.checks[YES]
+			check = None
+			
+			if self.showfoundgamesonly == True:
 				if check == self.checks[YES]:
 					self.list_treeview_model.append((check, flag, relnum, title))
 					num += 1
@@ -334,7 +353,7 @@ class Gui(threading.Thread):
 		model, iter = selection.get_selected()
 		
 		try:
-			relnum = model.get_value(iter, 2)
+			relnum = model.get_value(iter, TVC_RELEASE_NUMBER)
 		except: # model is empty
 			return
 		
@@ -406,13 +425,13 @@ class Gui(threading.Thread):
 		self.__show_infos()
 	
 	def on_show_found_only_checkbutton_toggled(self, checkbutton):
-		self.showfoundsonly = checkbutton.get_active()
+		self.showfoundgamesonly = checkbutton.get_active()
 		self.__filter()
 	
 	def on_show_review_toolbutton_clicked(self, button):
 		selection = self.list_treeview.get_selection()
 		model, iter = selection.get_selected()
-		relnum = model.get_value(iter, 2)
+		relnum = model.get_value(iter, TVC_RELEASE_NUMBER)
 		try:
 			game = self.db.get_game(relnum)
 		except:
@@ -422,8 +441,7 @@ class Gui(threading.Thread):
 		title = game[GAME_TITLE]
 		title = title.replace("&", " ")
 		title = title.replace("-", " ")
-		url = "http://apps.metacritic.com/search/process?ty=3&ts="
-		url += title + "&tfs=game_title&game_platform=DS"
+		url = self.review_url.replace("{FOOBAR}", title)
 		import webbrowser
 		webbrowser.open(url)
 	
@@ -530,6 +548,7 @@ class Gui(threading.Thread):
 			self.filter_language_combobox.handler_unblock(self.flanc_sid)
 	
 	def on_options_toolbutton_clicked(self, menuitem):
+		self.options_review_url_entry.set_text(self.review_url)
 		self.options_window.show()
 	
 	def on_options_window_delete_event(self, window, event):
@@ -537,6 +556,13 @@ class Gui(threading.Thread):
 		return True
 	
 	def on_options_ok_button_clicked(self, button):
+		text = self.options_review_url_entry.get_text()
+		if len(text) != 0:
+			if text[:7] != "http://":
+				text = "http://" + text
+			self.review_url = text
+		else:
+			self.review_url = DEFAULT_REVIEW_URL
 		self.options_window.hide()
 		
 	def on_options_cancel_button_clicked(self, button):
@@ -568,7 +594,7 @@ class Gui(threading.Thread):
 		selection = self.list_treeview.get_selection()
 		try:
 			model, iter = selection.get_selected()
-			if model.get_value(iter, 1) == game_release_number:
+			if model.get_value(iter, TVC_RELEASE_NUMBER) == game_release_number:
 				pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
 				if self.screen_height < 800: #resize images to 50%
 					pixbuf = pixbuf.scale_simple(pixbuf.get_width()/2, pixbuf.get_height()/2, gtk.gdk.INTERP_BILINEAR)
@@ -623,6 +649,11 @@ class Gui(threading.Thread):
 		self.__hide_infos()
 	
 	def quit(self):
+		# Save config file
+		self.config.set("DEFAULT", "review_url", self.review_url)
+		self.config.set("DEFAULT", "show_found_games_only", self.showfoundgamesonly)
+		self.config.write(open(CFG_FILE, "w"))		
+		
 		for thread in self.threads:
 			if thread.isAlive() and thread.getName() != "Gui":
 				thread.stop()

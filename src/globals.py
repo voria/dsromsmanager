@@ -27,7 +27,14 @@ APP_VERSION = "0.3"
 WORK_DIR = os.path.expanduser("~") + "/." + APP_NAME.lower()
 IMG_DIR = os.path.join(WORK_DIR, "images")
 DB_FILE = os.path.join(WORK_DIR, "db")
-DB_VERSION = "0.1"
+DB_VERSION = "1"
+CFG_FILE = os.path.join(WORK_DIR, "config")
+
+DEFAULT_REVIEW_URL="http://apps.metacritic.com/search/process?ty=3&ts={FOOBAR}&tfs=game_title&game_platform=DS"
+
+DEFAULT_CFG_FILE="""[DEFAULT]
+show_found_games_only = False
+review_url = """ + DEFAULT_REVIEW_URL
 
 DAT_URL = "http://www.advanscene.com/offline/datas/ADVANsCEne_NDS_S.zip"
 DAT_NAME_ZIP = "ADVANsCEne_NDS_S.zip"
