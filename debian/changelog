@@ -1,3 +1,10 @@
+drm (0.3-9) jaunty; urgency=low
+
+  * Add a config file, saved in working directory.
+  * Add option menu, with the ability to customize URL for games reviews.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 21 Jun 2009 19:40:50 +0200
+
 drm (0.3-8) jaunty; urgency=low
 
   * Add database version info to database, and change 'datinfo' table

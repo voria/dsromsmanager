@@ -14,6 +14,8 @@ DsRomsManager - 0.3
 	  new database is created and then used.
 	* Enable popup menu on systray icon.
 	* Fix gametitle and duplicates list.
+	* Add a config file, saved in working directory.
+	* Add option menu, with the ability to customize URL for games reviews.
 	  
 DsRomsManager - 0.2
     
