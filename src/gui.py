@@ -204,9 +204,9 @@ class Gui(threading.Thread):
 		num = 0
 		self.list_treeview_model.clear()
 		for game in reversed(games):
-			relnum = game[1]
-			title = game[2]
-			region = game[7]
+			relnum = game[GAME_RELEASE_NUMBER]
+			title = game[GAME_TITLE]
+			region = game[GAME_LOCATION_INDEX]
 			flag = self.flags[countries_short.keys().index(region)]
 			self.list_treeview_model.append((flag, relnum, title))
 			num += 1
@@ -307,7 +307,7 @@ class Gui(threading.Thread):
 		try:
 			game = self.db.get_game(relnum)
 		except:
-			self.db = DB(DB_FILE)
+			self.open_db()
 			game = self.db.get_game(relnum)
 		
 		# Show images if available, or else download them
@@ -378,7 +378,7 @@ class Gui(threading.Thread):
 		try:
 			game = self.db.get_game(relnum)
 		except:
-			self.db = DB(DB_FILE)
+			self.open_db()
 			game = self.db.get_game(relnum) 
 		
 		title = game[GAME_TITLE]
@@ -393,7 +393,7 @@ class Gui(threading.Thread):
 		try:
 			info = self.db.get_info()
 		except:
-			self.db = DB(DB_FILE)
+			self.open_db()
 			info = self.db.get_info()
 			
 		thread = DatUpdater(self, info[INFO_DAT_VERSION], info[INFO_DAT_VERSION_URL])
@@ -404,7 +404,7 @@ class Gui(threading.Thread):
 		try:
 			games_number = self.db.get_games_number()
 		except:
-			self.db = DB(DB_FILE)
+			self.open_db()
 			games_number = self.db.get_games_number()
 		
 		if button.get_stock_id() == gtk.STOCK_JUMP_TO:
@@ -413,7 +413,7 @@ class Gui(threading.Thread):
 			try:
 				aid = AllImagesDownloader(self, self.db.get_all_games())
 			except:
-				self.db = DB(DB_FILE)
+				self.open_db()
 				aid = AllImagesDownloader(self, self.db.get_all_games())
 			self.threads.append(aid)
 			aid.start()
@@ -545,8 +545,7 @@ class Gui(threading.Thread):
 	
 	def open_db(self):
 		""" Open database """
-		if self.db == None:
-			self.db = DB(DB_FILE)
+		self.db = DB(DB_FILE)
 	
 	def add_games(self):
 		""" Add games from database 'DB_FILE' to the treeview model. """
@@ -555,7 +554,7 @@ class Gui(threading.Thread):
 		try:
 			self.__update_list(self.db.get_all_games())
 		except:
-			self.db = DB(DB_FILE)
+			self.open_db()
 			self.__update_list(self.db.get_all_games())
 		self.update_statusbar("Games", "Games list loaded.")
 		self.__activate_widgets()
