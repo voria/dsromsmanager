@@ -165,13 +165,26 @@ vorione@gmail.com</property>
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkCheckButton" id="show_found_only_checkbutton">
+                    <property name="label" translatable="yes">Show only found games</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkLabel" id="list_games_label">
                     <property name="visible">True</property>
                     <property name="label" translatable="yes">No games in list</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>

@@ -51,6 +51,7 @@ class Gui(threading.Thread):
 		self.about_toolbutton = self.builder.get_object("about_toolbutton")
 		self.list_treeview = self.builder.get_object("list_treeview")
 		self.list_game_label = self.builder.get_object("list_games_label")
+		self.show_found_only_checkbutton = self.builder.get_object("show_found_only_checkbutton")
 		self.image1 = self.builder.get_object("image1")
 		self.image2 = self.builder.get_object("image2")
 		self.image1_frame = self.builder.get_object("image1_frame")
@@ -127,8 +128,8 @@ class Gui(threading.Thread):
 		# Load checks images
 		self.checks = []
 		image = gtk.Image()
-		self.checks.append(image.render_icon(gtk.STOCK_OK, gtk.ICON_SIZE_BUTTON))
 		self.checks.append(image.render_icon(gtk.STOCK_NO, gtk.ICON_SIZE_BUTTON))
+		self.checks.append(image.render_icon(gtk.STOCK_OK, gtk.ICON_SIZE_BUTTON))
 		
 		# Setup all needed stuff for main list treeview
 		self.list_treeview_model = gtk.ListStore(gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, int, str)
@@ -188,6 +189,7 @@ class Gui(threading.Thread):
 		self.about_toolbutton.connect("clicked", self.on_about_toolbutton_clicked)
 		self.about_dialog.connect("response", self.on_about_dialog_response)
 		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
+		self.show_found_only_checkbutton.connect("toggled", self.on_show_found_only_checkbutton_toggled)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
 		# We need signal id for the following signals
 		self.fne_sid = self.filter_name_entry.connect("changed",self.on_filter_triggered)
@@ -199,6 +201,7 @@ class Gui(threading.Thread):
 		self.__deactivate_widgets()
 		
 		self.db = None
+		self.showfoundsonly = False
 		
 	def run(self):
 		gtk.main()
@@ -216,14 +219,22 @@ class Gui(threading.Thread):
 			region = game[GAME_LOCATION_INDEX]
 			flag = self.flags[countries_short.keys().index(region)]
 			# Just test if check icons work for now
-			if num%2:
-				check = self.checks[0]
+			if relnum%2:
+				check = self.checks[NO]
 			else:
-				check = self.checks[1]
-			self.list_treeview_model.append((check, flag, relnum, title))
-			num += 1
+				check = self.checks[YES]
+			if self.showfoundsonly == True:
+				if check == self.checks[YES]:
+					self.list_treeview_model.append((check, flag, relnum, title))
+					num += 1
+			else:
+				self.list_treeview_model.append((check, flag, relnum, title))
+				num += 1
 		if num != 0:
-			self.list_game_label.set_text(str(num) + " games in list")
+			if num == 1:
+				self.list_game_label.set_text(str(num) + " game in list")
+			else:
+				self.list_game_label.set_text(str(num) + " games in list")
 		else:
 			self.list_game_label.set_text("No games in list")
 	
@@ -241,7 +252,8 @@ class Gui(threading.Thread):
 			self.__update_list(self.db.filter_by(string, location, language, size))
 		except:
 			# Open a new database connection
-			self.__update_list(DB(DB_FILE).filter_by(string, location, language, size))
+			self.open_db()
+			self.__update_list(self.db.filter_by(string, location, language, size))
 		self.show_review_toolbutton.set_sensitive(False)
 	
 	def __deactivate_widgets(self):
@@ -382,6 +394,10 @@ class Gui(threading.Thread):
 		
 		self.show_review_toolbutton.set_sensitive(True)
 		self.__show_infos()
+	
+	def on_show_found_only_checkbutton_toggled(self, checkbutton):
+		self.showfoundsonly = checkbutton.get_active()
+		self.__filter()
 	
 	def on_show_review_toolbutton_clicked(self, button):
 		selection = self.list_treeview.get_selection()
