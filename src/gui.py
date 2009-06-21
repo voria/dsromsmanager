@@ -45,9 +45,13 @@ class Gui(threading.Thread):
 		self.builder.add_from_file(os.path.join(DATA_DIR, "drm.glade"))
 		
 		self.main_window = self.builder.get_object("main_window")
+		self.options_window = self.builder.get_object("options_window")
 		self.dat_update_toolbutton = self.builder.get_object("dat_update_toolbutton")
 		self.all_images_download_toolbutton = self.builder.get_object("all_images_download_toolbutton")
 		self.show_review_toolbutton = self.builder.get_object("show_review_toolbutton")
+		self.options_toolbutton = self.builder.get_object("options_toolbutton")
+		self.options_ok_button = self.builder.get_object("options_ok_button")
+		self.options_cancel_button = self.builder.get_object("options_cancel_button")
 		self.about_toolbutton = self.builder.get_object("about_toolbutton")
 		self.list_treeview = self.builder.get_object("list_treeview")
 		self.list_game_label = self.builder.get_object("list_games_label")
@@ -191,6 +195,10 @@ class Gui(threading.Thread):
 		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
 		self.show_found_only_checkbutton.connect("toggled", self.on_show_found_only_checkbutton_toggled)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
+		self.options_toolbutton.connect("clicked", self.on_options_toolbutton_clicked)
+		self.options_window.connect("delete_event", self.on_options_window_delete_event)
+		self.options_ok_button.connect("clicked", self.on_options_ok_button_clicked)
+		self.options_cancel_button.connect("clicked", self.on_options_cancel_button_clicked)
 		# We need signal id for the following signals
 		self.fne_sid = self.filter_name_entry.connect("changed",self.on_filter_triggered)
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
@@ -402,7 +410,7 @@ class Gui(threading.Thread):
 	def on_show_review_toolbutton_clicked(self, button):
 		selection = self.list_treeview.get_selection()
 		model, iter = selection.get_selected()
-		relnum = model.get_value(iter, 1)
+		relnum = model.get_value(iter, 2)
 		try:
 			game = self.db.get_game(relnum)
 		except:
@@ -518,6 +526,19 @@ class Gui(threading.Thread):
 			self.filter_name_entry.handler_unblock(self.fne_sid)
 			self.filter_location_combobox.handler_unblock(self.flocc_sid)
 			self.filter_language_combobox.handler_unblock(self.flanc_sid)
+	
+	def on_options_toolbutton_clicked(self, menuitem):
+		self.options_window.show()
+	
+	def on_options_window_delete_event(self, window, event):
+		self.on_options_cancel_button_clicked(self.options_cancel_button)
+		return True
+	
+	def on_options_ok_button_clicked(self, button):
+		self.options_window.hide()
+		
+	def on_options_cancel_button_clicked(self, button):
+		self.options_window.hide()
 	
 	def on_about_toolbutton_clicked(self, menuitem):
 		self.about_dialog.run()
