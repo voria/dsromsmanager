@@ -1,3 +1,10 @@
+drm (0.3-8) jaunty; urgency=low
+
+  * Add database version info to database, and change 'datinfo' table
+    to just 'info'. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 21 Jun 2009 12:10:42 +0200
+
 drm (0.3-7) jaunty; urgency=low
 
   * Enable popup menu on systray icon.
