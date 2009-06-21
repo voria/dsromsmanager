@@ -1,3 +1,10 @@
+drm (0.3-7) jaunty; urgency=low
+
+  * Enable popup menu on systray icon.
+  * Fix gametitle and duplicates list. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 21 Jun 2009 02:39:17 +0200
+
 drm (0.3-6) jaunty; urgency=low
 
   * Big rewrite of application (mainly on database).

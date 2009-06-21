@@ -12,6 +12,8 @@ DsRomsManager - 0.3
 	  the database on disk is used. In addition, DAT file is only
 	  parsed once, when downloaded/updated. When it's parsed, a
 	  new database is created and then used.
+	* Enable popup menu on systray icon.
+	* Fix gametitle and duplicates list.
 	  
 DsRomsManager - 0.2
     
