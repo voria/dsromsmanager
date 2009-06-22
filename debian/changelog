@@ -1,3 +1,9 @@
+drm (0.3-12) jaunty; urgency=low
+
+  * All all options to systray icon. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 22 Jun 2009 12:25:52 +0200
+
 drm (0.3-11) jaunty; urgency=low
 
   * Add 'options' menuitem to systray, fix the other ones. 
