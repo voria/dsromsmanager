@@ -1,9 +1,8 @@
-drm (0.3+42) jaunty; urgency=low
+drm (0.3+bzr45) jaunty; urgency=low
 
-  * Update to revision 42:
-    Add show/hide menuitem in systray popup menu.
+  * Update to bazaar revision 45. 
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 22 Jun 2009 12:53:41 +0200
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 22 Jun 2009 15:08:35 +0200
 
 drm (0.3) jaunty; urgency=low
 
