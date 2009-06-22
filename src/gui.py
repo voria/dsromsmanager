@@ -120,10 +120,16 @@ class Gui(threading.Thread):
 		## StatusIcon stuff
 		# popup menu
 		menu = gtk.Menu()
-		menuitem = gtk.ImageMenuItem(gtk.STOCK_ABOUT)
+		menuitem = gtk.ImageMenuItem("Options")
+		menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_EXECUTE, gtk.ICON_SIZE_MENU))
+		menuitem.connect('activate', self.on_statusicon_options_activate)
+		menu.append(menuitem)
+		menuitem = gtk.ImageMenuItem("About")
+		menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_ABOUT, gtk.ICON_SIZE_MENU))
 		menuitem.connect('activate', self.on_statusicon_about_activate)
 		menu.append(menuitem)
-		menuitem = gtk.ImageMenuItem(gtk.STOCK_QUIT)
+		menuitem = gtk.ImageMenuItem("Quit")
+		menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_QUIT, gtk.ICON_SIZE_MENU))
 		menuitem.connect('activate', self.on_statusicon_quit_activate)
 		menu.append(menuitem)
 		# status icon
@@ -330,6 +336,9 @@ class Gui(threading.Thread):
 		else:
 			self.main_window.show()
 			self.main_window_visible = True
+	
+	def on_statusicon_options_activate(self, widget):
+		self.on_options_toolbutton_clicked(self.options_toolbutton)
 	
 	def on_statusicon_about_activate(self, widget):
 		self.on_about_toolbutton_clicked(widget)
