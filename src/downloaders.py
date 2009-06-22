@@ -55,40 +55,49 @@ from dat import *
 
 class DatUpdater(threading.Thread):
 	""" Update DAT file if needed """
-	def __init__(self, gui, dat_version, dat_version_url):
+	def __init__(self, gui, buttons, dat_version, dat_version_url):
 		threading.Thread.__init__(self, name="DatUpdater")
 		self.dat_version = dat_version
 		self.dat_version_url = dat_version_url
 		self.gui = gui
+		self.buttons = buttons
+		
+		for button in self.buttons:
+			button.set_sensitive(False)
+		
 		self.stopnow = False
 	
 	def run(self):
-		if self.stopnow == False:
-			self.gui.update_statusbar("DatUpdater", "Searching for a new DAT file...")
 		try:
-			new_version_file = urlopen(self.dat_version_url)
-			new_version = new_version_file.read()
-						
-			if int(self.dat_version) < int(new_version):
-				if self.stopnow == False:
-					self.gui.update_statusbar("DatUpdater", "New DAT file available!")
-				# Download new DAT file
-				datdownloader = DatDownloader(self.gui)
-				datdownloader.start()
-				datdownloader.join()
-				if self.stopnow == False:
-					self.gui.update_statusbar("DatUpdater", "Loading the new DAT file and creating database...")
-				dat = Dat(DAT_NAME)
-				if self.stopnow == False:
-					self.gui.update_statusbar("DatUpdater", "Database created.")
-					self.gui.add_games()
-			else:
-				if self.stopnow == False:
-					self.gui.update_statusbar("DatUpdater", "DAT file is already up to date.")		
-		except:
 			if self.stopnow == False:
-				self.gui.update_statusbar("DatUpdater", "Can't download DAT version file!")
-			raise
+				self.gui.update_statusbar("DatUpdater", "Searching for a new DAT file...")
+			try:
+				new_version_file = urlopen(self.dat_version_url)
+				new_version = new_version_file.read()
+							
+				if int(self.dat_version) < int(new_version):
+					if self.stopnow == False:
+						self.gui.update_statusbar("DatUpdater", "New DAT file available!")
+					# Download new DAT file
+					datdownloader = DatDownloader(self.gui)
+					datdownloader.start()
+					datdownloader.join()
+					if self.stopnow == False:
+						self.gui.update_statusbar("DatUpdater", "Loading the new DAT file and creating database...")
+					dat = Dat(DAT_NAME)
+					if self.stopnow == False:
+						self.gui.update_statusbar("DatUpdater", "Database created.")
+						self.gui.add_games()
+				else:
+					if self.stopnow == False:
+						self.gui.update_statusbar("DatUpdater", "DAT file is already up to date.")		
+			except:
+				if self.stopnow == False:
+					self.gui.update_statusbar("DatUpdater", "Can't download DAT version file!")
+				raise
+		finally:
+			for button in self.buttons:
+				button.set_sensitive(True)
 		
 	def stop(self):
 		self.stopnow = True

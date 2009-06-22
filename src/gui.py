@@ -119,25 +119,43 @@ class Gui(threading.Thread):
 		
 		## StatusIcon stuff
 		# popup menu
-		menu = gtk.Menu()
-		menuitem = gtk.ImageMenuItem("Options")
-		menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_EXECUTE, gtk.ICON_SIZE_MENU))
-		menuitem.connect('activate', self.on_statusicon_options_activate)
-		menu.append(menuitem)
-		menuitem = gtk.ImageMenuItem("About")
-		menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_ABOUT, gtk.ICON_SIZE_MENU))
-		menuitem.connect('activate', self.on_statusicon_about_activate)
-		menu.append(menuitem)
-		menuitem = gtk.ImageMenuItem("Quit")
-		menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_QUIT, gtk.ICON_SIZE_MENU))
-		menuitem.connect('activate', self.on_statusicon_quit_activate)
-		menu.append(menuitem)
+		self.popup_menu = gtk.Menu()
+		self.dat_update_menuitem = gtk.ImageMenuItem("Update DAT")
+		self.dat_update_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_REFRESH, gtk.ICON_SIZE_MENU))
+		self.dat_update_menuitem.connect('activate', self.on_statusicon_dat_update_activate)
+		self.popup_menu.append(self.dat_update_menuitem)
+		self.all_images_download_menuitem = gtk.ImageMenuItem("Download all images")
+		self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
+		self.all_images_download_menuitem.connect('activate', self.on_statusicon_all_images_download_activate)
+		self.popup_menu.append(self.all_images_download_menuitem)
+		self.show_review_menuitem = gtk.ImageMenuItem("Reviews")
+		self.show_review_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_DIALOG_INFO, gtk.ICON_SIZE_MENU))
+		self.show_review_menuitem.connect('activate', self.on_statusicon_show_review_activate)
+		self.popup_menu.append(self.show_review_menuitem)
+		menuitem = gtk.SeparatorMenuItem()
+		self.popup_menu.append(menuitem)
+		self.options_menuitem = gtk.ImageMenuItem("Options")
+		self.options_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_EXECUTE, gtk.ICON_SIZE_MENU))
+		self.options_menuitem.connect('activate', self.on_statusicon_options_activate)
+		self.popup_menu.append(self.options_menuitem)
+		menuitem = gtk.SeparatorMenuItem()
+		self.popup_menu.append(menuitem)
+		self.about_menuitem = gtk.ImageMenuItem("About")
+		self.about_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_ABOUT, gtk.ICON_SIZE_MENU))
+		self.about_menuitem.connect('activate', self.on_statusicon_about_activate)
+		self.popup_menu.append(self.about_menuitem)
+		menuitem = gtk.SeparatorMenuItem()
+		self.popup_menu.append(menuitem)
+		self.quit_menuitem = gtk.ImageMenuItem("Quit")
+		self.quit_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_QUIT, gtk.ICON_SIZE_MENU))
+		self.quit_menuitem.connect('activate', self.on_statusicon_quit_activate)
+		self.popup_menu.append(self.quit_menuitem)
 		# status icon
 		self.statusicon = gtk.StatusIcon()
 		self.statusicon.set_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
 		self.statusicon.set_tooltip(self.main_window.get_title())
 		self.statusicon.connect('activate', self.on_statusicon_activate)
-		self.statusicon.connect('popup-menu', self.on_statusicon_popup_menu, menu)
+		self.statusicon.connect('popup-menu', self.on_statusicon_popup_menu, self.popup_menu)
 		self.statusicon.set_visible(True)
 		
 		self.image1.clear()
@@ -287,13 +305,17 @@ class Gui(threading.Thread):
 			self.open_db()
 			self.__update_list(self.db.filter_by(string, location, language, size))
 		self.show_review_toolbutton.set_sensitive(False)
+		self.show_review_menuitem.set_sensitive(False)
 	
 	def __deactivate_widgets(self):
 		""" Disable all widgets' sensitiveness """
 		self.list_treeview.set_sensitive(False)
 		self.dat_update_toolbutton.set_sensitive(False)
+		self.dat_update_menuitem.set_sensitive(False)
 		self.all_images_download_toolbutton.set_sensitive(False)
+		self.all_images_download_menuitem.set_sensitive(False)
 		self.show_review_toolbutton.set_sensitive(False)
+		self.show_review_menuitem.set_sensitive(False)
 		self.options_toolbutton.set_sensitive(False)
 		self.filter_name_entry.set_sensitive(False)
 		self.filter_clear_button.set_sensitive(False)
@@ -305,7 +327,9 @@ class Gui(threading.Thread):
 		""" Enable all widgets' sensitiveness """
 		self.list_treeview.set_sensitive(True)
 		self.dat_update_toolbutton.set_sensitive(True)
+		self.dat_update_menuitem.set_sensitive(True)
 		self.all_images_download_toolbutton.set_sensitive(True)
+		self.all_images_download_menuitem.set_sensitive(True)
 		self.options_toolbutton.set_sensitive(True)
 		self.filter_name_entry.set_sensitive(True)
 		self.filter_clear_button.set_sensitive(True)
@@ -336,6 +360,15 @@ class Gui(threading.Thread):
 		else:
 			self.main_window.show()
 			self.main_window_visible = True
+	
+	def on_statusicon_dat_update_activate(self, widget):
+		self.on_dat_update_toolbutton_clicked(self.dat_update_toolbutton)
+	
+	def on_statusicon_all_images_download_activate(self, widget):
+		self.on_all_images_download_toolbutton_clicked(self.all_images_download_toolbutton)
+	
+	def on_statusicon_show_review_activate(self, widget):
+		self.on_show_review_toolbutton_clicked(self.show_review_toolbutton)
 	
 	def on_statusicon_options_activate(self, widget):
 		self.on_options_toolbutton_clicked(self.options_toolbutton)
@@ -430,6 +463,7 @@ class Gui(threading.Thread):
 		self.info_comment_label.set_text(game[GAME_COMMENT])
 		
 		self.show_review_toolbutton.set_sensitive(True)
+		self.show_review_menuitem.set_sensitive(True)
 		self.__show_infos()
 	
 	def on_show_found_only_checkbutton_toggled(self, checkbutton):
@@ -459,8 +493,12 @@ class Gui(threading.Thread):
 		except:
 			self.open_db()
 			info = self.db.get_info()
-			
-		thread = DatUpdater(self, info[INFO_DAT_VERSION], info[INFO_DAT_VERSION_URL])
+		
+		buttons = [] # buttons that need to be disabled while updating
+		buttons.append(self.dat_update_toolbutton)
+		buttons.append(self.dat_update_menuitem)
+		
+		thread = DatUpdater(self, buttons, info[INFO_DAT_VERSION], info[INFO_DAT_VERSION_URL])
 		self.threads.append(thread)
 		thread.start()
 	
@@ -619,12 +657,16 @@ class Gui(threading.Thread):
 	def toggle_all_images_download_toolbutton(self):
 		if self.all_images_download_toolbutton.get_stock_id() == gtk.STOCK_JUMP_TO:
 			# switch to cancel button
+			text = "Stop images download"
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
-			self.all_images_download_toolbutton.set_label("Stop images download")
+			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_MENU))
 		else:
 			# restore original button
+			text = "Download all images"
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
-			self.all_images_download_toolbutton.set_label("Download all images")
+			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
+		self.all_images_download_toolbutton.set_label(text)
+		self.all_images_download_menuitem.get_children()[0].set_label(text)
 	
 	def open_db(self):
 		""" Open database """
