@@ -1,3 +1,9 @@
+drm (0.3-11) jaunty; urgency=low
+
+  * Add 'options' menuitem to systray, fix the other ones. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 22 Jun 2009 11:28:26 +0200
+
 drm (0.3-10) jaunty; urgency=low
 
   * Remove 'options_window' and add 'options_dialog'. 
