@@ -120,6 +120,12 @@ class Gui(threading.Thread):
 		## StatusIcon stuff
 		# popup menu
 		self.popup_menu = gtk.Menu()
+		self.toggle_main_window_menuitem = gtk.ImageMenuItem("Hide")
+		self.toggle_main_window_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_LEAVE_FULLSCREEN, gtk.ICON_SIZE_MENU))
+		self.toggle_main_window_menuitem.connect('activate', self.on_statusicon_toggle_main_window_activate)
+		self.popup_menu.append(self.toggle_main_window_menuitem)
+		menuitem = gtk.SeparatorMenuItem()
+		self.popup_menu.append(menuitem)
 		self.dat_update_menuitem = gtk.ImageMenuItem("Update DAT")
 		self.dat_update_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_REFRESH, gtk.ICON_SIZE_MENU))
 		self.dat_update_menuitem.connect('activate', self.on_statusicon_dat_update_activate)
@@ -356,10 +362,17 @@ class Gui(threading.Thread):
 	def on_statusicon_activate(self, statusicon):
 		if self.main_window_visible:
 			self.main_window.hide()
+			self.toggle_main_window_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_FULLSCREEN, gtk.ICON_SIZE_MENU))
+			self.toggle_main_window_menuitem.get_children()[0].set_label("Show")
 			self.main_window_visible = False
 		else:
 			self.main_window.show()
+			self.toggle_main_window_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_LEAVE_FULLSCREEN, gtk.ICON_SIZE_MENU))
+			self.toggle_main_window_menuitem.get_children()[0].set_label("Hide")
 			self.main_window_visible = True
+	
+	def on_statusicon_toggle_main_window_activate(self, widget):
+		self.on_statusicon_activate(self.statusicon)
 	
 	def on_statusicon_dat_update_activate(self, widget):
 		self.on_dat_update_toolbutton_clicked(self.dat_update_toolbutton)
