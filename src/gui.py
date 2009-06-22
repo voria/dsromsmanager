@@ -57,7 +57,7 @@ class Gui(threading.Thread):
 		self.builder.add_from_file(os.path.join(DATA_DIR, "drm.glade"))
 		
 		self.main_window = self.builder.get_object("main_window")
-		self.options_window = self.builder.get_object("options_window")
+		self.options_dialog = self.builder.get_object("options_dialog")
 		self.dat_update_toolbutton = self.builder.get_object("dat_update_toolbutton")
 		self.all_images_download_toolbutton = self.builder.get_object("all_images_download_toolbutton")
 		self.show_review_toolbutton = self.builder.get_object("show_review_toolbutton")
@@ -206,15 +206,14 @@ class Gui(threading.Thread):
 		self.statusbar.connect("text-pushed", self.on_statusbar_text_pushed)
 		self.dat_update_toolbutton.connect("clicked", self.on_dat_update_toolbutton_clicked)
 		self.filter_clear_button.connect("clicked", self.on_filter_clear_button_clicked)
+		self.options_toolbutton.connect("clicked", self.on_options_toolbutton_clicked)
+		self.options_dialog.connect("response", self.on_options_dialog_response)
+		self.options_dialog.connect("delete_event", self.on_options_dialog_delete_event)
 		self.about_toolbutton.connect("clicked", self.on_about_toolbutton_clicked)
 		self.about_dialog.connect("response", self.on_about_dialog_response)
 		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
 		self.show_found_only_checkbutton.connect("toggled", self.on_show_found_only_checkbutton_toggled)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
-		self.options_toolbutton.connect("clicked", self.on_options_toolbutton_clicked)
-		self.options_window.connect("delete_event", self.on_options_window_delete_event)
-		self.options_ok_button.connect("clicked", self.on_options_ok_button_clicked)
-		self.options_cancel_button.connect("clicked", self.on_options_cancel_button_clicked)
 		# We need signal id for the following signals
 		self.fne_sid = self.filter_name_entry.connect("changed",self.on_filter_triggered)
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
@@ -549,24 +548,22 @@ class Gui(threading.Thread):
 	
 	def on_options_toolbutton_clicked(self, menuitem):
 		self.options_review_url_entry.set_text(self.review_url)
-		self.options_window.show()
+		self.options_dialog.show()
 	
-	def on_options_window_delete_event(self, window, event):
-		self.on_options_cancel_button_clicked(self.options_cancel_button)
+	def on_options_dialog_response(self, dialog, response_id):
+		if response_id == 0: # ok
+			text = self.options_review_url_entry.get_text()
+			if len(text) != 0:
+				if text[:7] != "http://":
+					text = "http://" + text
+				self.review_url = text
+			else:
+				self.review_url = DEFAULT_REVIEW_URL
+		self.options_dialog.hide()
+	
+	def on_options_dialog_delete_event(self, window, event):
+		window.hide()
 		return True
-	
-	def on_options_ok_button_clicked(self, button):
-		text = self.options_review_url_entry.get_text()
-		if len(text) != 0:
-			if text[:7] != "http://":
-				text = "http://" + text
-			self.review_url = text
-		else:
-			self.review_url = DEFAULT_REVIEW_URL
-		self.options_window.hide()
-		
-	def on_options_cancel_button_clicked(self, button):
-		self.options_window.hide()
 	
 	def on_about_toolbutton_clicked(self, menuitem):
 		self.about_dialog.run()

@@ -776,41 +776,86 @@ vorione@gmail.com</property>
       </object>
     </child>
   </object>
-  <object class="GtkWindow" id="options_window">
+  <object class="GtkDialog" id="options_dialog">
+    <property name="border_width">5</property>
     <property name="title" translatable="yes">Options</property>
-    <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
-    <property name="destroy_with_parent">True</property>
-    <child>
-      <object class="GtkVBox" id="options_vbox">
+    <property name="type_hint">normal</property>
+    <property name="transient_for">main_window</property>
+    <property name="has_separator">False</property>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="options_dialog-vbox">
         <property name="visible">True</property>
         <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
         <child>
-          <object class="GtkLabel" id="options_review_url_description_label">
+          <object class="GtkVBox" id="options_vbox">
             <property name="visible">True</property>
-            <property name="xpad">10</property>
-            <property name="ypad">10</property>
-            <property name="label" translatable="yes">Use '{FOOBAR}' (without quotes) as substitute of the game title in the search URL.
+            <property name="orientation">vertical</property>
+            <child>
+              <object class="GtkLabel" id="options_review_url_description_label">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Use '{FOOBAR}' (without quotes) as substitute of the game title in the search URL.
 
 Example:
 http://www.google.it/search?q={FOOBAR}
 
 Set an empty string to use the default URL.</property>
-            <property name="wrap">True</property>
+                <property name="wrap">True</property>
+              </object>
+              <packing>
+                <property name="padding">10</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkHBox" id="options_review_hbox">
+                <property name="visible">True</property>
+                <property name="spacing">5</property>
+                <child>
+                  <object class="GtkLabel" id="options_review_url_label">
+                    <property name="visible">True</property>
+                    <property name="label" translatable="yes">Review URL:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkEntry" id="options_review_url_entry">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="invisible_char">&#x25CF;</property>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
           </object>
           <packing>
-            <property name="padding">10</property>
-            <property name="position">0</property>
+            <property name="position">1</property>
           </packing>
         </child>
-        <child>
-          <object class="GtkHBox" id="options_review_hbox">
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="options_dialog-action_area">
             <property name="visible">True</property>
-            <property name="spacing">5</property>
+            <property name="layout_style">end</property>
             <child>
-              <object class="GtkLabel" id="options_review_url_label">
+              <object class="GtkButton" id="options_ok_button">
+                <property name="label" translatable="yes">gtk-ok</property>
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Review URL:</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -819,57 +864,33 @@ Set an empty string to use the default URL.</property>
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="options_review_url_entry">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="padding">2</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkHBox" id="options_button_hbox">
-            <property name="visible">True</property>
-            <property name="homogeneous">True</property>
-            <child>
-              <object class="GtkButton" id="options_ok_button">
-                <property name="label" translatable="yes">gtk-ok</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
               <object class="GtkButton" id="options_cancel_button">
                 <property name="label" translatable="yes">gtk-cancel</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
                 <property name="receives_default">True</property>
                 <property name="use_stock">True</property>
               </object>
               <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">2</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
           </packing>
         </child>
       </object>
     </child>
+    <action-widgets>
+      <action-widget response="0">options_ok_button</action-widget>
+      <action-widget response="1">options_cancel_button</action-widget>
+    </action-widgets>
   </object>
 </interface>
