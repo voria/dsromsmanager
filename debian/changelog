@@ -1,3 +1,9 @@
+drm (0.3-10) jaunty; urgency=low
+
+  * Remove 'options_window' and add 'options_dialog'. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 22 Jun 2009 11:14:59 +0200
+
 drm (0.3-9) jaunty; urgency=low
 
   * Add a config file, saved in working directory.
