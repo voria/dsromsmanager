@@ -37,6 +37,7 @@ class Main(threading.Thread):
 		if not os.path.exists(WORK_DIR): # First run
 			os.mkdir(WORK_DIR)
 			os.mkdir(IMG_DIR)
+		
 		os.chdir(WORK_DIR)
 		
 		if not os.path.exists(CFG_FILE):

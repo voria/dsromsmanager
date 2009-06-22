@@ -251,7 +251,7 @@ class Gui(threading.Thread):
 		self.fsc_sid = self.filter_size_combobox.connect("changed", self.on_filter_triggered)
 		self.aidtb_sid = self.all_images_download_toolbutton.connect("clicked", self.on_all_images_download_toolbutton_clicked)
 		
-		self.__deactivate_widgets()
+		self.deactivate_widgets()
 		
 		self.db = None
 		
@@ -312,36 +312,6 @@ class Gui(threading.Thread):
 			self.__update_list(self.db.filter_by(string, location, language, size))
 		self.show_review_toolbutton.set_sensitive(False)
 		self.show_review_menuitem.set_sensitive(False)
-	
-	def __deactivate_widgets(self):
-		""" Disable all widgets' sensitiveness """
-		self.list_treeview.set_sensitive(False)
-		self.dat_update_toolbutton.set_sensitive(False)
-		self.dat_update_menuitem.set_sensitive(False)
-		self.all_images_download_toolbutton.set_sensitive(False)
-		self.all_images_download_menuitem.set_sensitive(False)
-		self.show_review_toolbutton.set_sensitive(False)
-		self.show_review_menuitem.set_sensitive(False)
-		self.options_toolbutton.set_sensitive(False)
-		self.filter_name_entry.set_sensitive(False)
-		self.filter_clear_button.set_sensitive(False)
-		self.filter_location_combobox.set_sensitive(False)
-		self.filter_language_combobox.set_sensitive(False)
-		self.filter_size_combobox.set_sensitive(False)
-	
-	def __activate_widgets(self):
-		""" Enable all widgets' sensitiveness """
-		self.list_treeview.set_sensitive(True)
-		self.dat_update_toolbutton.set_sensitive(True)
-		self.dat_update_menuitem.set_sensitive(True)
-		self.all_images_download_toolbutton.set_sensitive(True)
-		self.all_images_download_menuitem.set_sensitive(True)
-		self.options_toolbutton.set_sensitive(True)
-		self.filter_name_entry.set_sensitive(True)
-		self.filter_clear_button.set_sensitive(True)
-		self.filter_location_combobox.set_sensitive(True)
-		self.filter_language_combobox.set_sensitive(True)
-		self.filter_size_combobox.set_sensitive(True)
 	
 	def __hide_infos(self):
 		""" Hide game's info """
@@ -632,6 +602,38 @@ class Gui(threading.Thread):
 		dialog.hide()
 			
 	# General functions
+	def deactivate_widgets(self):
+		""" Disable all widgets' sensitiveness """
+		self.list_treeview.set_sensitive(False)
+		self.dat_update_toolbutton.set_sensitive(False)
+		self.dat_update_menuitem.set_sensitive(False)
+		self.all_images_download_toolbutton.set_sensitive(False)
+		self.all_images_download_menuitem.set_sensitive(False)
+		self.show_review_toolbutton.set_sensitive(False)
+		self.show_review_menuitem.set_sensitive(False)
+		self.options_toolbutton.set_sensitive(False)
+		self.options_menuitem.set_sensitive(False)
+		self.filter_name_entry.set_sensitive(False)
+		self.filter_clear_button.set_sensitive(False)
+		self.filter_location_combobox.set_sensitive(False)
+		self.filter_language_combobox.set_sensitive(False)
+		self.filter_size_combobox.set_sensitive(False)
+	
+	def activate_widgets(self):
+		""" Enable all widgets' sensitiveness """
+		self.list_treeview.set_sensitive(True)
+		self.dat_update_toolbutton.set_sensitive(True)
+		self.dat_update_menuitem.set_sensitive(True)
+		self.all_images_download_toolbutton.set_sensitive(True)
+		self.all_images_download_menuitem.set_sensitive(True)
+		self.options_toolbutton.set_sensitive(True)
+		self.options_menuitem.set_sensitive(True)
+		self.filter_name_entry.set_sensitive(True)
+		self.filter_clear_button.set_sensitive(True)
+		self.filter_location_combobox.set_sensitive(True)
+		self.filter_language_combobox.set_sensitive(True)
+		self.filter_size_combobox.set_sensitive(True)
+	
 	def show_info_dialog(self, message):
 		""" Show an info dialog with just an OK button, showing 'message' """
 		gtk.gdk.threads_enter()
@@ -687,7 +689,7 @@ class Gui(threading.Thread):
 	
 	def add_games(self):
 		""" Add games from database 'DB_FILE' to the treeview model. """
-		self.__deactivate_widgets()
+		self.deactivate_widgets()
 		self.update_statusbar("Games", "Loading games list...")
 		try:
 			self.__update_list(self.db.get_all_games())
@@ -695,7 +697,7 @@ class Gui(threading.Thread):
 			self.open_db()
 			self.__update_list(self.db.get_all_games())
 		self.update_statusbar("Games", "Games list loaded.")
-		self.__activate_widgets()
+		self.activate_widgets()
 		# Clear up all filter
 		self.filter_name_entry.handler_block(self.fne_sid)
 		self.filter_location_combobox.handler_block(self.flocc_sid)

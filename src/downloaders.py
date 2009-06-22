@@ -78,6 +78,9 @@ class DatUpdater(threading.Thread):
 				if int(self.dat_version) < int(new_version):
 					if self.stopnow == False:
 						self.gui.update_statusbar("DatUpdater", "New DAT file available!")
+					# Deactivate all widgets
+					if self.stopnow == False:
+						self.gui.deactivate_widgets()
 					# Download new DAT file
 					datdownloader = DatDownloader(self.gui)
 					datdownloader.start()
@@ -90,14 +93,15 @@ class DatUpdater(threading.Thread):
 						self.gui.add_games()
 				else:
 					if self.stopnow == False:
-						self.gui.update_statusbar("DatUpdater", "DAT file is already up to date.")		
+						self.gui.update_statusbar("DatUpdater", "DAT file is already up to date.")
 			except:
 				if self.stopnow == False:
 					self.gui.update_statusbar("DatUpdater", "Can't download DAT version file!")
 				raise
 		finally:
-			for button in self.buttons:
-				button.set_sensitive(True)
+			# reactivate widgets
+			if self.stopnow == False:
+				self.gui.activate_widgets()
 		
 	def stop(self):
 		self.stopnow = True
