@@ -30,7 +30,7 @@ DB_FILE = os.path.join(WORK_DIR, "db")
 DB_VERSION = "1"
 CFG_FILE = os.path.join(WORK_DIR, "config")
 
-DEFAULT_REVIEW_URL="http://www.google.com/search?hl=en&q={FOOBAR} NDS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
+DEFAULT_REVIEW_URL="http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
 
 DEFAULT_CFG_FILE="""[DEFAULT]
 show_found_games_only = False
