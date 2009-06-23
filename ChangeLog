@@ -6,7 +6,9 @@ DsRomsManager - 0.3
 	* Fix threads interactions (I hope)
 	* Change URL for reviews
 	* Resize games images to 50% and use a smaller game title
-	  when screen vertical resolution is < 800
+	  when screen vertical resolution is < 800.
+	  When images are resized, clicking on them will open a new window
+	  containing images at original size. 
 	* Big rewrite of application (mainly on database).
 	  Now used RAM is greatly decreased, due to the fact that
 	  the database on disk is used. In addition, DAT file is only
