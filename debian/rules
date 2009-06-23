@@ -19,7 +19,7 @@ clean:
 	dh_testroot
 	rm -f build-stamp configure-stamp
 	# Delete unneeded stuff
-	rm -rf .bzr .pydevproject .project
+	rm -rf .bzr .pydevproject .project src/*.pyc
 	# Add here commands to clean up after the build process.
 	dh_clean 
 
