@@ -396,13 +396,14 @@ class Gui(threading.Thread):
 		
 		# Show images if available, or else download them
 		img1 = game[GAME_IMG1_LOCAL_PATH]
-		img2 = game[GAME_IMG2_LOCAL_PATH]	
+		img2 = game[GAME_IMG2_LOCAL_PATH]
 		
 		if os.path.exists(img1) and os.path.exists(img2):
 			pixbuf1 = gtk.gdk.pixbuf_new_from_file(img1)
 			pixbuf2 = gtk.gdk.pixbuf_new_from_file(img2)
 			if self.screen_height < 800: # resize images to 50% and enable images_window
-				self.images_eventbox.connect("button-press-event", self.toggle_images_window, img1, img2)
+				self.images_eventbox.connect("button-press-event", self.toggle_images_window,
+											 game[GAME_FULLINFO], img1, img2)
 				self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
 				self.images_window_image1.set_from_file(img1)
 				self.images_window_image2.set_from_file(img2)
@@ -645,8 +646,9 @@ class Gui(threading.Thread):
 		self.filter_language_combobox.set_sensitive(True)
 		self.filter_size_combobox.set_sensitive(True)
 	
-	def toggle_images_window(self, widget, event, img1 = None, img2 = None):
+	def toggle_images_window(self, widget, event, title = None, img1 = None, img2 = None):
 		if img1 != None and img2 != None:
+			self.images_window.set_title(title)
 			self.images_window_image1.set_from_file(img1)
 			self.images_window_image2.set_from_file(img2)
 			self.images_window.show()
