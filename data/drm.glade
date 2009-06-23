@@ -213,74 +213,78 @@ vorione@gmail.com</property>
                   <object class="GtkVBox" id="info_vbox">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkHBox" id="images_hbox">
-                        <property name="spacing">10</property>
+                      <object class="GtkEventBox" id="images_eventbox">
+                        <property name="visible">True</property>
+                        <property name="visible_window">False</property>
                         <child>
-                          <object class="GtkFixed" id="fixed1">
-                            <property name="visible">True</property>
-                          </object>
-                          <packing>
-                            <property name="position">0</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkFrame" id="image1_frame">
-                            <property name="width_request">214</property>
-                            <property name="height_request">384</property>
-                            <property name="visible">True</property>
-                            <property name="label_xalign">0</property>
-                            <property name="shadow_type">in</property>
+                          <object class="GtkHBox" id="images_hbox">
+                            <property name="spacing">10</property>
                             <child>
-                              <object class="GtkAlignment" id="image1_alignment">
+                              <object class="GtkFixed" id="fixed1">
                                 <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFrame" id="image1_frame">
+                                <property name="width_request">214</property>
+                                <property name="height_request">384</property>
+                                <property name="visible">True</property>
+                                <property name="label_xalign">0</property>
+                                <property name="shadow_type">in</property>
                                 <child>
-                                  <object class="GtkImage" id="image1">
+                                  <object class="GtkAlignment" id="image1_alignment">
                                     <property name="visible">True</property>
-                                    <property name="stock">gtk-missing-image</property>
+                                    <child>
+                                      <object class="GtkImage" id="image1">
+                                        <property name="visible">True</property>
+                                        <property name="stock">gtk-missing-image</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
+                              <packing>
+                                <property name="position">1</property>
+                              </packing>
                             </child>
-                          </object>
-                          <packing>
-                            <property name="position">1</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkFrame" id="image2_frame">
-                            <property name="width_request">256</property>
-                            <property name="height_request">384</property>
-                            <property name="visible">True</property>
-                            <property name="label_xalign">0</property>
-                            <property name="shadow_type">in</property>
                             <child>
-                              <object class="GtkAlignment" id="image2_alignment">
+                              <object class="GtkFrame" id="image2_frame">
+                                <property name="width_request">256</property>
+                                <property name="height_request">384</property>
                                 <property name="visible">True</property>
+                                <property name="label_xalign">0</property>
+                                <property name="shadow_type">in</property>
                                 <child>
-                                  <object class="GtkImage" id="image2">
+                                  <object class="GtkAlignment" id="image2_alignment">
                                     <property name="visible">True</property>
-                                    <property name="stock">gtk-missing-image</property>
+                                    <child>
+                                      <object class="GtkImage" id="image2">
+                                        <property name="visible">True</property>
+                                        <property name="stock">gtk-missing-image</property>
+                                      </object>
+                                    </child>
                                   </object>
                                 </child>
                               </object>
+                              <packing>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFixed" id="fixed2">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
+                              </packing>
                             </child>
                           </object>
-                          <packing>
-                            <property name="position">2</property>
-                          </packing>
-                        </child>
-                        <child>
-                          <object class="GtkFixed" id="fixed2">
-                            <property name="visible">True</property>
-                          </object>
-                          <packing>
-                            <property name="position">3</property>
-                          </packing>
                         </child>
                       </object>
                       <packing>
-                        <property name="expand">False</property>
-                        <property name="padding">5</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
@@ -892,5 +896,40 @@ Set an empty string to use the default URL.</property>
       <action-widget response="0">options_ok_button</action-widget>
       <action-widget response="1">options_cancel_button</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkWindow" id="images_window">
+    <property name="title" translatable="yes">Images</property>
+    <property name="modal">True</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="transient_for">main_window</property>
+    <child>
+      <object class="GtkEventBox" id="images_window_eventbox">
+        <property name="visible">True</property>
+        <property name="visible_window">False</property>
+        <child>
+          <object class="GtkHBox" id="images_window_hbox">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkImage" id="images_window_image1">
+                <property name="visible">True</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="images_window_image2">
+                <property name="visible">True</property>
+                <property name="stock">gtk-missing-image</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
   </object>
 </interface>

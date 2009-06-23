@@ -57,6 +57,7 @@ class Gui(threading.Thread):
 		self.builder.add_from_file(os.path.join(DATA_DIR, "drm.glade"))
 		
 		self.main_window = self.builder.get_object("main_window")
+		self.images_window = self.builder.get_object("images_window")
 		self.options_dialog = self.builder.get_object("options_dialog")
 		self.dat_update_toolbutton = self.builder.get_object("dat_update_toolbutton")
 		self.all_images_download_toolbutton = self.builder.get_object("all_images_download_toolbutton")
@@ -66,9 +67,13 @@ class Gui(threading.Thread):
 		self.options_ok_button = self.builder.get_object("options_ok_button")
 		self.options_cancel_button = self.builder.get_object("options_cancel_button")
 		self.about_toolbutton = self.builder.get_object("about_toolbutton")
+		self.images_window_eventbox = self.builder.get_object("images_window_eventbox")
+		self.images_window_image1 = self.builder.get_object("images_window_image1")
+		self.images_window_image2 = self.builder.get_object("images_window_image2")
 		self.list_treeview = self.builder.get_object("list_treeview")
 		self.list_game_label = self.builder.get_object("list_games_label")
 		self.show_found_only_checkbutton = self.builder.get_object("show_found_only_checkbutton")
+		self.images_eventbox = self.builder.get_object("images_eventbox")
 		self.image1 = self.builder.get_object("image1")
 		self.image2 = self.builder.get_object("image2")
 		self.image1_frame = self.builder.get_object("image1_frame")
@@ -238,7 +243,8 @@ class Gui(threading.Thread):
 		self.filter_clear_button.connect("clicked", self.on_filter_clear_button_clicked)
 		self.options_toolbutton.connect("clicked", self.on_options_toolbutton_clicked)
 		self.options_dialog.connect("response", self.on_options_dialog_response)
-		self.options_dialog.connect("delete_event", self.on_options_dialog_delete_event)
+		self.options_dialog.connect("delete_event", self.on_window_delete_event)
+		self.images_window.connect("delete_event", self.on_window_delete_event)
 		self.about_toolbutton.connect("clicked", self.on_about_toolbutton_clicked)
 		self.about_dialog.connect("response", self.on_about_dialog_response)
 		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
@@ -394,7 +400,11 @@ class Gui(threading.Thread):
 		if os.path.exists(img1) and os.path.exists(img2):
 			pixbuf1 = gtk.gdk.pixbuf_new_from_file(img1)
 			pixbuf2 = gtk.gdk.pixbuf_new_from_file(img2)
-			if self.screen_height < 800: # resize images to 50%
+			if self.screen_height < 800: # resize images to 50% and enable images_window
+				self.images_eventbox.connect("button-press-event", self.toggle_images_window, img1, img2)
+				self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
+				self.images_window_image1.set_from_file(img1)
+				self.images_window_image2.set_from_file(img2)
 				pixbuf1 = pixbuf1.scale_simple(pixbuf1.get_width()/2, pixbuf1.get_height()/2, gtk.gdk.INTERP_BILINEAR)
 				pixbuf2 = pixbuf2.scale_simple(pixbuf2.get_width()/2, pixbuf2.get_height()/2, gtk.gdk.INTERP_BILINEAR)
 				# resize images frames too
@@ -591,7 +601,7 @@ class Gui(threading.Thread):
 				self.review_url = DEFAULT_REVIEW_URL
 		self.options_dialog.hide()
 	
-	def on_options_dialog_delete_event(self, window, event):
+	def on_window_delete_event(self, window, event):
 		window.hide()
 		return True
 	
@@ -633,6 +643,14 @@ class Gui(threading.Thread):
 		self.filter_location_combobox.set_sensitive(True)
 		self.filter_language_combobox.set_sensitive(True)
 		self.filter_size_combobox.set_sensitive(True)
+	
+	def toggle_images_window(self, widget, event, img1 = None, img2 = None):
+		if img1 != None and img2 != None:
+			self.images_window_image1.set_from_file(img1)
+			self.images_window_image2.set_from_file(img2)
+			self.images_window.show()
+		else:
+			self.images_window.hide()
 	
 	def show_info_dialog(self, message):
 		""" Show an info dialog with just an OK button, showing 'message' """
