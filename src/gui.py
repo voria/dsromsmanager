@@ -78,6 +78,7 @@ class Gui(threading.Thread):
 		self.image2 = self.builder.get_object("image2")
 		self.image1_frame = self.builder.get_object("image1_frame")
 		self.image2_frame = self.builder.get_object("image2_frame")
+		self.info_title_eventbox = self.builder.get_object("info_title_eventbox")
 		self.info_title_label = self.builder.get_object("info_title_label")
 		self.info_location_label = self.builder.get_object("info_location_label")
 		self.info_publisher_label = self.builder.get_object("info_publisher_label")
@@ -191,16 +192,16 @@ class Gui(threading.Thread):
 		self.list_treeview.set_model(self.list_treeview_model)
 		self.list_treeview_crt = gtk.CellRendererText()
 		self.list_treeview_crt_img = gtk.CellRendererPixbuf()
-		self.list_treeview_tvc1 = gtk.TreeViewColumn("Found", self.list_treeview_crt_img, pixbuf=TVC_CHECK)
-		self.list_treeview.append_column(self.list_treeview_tvc1)
-		self.list_treeview_tvc2 = gtk.TreeViewColumn("Region", self.list_treeview_crt_img, pixbuf=TVC_FLAG)
-		self.list_treeview.append_column(self.list_treeview_tvc2)
-		self.list_treeview_tvc3 = gtk.TreeViewColumn("#", self.list_treeview_crt, text=TVC_RELEASE_NUMBER)
-		self.list_treeview_tvc3.set_sort_column_id(TVC_RELEASE_NUMBER)
-		self.list_treeview.append_column(self.list_treeview_tvc3)
-		self.list_treeview_tvc4 = gtk.TreeViewColumn("Name", self.list_treeview_crt, text=TVC_TITLE)
-		self.list_treeview_tvc4.set_sort_column_id(TVC_TITLE)
-		self.list_treeview.append_column(self.list_treeview_tvc4)
+		self.list_treeview_tvc_found = gtk.TreeViewColumn("Found", self.list_treeview_crt_img, pixbuf=TVC_CHECK)
+		self.list_treeview.append_column(self.list_treeview_tvc_found)
+		self.list_treeview_tvc_region = gtk.TreeViewColumn("Region", self.list_treeview_crt_img, pixbuf=TVC_FLAG)
+		self.list_treeview.append_column(self.list_treeview_tvc_region)
+		self.list_treeview_tvc_relnum = gtk.TreeViewColumn("#", self.list_treeview_crt, text=TVC_RELEASE_NUMBER)
+		self.list_treeview_tvc_relnum.set_sort_column_id(TVC_RELEASE_NUMBER)
+		self.list_treeview.append_column(self.list_treeview_tvc_relnum)
+		self.list_treeview_tvc_name = gtk.TreeViewColumn("Name", self.list_treeview_crt, text=TVC_TITLE)
+		self.list_treeview_tvc_name.set_sort_column_id(TVC_TITLE)
+		self.list_treeview.append_column(self.list_treeview_tvc_name)
 		
 		# Setup all needed stuff for location combobox
 		self.filter_location_model = gtk.ListStore(str)
@@ -256,10 +257,12 @@ class Gui(threading.Thread):
 		self.flanc_sid = self.filter_language_combobox.connect("changed", self.on_filter_triggered)
 		self.fsc_sid = self.filter_size_combobox.connect("changed", self.on_filter_triggered)
 		self.aidtb_sid = self.all_images_download_toolbutton.connect("clicked", self.on_all_images_download_toolbutton_clicked)
-		
-		self.deactivate_widgets()
+		self.ite_sid = None # info_title_eventbox signal
 		
 		self.db = None
+		self.gamesnumber = 0
+		
+		self.deactivate_widgets()
 		
 		self.show_found_only_checkbutton.hide() # disabled for now
 		
@@ -269,36 +272,33 @@ class Gui(threading.Thread):
 	def stop(self):
 		self.quit()
 	
+	def __add_game_to_list(self, game):
+		""" Add 'game' in treeview """
+		relnum = game[GAME_RELEASE_NUMBER]
+		title = game[GAME_TITLE]
+		region = game[GAME_LOCATION_INDEX]
+		flag = self.flags[countries_short.keys().index(region)]
+		# Just test if check icons work for now
+		#if relnum%2:
+		#	check = self.checks[NO]
+		#else:
+		#	check = self.checks[YES]
+		check = None
+		if self.showfoundgamesonly == True:
+			if check == self.checks[YES]:
+				self.list_treeview_model.append((check, flag, relnum, title))
+				self.gamesnumber += 1
+		else:
+			self.list_treeview_model.append((check, flag, relnum, title))
+			self.gamesnumber += 1
+	
 	def __update_list(self, games):
 		""" List 'games' in treeview """
-		num = 0
 		self.list_treeview_model.clear()
+		self.gamesnumber = 0
 		for game in reversed(games):
-			relnum = game[GAME_RELEASE_NUMBER]
-			title = game[GAME_TITLE]
-			region = game[GAME_LOCATION_INDEX]
-			flag = self.flags[countries_short.keys().index(region)]
-			# Just test if check icons work for now
-			#if relnum%2:
-			#	check = self.checks[NO]
-			#else:
-			#	check = self.checks[YES]
-			check = None
-			
-			if self.showfoundgamesonly == True:
-				if check == self.checks[YES]:
-					self.list_treeview_model.append((check, flag, relnum, title))
-					num += 1
-			else:
-				self.list_treeview_model.append((check, flag, relnum, title))
-				num += 1
-		if num != 0:
-			if num == 1:
-				self.list_game_label.set_text(str(num) + " game in list")
-			else:
-				self.list_game_label.set_text(str(num) + " games in list")
-		else:
-			self.list_game_label.set_text("No games in list")
+			self.__add_game_to_list(game)
+		self.update_list_game_label()
 	
 	def __filter(self):
 		""" Filter list by all criteria """
@@ -380,6 +380,10 @@ class Gui(threading.Thread):
 		self.statusicon.set_tooltip(text)
 	
 	def on_list_treeview_cursor_changed(self, treeview):
+		if self.ite_sid != None:
+			self.info_title_eventbox.disconnect(self.ite_sid)
+			self.ite_sid = None
+					
 		selection = treeview.get_selection()
 		model, iter = selection.get_selected()
 		
@@ -423,22 +427,27 @@ class Gui(threading.Thread):
 			thread.start()
 		
 		# Search for duplicates
-		duplicates = []
+		duplicates_fullinfo = []
+		duplicates_relnum = []
 		id = game[GAME_DUPLICATE_ID]
 		relnum = game[GAME_RELEASE_NUMBER]
 		if id != 0: # Games with id == 0 have no duplicates
 			games = self.db.get_all_games()
 			for g in games:
 				if g[GAME_DUPLICATE_ID] == id and g[GAME_RELEASE_NUMBER] != relnum:
-					duplicates.append(g[GAME_FULLINFO])
+					duplicates_fullinfo.append(g[GAME_FULLINFO])
+					duplicates_relnum.append(g[GAME_RELEASE_NUMBER])
 		
-		if len(duplicates) != 0:
+		if len(duplicates_fullinfo) != 0:
 			text = "Duplicates:"
-			for d in duplicates:
+			for d in reversed(duplicates_fullinfo):
 				text += "\n" + d
 				self.info_title_label.set_tooltip_text(text)
 		else:
 			self.info_title_label.set_tooltip_text("No duplicates")
+
+		self.ite_sid = self.info_title_eventbox.connect("button-press-event", self.on_info_title_eventbox_button_press_event,
+										 relnum, duplicates_relnum)
 		
 		# Show informations
 		title = game[GAME_FULLINFO].replace("&", "&amp;")
@@ -460,6 +469,43 @@ class Gui(threading.Thread):
 		self.show_review_toolbutton.set_sensitive(True)
 		self.show_review_menuitem.set_sensitive(True)
 		self.__show_infos()
+	
+	def on_info_title_eventbox_button_press_event(self, widget, event, current, duplicates):
+		if event.button != 1 or len(duplicates) == 0:
+			return
+		# search for the next game to show
+		next = 0
+		for d in duplicates:
+			# Take the max from the lessers
+			if d > next and d < current:
+				next = d
+		if next == 0:
+			# No max in the lessers, then take the max from the greaters
+			for d in duplicates:
+				if d > next and d > current:
+					next = d
+		if next == 0: # Nothing to do then...
+			return
+		
+		iter = self.list_treeview_model.get_iter_first()		
+		while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != next:
+			iter = self.list_treeview_model.iter_next(iter)
+			if iter == None:
+				# Not found in current treeview.
+				# Then, add the game we need to the treeview
+				try:
+					game = self.db.get_game(next)
+				except:
+					self.open_db()
+					game = self.db.get_game(next)
+				self.__add_game_to_list(game)
+				self.list_treeview_tvc_relnum.clicked()
+				self.list_treeview_tvc_relnum.clicked()
+				self.update_list_game_label()
+				iter = self.list_treeview_model.get_iter_first()
+				
+		path = self.list_treeview_model.get_path(iter)
+		self.list_treeview.set_cursor(path)
 	
 	def on_show_found_only_checkbutton_toggled(self, checkbutton):
 		self.showfoundgamesonly = checkbutton.get_active()
@@ -647,6 +693,8 @@ class Gui(threading.Thread):
 		self.filter_size_combobox.set_sensitive(True)
 	
 	def toggle_images_window(self, widget, event, title = None, img1 = None, img2 = None):
+		if event.button != 1:
+			return
 		if img1 != None and img2 != None:
 			self.images_window.set_title(title)
 			self.images_window_image1.set_from_file(img1)
@@ -662,6 +710,15 @@ class Gui(threading.Thread):
 		dialog.run()
 		dialog.destroy()
 		gtk.gdk.threads_leave()
+	
+	def update_list_game_label(self):
+		if self.gamesnumber != 0:
+			if self.gamesnumber == 1:
+				self.list_game_label.set_text(str(self.gamesnumber) + " game in list")
+			else:
+				self.list_game_label.set_text(str(self.gamesnumber) + " games in list")
+		else:
+			self.list_game_label.set_text("No games in list")
 		
 	def update_statusbar(self, context, text):
 		gtk.gdk.threads_enter()
