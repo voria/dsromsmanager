@@ -8,7 +8,8 @@ DsRomsManager - 0.3
 	* Resize games images to 50% and use a smaller game title
 	  when screen vertical resolution is < 800.
 	  When images are resized, clicking on them will open a new window
-	  containing images at original size. 
+	  containing images at original size.
+	* Cliking on game title below images will cycle through duplicates games.
 	* Big rewrite of application (mainly on database).
 	  Now used RAM is greatly decreased, due to the fact that
 	  the database on disk is used. In addition, DAT file is only
