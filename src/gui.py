@@ -338,6 +338,7 @@ class Gui(threading.Thread):
 	def on_statusicon_activate(self, statusicon):
 		if self.main_window_visible:
 			self.main_window.hide()
+			self.images_window.hide()
 			self.toggle_main_window_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_FULLSCREEN, gtk.ICON_SIZE_MENU))
 			self.toggle_main_window_menuitem.get_children()[0].set_label("Show")
 			self.main_window_visible = False
