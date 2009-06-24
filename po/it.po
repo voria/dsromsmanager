@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-24 20:41+0200\n"
-"PO-Revision-Date: 2009-06-24 21:51+0200\n"
+"POT-Creation-Date: 2009-06-25 01:54+0200\n"
+"PO-Revision-Date: 2009-06-25 01:55+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,7 @@ msgstr "Nuovo file DAT disponibile!"
 msgid "Loading the new DAT file and creating database..."
 msgstr "Caricamento del nuovo file DAT e creazione del database in corso..."
 
-#: ../src/downloaders.py:95 ../src/drm.py:89
+#: ../src/downloaders.py:95 ../src/drm.py:83
 msgid "Database created."
 msgstr "Database creato."
 
@@ -80,20 +80,20 @@ msgstr "Download delle immagini per '%s' in corso..."
 msgid "Download of all images completed."
 msgstr "Download di tutte le immagini completato."
 
-#: ../src/drm.py:74
+#: ../src/drm.py:68
 msgid ""
-"Database out of date, it has been deleted.\n"
+"Database out of date or corrupt, it has been deleted.\n"
 "\n"
 "\n"
 "A new DAT file will be automatically downloaded and a new database will be "
 "created."
 msgstr ""
-"Database obsoleto, è stato eliminato.\n"
+"Database obsoleto o corrotto, è stato eliminato.\n"
 "\n"
 "\n"
 "Un nuovo file DAT sarà automaticamente scaricato e un nuovo database sarà creato."
 
-#: ../src/drm.py:78
+#: ../src/drm.py:72
 msgid ""
 "No database found.\n"
 "\n"
@@ -106,15 +106,15 @@ msgstr ""
 "\n"
 "Un nuovo file DAT sarà automaticamente scaricato e un nuovo database sarà creato."
 
-#: ../src/drm.py:86
+#: ../src/drm.py:80
 msgid "Loading DAT file and creating database..."
 msgstr "Caricamento del file DAT e creazione del database in corso..."
 
-#: ../src/drm.py:93
+#: ../src/drm.py:87
 msgid "Loading database..."
 msgstr "Caricamento del database in corso..."
 
-#: ../src/drm.py:96
+#: ../src/drm.py:90
 msgid "Database loaded."
 msgstr "Database caricato."
 
@@ -127,7 +127,6 @@ msgid "English"
 msgstr "Inglese"
 
 #: ../src/globals.py:56 ../src/globals.py:68 ../src/globals.py:69
-#: ../src/gui.py:228
 msgid "Unknown"
 msgstr "Sconosciuto"
 
@@ -219,85 +218,85 @@ msgstr "Australia"
 msgid "South Korea"
 msgstr "Korea del Sud"
 
-#: ../src/gui.py:132 ../src/gui.py:351
+#: ../src/gui.py:133 ../src/gui.py:352
 msgid "Hide"
 msgstr "Nascondi"
 
-#: ../src/gui.py:138
+#: ../src/gui.py:139
 msgid "Update DAT"
 msgstr "Aggiorna DAT"
 
-#: ../src/gui.py:142 ../src/gui.py:757
+#: ../src/gui.py:143 ../src/gui.py:763
 msgid "Download all images"
 msgstr "Scarica tutte le immagini"
 
-#: ../src/gui.py:146
+#: ../src/gui.py:147
 msgid "Reviews"
 msgstr "Recensioni"
 
-#: ../src/gui.py:152 ../data/drm.glade.h:14
+#: ../src/gui.py:153 ../data/drm.glade.h:14
 msgid "Options"
 msgstr "Opzioni"
 
-#: ../src/gui.py:158
+#: ../src/gui.py:159
 msgid "About"
 msgstr "Informazioni"
 
-#: ../src/gui.py:164
+#: ../src/gui.py:165
 msgid "Quit"
 msgstr "Esci"
 
-#: ../src/gui.py:198
+#: ../src/gui.py:199
 msgid "Found"
 msgstr "Disponibile"
 
-#: ../src/gui.py:200
+#: ../src/gui.py:201
 msgid "Region"
 msgstr "Regione"
 
-#: ../src/gui.py:205
+#: ../src/gui.py:206
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gui.py:215 ../src/gui.py:226 ../src/gui.py:238
+#: ../src/gui.py:216 ../src/gui.py:227 ../src/gui.py:239
 msgid "All"
 msgstr "Tutte"
 
-#: ../src/gui.py:346
+#: ../src/gui.py:347
 msgid "Show"
 msgstr "Mostra"
 
-#: ../src/gui.py:445
+#: ../src/gui.py:446
 msgid "Duplicates:"
 msgstr "Duplicati:"
 
-#: ../src/gui.py:450
+#: ../src/gui.py:451
 msgid "No duplicates"
 msgstr "Nessun duplicato"
 
-#: ../src/gui.py:715
+#: ../src/gui.py:721
 #, python-format
 msgid "%d game in list"
 msgstr "%d gioco in lista"
 
-#: ../src/gui.py:717
+#: ../src/gui.py:723
 #, python-format
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:719 ../data/drm.glade.h:13
+#: ../src/gui.py:725 ../data/drm.glade.h:13
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:752
+#: ../src/gui.py:758
 msgid "Stop images download"
 msgstr "Annulla il download delle immagini"
 
-#: ../src/gui.py:771
+#: ../src/gui.py:777
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:777
+#: ../src/gui.py:783
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 

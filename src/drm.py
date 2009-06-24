@@ -57,17 +57,15 @@ class Main(threading.Thread):
 			# check db version
 			self.db = DB(DB_FILE)
 			db_info = self.db.get_info()
-			current_locale = locale.getdefaultlocale()[0]
-			if db_info == None or db_info[INFO_DB_VERSION] != DB_VERSION or db_info[INFO_LOCALE] != current_locale:
+			if db_info == None or db_info[INFO_DB_VERSION] != DB_VERSION:
 				# current db is out of date, remove it
 				os.remove(DB_FILE)
 				db_deleted = True
-				pass
 				
 		if not os.path.exists(DB_FILE):
 			if db_deleted == True:
 				if self.stopnow == False:
-					self.gui.show_info_dialog(_("""Database out of date, it has been deleted.\n\n
+					self.gui.show_info_dialog(_("""Database out of date or corrupt, it has been deleted.\n\n
 A new DAT file will be automatically downloaded and a new database will be created."""))
 			else:
 				if self.stopnow == False:

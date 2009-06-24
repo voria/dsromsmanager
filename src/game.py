@@ -18,10 +18,6 @@
 
 import os
 
-# gettext
-import locale, gettext
-_ = gettext.gettext
-
 from globals import *
 
 class Game():
@@ -125,7 +121,7 @@ class Game():
 	
 	def get_location(self):
 		""" Return game's location in the long form """
-		return _(countries[self.location])
+		return countries[self.location]
 	
 	def get_location_short(self):
 		""" Return game's location in the short form """
@@ -140,7 +136,7 @@ class Game():
 		languages = ""
 		for i in range(len(langs)):
 			if self.language[i] == '1':
-				languages += _(langs[i]) + " - "
+				languages += langs[i] + " - "
 		return languages[:len(languages)-3]
 	
 	def get_rom_crc(self):

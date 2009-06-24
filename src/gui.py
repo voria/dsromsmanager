@@ -208,37 +208,37 @@ class Gui(threading.Thread):
 		self.list_treeview.append_column(self.list_treeview_tvc_name)
 		
 		# Setup all needed stuff for location combobox
-		self.filter_location_model = gtk.ListStore(str)
+		self.filter_location_model = gtk.ListStore(str, str)
 		self.filter_location_combobox.set_model(self.filter_location_model)
 		self.filter_location_crt = gtk.CellRendererText()
 		self.filter_location_combobox.pack_start(self.filter_location_crt)
 		self.filter_location_combobox.add_attribute(self.filter_location_crt, 'text', 0)  
-		self.filter_location_model.append([_("All")])
+		self.filter_location_model.append([_("All"), "All"])
 		for i in countries.keys():
-			self.filter_location_model.append([_(countries[i])])
+			self.filter_location_model.append([_(countries[i]), countries[i]])
 		self.filter_location_combobox.set_active(0)
 		
 		# Setup all needed stuff for language combobox
-		self.filter_language_model = gtk.ListStore(str)
+		self.filter_language_model = gtk.ListStore(str, str)
 		self.filter_language_combobox.set_model(self.filter_language_model)
 		self.filter_language_crt = gtk.CellRendererText()
 		self.filter_language_combobox.pack_start(self.filter_language_crt)
 		self.filter_language_combobox.add_attribute(self.filter_language_crt, 'text', 0)  
-		self.filter_language_model.append([_("All")])
+		self.filter_language_model.append([_("All"), "All"])
 		for i in langs.keys():
-			if _(langs[i]) != _("Unknown"):
-				self.filter_language_model.append([_(langs[i])])
+			if langs[i] != "Unknown":
+				self.filter_language_model.append([_(langs[i]), langs[i]])
 		self.filter_language_combobox.set_active(0)
 		
 		# Setup all needed stuff for size combobox
-		self.filter_size_model = gtk.ListStore(str)
+		self.filter_size_model = gtk.ListStore(str, str)
 		self.filter_size_combobox.set_model(self.filter_size_model)
 		self.filter_size_crt = gtk.CellRendererText()
 		self.filter_size_combobox.pack_start(self.filter_size_crt)
 		self.filter_size_combobox.add_attribute(self.filter_size_crt, 'text', 0)  
-		self.filter_size_model.append([_("All")])
+		self.filter_size_model.append([_("All"), "All"])
 		for size in sizes:
-			self.filter_size_model.append([size])
+			self.filter_size_model.append([_(size), size])
 		self.filter_size_combobox.set_active(0)
 		
 		# Connect signals
@@ -309,11 +309,11 @@ class Gui(threading.Thread):
 		self.__hide_infos()
 		string = self.filter_name_entry.get_text()
 		location_iter = self.filter_location_combobox.get_active_iter()
-		location = self.filter_location_model.get_value(location_iter, 0)
+		location = self.filter_location_model.get_value(location_iter, 1)
 		language_iter = self.filter_language_combobox.get_active_iter()
-		language = self.filter_language_model.get_value(language_iter, 0)
+		language = self.filter_language_model.get_value(language_iter, 1)
 		size_iter = self.filter_size_combobox.get_active_iter()
-		size = self.filter_size_model.get_value(size_iter, 0)
+		size = self.filter_size_model.get_value(size_iter, 1)
 		try:
 			self.__update_list(self.db.filter_by(string, location, language, size))
 		except:
@@ -464,9 +464,14 @@ class Gui(threading.Thread):
 		size = game[GAME_ROM_SIZE]/1048576
 		self.info_size_label.set_text(str(size) + " MB")
 		self.info_publisher_label.set_text(game[GAME_PUBLISHER])
-		self.info_location_label.set_text(game[GAME_LOCATION])
+		self.info_location_label.set_text(_(game[GAME_LOCATION]))
 		self.info_source_label.set_text(game[GAME_SOURCE_ROM])
-		self.info_language_label.set_text(game[GAME_LANGUAGE])
+		language = ""
+		for lang in game[GAME_LANGUAGE].split(" - "):
+			if len(language) != 0:
+				language += " - "
+			language += _(lang)
+		self.info_language_label.set_text(language)
 		self.info_crc_label.set_text(game[GAME_ROM_CRC])
 		self.info_comment_label.set_text(game[GAME_COMMENT])
 		

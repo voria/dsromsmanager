@@ -25,10 +25,6 @@ except:
 
 from globals import *
 
-# gettext
-import locale, gettext
-_ = gettext.gettext
-
 CREATE_GAMES_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS games (
 							image_number TEXT,
 							release_number INT,
@@ -80,7 +76,6 @@ GAME_DUPLICATE_ID = 21
 
 CREATE_INFO_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS info (
 							db_version TEXT,
-							locale TEXT,
 							dat_name TEXT,
 							img_dir TEXT,
 							dat_version INT,
@@ -93,19 +88,18 @@ CREATE_INFO_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS info (
 							)"""
 
 INFO_DB_VERSION = 0
-INFO_LOCALE = 1
-INFO_DAT_NAME = 2
-INFO_IMG_DIR = 3
-INFO_DAT_VERSION = 4
-INFO_SYSTEM = 5
-INFO_SCREENSHOTS_WIDTH = 6
-INFO_SCREENSHOTS_HEIGHT = 7
-INFO_DAT_VERSION_URL = 8
-INFO_DAT_URL = 9
-INFO_IMG_URL = 10
+INFO_DAT_NAME = 1
+INFO_IMG_DIR = 2
+INFO_DAT_VERSION = 3
+INFO_SYSTEM = 4
+INFO_SCREENSHOTS_WIDTH = 5
+INFO_SCREENSHOTS_HEIGHT = 6
+INFO_DAT_VERSION_URL = 7
+INFO_DAT_URL = 8
+INFO_IMG_URL = 9
 
 INSERT_GAME_QUERY="INSERT INTO games VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-INSERT_INFO_QUERY="INSERT INTO info VALUES (?,?,?,?,?,?,?,?,?,?,?)"
+INSERT_INFO_QUERY="INSERT INTO info VALUES (?,?,?,?,?,?,?,?,?,?)"
 
 class DB():
 	def __init__(self, filename=":memory:"):
@@ -158,11 +152,11 @@ class DB():
 		if string != "":
 			for s in string.split():
 				command += " fullinfo LIKE '%" + s + "%' AND"
-		if location != _("All"):
+		if location != "All":
 			command += " location = '" + location + "' AND"
-		if language != _("All"):
+		if language != "All":
 			command += " language LIKE '%" + language + "%' AND"
-		if size != _("All"):
+		if size != "All":
 			command += " rom_size = '" + str(int(size.split()[0])/8*1048576) + "'"
 		if command[len(command)-3:] == "AND":
 			command = command[:len(command)-4]

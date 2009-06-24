@@ -32,7 +32,7 @@ _ = gettext.gettext
 WORK_DIR = os.path.expanduser("~") + "/." + APP_NAME.lower()
 IMG_DIR = os.path.join(WORK_DIR, "images")
 DB_FILE = os.path.join(WORK_DIR, "db")
-DB_VERSION = "2"
+DB_VERSION = "3"
 CFG_FILE = os.path.join(WORK_DIR, "config")
 
 DEFAULT_REVIEW_URL="http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
