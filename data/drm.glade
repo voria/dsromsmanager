@@ -936,7 +936,6 @@ Set an empty string to use the default URL.</property>
   </object>
   <object class="GtkWindow" id="images_window">
     <property name="title" translatable="yes">Images</property>
-    <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <property name="transient_for">main_window</property>
     <child>
