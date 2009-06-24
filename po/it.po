@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-06-24 20:41+0200\n"
-"PO-Revision-Date: 2009-06-24 21:42+0200\n"
+"PO-Revision-Date: 2009-06-24 21:51+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "Download delle immagini per '%s' in corso..."
 
 #: ../src/downloaders.py:263
 msgid "Download of all images completed."
-msgstr "Download di tutto le immagini completato."
+msgstr "Download di tutte le immagini completato."
 
 #: ../src/drm.py:74
 msgid ""
@@ -88,7 +88,7 @@ msgid ""
 "A new DAT file will be automatically downloaded and a new database will be "
 "created."
 msgstr ""
-"Database datato, è stato eliminato.\n"
+"Database obsoleto, è stato eliminato.\n"
 "\n"
 "\n"
 "Un nuovo file DAT sarà automaticamente scaricato e un nuovo database sarà creato."
@@ -249,7 +249,7 @@ msgstr "Esci"
 
 #: ../src/gui.py:198
 msgid "Found"
-msgstr "Trovato"
+msgstr "Disponibile"
 
 #: ../src/gui.py:200
 msgid "Region"
@@ -291,7 +291,7 @@ msgstr "Nessun gioco in lista"
 
 #: ../src/gui.py:752
 msgid "Stop images download"
-msgstr "Ferma il download delle immagini"
+msgstr "Annulla il download delle immagini"
 
 #: ../src/gui.py:771
 msgid "Loading games list..."
@@ -377,7 +377,7 @@ msgstr "Salvataggio:"
 
 #: ../data/drm.glade.h:23
 msgid "Show only found games"
-msgstr "Mostra solo i giochi trovati"
+msgstr "Mostra solo i giochi disponibili"
 
 #: ../data/drm.glade.h:24
 msgid "Size:"
