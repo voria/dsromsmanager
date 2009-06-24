@@ -19,6 +19,9 @@
 import os
 import threading
 
+import locale, gettext
+_ = gettext.gettext
+
 try:
 	import gtk
 	import gtk.glade
@@ -54,6 +57,7 @@ class Gui(threading.Thread):
 		self.review_url = self.config.get("DEFAULT", "review_url")
 		
 		self.builder = gtk.Builder()
+		self.builder.set_translation_domain(APP_NAME)
 		self.builder.add_from_file(os.path.join(DATA_DIR, "drm.glade"))
 		
 		self.main_window = self.builder.get_object("main_window")
@@ -126,39 +130,39 @@ class Gui(threading.Thread):
 		## StatusIcon stuff
 		# popup menu
 		self.popup_menu = gtk.Menu()
-		self.toggle_main_window_menuitem = gtk.ImageMenuItem("Hide")
+		self.toggle_main_window_menuitem = gtk.ImageMenuItem(_("Hide"))
 		self.toggle_main_window_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_LEAVE_FULLSCREEN, gtk.ICON_SIZE_MENU))
 		self.toggle_main_window_menuitem.connect('activate', self.on_statusicon_toggle_main_window_activate)
 		self.popup_menu.append(self.toggle_main_window_menuitem)
 		menuitem = gtk.SeparatorMenuItem()
 		self.popup_menu.append(menuitem)
-		self.dat_update_menuitem = gtk.ImageMenuItem("Update DAT")
+		self.dat_update_menuitem = gtk.ImageMenuItem(_("Update DAT"))
 		self.dat_update_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_REFRESH, gtk.ICON_SIZE_MENU))
 		self.dat_update_menuitem.connect('activate', self.on_statusicon_dat_update_activate)
 		self.popup_menu.append(self.dat_update_menuitem)
-		self.all_images_download_menuitem = gtk.ImageMenuItem("Download all images")
+		self.all_images_download_menuitem = gtk.ImageMenuItem(_("Download all images"))
 		self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
 		self.all_images_download_menuitem.connect('activate', self.on_statusicon_all_images_download_activate)
 		self.popup_menu.append(self.all_images_download_menuitem)
-		self.show_review_menuitem = gtk.ImageMenuItem("Reviews")
+		self.show_review_menuitem = gtk.ImageMenuItem(_("Reviews"))
 		self.show_review_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_DIALOG_INFO, gtk.ICON_SIZE_MENU))
 		self.show_review_menuitem.connect('activate', self.on_statusicon_show_review_activate)
 		self.popup_menu.append(self.show_review_menuitem)
 		menuitem = gtk.SeparatorMenuItem()
 		self.popup_menu.append(menuitem)
-		self.options_menuitem = gtk.ImageMenuItem("Options")
+		self.options_menuitem = gtk.ImageMenuItem(_("Options"))
 		self.options_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_EXECUTE, gtk.ICON_SIZE_MENU))
 		self.options_menuitem.connect('activate', self.on_statusicon_options_activate)
 		self.popup_menu.append(self.options_menuitem)
 		menuitem = gtk.SeparatorMenuItem()
 		self.popup_menu.append(menuitem)
-		self.about_menuitem = gtk.ImageMenuItem("About")
+		self.about_menuitem = gtk.ImageMenuItem(_("About"))
 		self.about_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_ABOUT, gtk.ICON_SIZE_MENU))
 		self.about_menuitem.connect('activate', self.on_statusicon_about_activate)
 		self.popup_menu.append(self.about_menuitem)
 		menuitem = gtk.SeparatorMenuItem()
 		self.popup_menu.append(menuitem)
-		self.quit_menuitem = gtk.ImageMenuItem("Quit")
+		self.quit_menuitem = gtk.ImageMenuItem(_("Quit"))
 		self.quit_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_QUIT, gtk.ICON_SIZE_MENU))
 		self.quit_menuitem.connect('activate', self.on_statusicon_quit_activate)
 		self.popup_menu.append(self.quit_menuitem)
@@ -192,14 +196,14 @@ class Gui(threading.Thread):
 		self.list_treeview.set_model(self.list_treeview_model)
 		self.list_treeview_crt = gtk.CellRendererText()
 		self.list_treeview_crt_img = gtk.CellRendererPixbuf()
-		self.list_treeview_tvc_found = gtk.TreeViewColumn("Found", self.list_treeview_crt_img, pixbuf=TVC_CHECK)
+		self.list_treeview_tvc_found = gtk.TreeViewColumn(_("Found"), self.list_treeview_crt_img, pixbuf=TVC_CHECK)
 		self.list_treeview.append_column(self.list_treeview_tvc_found)
-		self.list_treeview_tvc_region = gtk.TreeViewColumn("Region", self.list_treeview_crt_img, pixbuf=TVC_FLAG)
+		self.list_treeview_tvc_region = gtk.TreeViewColumn(_("Region"), self.list_treeview_crt_img, pixbuf=TVC_FLAG)
 		self.list_treeview.append_column(self.list_treeview_tvc_region)
 		self.list_treeview_tvc_relnum = gtk.TreeViewColumn("#", self.list_treeview_crt, text=TVC_RELEASE_NUMBER)
 		self.list_treeview_tvc_relnum.set_sort_column_id(TVC_RELEASE_NUMBER)
 		self.list_treeview.append_column(self.list_treeview_tvc_relnum)
-		self.list_treeview_tvc_name = gtk.TreeViewColumn("Name", self.list_treeview_crt, text=TVC_TITLE)
+		self.list_treeview_tvc_name = gtk.TreeViewColumn(_("Name"), self.list_treeview_crt, text=TVC_TITLE)
 		self.list_treeview_tvc_name.set_sort_column_id(TVC_TITLE)
 		self.list_treeview.append_column(self.list_treeview_tvc_name)
 		
@@ -209,9 +213,9 @@ class Gui(threading.Thread):
 		self.filter_location_crt = gtk.CellRendererText()
 		self.filter_location_combobox.pack_start(self.filter_location_crt)
 		self.filter_location_combobox.add_attribute(self.filter_location_crt, 'text', 0)  
-		self.filter_location_model.append(["All"])
+		self.filter_location_model.append([_("All")])
 		for i in countries.keys():
-			self.filter_location_model.append([countries[i]])
+			self.filter_location_model.append([_(countries[i])])
 		self.filter_location_combobox.set_active(0)
 		
 		# Setup all needed stuff for language combobox
@@ -220,10 +224,10 @@ class Gui(threading.Thread):
 		self.filter_language_crt = gtk.CellRendererText()
 		self.filter_language_combobox.pack_start(self.filter_language_crt)
 		self.filter_language_combobox.add_attribute(self.filter_language_crt, 'text', 0)  
-		self.filter_language_model.append(["All"])
+		self.filter_language_model.append([_("All")])
 		for i in langs.keys():
-			if langs[i] != "Unknown":
-				self.filter_language_model.append([langs[i]])
+			if _(langs[i]) != _("Unknown"):
+				self.filter_language_model.append([_(langs[i])])
 		self.filter_language_combobox.set_active(0)
 		
 		# Setup all needed stuff for size combobox
@@ -232,7 +236,7 @@ class Gui(threading.Thread):
 		self.filter_size_crt = gtk.CellRendererText()
 		self.filter_size_combobox.pack_start(self.filter_size_crt)
 		self.filter_size_combobox.add_attribute(self.filter_size_crt, 'text', 0)  
-		self.filter_size_model.append(["All"])
+		self.filter_size_model.append([_("All")])
 		for size in sizes:
 			self.filter_size_model.append([size])
 		self.filter_size_combobox.set_active(0)
@@ -340,12 +344,12 @@ class Gui(threading.Thread):
 			self.main_window.hide()
 			self.images_window.hide()
 			self.toggle_main_window_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_FULLSCREEN, gtk.ICON_SIZE_MENU))
-			self.toggle_main_window_menuitem.get_children()[0].set_label("Show")
+			self.toggle_main_window_menuitem.get_children()[0].set_label(_("Show"))
 			self.main_window_visible = False
 		else:
 			self.main_window.show()
 			self.toggle_main_window_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_LEAVE_FULLSCREEN, gtk.ICON_SIZE_MENU))
-			self.toggle_main_window_menuitem.get_children()[0].set_label("Hide")
+			self.toggle_main_window_menuitem.get_children()[0].set_label(_("Hide"))
 			self.main_window_visible = True
 	
 	def on_statusicon_toggle_main_window_activate(self, widget):
@@ -439,12 +443,12 @@ class Gui(threading.Thread):
 					duplicates_relnum.append(g[GAME_RELEASE_NUMBER])
 		
 		if len(duplicates_fullinfo) != 0:
-			text = "Duplicates:"
+			text = _("Duplicates:")
 			for d in reversed(duplicates_fullinfo):
 				text += "\n" + d
 				self.info_title_label.set_tooltip_text(text)
 		else:
-			self.info_title_label.set_tooltip_text("No duplicates")
+			self.info_title_label.set_tooltip_text(_("No duplicates"))
 
 		self.ite_sid = self.info_title_eventbox.connect("button-press-event", self.on_info_title_eventbox_button_press_event,
 										 relnum, duplicates_relnum)
@@ -564,12 +568,7 @@ class Gui(threading.Thread):
 			for thread in self.threads:
 				if thread.isAlive() and thread.getName() == "AllImagesDownloader":
 					thread.stop()
-					while thread.isAlive(): # wait while the thread finishs its job 
-						pass
 					break
-			self.statusbar.push(self.statusbar.get_context_id("AllImagesDownloader"), "Download of all images stopped.")
-			# toggle button
-			self.toggle_all_images_download_toolbutton()
 	
 	def on_filter_triggered(self, widget):
 		""" Filter list """
@@ -714,11 +713,11 @@ class Gui(threading.Thread):
 	def update_list_game_label(self):
 		if self.gamesnumber != 0:
 			if self.gamesnumber == 1:
-				self.list_game_label.set_text(str(self.gamesnumber) + " game in list")
+				self.list_game_label.set_text(_("%d game in list") % self.gamesnumber)
 			else:
-				self.list_game_label.set_text(str(self.gamesnumber) + " games in list")
+				self.list_game_label.set_text(_("%d games in list") % self.gamesnumber)
 		else:
-			self.list_game_label.set_text("No games in list")
+			self.list_game_label.set_text(_("No games in list"))
 		
 	def update_statusbar(self, context, text):
 		gtk.gdk.threads_enter()
@@ -748,18 +747,20 @@ class Gui(threading.Thread):
 		#gtk.gdk.threads_leave()
 	
 	def toggle_all_images_download_toolbutton(self):
+		gtk.gdk.threads_enter()
 		if self.all_images_download_toolbutton.get_stock_id() == gtk.STOCK_JUMP_TO:
 			# switch to cancel button
-			text = "Stop images download"
+			text = _("Stop images download")
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_MENU))
 		else:
 			# restore original button
-			text = "Download all images"
+			text = _("Download all images")
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
 		self.all_images_download_toolbutton.set_label(text)
 		self.all_images_download_menuitem.get_children()[0].set_label(text)
+		gtk.gdk.threads_leave()
 	
 	def open_db(self):
 		""" Open database """
@@ -768,13 +769,13 @@ class Gui(threading.Thread):
 	def add_games(self):
 		""" Add games from database 'DB_FILE' to the treeview model. """
 		self.deactivate_widgets()
-		self.update_statusbar("Games", "Loading games list...")
+		self.update_statusbar("Games", _("Loading games list..."))
 		try:
 			self.__update_list(self.db.get_all_games())
 		except:
 			self.open_db()
 			self.__update_list(self.db.get_all_games())
-		self.update_statusbar("Games", "Games list loaded.")
+		self.update_statusbar("Games", _("Games list loaded."))
 		self.activate_widgets()
 		# Clear up all filter
 		self.filter_name_entry.handler_block(self.fne_sid)

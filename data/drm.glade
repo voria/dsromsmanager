@@ -312,7 +312,7 @@ vorione@gmail.com</property>
                             <property name="visible_window">False</property>
                             <child>
                               <object class="GtkLabel" id="info_title_label">
-                                <property name="label" translatable="yes">???</property>
+                                <property name="label">???</property>
                                 <property name="justify">center</property>
                                 <property name="wrap">True</property>
                               </object>
@@ -355,7 +355,7 @@ vorione@gmail.com</property>
                             <child>
                               <object class="GtkLabel" id="info_location_label">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">?</property>
+                                <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -388,7 +388,7 @@ vorione@gmail.com</property>
                             <child>
                               <object class="GtkLabel" id="info_publisher_label">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">?</property>
+                                <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -421,7 +421,7 @@ vorione@gmail.com</property>
                             <child>
                               <object class="GtkLabel" id="info_source_label">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">?</property>
+                                <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -454,7 +454,7 @@ vorione@gmail.com</property>
                             <child>
                               <object class="GtkLabel" id="info_save_label">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">?</property>
+                                <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -487,7 +487,7 @@ vorione@gmail.com</property>
                             <child>
                               <object class="GtkLabel" id="info_size_label">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">?</property>
+                                <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -519,7 +519,7 @@ vorione@gmail.com</property>
                             <child>
                               <object class="GtkLabel" id="info_comment_label">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">?</property>
+                                <property name="label">?</property>
                                 <property name="wrap">True</property>
                                 <property name="wrap_mode">word-char</property>
                                 <property name="selectable">True</property>
@@ -553,7 +553,7 @@ vorione@gmail.com</property>
                             <child>
                               <object class="GtkLabel" id="info_crc_label">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">?</property>
+                                <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -586,7 +586,7 @@ vorione@gmail.com</property>
                             <child>
                               <object class="GtkLabel" id="info_language_label">
                                 <property name="visible">True</property>
-                                <property name="label" translatable="yes">?</property>
+                                <property name="label">?</property>
                                 <property name="wrap">True</property>
                                 <property name="wrap_mode">word-char</property>
                                 <property name="selectable">True</property>

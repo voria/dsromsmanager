@@ -1,0 +1,446 @@
+# DRM - DsRomsManager
+# Copyleft (C) 2009 - Fortunato Ventre
+# This file is distributed under the same license as the DRM package.
+# Fortunato Ventre (voRia) - <vorione@gmail.com> - <http://www.voria.org>, 2009.
+#
+# Fortunato Ventre (voRia) <vorione@gmail.com>, 2009.
+msgid ""
+msgstr ""
+"Project-Id-Version: 0.3\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-24 20:41+0200\n"
+"PO-Revision-Date: 2009-06-24 21:42+0200\n"
+"Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
+"Language-Team: Italian <vorione@gmail.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF8\n"
+"Content-Transfer-Encoding: -\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../src/downloaders.py:76
+msgid "Searching for a new DAT file..."
+msgstr "Ricerca di un nuovo file DAT in corso..."
+
+#: ../src/downloaders.py:83
+msgid "New DAT file available!"
+msgstr "Nuovo file DAT disponibile!"
+
+#: ../src/downloaders.py:92
+msgid "Loading the new DAT file and creating database..."
+msgstr "Caricamento del nuovo file DAT e creazione del database in corso..."
+
+#: ../src/downloaders.py:95 ../src/drm.py:89
+msgid "Database created."
+msgstr "Database creato."
+
+#: ../src/downloaders.py:99
+msgid "DAT file is already up to date."
+msgstr "Il file DAT è già aggiornato."
+
+#: ../src/downloaders.py:102
+msgid "Can't download DAT version file!"
+msgstr "Non posso scaricare il file versione DAT!"
+
+#: ../src/downloaders.py:124
+msgid "Downloading a new DAT file..."
+msgstr "Download di un nuovo DAT file in corso..."
+
+#: ../src/downloaders.py:133
+msgid "Can't download DAT!"
+msgstr "Non posso scaricare il file DAT!"
+
+#: ../src/downloaders.py:137
+msgid "Unzipping the new DAT file..."
+msgstr "Estrazione del nuovo DAT file in corso..."
+
+#: ../src/downloaders.py:176
+#, python-format
+msgid "Error while downloading image 1 for '%s': File not found."
+msgstr "Errore durante il download dell'immagine 1 per '%s': File non trovato."
+
+#: ../src/downloaders.py:191
+#, python-format
+msgid "Error while downloading image 2 for '%s': File not found."
+msgstr "Errore durante il download dell'immagine 2 per '%s': File non trovato."
+
+#: ../src/downloaders.py:210
+msgid "Downloading all images..."
+msgstr "Download di tutte le immagini in corso..."
+
+#: ../src/downloaders.py:215
+msgid "Download of all images stopped."
+msgstr "Download di tutte le immagini annullato."
+
+#: ../src/downloaders.py:240
+#, python-format
+msgid "Downloading images for '%s'..."
+msgstr "Download delle immagini per '%s' in corso..."
+
+#: ../src/downloaders.py:263
+msgid "Download of all images completed."
+msgstr "Download di tutto le immagini completato."
+
+#: ../src/drm.py:74
+msgid ""
+"Database out of date, it has been deleted.\n"
+"\n"
+"\n"
+"A new DAT file will be automatically downloaded and a new database will be "
+"created."
+msgstr ""
+"Database datato, è stato eliminato.\n"
+"\n"
+"\n"
+"Un nuovo file DAT sarà automaticamente scaricato e un nuovo database sarà creato."
+
+#: ../src/drm.py:78
+msgid ""
+"No database found.\n"
+"\n"
+"\n"
+"A new DAT file will be automatically downloaded and a new database will be "
+"created."
+msgstr ""
+"Database non trovato.\n"
+"\n"
+"\n"
+"Un nuovo file DAT sarà automaticamente scaricato e un nuovo database sarà creato."
+
+#: ../src/drm.py:86
+msgid "Loading DAT file and creating database..."
+msgstr "Caricamento del file DAT e creazione del database in corso..."
+
+#: ../src/drm.py:93
+msgid "Loading database..."
+msgstr "Caricamento del database in corso..."
+
+#: ../src/drm.py:96
+msgid "Database loaded."
+msgstr "Database caricato."
+
+#: ../src/globals.py:54
+msgid "French"
+msgstr "Francese"
+
+#: ../src/globals.py:55
+msgid "English"
+msgstr "Inglese"
+
+#: ../src/globals.py:56 ../src/globals.py:68 ../src/globals.py:69
+#: ../src/gui.py:228
+msgid "Unknown"
+msgstr "Sconosciuto"
+
+#: ../src/globals.py:57
+msgid "Danish"
+msgstr "Danese"
+
+#: ../src/globals.py:58
+msgid "Dutch"
+msgstr "Olandese"
+
+#: ../src/globals.py:59
+msgid "Finnish"
+msgstr "Finlandese"
+
+#: ../src/globals.py:60
+msgid "German"
+msgstr "Tedesco"
+
+#: ../src/globals.py:61
+msgid "Italian"
+msgstr "Italiano"
+
+#: ../src/globals.py:62
+msgid "Japanese"
+msgstr "Giapponese"
+
+#: ../src/globals.py:63
+msgid "Norwegian"
+msgstr "Norvegese"
+
+#: ../src/globals.py:64
+msgid "Polish"
+msgstr "Polacco"
+
+#: ../src/globals.py:65
+msgid "Portuguese"
+msgstr "Portoghese"
+
+#: ../src/globals.py:66
+msgid "Spanish"
+msgstr "Spagnolo"
+
+#: ../src/globals.py:67
+msgid "Swedish"
+msgstr "Svedese"
+
+#: ../src/globals.py:70
+msgid "Korean"
+msgstr "Coreano"
+
+#: ../src/globals.py:74
+msgid "Europe"
+msgstr "Europa"
+
+#: ../src/globals.py:75
+msgid "USA"
+msgstr "USA"
+
+#: ../src/globals.py:76
+msgid "Germany"
+msgstr "Germania"
+
+#: ../src/globals.py:77
+msgid "Spain"
+msgstr "Spagna"
+
+#: ../src/globals.py:78
+msgid "France"
+msgstr "Francia"
+
+#: ../src/globals.py:79
+msgid "Italy"
+msgstr "Italia"
+
+#: ../src/globals.py:80
+msgid "Japan"
+msgstr "Giappone"
+
+#: ../src/globals.py:81
+msgid "Netherlands"
+msgstr "Olanda"
+
+#: ../src/globals.py:82
+msgid "Australia"
+msgstr "Australia"
+
+#: ../src/globals.py:83
+msgid "South Korea"
+msgstr "Korea del Sud"
+
+#: ../src/gui.py:132 ../src/gui.py:351
+msgid "Hide"
+msgstr "Nascondi"
+
+#: ../src/gui.py:138
+msgid "Update DAT"
+msgstr "Aggiorna DAT"
+
+#: ../src/gui.py:142 ../src/gui.py:757
+msgid "Download all images"
+msgstr "Scarica tutte le immagini"
+
+#: ../src/gui.py:146
+msgid "Reviews"
+msgstr "Recensioni"
+
+#: ../src/gui.py:152 ../data/drm.glade.h:14
+msgid "Options"
+msgstr "Opzioni"
+
+#: ../src/gui.py:158
+msgid "About"
+msgstr "Informazioni"
+
+#: ../src/gui.py:164
+msgid "Quit"
+msgstr "Esci"
+
+#: ../src/gui.py:198
+msgid "Found"
+msgstr "Trovato"
+
+#: ../src/gui.py:200
+msgid "Region"
+msgstr "Regione"
+
+#: ../src/gui.py:205
+msgid "Name"
+msgstr "Nome"
+
+#: ../src/gui.py:215 ../src/gui.py:226 ../src/gui.py:238
+msgid "All"
+msgstr "Tutte"
+
+#: ../src/gui.py:346
+msgid "Show"
+msgstr "Mostra"
+
+#: ../src/gui.py:445
+msgid "Duplicates:"
+msgstr "Duplicati:"
+
+#: ../src/gui.py:450
+msgid "No duplicates"
+msgstr "Nessun duplicato"
+
+#: ../src/gui.py:715
+#, python-format
+msgid "%d game in list"
+msgstr "%d gioco in lista"
+
+#: ../src/gui.py:717
+#, python-format
+msgid "%d games in list"
+msgstr "%d giochi in lista"
+
+#: ../src/gui.py:719 ../data/drm.glade.h:13
+msgid "No games in list"
+msgstr "Nessun gioco in lista"
+
+#: ../src/gui.py:752
+msgid "Stop images download"
+msgstr "Ferma il download delle immagini"
+
+#: ../src/gui.py:771
+msgid "Loading games list..."
+msgstr "Caricamento della lista dei giochi in corso..."
+
+#: ../src/gui.py:777
+msgid "Games list loaded."
+msgstr "Lista dei giochi caricata."
+
+#: ../data/drm.glade.h:1
+msgid "?"
+msgstr "?"
+
+#: ../data/drm.glade.h:2
+msgid "???"
+msgstr "???"
+
+#: ../data/drm.glade.h:3
+msgid "CRC: "
+msgstr "CRC:"
+
+#: ../data/drm.glade.h:4
+msgid "Comment: "
+msgstr "Commento:"
+
+#: ../data/drm.glade.h:5
+msgid "DsRomsManager"
+msgstr "DsRomsManager"
+
+#: ../data/drm.glade.h:6
+msgid "Filter by:"
+msgstr "Filtra:"
+
+#: ../data/drm.glade.h:7
+msgid "Images"
+msgstr "Immagini"
+
+#: ../data/drm.glade.h:8
+msgid "Informations"
+msgstr "Informazioni"
+
+#: ../data/drm.glade.h:9
+msgid "Language:"
+msgstr "Lingua:"
+
+#: ../data/drm.glade.h:10
+msgid "Language: "
+msgstr "Lingua:"
+
+#: ../data/drm.glade.h:11
+msgid "Location:"
+msgstr "Regione:"
+
+#: ../data/drm.glade.h:12
+msgid "Location: "
+msgstr "Regione:"
+
+#: ../data/drm.glade.h:15
+msgid "Publisher: "
+msgstr "Publisher:"
+
+#: ../data/drm.glade.h:16
+msgid ""
+"Released under GPL3 terms\n"
+"\n"
+"Copyleft by\n"
+"Fortunato Ventre (voRia)\n"
+"vorione@gmail.com"
+msgstr ""
+"Rilasciato sotto i termini GPL3\n"
+"\n"
+"Copyleft by\n"
+"Fortunato Ventre (voRia)\n"
+"vorione@gmail.com"
+
+#: ../data/drm.glade.h:21
+msgid "Review URL:"
+msgstr "URL recensioni:"
+
+#: ../data/drm.glade.h:22
+msgid "Save: "
+msgstr "Salvataggio:"
+
+#: ../data/drm.glade.h:23
+msgid "Show only found games"
+msgstr "Mostra solo i giochi trovati"
+
+#: ../data/drm.glade.h:24
+msgid "Size:"
+msgstr "Dimensione:"
+
+#: ../data/drm.glade.h:25
+msgid "Size: "
+msgstr "Dimensione:"
+
+#: ../data/drm.glade.h:26
+msgid "Source: "
+msgstr "Sorgente:"
+
+#: ../data/drm.glade.h:27
+msgid ""
+"Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
+"search URL.\n"
+"\n"
+"Example:\n"
+"http://www.google.it/search?q={FOOBAR}\n"
+"\n"
+"Set an empty string to use the default URL."
+msgstr ""
+"Usa '{FOOBAR}' (senza gli apici) come sostituto del titolo del gioco "
+"nell'URL di ricerca.\n"
+"\n"
+"Esempio:\n"
+"http://www.google.it/search?q={FOOBAR}\n"
+"\n"
+"Imposta una stringa vuota per usare l'URL di default."
+
+#: ../data/drm.glade.h:33
+msgid "_About"
+msgstr "_Informazioni"
+
+#: ../data/drm.glade.h:34
+msgid "_Clear"
+msgstr "_Pulisci"
+
+#: ../data/drm.glade.h:35
+msgid "_Download all images"
+msgstr "_Scarica tutte le immagini"
+
+#: ../data/drm.glade.h:36
+msgid "_Options"
+msgstr "_Opzioni"
+
+#: ../data/drm.glade.h:37
+msgid "_Reviews"
+msgstr "_Recensioni"
+
+#: ../data/drm.glade.h:38
+msgid "_Update DAT"
+msgstr "_Aggiorna DAT"
+
+#: ../data/drm.glade.h:39
+msgid "gtk-cancel"
+msgstr "gtk-cancel"
+
+#: ../data/drm.glade.h:40
+msgid "gtk-ok"
+msgstr "gtk-ok"
+
+#: ../data/drm.glade.h:41
+msgid "http://www.voria.org"
+msgstr "http://www.voria.org"

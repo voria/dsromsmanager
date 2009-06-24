@@ -1,0 +1,425 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-06-24 20:44+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/downloaders.py:76
+msgid "Searching for a new DAT file..."
+msgstr ""
+
+#: ../src/downloaders.py:83
+msgid "New DAT file available!"
+msgstr ""
+
+#: ../src/downloaders.py:92
+msgid "Loading the new DAT file and creating database..."
+msgstr ""
+
+#: ../src/downloaders.py:95 ../src/drm.py:89
+msgid "Database created."
+msgstr ""
+
+#: ../src/downloaders.py:99
+msgid "DAT file is already up to date."
+msgstr ""
+
+#: ../src/downloaders.py:102
+msgid "Can't download DAT version file!"
+msgstr ""
+
+#: ../src/downloaders.py:124
+msgid "Downloading a new DAT file..."
+msgstr ""
+
+#: ../src/downloaders.py:133
+msgid "Can't download DAT!"
+msgstr ""
+
+#: ../src/downloaders.py:137
+msgid "Unzipping the new DAT file..."
+msgstr ""
+
+#: ../src/downloaders.py:176
+#, python-format
+msgid "Error while downloading image 1 for '%s': File not found."
+msgstr ""
+
+#: ../src/downloaders.py:191
+#, python-format
+msgid "Error while downloading image 2 for '%s': File not found."
+msgstr ""
+
+#: ../src/downloaders.py:210
+msgid "Downloading all images..."
+msgstr ""
+
+#: ../src/downloaders.py:215
+msgid "Download of all images stopped."
+msgstr ""
+
+#: ../src/downloaders.py:240
+#, python-format
+msgid "Downloading images for '%s'..."
+msgstr ""
+
+#: ../src/downloaders.py:263
+msgid "Download of all images completed."
+msgstr ""
+
+#: ../src/drm.py:74
+msgid ""
+"Database out of date, it has been deleted.\n"
+"\n"
+"\n"
+"A new DAT file will be automatically downloaded and a new database will be "
+"created."
+msgstr ""
+
+#: ../src/drm.py:78
+msgid ""
+"No database found.\n"
+"\n"
+"\n"
+"A new DAT file will be automatically downloaded and a new database will be "
+"created."
+msgstr ""
+
+#: ../src/drm.py:86
+msgid "Loading DAT file and creating database..."
+msgstr ""
+
+#: ../src/drm.py:93
+msgid "Loading database..."
+msgstr ""
+
+#: ../src/drm.py:96
+msgid "Database loaded."
+msgstr ""
+
+#: ../src/globals.py:54
+msgid "French"
+msgstr ""
+
+#: ../src/globals.py:55
+msgid "English"
+msgstr ""
+
+#: ../src/globals.py:56 ../src/globals.py:68 ../src/globals.py:69
+#: ../src/gui.py:228
+msgid "Unknown"
+msgstr ""
+
+#: ../src/globals.py:57
+msgid "Danish"
+msgstr ""
+
+#: ../src/globals.py:58
+msgid "Dutch"
+msgstr ""
+
+#: ../src/globals.py:59
+msgid "Finnish"
+msgstr ""
+
+#: ../src/globals.py:60
+msgid "German"
+msgstr ""
+
+#: ../src/globals.py:61
+msgid "Italian"
+msgstr ""
+
+#: ../src/globals.py:62
+msgid "Japanese"
+msgstr ""
+
+#: ../src/globals.py:63
+msgid "Norwegian"
+msgstr ""
+
+#: ../src/globals.py:64
+msgid "Polish"
+msgstr ""
+
+#: ../src/globals.py:65
+msgid "Portuguese"
+msgstr ""
+
+#: ../src/globals.py:66
+msgid "Spanish"
+msgstr ""
+
+#: ../src/globals.py:67
+msgid "Swedish"
+msgstr ""
+
+#: ../src/globals.py:70
+msgid "Korean"
+msgstr ""
+
+#: ../src/globals.py:74
+msgid "Europe"
+msgstr ""
+
+#: ../src/globals.py:75
+msgid "USA"
+msgstr ""
+
+#: ../src/globals.py:76
+msgid "Germany"
+msgstr ""
+
+#: ../src/globals.py:77
+msgid "Spain"
+msgstr ""
+
+#: ../src/globals.py:78
+msgid "France"
+msgstr ""
+
+#: ../src/globals.py:79
+msgid "Italy"
+msgstr ""
+
+#: ../src/globals.py:80
+msgid "Japan"
+msgstr ""
+
+#: ../src/globals.py:81
+msgid "Netherlands"
+msgstr ""
+
+#: ../src/globals.py:82
+msgid "Australia"
+msgstr ""
+
+#: ../src/globals.py:83
+msgid "South Korea"
+msgstr ""
+
+#: ../src/gui.py:132 ../src/gui.py:351
+msgid "Hide"
+msgstr ""
+
+#: ../src/gui.py:138
+msgid "Update DAT"
+msgstr ""
+
+#: ../src/gui.py:142 ../src/gui.py:757
+msgid "Download all images"
+msgstr ""
+
+#: ../src/gui.py:146
+msgid "Reviews"
+msgstr ""
+
+#: ../src/gui.py:152 ../data/drm.glade.h:14
+msgid "Options"
+msgstr ""
+
+#: ../src/gui.py:158
+msgid "About"
+msgstr ""
+
+#: ../src/gui.py:164
+msgid "Quit"
+msgstr ""
+
+#: ../src/gui.py:198
+msgid "Found"
+msgstr ""
+
+#: ../src/gui.py:200
+msgid "Region"
+msgstr ""
+
+#: ../src/gui.py:205
+msgid "Name"
+msgstr ""
+
+#: ../src/gui.py:215 ../src/gui.py:226 ../src/gui.py:238
+msgid "All"
+msgstr ""
+
+#: ../src/gui.py:346
+msgid "Show"
+msgstr ""
+
+#: ../src/gui.py:445
+msgid "Duplicates:"
+msgstr ""
+
+#: ../src/gui.py:450
+msgid "No duplicates"
+msgstr ""
+
+#: ../src/gui.py:715
+#, python-format
+msgid "%d game in list"
+msgstr ""
+
+#: ../src/gui.py:717
+#, python-format
+msgid "%d games in list"
+msgstr ""
+
+#: ../src/gui.py:719 ../data/drm.glade.h:13
+msgid "No games in list"
+msgstr ""
+
+#: ../src/gui.py:752
+msgid "Stop images download"
+msgstr ""
+
+#: ../src/gui.py:771
+msgid "Loading games list..."
+msgstr ""
+
+#: ../src/gui.py:777
+msgid "Games list loaded."
+msgstr ""
+
+#: ../data/drm.glade.h:1
+msgid "?"
+msgstr ""
+
+#: ../data/drm.glade.h:2
+msgid "???"
+msgstr ""
+
+#: ../data/drm.glade.h:3
+msgid "CRC: "
+msgstr ""
+
+#: ../data/drm.glade.h:4
+msgid "Comment: "
+msgstr ""
+
+#: ../data/drm.glade.h:5
+msgid "DsRomsManager"
+msgstr ""
+
+#: ../data/drm.glade.h:6
+msgid "Filter by:"
+msgstr ""
+
+#: ../data/drm.glade.h:7
+msgid "Images"
+msgstr ""
+
+#: ../data/drm.glade.h:8
+msgid "Informations"
+msgstr ""
+
+#: ../data/drm.glade.h:9
+msgid "Language:"
+msgstr ""
+
+#: ../data/drm.glade.h:10
+msgid "Language: "
+msgstr ""
+
+#: ../data/drm.glade.h:11
+msgid "Location:"
+msgstr ""
+
+#: ../data/drm.glade.h:12
+msgid "Location: "
+msgstr ""
+
+#: ../data/drm.glade.h:15
+msgid "Publisher: "
+msgstr ""
+
+#: ../data/drm.glade.h:16
+msgid ""
+"Released under GPL3 terms\n"
+"\n"
+"Copyleft by\n"
+"Fortunato Ventre (voRia)\n"
+"vorione@gmail.com"
+msgstr ""
+
+#: ../data/drm.glade.h:21
+msgid "Review URL:"
+msgstr ""
+
+#: ../data/drm.glade.h:22
+msgid "Save: "
+msgstr ""
+
+#: ../data/drm.glade.h:23
+msgid "Show only found games"
+msgstr ""
+
+#: ../data/drm.glade.h:24
+msgid "Size:"
+msgstr ""
+
+#: ../data/drm.glade.h:25
+msgid "Size: "
+msgstr ""
+
+#: ../data/drm.glade.h:26
+msgid "Source: "
+msgstr ""
+
+#: ../data/drm.glade.h:27
+msgid ""
+"Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
+"search URL.\n"
+"\n"
+"Example:\n"
+"http://www.google.it/search?q={FOOBAR}\n"
+"\n"
+"Set an empty string to use the default URL."
+msgstr ""
+
+#: ../data/drm.glade.h:33
+msgid "_About"
+msgstr ""
+
+#: ../data/drm.glade.h:34
+msgid "_Clear"
+msgstr ""
+
+#: ../data/drm.glade.h:35
+msgid "_Download all images"
+msgstr ""
+
+#: ../data/drm.glade.h:36
+msgid "_Options"
+msgstr ""
+
+#: ../data/drm.glade.h:37
+msgid "_Reviews"
+msgstr ""
+
+#: ../data/drm.glade.h:38
+msgid "_Update DAT"
+msgstr ""
+
+#: ../data/drm.glade.h:39
+msgid "gtk-cancel"
+msgstr ""
+
+#: ../data/drm.glade.h:40
+msgid "gtk-ok"
+msgstr ""
+
+#: ../data/drm.glade.h:41
+msgid "http://www.voria.org"
+msgstr ""

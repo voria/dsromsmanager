@@ -19,6 +19,9 @@
 import os
 import threading
 
+import locale, gettext
+_ = gettext.gettext
+
 from globals import *
 
 from gui import *
@@ -54,42 +57,48 @@ class Main(threading.Thread):
 			# check db version
 			self.db = DB(DB_FILE)
 			db_info = self.db.get_info()
-			if db_info == None or db_info[INFO_DB_VERSION] != DB_VERSION:
+			current_locale = locale.getdefaultlocale()[0]
+			if db_info == None or db_info[INFO_DB_VERSION] != DB_VERSION or db_info[INFO_LOCALE] != current_locale:
 				# current db is out of date, remove it
 				os.remove(DB_FILE)
-				db_deleted = True				
+				db_deleted = True
 				
 		if not os.path.exists(DB_FILE):
 			if db_deleted == True:
 				if self.stopnow == False:
-					self.gui.show_info_dialog("""Database out of date, it has been deleted.\n\n
-A new DAT file will be automatically downloaded and a new database will be created.""")
+					self.gui.show_info_dialog(_("""Database out of date, it has been deleted.\n\n
+A new DAT file will be automatically downloaded and a new database will be created."""))
 			else:
 				if self.stopnow == False:
-					self.gui.show_info_dialog("""No database found.\n\n
-A new DAT file will be automatically downloaded and a new database will be created.""")
+					self.gui.show_info_dialog(_("""No database found.\n\n
+A new DAT file will be automatically downloaded and a new database will be created."""))
 			datdownloader = DatDownloader(self.gui)
 			self.threads.append(datdownloader)
 			datdownloader.start()
 			datdownloader.join()
 			# Now we have the DAT file
 			if self.stopnow == False:
-				self.gui.update_statusbar("Dat", "Loading DAT file and creating database...")
+				self.gui.update_statusbar("Dat", _("Loading DAT file and creating database..."))
 				dat = Dat(DAT_NAME)
 			if self.stopnow == False:
-				self.gui.update_statusbar("Dat", "Database created.")
+				self.gui.update_statusbar("Dat", _("Database created."))
 		
 		# Pass control to the gui
 		if self.stopnow == False:
-			self.gui.update_statusbar("DB", "Loading database...")
+			self.gui.update_statusbar("DB", _("Loading database..."))
 		self.gui.open_db()
 		if self.stopnow == False:
-			self.gui.update_statusbar("DB", "Database loaded.")
+			self.gui.update_statusbar("DB", _("Database loaded."))
 		self.gui.add_games()
 
 	def stop(self):
 		self.stopnow = True
 		
 if __name__ == "__main__":
+	
+	locale.setlocale(locale.LC_ALL, '')
+	gettext.bindtextdomain(APP_NAME, LOCALE_DIR)
+	gettext.textdomain(APP_NAME)
+	
 	m = Main()
 	m.start()

@@ -19,15 +19,20 @@
 import os
 
 DATA_DIR = os.path.join(os.getcwd(), "data")
+LOCALE_DIR = "/usr/share/locale/"
 DATA_IMG_DIR = os.path.join(DATA_DIR, "images")
 
 APP_NAME = "DsRomsManager"
 APP_VERSION = "0.3"
 
+# gettext
+import locale, gettext
+_ = gettext.gettext
+
 WORK_DIR = os.path.expanduser("~") + "/." + APP_NAME.lower()
 IMG_DIR = os.path.join(WORK_DIR, "images")
 DB_FILE = os.path.join(WORK_DIR, "db")
-DB_VERSION = "1"
+DB_VERSION = "2"
 CFG_FILE = os.path.join(WORK_DIR, "config")
 
 DEFAULT_REVIEW_URL="http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
@@ -46,36 +51,36 @@ NO = 0
 YES = 1
 
 langs = {
-		0 : "French",
-		1 : "English",
-		2 : "Unknown",
-		3 : "Danish",
-		4 : "Dutch",
-		5 : "Finnish",
-		6 : "German",
-		7 : "Italian",
-		8 : "Japanese",
-		9 : "Norwegian",
-		10 : "Polish",
-		11 : "Portuguese",
-		12 : "Spanish",
-		13 : "Swedish",
-		14 : "Unknown",
-		15 : "Unknown",
-		16 : "Korean"
+		0 : _("French"),
+		1 : _("English"),
+		2 : _("Unknown"),
+		3 : _("Danish"),
+		4 : _("Dutch"),
+		5 : _("Finnish"),
+		6 : _("German"),
+		7 : _("Italian"),
+		8 : _("Japanese"),
+		9 : _("Norwegian"),
+		10 : _("Polish"),
+		11 : _("Portuguese"),
+		12 : _("Spanish"),
+		13 : _("Swedish"),
+		14 : _("Unknown"),
+		15 : _("Unknown"),
+		16 : _("Korean")
 		}
 
 countries = {
-			0 : "Europe",
-			1 : "USA",
-			2 : "Germany",
-			4 : "Spain",
-			5 : "France",
-			6 : "Italy",
-			7 : "Japan",
-			8 : "Netherlands",
-			19 : "Australia",
-			22 : "South Korea"
+			0 : _("Europe"),
+			1 : _("USA"),
+			2 : _("Germany"),
+			4 : _("Spain"),
+			5 : _("France"),
+			6 : _("Italy"),
+			7 : _("Japan"),
+			8 : _("Netherlands"),
+			19 : _("Australia"),
+			22 : _("South Korea")
 			}
 
 countries_short = {

@@ -18,6 +18,7 @@
 
 import os
 import xml.dom.minidom
+import locale
 
 from globals import *
 from game import Game
@@ -32,6 +33,7 @@ class Dat():
 		# Read DAT general infos and insert them into database
 		info = []
 		info.append(DB_VERSION)
+		info.append(locale.getdefaultlocale()[0])
 		info.append(dat.getElementsByTagName("datName")[0].firstChild.data)
 		info.append(dat.getElementsByTagName("imFolder")[0].firstChild.data)
 		info.append(dat.getElementsByTagName("datVersion")[0].firstChild.data)

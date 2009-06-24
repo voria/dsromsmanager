@@ -19,6 +19,7 @@ DsRomsManager - 0.3
 	* Fix gametitle and duplicates list.
 	* Add a config file, saved in working directory.
 	* Add option menu, with the ability to customize URL for games reviews.
+	* Add support for internationalization.
 	  
 DsRomsManager - 0.2
     
