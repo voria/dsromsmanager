@@ -62,6 +62,7 @@ class Main(threading.Thread):
 				# current db is out of date, remove it
 				os.remove(DB_FILE)
 				db_deleted = True
+				pass
 				
 		if not os.path.exists(DB_FILE):
 			if db_deleted == True:
@@ -96,7 +97,10 @@ A new DAT file will be automatically downloaded and a new database will be creat
 		
 if __name__ == "__main__":
 	
-	locale.setlocale(locale.LC_ALL, '')
+	try:
+		locale.setlocale(locale.LC_ALL, '')
+	except:
+		pass
 	gettext.bindtextdomain(APP_NAME, LOCALE_DIR)
 	gettext.textdomain(APP_NAME)
 	
