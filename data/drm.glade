@@ -340,6 +340,7 @@ vorione@gmail.com</property>
                         <child>
                           <object class="GtkHBox" id="info_location_hbox">
                             <property name="visible">True</property>
+                            <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="info_location_fixed_label">
                                 <property name="visible">True</property>
@@ -373,6 +374,7 @@ vorione@gmail.com</property>
                         <child>
                           <object class="GtkHBox" id="info_publisher_hbox">
                             <property name="visible">True</property>
+                            <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="info_publisher_fixed_label">
                                 <property name="visible">True</property>
@@ -406,6 +408,7 @@ vorione@gmail.com</property>
                         <child>
                           <object class="GtkHBox" id="info_source_hbox">
                             <property name="visible">True</property>
+                            <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="info_source_fixed_label">
                                 <property name="visible">True</property>
@@ -439,6 +442,7 @@ vorione@gmail.com</property>
                         <child>
                           <object class="GtkHBox" id="info_save_hbox">
                             <property name="visible">True</property>
+                            <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="info_save_fixed_label">
                                 <property name="visible">True</property>
@@ -472,6 +476,7 @@ vorione@gmail.com</property>
                         <child>
                           <object class="GtkHBox" id="info_size_hbox">
                             <property name="visible">True</property>
+                            <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="info_size_fixed_label">
                                 <property name="visible">True</property>
@@ -505,6 +510,7 @@ vorione@gmail.com</property>
                         <child>
                           <object class="GtkHBox" id="info_comment_hbox">
                             <property name="visible">True</property>
+                            <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="info_comment_fixed_label">
                                 <property name="visible">True</property>
@@ -571,6 +577,7 @@ vorione@gmail.com</property>
                         <child>
                           <object class="GtkHBox" id="info_language_hbox">
                             <property name="visible">True</property>
+                            <property name="spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="info_language_fixed_label">
                                 <property name="visible">True</property>
