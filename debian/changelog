@@ -1,3 +1,9 @@
+drm (0.3+bzr57) jaunty; urgency=low
+
+  * Update to bazaar revision 57. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 24 Jun 2009 18:56:00 +0200
+
 drm (0.3+bzr54) jaunty; urgency=low
 
   * Update to bazaar revision 54. 
