@@ -1,6 +1,6 @@
-drm (0.3+bzr68) jaunty; urgency=low
+drm (0.3+bzr70) jaunty; urgency=low
 
-  * Update to bazaar revision 68.
+  * Update to bazaar revision 70.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 24 Jun 2009 21:45:11 +0200
 

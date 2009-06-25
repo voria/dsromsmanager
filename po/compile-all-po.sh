@@ -7,3 +7,5 @@ for file in *.po; do
 	mkdir -p $DIR
 	msgfmt "$file" -o $DIR/DsRomsManager.mo
 done
+
+echo "Done."
