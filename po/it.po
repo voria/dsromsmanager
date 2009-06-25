@@ -8,12 +8,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-25 12:36+0200\n"
-"PO-Revision-Date: 2009-06-25 12:37+0200\n"
+"POT-Creation-Date: 2009-06-25 13:34+0200\n"
+"PO-Revision-Date: 2009-06-25 13:37+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-15\n"
+"Content-Type: text/plain; charset=UTF8\n"
 "Content-Transfer-Encoding: -\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
@@ -234,7 +234,7 @@ msgstr "Scarica tutte le immagini"
 msgid "Reviews"
 msgstr "Recensioni"
 
-#: ../src/gui.py:153 drm.glade.h:10
+#: ../src/gui.py:153 drm.glade.h:14
 msgid "Options"
 msgstr "Opzioni"
 
@@ -284,7 +284,7 @@ msgstr "%d gioco in lista"
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:725 drm.glade.h:9
+#: ../src/gui.py:725 drm.glade.h:12
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
@@ -301,38 +301,54 @@ msgid "CRC:"
 msgstr "CRC:"
 
 #: drm.glade.h:2
+msgid "Clear all filters and restore full games list"
+msgstr "Pulisce tutti i filtri e ripristina la lista completa dei giochi"
+
+#: drm.glade.h:3
 msgid "Comment:"
 msgstr "Commento:"
 
-#: drm.glade.h:3
+#: drm.glade.h:4
+msgid "Download a new DAT file"
+msgstr "Scarica un nuovo file DAT"
+
+#: drm.glade.h:5
+msgid "Download missing images for all the games"
+msgstr "Scarica le immagini mancanti di tutti i giochi"
+
+#: drm.glade.h:6
 msgid "DsRomsManager"
 msgstr "DsRomsManager"
 
-#: drm.glade.h:4
+#: drm.glade.h:7
 msgid "Filter by:"
 msgstr "Filtra:"
 
-#: drm.glade.h:5
+#: drm.glade.h:8
 msgid "Images"
 msgstr "Immagini"
 
-#: drm.glade.h:6
+#: drm.glade.h:9
 msgid "Informations"
 msgstr "Informazioni"
 
-#: drm.glade.h:7
+#: drm.glade.h:10
 msgid "Language:"
 msgstr "Lingua:"
 
-#: drm.glade.h:8
+#: drm.glade.h:11
 msgid "Location:"
 msgstr "Regione:"
 
-#: drm.glade.h:11
+#: drm.glade.h:13
+msgid "Open option window"
+msgstr "Apre la finestra delle opzioni"
+
+#: drm.glade.h:15
 msgid "Publisher:"
 msgstr "Publisher:"
 
-#: drm.glade.h:12
+#: drm.glade.h:16
 msgid ""
 "Released under GPL3 terms\n"
 "\n"
@@ -346,27 +362,35 @@ msgstr ""
 "Fortunato Ventre (voRia)\n"
 "vorione@gmail.com"
 
-#: drm.glade.h:17
+#: drm.glade.h:21
 msgid "Review URL:"
 msgstr "URL recensioni:"
 
-#: drm.glade.h:18
+#: drm.glade.h:22
 msgid "Save:"
 msgstr "Salvataggio:"
 
-#: drm.glade.h:19
+#: drm.glade.h:23
+msgid "Search reviews for selected game"
+msgstr "Cerca recensioni per il gioco selezionato"
+
+#: drm.glade.h:24
+msgid "Show informations about DsRomsManager"
+msgstr "Mostra informazioni su DsRomsManager"
+
+#: drm.glade.h:25
 msgid "Show only found games"
 msgstr "Mostra solo i giochi disponibili"
 
-#: drm.glade.h:20
+#: drm.glade.h:26
 msgid "Size:"
 msgstr "Dimensione:"
 
-#: drm.glade.h:21
+#: drm.glade.h:27
 msgid "Source:"
 msgstr "Sorgente:"
 
-#: drm.glade.h:22
+#: drm.glade.h:28
 msgid ""
 "Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
 "search URL.\n"
@@ -384,39 +408,39 @@ msgstr ""
 "\n"
 "Imposta una stringa vuota per usare l'URL di default."
 
-#: drm.glade.h:28
+#: drm.glade.h:34
 msgid "_About"
 msgstr "Informazioni"
 
-#: drm.glade.h:29
+#: drm.glade.h:35
 msgid "_Clear"
 msgstr "Pulisci"
 
-#: drm.glade.h:30
+#: drm.glade.h:36
 msgid "_Download all images"
 msgstr "Scarica tutte le immagini"
 
-#: drm.glade.h:31
+#: drm.glade.h:37
 msgid "_Options"
 msgstr "Opzioni"
 
-#: drm.glade.h:32
+#: drm.glade.h:38
 msgid "_Reviews"
 msgstr "Recensioni"
 
-#: drm.glade.h:33
+#: drm.glade.h:39
 msgid "_Update DAT"
 msgstr "Aggiorna DAT"
 
-#: drm.glade.h:34
+#: drm.glade.h:40
 msgid "gtk-cancel"
 msgstr "gtk-cancel"
 
-#: drm.glade.h:35
+#: drm.glade.h:41
 msgid "gtk-ok"
 msgstr "gtk-ok"
 
-#: drm.glade.h:36
+#: drm.glade.h:42
 msgid "http://www.voria.org"
 msgstr "http://www.voria.org"
 
