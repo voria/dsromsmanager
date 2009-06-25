@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-25 13:34+0200\n"
-"PO-Revision-Date: 2009-06-25 13:37+0200\n"
+"POT-Creation-Date: 2009-06-25 19:30+0200\n"
+"PO-Revision-Date: 2009-06-25 19:30+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -34,12 +34,12 @@ msgid "Database created."
 msgstr "Database creato."
 
 #: ../src/downloaders.py:99
-msgid "DAT file is already up to date."
+msgid "DAT file is up to date."
 msgstr "Il file DAT è aggiornato."
 
 #: ../src/downloaders.py:102
 msgid "Can't download DAT version file!"
-msgstr "Non posso scaricare il file versione DAT!"
+msgstr "Non riesco a scaricare il file di controllo versione del DAT!"
 
 #: ../src/downloaders.py:124
 msgid "Downloading a new DAT file..."
@@ -47,7 +47,7 @@ msgstr "Download di un nuovo file DAT in corso..."
 
 #: ../src/downloaders.py:133
 msgid "Can't download DAT!"
-msgstr "Non posso scaricare il file DAT!"
+msgstr "Non riesco a scaricare il file DAT!"
 
 #: ../src/downloaders.py:137
 msgid "Unzipping the new DAT file..."
@@ -56,12 +56,12 @@ msgstr "Estrazione del nuovo file DAT in corso..."
 #: ../src/downloaders.py:176
 #, python-format
 msgid "Error while downloading image 1 for '%s': File not found."
-msgstr "Errore durante il download dell'immagine 1 per '%s': File non trovato."
+msgstr "Errore durante il download dell'immagine 1 di '%s': File non trovato."
 
 #: ../src/downloaders.py:191
 #, python-format
 msgid "Error while downloading image 2 for '%s': File not found."
-msgstr "Errore durante il download dell'immagine 2 per '%s': File non trovato."
+msgstr "Errore durante il download dell'immagine 2 di'%s': File non trovato."
 
 #: ../src/downloaders.py:210
 msgid "Downloading all images..."
@@ -74,7 +74,7 @@ msgstr "Download di tutte le immagini annullato."
 #: ../src/downloaders.py:240
 #, python-format
 msgid "Downloading images for '%s'..."
-msgstr "Download delle immagini per '%s' in corso..."
+msgstr "Download delle immagini di '%s' in corso..."
 
 #: ../src/downloaders.py:263
 msgid "Download of all images completed."
@@ -84,27 +84,23 @@ msgstr "Download di tutte le immagini completato."
 msgid ""
 "Database out of date or corrupt, it has been deleted.\n"
 "\n"
-"\n"
 "A new DAT file will be automatically downloaded and a new database will be "
 "created."
 msgstr ""
 "Database obsoleto o corrotto, è stato eliminato.\n"
 "\n"
-"\n"
-"Verrà automaticamente scaricato un nuovo file DAT, e il database verrà ricreato."
+"Verrà scaricato un nuovo file DAT, e il database verrà ricreato."
 
 #: ../src/drm.py:72
 msgid ""
 "No database found.\n"
-"\n"
 "\n"
 "A new DAT file will be automatically downloaded and a new database will be "
 "created."
 msgstr ""
 "Database non trovato.\n"
 "\n"
-"\n"
-"Verrà automaticamente scaricato un nuovo file DAT, e il database verrà ricreato."
+"Verrà scaricato un nuovo file DAT, e il database verrà ricreato."
 
 #: ../src/drm.py:80
 msgid "Loading DAT file and creating database..."
@@ -218,7 +214,7 @@ msgstr "Australia"
 msgid "South Korea"
 msgstr "Korea del Sud"
 
-#: ../src/gui.py:133 ../src/gui.py:352
+#: ../src/gui.py:133 ../src/gui.py:355
 msgid "Hide"
 msgstr "Nascondi"
 
@@ -262,37 +258,41 @@ msgstr "Nome"
 msgid "All"
 msgstr "Tutte"
 
-#: ../src/gui.py:347
+#: ../src/gui.py:350
 msgid "Show"
 msgstr "Mostra"
 
-#: ../src/gui.py:446
+#: ../src/gui.py:449
 msgid "Duplicates:"
 msgstr "Duplicati:"
 
-#: ../src/gui.py:451
+#: ../src/gui.py:454
 msgid "No duplicates"
 msgstr "Nessun duplicato"
 
-#: ../src/gui.py:721
+#: ../src/gui.py:724
 #, python-format
 msgid "%d game in list"
 msgstr "%d gioco in lista"
 
-#: ../src/gui.py:723
+#: ../src/gui.py:726
 #, python-format
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:725 drm.glade.h:12
+#: ../src/gui.py:728 drm.glade.h:12
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:773
+#: ../src/gui.py:763
+msgid "Stop download. (Ctrl+D)"
+msgstr "Annulla il download. (Ctrl+D)"
+
+#: ../src/gui.py:778
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:779
+#: ../src/gui.py:784
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 
@@ -301,20 +301,21 @@ msgid "CRC:"
 msgstr "CRC:"
 
 #: drm.glade.h:2
-msgid "Clear all filters and restore full games list"
-msgstr "Pulisce tutti i filtri e ripristina la lista completa dei giochi"
+msgid "Check if a new DAT file is available. (Ctrl+U)"
+msgstr "Controlla se è disponibile un nuovo file DAT. (Ctrl+U)"
 
 #: drm.glade.h:3
+msgid "Clear all filters and restore full games list. (Ctrl+C)"
+msgstr ""
+"Pulisce tutti i filtri e ripristina la lista completa dei giochi. (Ctrl+C)"
+
+#: drm.glade.h:4
 msgid "Comment:"
 msgstr "Commento:"
 
-#: drm.glade.h:4
-msgid "Download a new DAT file"
-msgstr "Scarica un nuovo file DAT"
-
 #: drm.glade.h:5
-msgid "Download missing images for all the games"
-msgstr "Scarica le immagini mancanti di tutti i giochi"
+msgid "Download missing images for all the games. (Ctrl+D)"
+msgstr "Scarica le immagini mancanti di tutti i giochi. (Ctrl+D)"
 
 #: drm.glade.h:6
 msgid "DsRomsManager"
@@ -341,8 +342,8 @@ msgid "Location:"
 msgstr "Regione:"
 
 #: drm.glade.h:13
-msgid "Open option window"
-msgstr "Apre la finestra delle opzioni"
+msgid "Open the option window. (Ctrl+O)"
+msgstr "Apre la finestra delle opzioni. (Ctrl+O)"
 
 #: drm.glade.h:15
 msgid "Publisher:"
@@ -371,12 +372,12 @@ msgid "Save:"
 msgstr "Salvataggio:"
 
 #: drm.glade.h:23
-msgid "Search reviews for selected game"
-msgstr "Cerca recensioni per il gioco selezionato"
+msgid "Search reviews for the selected game. (Ctrl+R)"
+msgstr "Cerca recensioni per il gioco selezionato. (Ctrl+R)"
 
 #: drm.glade.h:24
-msgid "Show informations about DsRomsManager"
-msgstr "Mostra informazioni su DsRomsManager"
+msgid "Show informations about 'DsRomsManager'. (Ctrl+A)"
+msgstr "Mostra informazioni su 'DsRomsManager'. (Ctrl+A)"
 
 #: drm.glade.h:25
 msgid "Show only found games"
@@ -444,6 +445,9 @@ msgstr "gtk-ok"
 msgid "http://www.voria.org"
 msgstr "http://www.voria.org"
 
+#~ msgid "Download a new DAT file"
+#~ msgstr "Scarica un nuovo file DAT"
+
 #~ msgid "Language: "
 #~ msgstr "Lingua: "
 
@@ -452,9 +456,6 @@ msgstr "http://www.voria.org"
 
 #~ msgid "Size: "
 #~ msgstr "Dimensione: "
-
-#~ msgid "Stop images download"
-#~ msgstr "Annulla il download delle immagini"
 
 #~ msgid "?"
 #~ msgstr "?"

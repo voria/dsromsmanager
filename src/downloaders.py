@@ -96,7 +96,7 @@ class DatUpdater(threading.Thread):
 						self.gui.add_games()
 				else:
 					if self.stopnow == False:
-						self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date."))
+						self.gui.update_statusbar("DatUpdater", _("DAT file is up to date."))
 			except:
 				if self.stopnow == False:
 					self.gui.update_statusbar("DatUpdater", _("Can't download DAT version file!"))

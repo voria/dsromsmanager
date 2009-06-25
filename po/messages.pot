@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-25 13:34+0200\n"
+"POT-Creation-Date: 2009-06-25 19:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgid "Database created."
 msgstr ""
 
 #: ../src/downloaders.py:99
-msgid "DAT file is already up to date."
+msgid "DAT file is up to date."
 msgstr ""
 
 #: ../src/downloaders.py:102
@@ -83,7 +83,6 @@ msgstr ""
 msgid ""
 "Database out of date or corrupt, it has been deleted.\n"
 "\n"
-"\n"
 "A new DAT file will be automatically downloaded and a new database will be "
 "created."
 msgstr ""
@@ -91,7 +90,6 @@ msgstr ""
 #: ../src/drm.py:72
 msgid ""
 "No database found.\n"
-"\n"
 "\n"
 "A new DAT file will be automatically downloaded and a new database will be "
 "created."
@@ -209,7 +207,7 @@ msgstr ""
 msgid "South Korea"
 msgstr ""
 
-#: ../src/gui.py:133 ../src/gui.py:352
+#: ../src/gui.py:133 ../src/gui.py:355
 msgid "Hide"
 msgstr ""
 
@@ -253,37 +251,41 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: ../src/gui.py:347
+#: ../src/gui.py:350
 msgid "Show"
 msgstr ""
 
-#: ../src/gui.py:446
+#: ../src/gui.py:449
 msgid "Duplicates:"
 msgstr ""
 
-#: ../src/gui.py:451
+#: ../src/gui.py:454
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:721
+#: ../src/gui.py:724
 #, python-format
 msgid "%d game in list"
 msgstr ""
 
-#: ../src/gui.py:723
+#: ../src/gui.py:726
 #, python-format
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:725 drm.glade.h:12
+#: ../src/gui.py:728 drm.glade.h:12
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:773
+#: ../src/gui.py:763
+msgid "Stop download. (Ctrl+D)"
+msgstr ""
+
+#: ../src/gui.py:778
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:779
+#: ../src/gui.py:784
 msgid "Games list loaded."
 msgstr ""
 
@@ -292,19 +294,19 @@ msgid "CRC:"
 msgstr ""
 
 #: drm.glade.h:2
-msgid "Clear all filters and restore full games list"
+msgid "Check if a new DAT file is available. (Ctrl+U)"
 msgstr ""
 
 #: drm.glade.h:3
-msgid "Comment:"
+msgid "Clear all filters and restore full games list. (Ctrl+C)"
 msgstr ""
 
 #: drm.glade.h:4
-msgid "Download a new DAT file"
+msgid "Comment:"
 msgstr ""
 
 #: drm.glade.h:5
-msgid "Download missing images for all the games"
+msgid "Download missing images for all the games. (Ctrl+D)"
 msgstr ""
 
 #: drm.glade.h:6
@@ -332,7 +334,7 @@ msgid "Location:"
 msgstr ""
 
 #: drm.glade.h:13
-msgid "Open option window"
+msgid "Open the option window. (Ctrl+O)"
 msgstr ""
 
 #: drm.glade.h:15
@@ -357,11 +359,11 @@ msgid "Save:"
 msgstr ""
 
 #: drm.glade.h:23
-msgid "Search reviews for selected game"
+msgid "Search reviews for the selected game. (Ctrl+R)"
 msgstr ""
 
 #: drm.glade.h:24
-msgid "Show informations about DsRomsManager"
+msgid "Show informations about 'DsRomsManager'. (Ctrl+A)"
 msgstr ""
 
 #: drm.glade.h:25

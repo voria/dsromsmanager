@@ -65,11 +65,11 @@ class Main(threading.Thread):
 		if not os.path.exists(DB_FILE):
 			if db_deleted == True:
 				if self.stopnow == False:
-					self.gui.show_info_dialog(_("""Database out of date or corrupt, it has been deleted.\n\n
+					self.gui.show_info_dialog(_("""Database out of date or corrupt, it has been deleted.\n
 A new DAT file will be automatically downloaded and a new database will be created."""))
 			else:
 				if self.stopnow == False:
-					self.gui.show_info_dialog(_("""No database found.\n\n
+					self.gui.show_info_dialog(_("""No database found.\n
 A new DAT file will be automatically downloaded and a new database will be created."""))
 			datdownloader = DatDownloader(self.gui)
 			self.threads.append(datdownloader)

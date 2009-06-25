@@ -59,7 +59,7 @@ vorione@gmail.com</property>
               <object class="GtkToolButton" id="dat_update_toolbutton">
                 <property name="visible">True</property>
                 <property name="has_tooltip">True</property>
-                <property name="tooltip_text" translatable="yes">Download a new DAT file</property>
+                <property name="tooltip_text" translatable="yes">Check if a new DAT file is available. (Ctrl+U)</property>
                 <property name="label" translatable="yes">_Update DAT</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-refresh</property>
@@ -74,7 +74,7 @@ vorione@gmail.com</property>
               <object class="GtkToolButton" id="all_images_download_toolbutton">
                 <property name="visible">True</property>
                 <property name="has_tooltip">True</property>
-                <property name="tooltip_text" translatable="yes">Download missing images for all the games</property>
+                <property name="tooltip_text" translatable="yes">Download missing images for all the games. (Ctrl+D)</property>
                 <property name="label" translatable="yes">_Download all images</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-jump-to</property>
@@ -89,7 +89,7 @@ vorione@gmail.com</property>
               <object class="GtkToolButton" id="show_review_toolbutton">
                 <property name="visible">True</property>
                 <property name="has_tooltip">True</property>
-                <property name="tooltip_text" translatable="yes">Search reviews for selected game</property>
+                <property name="tooltip_text" translatable="yes">Search reviews for the selected game. (Ctrl+R)</property>
                 <property name="label" translatable="yes">_Reviews</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-dialog-info</property>
@@ -112,7 +112,7 @@ vorione@gmail.com</property>
             <child>
               <object class="GtkToolButton" id="options_toolbutton">
                 <property name="visible">True</property>
-                <property name="tooltip_text" translatable="yes">Open option window</property>
+                <property name="tooltip_text" translatable="yes">Open the option window. (Ctrl+O)</property>
                 <property name="label" translatable="yes">_Options</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-execute</property>
@@ -135,7 +135,7 @@ vorione@gmail.com</property>
               <object class="GtkToolButton" id="about_toolbutton">
                 <property name="visible">True</property>
                 <property name="has_tooltip">True</property>
-                <property name="tooltip_text" translatable="yes">Show informations about DsRomsManager</property>
+                <property name="tooltip_text" translatable="yes">Show informations about 'DsRomsManager'. (Ctrl+A)</property>
                 <property name="label" translatable="yes">_About</property>
                 <property name="use_underline">True</property>
                 <property name="stock_id">gtk-about</property>
@@ -667,7 +667,7 @@ vorione@gmail.com</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
                             <property name="has_tooltip">True</property>
-                            <property name="tooltip_text" translatable="yes">Clear all filters and restore full games list</property>
+                            <property name="tooltip_text" translatable="yes">Clear all filters and restore full games list. (Ctrl+C)</property>
                             <property name="use_underline">True</property>
                             <accelerator key="c" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
                           </object>

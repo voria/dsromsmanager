@@ -268,6 +268,9 @@ class Gui(threading.Thread):
 		
 		self.deactivate_widgets()
 		
+		# Save tooltip text
+		self.aidt_tooltip = self.all_images_download_toolbutton.get_tooltip_text()
+		
 		self.show_found_only_checkbutton.hide() # disabled for now
 		
 	def run(self):
@@ -757,10 +760,12 @@ class Gui(threading.Thread):
 			# switch to cancel button
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_MENU))
+			self.all_images_download_toolbutton.set_tooltip_text(_("Stop download. (Ctrl+D)"))
 		else:
 			# restore original button
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
+			self.all_images_download_toolbutton.set_tooltip_text(self.aidt_tooltip)
 		gtk.gdk.threads_leave()
 	
 	def open_db(self):
