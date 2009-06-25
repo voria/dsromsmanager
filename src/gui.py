@@ -755,16 +755,12 @@ class Gui(threading.Thread):
 		gtk.gdk.threads_enter()
 		if self.all_images_download_toolbutton.get_stock_id() == gtk.STOCK_JUMP_TO:
 			# switch to cancel button
-			text = _("Stop images download")
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_MENU))
 		else:
 			# restore original button
-			text = _("Download all images")
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
-		self.all_images_download_toolbutton.set_label(text)
-		self.all_images_download_menuitem.get_children()[0].set_label(text)
 		gtk.gdk.threads_leave()
 	
 	def open_db(self):

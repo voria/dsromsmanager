@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-25 01:54+0200\n"
-"PO-Revision-Date: 2009-06-25 01:55+0200\n"
+"POT-Creation-Date: 2009-06-25 12:36+0200\n"
+"PO-Revision-Date: 2009-06-25 12:37+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -35,7 +35,7 @@ msgstr "Database creato."
 
 #: ../src/downloaders.py:99
 msgid "DAT file is already up to date."
-msgstr "Il file DAT è già aggiornato."
+msgstr "Il file DAT è aggiornato."
 
 #: ../src/downloaders.py:102
 msgid "Can't download DAT version file!"
@@ -43,7 +43,7 @@ msgstr "Non posso scaricare il file versione DAT!"
 
 #: ../src/downloaders.py:124
 msgid "Downloading a new DAT file..."
-msgstr "Download di un nuovo DAT file in corso..."
+msgstr "Download di un nuovo file DAT in corso..."
 
 #: ../src/downloaders.py:133
 msgid "Can't download DAT!"
@@ -51,7 +51,7 @@ msgstr "Non posso scaricare il file DAT!"
 
 #: ../src/downloaders.py:137
 msgid "Unzipping the new DAT file..."
-msgstr "Estrazione del nuovo DAT file in corso..."
+msgstr "Estrazione del nuovo file DAT in corso..."
 
 #: ../src/downloaders.py:176
 #, python-format
@@ -91,7 +91,7 @@ msgstr ""
 "Database obsoleto o corrotto, è stato eliminato.\n"
 "\n"
 "\n"
-"Un nuovo file DAT sarà automaticamente scaricato e un nuovo database sarà creato."
+"Verrà automaticamente scaricato un nuovo file DAT, e il database verrà ricreato."
 
 #: ../src/drm.py:72
 msgid ""
@@ -104,7 +104,7 @@ msgstr ""
 "Database non trovato.\n"
 "\n"
 "\n"
-"Un nuovo file DAT sarà automaticamente scaricato e un nuovo database sarà creato."
+"Verrà automaticamente scaricato un nuovo file DAT, e il database verrà ricreato."
 
 #: ../src/drm.py:80
 msgid "Loading DAT file and creating database..."
@@ -176,7 +176,7 @@ msgstr "Svedese"
 
 #: ../src/globals.py:70
 msgid "Korean"
-msgstr "Coreano"
+msgstr "Koreano"
 
 #: ../src/globals.py:74
 msgid "Europe"
@@ -226,7 +226,7 @@ msgstr "Nascondi"
 msgid "Update DAT"
 msgstr "Aggiorna DAT"
 
-#: ../src/gui.py:143 ../src/gui.py:763
+#: ../src/gui.py:143
 msgid "Download all images"
 msgstr "Scarica tutte le immagini"
 
@@ -234,7 +234,7 @@ msgstr "Scarica tutte le immagini"
 msgid "Reviews"
 msgstr "Recensioni"
 
-#: ../src/gui.py:153 ../data/drm.glade.h:14
+#: ../src/gui.py:153 drm.glade.h:10
 msgid "Options"
 msgstr "Opzioni"
 
@@ -284,75 +284,55 @@ msgstr "%d gioco in lista"
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:725 ../data/drm.glade.h:13
+#: ../src/gui.py:725 drm.glade.h:9
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:758
-msgid "Stop images download"
-msgstr "Annulla il download delle immagini"
-
-#: ../src/gui.py:777
+#: ../src/gui.py:773
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:783
+#: ../src/gui.py:779
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 
-#: ../data/drm.glade.h:1
-msgid "?"
-msgstr "?"
-
-#: ../data/drm.glade.h:2
-msgid "???"
-msgstr "???"
-
-#: ../data/drm.glade.h:3
-msgid "CRC: "
+#: drm.glade.h:1
+msgid "CRC:"
 msgstr "CRC:"
 
-#: ../data/drm.glade.h:4
-msgid "Comment: "
+#: drm.glade.h:2
+msgid "Comment:"
 msgstr "Commento:"
 
-#: ../data/drm.glade.h:5
+#: drm.glade.h:3
 msgid "DsRomsManager"
 msgstr "DsRomsManager"
 
-#: ../data/drm.glade.h:6
+#: drm.glade.h:4
 msgid "Filter by:"
 msgstr "Filtra:"
 
-#: ../data/drm.glade.h:7
+#: drm.glade.h:5
 msgid "Images"
 msgstr "Immagini"
 
-#: ../data/drm.glade.h:8
+#: drm.glade.h:6
 msgid "Informations"
 msgstr "Informazioni"
 
-#: ../data/drm.glade.h:9
+#: drm.glade.h:7
 msgid "Language:"
 msgstr "Lingua:"
 
-#: ../data/drm.glade.h:10
-msgid "Language: "
-msgstr "Lingua:"
-
-#: ../data/drm.glade.h:11
+#: drm.glade.h:8
 msgid "Location:"
 msgstr "Regione:"
 
-#: ../data/drm.glade.h:12
-msgid "Location: "
-msgstr "Regione:"
-
-#: ../data/drm.glade.h:15
-msgid "Publisher: "
+#: drm.glade.h:11
+msgid "Publisher:"
 msgstr "Publisher:"
 
-#: ../data/drm.glade.h:16
+#: drm.glade.h:12
 msgid ""
 "Released under GPL3 terms\n"
 "\n"
@@ -360,37 +340,33 @@ msgid ""
 "Fortunato Ventre (voRia)\n"
 "vorione@gmail.com"
 msgstr ""
-"Rilasciato sotto i termini GPL3\n"
+"Rilasciato con licenza GPL3\n"
 "\n"
 "Copyleft by\n"
 "Fortunato Ventre (voRia)\n"
 "vorione@gmail.com"
 
-#: ../data/drm.glade.h:21
+#: drm.glade.h:17
 msgid "Review URL:"
 msgstr "URL recensioni:"
 
-#: ../data/drm.glade.h:22
-msgid "Save: "
+#: drm.glade.h:18
+msgid "Save:"
 msgstr "Salvataggio:"
 
-#: ../data/drm.glade.h:23
+#: drm.glade.h:19
 msgid "Show only found games"
 msgstr "Mostra solo i giochi disponibili"
 
-#: ../data/drm.glade.h:24
+#: drm.glade.h:20
 msgid "Size:"
 msgstr "Dimensione:"
 
-#: ../data/drm.glade.h:25
-msgid "Size: "
-msgstr "Dimensione:"
-
-#: ../data/drm.glade.h:26
-msgid "Source: "
+#: drm.glade.h:21
+msgid "Source:"
 msgstr "Sorgente:"
 
-#: ../data/drm.glade.h:27
+#: drm.glade.h:22
 msgid ""
 "Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
 "search URL.\n"
@@ -408,38 +384,56 @@ msgstr ""
 "\n"
 "Imposta una stringa vuota per usare l'URL di default."
 
-#: ../data/drm.glade.h:33
+#: drm.glade.h:28
 msgid "_About"
-msgstr "_Informazioni"
+msgstr "Informazioni"
 
-#: ../data/drm.glade.h:34
+#: drm.glade.h:29
 msgid "_Clear"
-msgstr "_Pulisci"
+msgstr "Pulisci"
 
-#: ../data/drm.glade.h:35
+#: drm.glade.h:30
 msgid "_Download all images"
-msgstr "_Scarica tutte le immagini"
+msgstr "Scarica tutte le immagini"
 
-#: ../data/drm.glade.h:36
+#: drm.glade.h:31
 msgid "_Options"
-msgstr "_Opzioni"
+msgstr "Opzioni"
 
-#: ../data/drm.glade.h:37
+#: drm.glade.h:32
 msgid "_Reviews"
-msgstr "_Recensioni"
+msgstr "Recensioni"
 
-#: ../data/drm.glade.h:38
+#: drm.glade.h:33
 msgid "_Update DAT"
-msgstr "_Aggiorna DAT"
+msgstr "Aggiorna DAT"
 
-#: ../data/drm.glade.h:39
+#: drm.glade.h:34
 msgid "gtk-cancel"
 msgstr "gtk-cancel"
 
-#: ../data/drm.glade.h:40
+#: drm.glade.h:35
 msgid "gtk-ok"
 msgstr "gtk-ok"
 
-#: ../data/drm.glade.h:41
+#: drm.glade.h:36
 msgid "http://www.voria.org"
 msgstr "http://www.voria.org"
+
+#~ msgid "Language: "
+#~ msgstr "Lingua: "
+
+#~ msgid "Location: "
+#~ msgstr "Regione: "
+
+#~ msgid "Size: "
+#~ msgstr "Dimensione: "
+
+#~ msgid "Stop images download"
+#~ msgstr "Annulla il download delle immagini"
+
+#~ msgid "?"
+#~ msgstr "?"
+
+#~ msgid "???"
+#~ msgstr "???"
