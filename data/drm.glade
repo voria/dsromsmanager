@@ -54,7 +54,6 @@ vorione@gmail.com</property>
         <child>
           <object class="GtkToolbar" id="toolbar">
             <property name="visible">True</property>
-            <property name="icon_size">0</property>
             <child>
               <object class="GtkToolButton" id="dat_update_toolbutton">
                 <property name="visible">True</property>
