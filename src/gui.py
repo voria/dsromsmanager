@@ -428,6 +428,9 @@ class Gui(threading.Thread):
 		else:
 			self.image1.clear()
 			self.image2.clear()
+			if self.screen_height < 800:
+				self.images_window_image1.clear()
+				self.images_window_image2.clear()
 			thread = ImagesDownloader(self, game)
 			self.threads.append(thread)
 			thread.start()
@@ -750,12 +753,14 @@ class Gui(threading.Thread):
 					pixbuf = pixbuf.scale_simple(pixbuf.get_width()/2, pixbuf.get_height()/2, gtk.gdk.INTERP_BILINEAR)
 				if image_index == 1:
 					self.image1.set_from_pixbuf(pixbuf)
-					# resize image frame too
 					self.image1_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
+					if self.screen_height < 800:
+						self.images_window_image1.set_from_file(filename)
 				else:
 					self.image2.set_from_pixbuf(pixbuf)
-					# resize image frame too
 					self.image2_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
+					if self.screen_height < 800:
+						self.images_window_image2.set_from_file(filename)
 		except:
 			pass
 	
