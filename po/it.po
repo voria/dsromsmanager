@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-26 13:22+0200\n"
-"PO-Revision-Date: 2009-06-26 13:23+0200\n"
+"POT-Creation-Date: 2009-06-26 14:18+0200\n"
+"PO-Revision-Date: 2009-06-26 14:19+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,75 +17,75 @@ msgstr ""
 "Content-Transfer-Encoding: -\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/downloaders.py:74
+#: ../src/downloaders.py:72
 msgid "Searching for a new DAT file..."
 msgstr "Ricerca di un nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:81
+#: ../src/downloaders.py:78
 msgid "New DAT file available!"
 msgstr "Nuovo file DAT disponibile!"
 
-#: ../src/downloaders.py:90
+#: ../src/downloaders.py:91
 msgid "Loading the new DAT file and creating database..."
 msgstr "Caricamento del nuovo file DAT e creazione del database in corso..."
 
-#: ../src/downloaders.py:93 ../src/drm.py:78
+#: ../src/downloaders.py:93 ../src/drm.py:75
 msgid "Database created."
 msgstr "Database creato."
 
-#: ../src/downloaders.py:97
+#: ../src/downloaders.py:96
 msgid "DAT file is up to date."
 msgstr "Il file DAT è aggiornato."
 
-#: ../src/downloaders.py:100
+#: ../src/downloaders.py:98
 msgid "Can't download DAT version file!"
 msgstr "Non riesco a scaricare il file di controllo versione del DAT!"
 
-#: ../src/downloaders.py:122
-msgid "Downloading a new DAT file..."
-msgstr "Download di un nuovo file DAT in corso..."
+#: ../src/downloaders.py:117
+msgid "Downloading the new DAT file..."
+msgstr "Download del nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:131
+#: ../src/downloaders.py:125
 msgid "Can't download DAT!"
 msgstr "Non riesco a scaricare il file DAT!"
 
-#: ../src/downloaders.py:135
+#: ../src/downloaders.py:128
 msgid "Unzipping the new DAT file..."
 msgstr "Estrazione del nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:174
+#: ../src/downloaders.py:165
 #, python-format
 msgid "Error while downloading image 1 for '%s': File not found."
 msgstr "Errore durante il download dell'immagine 1 di '%s': File non trovato."
 
-#: ../src/downloaders.py:189
+#: ../src/downloaders.py:178
 #, python-format
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr "Errore durante il download dell'immagine 2 di '%s': File non trovato."
 
-#: ../src/downloaders.py:209
+#: ../src/downloaders.py:196
 msgid "Downloading all images..."
 msgstr "Download di tutte le immagini in corso..."
 
-#: ../src/downloaders.py:214
-msgid "Download of all images stopped."
-msgstr "Download di tutte le immagini annullato."
-
-#: ../src/downloaders.py:230
+#: ../src/downloaders.py:213
 #, python-format
 msgid "Checking images integrity for '%s'..."
 msgstr "Controllo integrità delle immagini di '%s' in corso..."
 
-#: ../src/downloaders.py:240
+#: ../src/downloaders.py:220
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr "Download delle immagini di '%s' in corso..."
 
-#: ../src/downloaders.py:263
+#: ../src/downloaders.py:243
+msgid "Download of all images stopped."
+msgstr "Download di tutte le immagini annullato."
+
+#: ../src/downloaders.py:245
 msgid "Download of all images completed."
 msgstr "Download di tutte le immagini completato."
 
-#: ../src/drm.py:63
+#: ../src/drm.py:60
 msgid ""
 "Database out of date or corrupt, it has been deleted.\n"
 "\n"
@@ -96,7 +96,7 @@ msgstr ""
 "\n"
 "Verrà scaricato un nuovo file DAT, e il database verrà ricreato."
 
-#: ../src/drm.py:67
+#: ../src/drm.py:64
 msgid ""
 "No database found.\n"
 "\n"
@@ -107,119 +107,119 @@ msgstr ""
 "\n"
 "Verrà scaricato un nuovo file DAT, e il database verrà ricreato."
 
-#: ../src/drm.py:75
+#: ../src/drm.py:72
 msgid "Loading DAT file and creating database..."
 msgstr "Caricamento del file DAT e creazione del database in corso..."
 
-#: ../src/drm.py:82
+#: ../src/drm.py:79
 msgid "Loading database..."
 msgstr "Caricamento del database in corso..."
 
-#: ../src/drm.py:85
+#: ../src/drm.py:82
 msgid "Database loaded."
 msgstr "Database caricato."
 
-#: ../src/globals.py:50
+#: ../src/globals.py:54
 msgid "French"
 msgstr "Francese"
 
-#: ../src/globals.py:51
+#: ../src/globals.py:55
 msgid "English"
 msgstr "Inglese"
 
-#: ../src/globals.py:52 ../src/globals.py:64 ../src/globals.py:65
+#: ../src/globals.py:56 ../src/globals.py:68 ../src/globals.py:69
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: ../src/globals.py:53
+#: ../src/globals.py:57
 msgid "Danish"
 msgstr "Danese"
 
-#: ../src/globals.py:54
+#: ../src/globals.py:58
 msgid "Dutch"
 msgstr "Olandese"
 
-#: ../src/globals.py:55
+#: ../src/globals.py:59
 msgid "Finnish"
 msgstr "Finlandese"
 
-#: ../src/globals.py:56
+#: ../src/globals.py:60
 msgid "German"
 msgstr "Tedesco"
 
-#: ../src/globals.py:57
+#: ../src/globals.py:61
 msgid "Italian"
 msgstr "Italiano"
 
-#: ../src/globals.py:58
+#: ../src/globals.py:62
 msgid "Japanese"
 msgstr "Giapponese"
 
-#: ../src/globals.py:59
+#: ../src/globals.py:63
 msgid "Norwegian"
 msgstr "Norvegese"
 
-#: ../src/globals.py:60
+#: ../src/globals.py:64
 msgid "Polish"
 msgstr "Polacco"
 
-#: ../src/globals.py:61
+#: ../src/globals.py:65
 msgid "Portuguese"
 msgstr "Portoghese"
 
-#: ../src/globals.py:62
+#: ../src/globals.py:66
 msgid "Spanish"
 msgstr "Spagnolo"
 
-#: ../src/globals.py:63
+#: ../src/globals.py:67
 msgid "Swedish"
 msgstr "Svedese"
 
-#: ../src/globals.py:66
+#: ../src/globals.py:70
 msgid "Korean"
 msgstr "Koreano"
 
-#: ../src/globals.py:70
+#: ../src/globals.py:74
 msgid "Europe"
 msgstr "Europa"
 
-#: ../src/globals.py:71
+#: ../src/globals.py:75
 msgid "USA"
 msgstr "USA"
 
-#: ../src/globals.py:72
+#: ../src/globals.py:76
 msgid "Germany"
 msgstr "Germania"
 
-#: ../src/globals.py:73
+#: ../src/globals.py:77
 msgid "Spain"
 msgstr "Spagna"
 
-#: ../src/globals.py:74
+#: ../src/globals.py:78
 msgid "France"
 msgstr "Francia"
 
-#: ../src/globals.py:75
+#: ../src/globals.py:79
 msgid "Italy"
 msgstr "Italia"
 
-#: ../src/globals.py:76
+#: ../src/globals.py:80
 msgid "Japan"
 msgstr "Giappone"
 
-#: ../src/globals.py:77
+#: ../src/globals.py:81
 msgid "Netherlands"
 msgstr "Olanda"
 
-#: ../src/globals.py:78
+#: ../src/globals.py:82
 msgid "Australia"
 msgstr "Australia"
 
-#: ../src/globals.py:79
+#: ../src/globals.py:83
 msgid "South Korea"
 msgstr "Korea del Sud"
 
-#: ../src/gui.py:127 ../src/gui.py:350
+#: ../src/gui.py:127 ../src/gui.py:354
 msgid "Hide"
 msgstr "Nascondi"
 
@@ -263,41 +263,41 @@ msgstr "Nome"
 msgid "All"
 msgstr "Tutte"
 
-#: ../src/gui.py:345
+#: ../src/gui.py:349
 msgid "Show"
 msgstr "Mostra"
 
-#: ../src/gui.py:444
+#: ../src/gui.py:448
 msgid "Duplicates:"
 msgstr "Duplicati:"
 
-#: ../src/gui.py:449
+#: ../src/gui.py:453
 msgid "No duplicates"
 msgstr "Nessun duplicato"
 
-#: ../src/gui.py:719
+#: ../src/gui.py:727
 #, python-format
 msgid "%d game in list"
 msgstr "%d gioco in lista"
 
-#: ../src/gui.py:721
+#: ../src/gui.py:729
 #, python-format
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:723 drm.glade.h:13
+#: ../src/gui.py:731 drm.glade.h:13
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:758
+#: ../src/gui.py:770
 msgid "Stop download. (Ctrl+D)"
 msgstr "Annulla il download. (Ctrl+D)"
 
-#: ../src/gui.py:773
+#: ../src/gui.py:787
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:779
+#: ../src/gui.py:793
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 

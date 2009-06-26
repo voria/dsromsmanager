@@ -56,56 +56,53 @@ def get_crc32(filename):
 
 class DatUpdater(threading.Thread):
 	""" Update DAT file if needed """
-	def __init__(self, gui, buttons, dat_version, dat_version_url):
+	def __init__(self, gui, threads, buttons, dat_version, dat_version_url):
 		threading.Thread.__init__(self, name="DatUpdater")
 		self.dat_version = dat_version
 		self.dat_version_url = dat_version_url
 		self.gui = gui
+		self.threads = threads
 		self.buttons = buttons
 		
 		for button in self.buttons:
 			button.set_sensitive(False)
-		
-		self.stopnow = False
 	
 	def run(self):
 		try:
-			if self.stopnow == False:
-				self.gui.update_statusbar("DatUpdater", _("Searching for a new DAT file..."))
+			self.gui.update_statusbar("DatUpdater", _("Searching for a new DAT file..."))
 			try:
 				new_version_file = urlopen(self.dat_version_url)
 				new_version = new_version_file.read()
 							
 				if int(self.dat_version) < int(new_version):
-					if self.stopnow == False:
-						self.gui.update_statusbar("DatUpdater", _("New DAT file available!"))
+					self.gui.update_statusbar("DatUpdater", _("New DAT file available!"))
+					# Make sure we are not downloading all images
+					for thread in self.threads:
+						if thread.getName() == "AllImagesDownloader" and thread.isAlive():
+							thread.stop()
+							thread.join()
+							break
 					# Deactivate all widgets
-					if self.stopnow == False:
-						self.gui.deactivate_widgets()
+					self.gui.deactivate_widgets()
 					# Download new DAT file
 					datdownloader = DatDownloader(self.gui)
 					datdownloader.start()
 					datdownloader.join()
-					if self.stopnow == False:
-						self.gui.update_statusbar("DatUpdater", _("Loading the new DAT file and creating database..."))
+					self.gui.update_statusbar("DatUpdater", _("Loading the new DAT file and creating database..."))
 					dat = Dat(DAT_NAME)
-					if self.stopnow == False:
-						self.gui.update_statusbar("DatUpdater", _("Database created."))
-						self.gui.add_games()
+					self.gui.update_statusbar("DatUpdater", _("Database created."))
+					self.gui.add_games()
 				else:
-					if self.stopnow == False:
-						self.gui.update_statusbar("DatUpdater", _("DAT file is up to date."))
+					self.gui.update_statusbar("DatUpdater", _("DAT file is up to date."))
 			except:
-				if self.stopnow == False:
-					self.gui.update_statusbar("DatUpdater", _("Can't download DAT version file!"))
+				self.gui.update_statusbar("DatUpdater", _("Can't download DAT version file!"))
 				raise
 		finally:
 			# reactivate widgets
-			if self.stopnow == False:
-				self.gui.activate_widgets()
+			self.gui.activate_widgets()
 		
 	def stop(self):
-		self.stopnow = True
+		return
 
 class DatDownloader(threading.Thread):
 	""" Download and unzip DAT file """
@@ -115,11 +112,9 @@ class DatDownloader(threading.Thread):
 		self.dat_name_zip = DAT_NAME_ZIP
 		self.dat_name = DAT_NAME
 		self.gui = gui
-		self.stopnow = False
 	
 	def run(self):
-		if self.stopnow == False:
-			self.gui.update_statusbar("DatDownloader", _("Downloading a new DAT file..."))
+		self.gui.update_statusbar("DatDownloader", _("Downloading the new DAT file..."))
 		try:
 			input = urlopen(self.dat_url)
 			output = open(self.dat_name_zip, "wb")
@@ -127,19 +122,17 @@ class DatDownloader(threading.Thread):
 				output.write(data)
 			output.close()
 		except:
-			if self.stopnow == False:
-				self.gui.update_statusbar("DatDownloader", _("Can't download DAT!"))
+			self.gui.update_statusbar("DatDownloader", _("Can't download DAT!"))
 			raise
 		
-		if self.stopnow == False:
-			self.gui.update_statusbar("FirstRun", _("Unzipping the new DAT file..."))
+		self.gui.update_statusbar("FirstRun", _("Unzipping the new DAT file..."))
 		zip = ZipFile(self.dat_name_zip, "r")
 		file(self.dat_name, "wb").write(zip.read(self.dat_name))
 		zip.close()
 		os.remove(self.dat_name_zip)
 	
 	def stop(self):
-		self.stopnow = True 
+		return 
 
 class ImagesDownloader(threading.Thread):
 	""" Download 'game' images and show them (if possible).
@@ -155,7 +148,6 @@ class ImagesDownloader(threading.Thread):
 		range_dir = os.path.join(IMG_DIR, game[GAME_RANGE_DIR])
 		
 		self.gui = gui
-		self.stopnow = False
 		
 		if not os.path.exists(range_dir):
 			os.mkdir(range_dir)
@@ -169,12 +161,10 @@ class ImagesDownloader(threading.Thread):
 					output.write(data)
 				output.close()
 			except HTTPError:
-				if self.stopnow == False:
-					self.gui.update_statusbar("ImageDownloader",
-									_("Error while downloading image 1 for '%s': File not found.") % str(game))
+				self.gui.update_statusbar("ImageDownloader",
+								_("Error while downloading image 1 for '%s': File not found.") % str(game))
 			else:
-				if self.stopnow == False:
-					self.gui.update_image(self.release_number, 1, self.filename1)
+				self.gui.update_image(self.release_number, 1, self.filename1)
 		
 		if not os.path.exists(self.filename2):
 			try:
@@ -184,15 +174,13 @@ class ImagesDownloader(threading.Thread):
 					output.write(data)
 				output.close()
 			except HTTPError:
-				if self.stopnow == False:
-					self.gui.update_statusbar("ImageDownloader",
-									_("Error while downloading image 2 for '%s': File not found.") % str(game))
+				self.gui.update_statusbar("ImageDownloader",
+								_("Error while downloading image 2 for '%s': File not found.") % str(game))
 			else:
-				if self.stopnow == False:
-					self.gui.update_image(self.release_number, 2, self.filename2)
+				self.gui.update_image(self.release_number, 2, self.filename2)
 			
 	def stop(self):
-		self.stopnow = True
+		return
 		
 class AllImagesDownloader(threading.Thread):
 	""" Update the gui button and download all missing images """
@@ -205,14 +193,10 @@ class AllImagesDownloader(threading.Thread):
 	
 	def run(self):
 		self.gui.toggle_all_images_download_toolbutton()
-		if self.stopnow == False:
-			self.gui.update_statusbar("AllImagesDownloader", _("Downloading all images..."))
+		self.gui.update_statusbar("AllImagesDownloader", _("Downloading all images..."))
 
 		for game in self.games:
 			if self.stopnow == True:
-				if self.gui.is_alive():
-					self.gui.update_statusbar("AllImagesDownloader", _("Download of all images stopped."))
-					self.gui.toggle_all_images_download_toolbutton()
 				break
 			
 			range_dir = os.path.join(IMG_DIR, game[GAME_RANGE_DIR])
@@ -226,18 +210,14 @@ class AllImagesDownloader(threading.Thread):
 			
 			# check images CRC
 			if self.check_images_crc == True:
-				if self.stopnow == False:
-						self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity for '%s'...") % game[GAME_FULLINFO])
-				if os.path.exists(img1):
-					if game[GAME_IMG1_CRC] != get_crc32(img1):
-						os.remove(img1)
-				if os.path.exists(img2):
-					if game[GAME_IMG2_CRC] != get_crc32(img2):
-						os.remove(img2)
+				self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity for '%s'...") % game[GAME_FULLINFO])
+				if os.path.exists(img1) and game[GAME_IMG1_CRC] != get_crc32(img1):
+					os.remove(img1)
+				if os.path.exists(img2) and game[GAME_IMG2_CRC] != get_crc32(img2):
+					os.remove(img2)
 
 			if not os.path.exists(img1) or not os.path.exists(img2):
-				if self.stopnow == False:
-					self.gui.update_statusbar("AllImagesDownloader", _("Downloading images for '%s'...") % game[GAME_FULLINFO])
+				self.gui.update_statusbar("AllImagesDownloader", _("Downloading images for '%s'...") % game[GAME_FULLINFO])
 			
 			if not os.path.exists(img1):
 				try:
@@ -259,10 +239,12 @@ class AllImagesDownloader(threading.Thread):
 				except:
 					pass
 		
-		if self.stopnow == False:
+		if self.stopnow == True:
+			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images stopped."))
+		else:
 			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images completed."))
-			# restore original button
-			self.gui.toggle_all_images_download_toolbutton()
+		# restore original button
+		self.gui.toggle_all_images_download_toolbutton()
 				
 	def stop(self):
 		""" Stop the thread """

@@ -30,13 +30,13 @@ import locale, gettext
 _ = gettext.gettext
 
 WORK_DIR = os.path.expanduser("~") + "/." + APP_NAME.lower()
+if not os.path.exists(WORK_DIR):
+	os.mkdir(WORK_DIR)
 IMG_DIR = os.path.join(WORK_DIR, "images")
+if not os.path.exists(IMG_DIR):
+    os.mkdir(IMG_DIR)
 DB_FILE = os.path.join(WORK_DIR, "db")
 DB_VERSION = "3"
-
-if not os.path.exists(WORK_DIR): # First run
-	os.mkdir(WORK_DIR)
-	os.mkdir(IMG_DIR)
 
 from config import Config
 config = Config()

@@ -257,6 +257,8 @@ class Gui(threading.Thread):
 		self.aidtb_sid = self.all_images_download_toolbutton.connect("clicked", self.on_all_images_download_toolbutton_clicked)
 		self.ite_sid = None # info_title_eventbox signal
 		
+		self.quitting = False # Are we quitting?
+		
 		self.db = None
 		self.gamesnumber = 0
 		
@@ -338,6 +340,8 @@ class Gui(threading.Thread):
 		self.quit()
 	
 	def on_statusicon_activate(self, statusicon):
+		if self.quitting == True:
+			return
 		if self.main_window_visible:
 			self.main_window.hide()
 			self.images_window.hide()
@@ -546,7 +550,7 @@ class Gui(threading.Thread):
 		buttons.append(self.dat_update_toolbutton)
 		buttons.append(self.dat_update_menuitem)
 		
-		thread = DatUpdater(self, buttons, info[INFO_DAT_VERSION], info[INFO_DAT_VERSION_URL])
+		thread = DatUpdater(self, self.threads, buttons, info[INFO_DAT_VERSION], info[INFO_DAT_VERSION_URL])
 		self.threads.append(thread)
 		thread.start()
 	
@@ -664,6 +668,8 @@ class Gui(threading.Thread):
 	# General functions
 	def deactivate_widgets(self):
 		""" Disable all widgets' sensitiveness """
+		if self.quitting == True:
+			return
 		self.list_treeview.set_sensitive(False)
 		self.dat_update_toolbutton.set_sensitive(False)
 		self.dat_update_menuitem.set_sensitive(False)
@@ -681,6 +687,8 @@ class Gui(threading.Thread):
 	
 	def activate_widgets(self):
 		""" Enable all widgets' sensitiveness """
+		if self.quitting == True:
+			return
 		self.list_treeview.set_sensitive(True)
 		self.dat_update_toolbutton.set_sensitive(True)
 		self.dat_update_menuitem.set_sensitive(True)
@@ -723,13 +731,16 @@ class Gui(threading.Thread):
 			self.list_game_label.set_text(_("No games in list"))
 		
 	def update_statusbar(self, context, text):
+		if self.quitting == True:
+			return
 		gtk.gdk.threads_enter()
 		self.statusbar.push(self.statusbar.get_context_id(context), text)
 		gtk.gdk.threads_leave()
 	
 	def update_image(self, game_release_number, image_index, filename):
 		""" Update showed image if needed """
-		#gtk.gdk.threads_enter()
+		if self.quitting == True:
+			return
 		selection = self.list_treeview.get_selection()
 		try:
 			model, iter = selection.get_selected()
@@ -747,9 +758,10 @@ class Gui(threading.Thread):
 					self.image2_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
 		except:
 			pass
-		#gtk.gdk.threads_leave()
 	
 	def toggle_all_images_download_toolbutton(self):
+		if self.quitting == True:
+			return
 		gtk.gdk.threads_enter()
 		if self.all_images_download_toolbutton.get_stock_id() == gtk.STOCK_JUMP_TO:
 			# switch to cancel button
@@ -769,6 +781,8 @@ class Gui(threading.Thread):
 	
 	def add_games(self):
 		""" Add games from database 'DB_FILE' to the treeview model. """
+		if self.quitting == True:
+			return
 		self.deactivate_widgets()
 		self.update_statusbar("Games", _("Loading games list..."))
 		try:
@@ -792,6 +806,8 @@ class Gui(threading.Thread):
 		self.__hide_infos()
 	
 	def quit(self):
+		# Prepare for quitting
+		self.quitting = True
 		# Save config file
 		config.save()
 		
