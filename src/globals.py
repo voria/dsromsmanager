@@ -33,13 +33,9 @@ WORK_DIR = os.path.expanduser("~") + "/." + APP_NAME.lower()
 IMG_DIR = os.path.join(WORK_DIR, "images")
 DB_FILE = os.path.join(WORK_DIR, "db")
 DB_VERSION = "3"
-CFG_FILE = os.path.join(WORK_DIR, "config")
 
-DEFAULT_REVIEW_URL="http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
-
-DEFAULT_CFG_FILE="""[DEFAULT]
-show_found_games_only = False
-review_url = """ + DEFAULT_REVIEW_URL
+from config import Config
+config = Config()
 
 DAT_URL = "http://www.advanscene.com/offline/datas/ADVANsCEne_NDS_S.zip"
 DAT_NAME_ZIP = "ADVANsCEne_NDS_S.zip"

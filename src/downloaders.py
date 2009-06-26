@@ -200,6 +200,7 @@ class AllImagesDownloader(threading.Thread):
 		threading.Thread.__init__(self, name="AllImagesDownloader")
 		self.games = games
 		self.gui = gui
+		self.check_images_crc = config.get_option("check_images_crc") 
 		self.stopnow = False
 	
 	def run(self):
@@ -224,15 +225,15 @@ class AllImagesDownloader(threading.Thread):
 				os.mkdir(range_dir)
 			
 			# check images CRC
-			if self.stopnow == False:
-					self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity for '%s'...") % game[GAME_FULLINFO])
-			if os.path.exists(img1):
-				if game[GAME_IMG1_CRC] != get_crc32(img1):
-					os.remove(img1)
-			
-			if os.path.exists(img2):
-				if game[GAME_IMG2_CRC] != get_crc32(img2):
-					os.remove(img2)
+			if self.check_images_crc == True:
+				if self.stopnow == False:
+						self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity for '%s'...") % game[GAME_FULLINFO])
+				if os.path.exists(img1):
+					if game[GAME_IMG1_CRC] != get_crc32(img1):
+						os.remove(img1)
+				if os.path.exists(img2):
+					if game[GAME_IMG2_CRC] != get_crc32(img2):
+						os.remove(img2)
 
 			if not os.path.exists(img1) or not os.path.exists(img2):
 				if self.stopnow == False:

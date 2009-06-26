@@ -848,19 +848,17 @@ vorione@gmail.com</property>
           <object class="GtkVBox" id="options_vbox">
             <property name="visible">True</property>
             <property name="orientation">vertical</property>
+            <property name="spacing">5</property>
             <child>
-              <object class="GtkLabel" id="options_review_url_description_label">
+              <object class="GtkCheckButton" id="options_check_images_crc_checkbutton">
+                <property name="label" translatable="yes">Check integrity while downloading images</property>
                 <property name="visible">True</property>
-                <property name="label" translatable="yes">Use '{FOOBAR}' (without quotes) as substitute of the game title in the search URL.
-
-Example:
-http://www.google.it/search?q={FOOBAR}
-
-Set an empty string to use the default URL.</property>
-                <property name="wrap">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="draw_indicator">True</property>
               </object>
               <packing>
-                <property name="padding">10</property>
+                <property name="expand">False</property>
                 <property name="position">0</property>
               </packing>
             </child>
@@ -871,6 +869,12 @@ Set an empty string to use the default URL.</property>
                 <child>
                   <object class="GtkLabel" id="options_review_url_label">
                     <property name="visible">True</property>
+                    <property name="tooltip_text" translatable="yes">Use '{FOOBAR}' (without quotes) as substitute of the game title in the search URL.
+
+Example:
+http://www.google.it/search?q={FOOBAR}
+
+Set an empty string to use the default URL.</property>
                     <property name="label" translatable="yes">Review URL:</property>
                   </object>
                   <packing>
@@ -892,11 +896,12 @@ Set an empty string to use the default URL.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
               </packing>
             </child>
           </object>
           <packing>
+            <property name="expand">False</property>
             <property name="position">1</property>
           </packing>
         </child>

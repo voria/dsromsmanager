@@ -30,8 +30,6 @@ except:
 	from sys import exit
 	exit(1)
 
-from ConfigParser import *
-
 from globals import *
 from db import *
 
@@ -51,11 +49,6 @@ class Gui(threading.Thread):
 		
 		self.threads = threads
 		
-		self.config = RawConfigParser()
-		self.config.readfp(open(CFG_FILE))
-		self.showfoundgamesonly = self.config.getboolean("DEFAULT", "show_found_games_only")
-		self.review_url = self.config.get("DEFAULT", "review_url")
-		
 		self.builder = gtk.Builder()
 		self.builder.set_translation_domain(APP_NAME)
 		self.builder.add_from_file(os.path.join(DATA_DIR, "drm.glade"))
@@ -67,6 +60,7 @@ class Gui(threading.Thread):
 		self.all_images_download_toolbutton = self.builder.get_object("all_images_download_toolbutton")
 		self.show_review_toolbutton = self.builder.get_object("show_review_toolbutton")
 		self.options_toolbutton = self.builder.get_object("options_toolbutton")
+		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
 		self.options_review_url_entry = self.builder.get_object("options_review_url_entry")
 		self.options_ok_button = self.builder.get_object("options_ok_button")
 		self.options_cancel_button = self.builder.get_object("options_cancel_button")
@@ -189,7 +183,7 @@ class Gui(threading.Thread):
 		self.checks.append(image.render_icon(gtk.STOCK_OK, gtk.ICON_SIZE_BUTTON))
 		
 		# Set checkbuttons state
-		self.show_found_only_checkbutton.set_active(self.showfoundgamesonly)
+		self.show_found_only_checkbutton.set_active(config.get_option("show_found_games_only"))
 		
 		# Setup all needed stuff for main list treeview
 		self.list_treeview_model = gtk.ListStore(gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, int, str)
@@ -291,7 +285,7 @@ class Gui(threading.Thread):
 		#else:
 		#	check = self.checks[YES]
 		check = None
-		if self.showfoundgamesonly == True:
+		if config.get_option("show_found_games_only") == True:
 			if check == self.checks[YES]:
 				self.list_treeview_model.append((check, flag, relnum, title))
 				self.gamesnumber += 1
@@ -521,7 +515,7 @@ class Gui(threading.Thread):
 		self.list_treeview.set_cursor(path)
 	
 	def on_show_found_only_checkbutton_toggled(self, checkbutton):
-		self.showfoundgamesonly = checkbutton.get_active()
+		config.set_option("show_found_games_only", checkbutton.get_active())
 		self.__filter()
 	
 	def on_show_review_toolbutton_clicked(self, button):
@@ -537,7 +531,7 @@ class Gui(threading.Thread):
 		title = game[GAME_TITLE]
 		title = title.replace("&", " ")
 		title = title.replace("-", " ")
-		url = self.review_url.replace("{FOOBAR}", title)
+		url = config.get_option("review_url").replace("{FOOBAR}", title)
 		import webbrowser
 		webbrowser.open(url)
 	
@@ -643,16 +637,18 @@ class Gui(threading.Thread):
 			self.filter_language_combobox.handler_unblock(self.flanc_sid)
 	
 	def on_options_toolbutton_clicked(self, menuitem):
-		self.options_review_url_entry.set_text(self.review_url)
+		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
+		self.options_review_url_entry.set_text(config.get_option("review_url"))
 		self.options_dialog.show()
 	
 	def on_options_dialog_response(self, dialog, response_id):
 		if response_id == 0: # ok
+			config.set_option("check_images_crc", self.options_check_images_crc_checkbutton.get_active())
 			text = self.options_review_url_entry.get_text()
 			if len(text) != 0:
-				self.review_url = text
+				config.set_option("review_url", text)
 			else:
-				self.review_url = DEFAULT_REVIEW_URL
+				config.set_option_default("review_url")
 		self.options_dialog.hide()
 	
 	def on_window_delete_event(self, window, event):
@@ -797,9 +793,7 @@ class Gui(threading.Thread):
 	
 	def quit(self):
 		# Save config file
-		self.config.set("DEFAULT", "review_url", self.review_url)
-		self.config.set("DEFAULT", "show_found_games_only", self.showfoundgamesonly)
-		self.config.write(open(CFG_FILE, "w"))		
+		config.save()
 		
 		for thread in self.threads:
 			if thread.isAlive() and thread.getName() != "Gui":
