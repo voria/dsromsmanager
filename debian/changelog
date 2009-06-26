@@ -1,32 +1,8 @@
-drm (0.3+bzr75) jaunty; urgency=low
+drm (0.3+bzr76) jaunty; urgency=low
 
-  * Update to bazaar revision 75.
+  * Update to bazaar revision 76.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 26 Jun 2009 01:25:11 +0200
-
-drm (0.3+bzr57) jaunty; urgency=low
-
-  * Update to bazaar revision 57. 
-
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 24 Jun 2009 18:56:00 +0200
-
-drm (0.3+bzr54) jaunty; urgency=low
-
-  * Update to bazaar revision 54. 
-
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 23 Jun 2009 12:28:18 +0200
-
-drm (0.3+bzr49) jaunty; urgency=low
-
-  * Update to bazaar revision 49. 
-
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 23 Jun 2009 02:09:14 +0200
-
-drm (0.3+bzr45) jaunty; urgency=low
-
-  * Update to bazaar revision 45. 
-
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 22 Jun 2009 15:08:35 +0200
 
 drm (0.3) jaunty; urgency=low
 

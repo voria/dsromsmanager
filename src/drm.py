@@ -37,9 +37,6 @@ class Main(threading.Thread):
 		self.stopnow = False
 		
 	def run(self):
-		if not os.path.exists(WORK_DIR): # First run
-			os.mkdir(WORK_DIR)
-			os.mkdir(IMG_DIR)
 		
 		os.chdir(WORK_DIR)
 		

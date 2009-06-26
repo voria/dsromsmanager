@@ -34,6 +34,10 @@ IMG_DIR = os.path.join(WORK_DIR, "images")
 DB_FILE = os.path.join(WORK_DIR, "db")
 DB_VERSION = "3"
 
+if not os.path.exists(WORK_DIR): # First run
+	os.mkdir(WORK_DIR)
+	os.mkdir(IMG_DIR)
+
 from config import Config
 config = Config()
 
