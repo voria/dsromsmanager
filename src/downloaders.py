@@ -34,12 +34,10 @@ from globals import *
 from db import *
 from dat import *
 
-#===============================================================================
-# def get_crc32(filename):
-#	""" Return CRC32 of 'filename' """
-#	bin = struct.pack('>l', binascii.crc32(file(filename, 'r').read()))
-#	return binascii.hexlify(bin).upper()
-#===============================================================================
+def get_crc32(filename):
+	""" Return CRC32 of 'filename' """
+	bin = struct.pack('>l', binascii.crc32(file(filename, 'r').read()))
+	return binascii.hexlify(bin).upper()
 
 #===============================================================================
 # def get_crc32_zip(zipfile):
@@ -225,15 +223,16 @@ class AllImagesDownloader(threading.Thread):
 			if not os.path.exists(range_dir):
 				os.mkdir(range_dir)
 			
-			# check images CRC (disabled for now)
-#			if os.path.exists(img1):
-#				if game.get_img1_crc() != get_crc32(img1):
-#					os.remove(img1)
-#			
-#			if os.path.exists(img2):
-#				if game.get_img2_crc() != get_crc32(img2):
-#					os.remove(img2)
-#				
+			# check images CRC
+			if self.stopnow == False:
+					self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity for '%s'...") % game[GAME_FULLINFO])
+			if os.path.exists(img1):
+				if game[GAME_IMG1_CRC] != get_crc32(img1):
+					os.remove(img1)
+			
+			if os.path.exists(img2):
+				if game[GAME_IMG2_CRC] != get_crc32(img2):
+					os.remove(img2)
 
 			if not os.path.exists(img1) or not os.path.exists(img2):
 				if self.stopnow == False:
