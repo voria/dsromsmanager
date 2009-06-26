@@ -310,6 +310,7 @@ class Gui(threading.Thread):
 	def __filter(self):
 		""" Filter list by all criteria """
 		self.__hide_infos()
+		self.images_window.hide()
 		string = self.filter_name_entry.get_text()
 		location_iter = self.filter_location_combobox.get_active_iter()
 		location = self.filter_location_model.get_value(location_iter, 1)
@@ -649,8 +650,6 @@ class Gui(threading.Thread):
 		if response_id == 0: # ok
 			text = self.options_review_url_entry.get_text()
 			if len(text) != 0:
-				if text[:7] != "http://":
-					text = "http://" + text
 				self.review_url = text
 			else:
 				self.review_url = DEFAULT_REVIEW_URL
