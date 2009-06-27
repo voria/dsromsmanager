@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-26 14:18+0200\n"
+"POT-Creation-Date: 2009-06-27 16:50+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,185 +112,185 @@ msgstr ""
 msgid "Database loaded."
 msgstr ""
 
-#: ../src/globals.py:54
+#: ../src/globals.py:55
 msgid "French"
 msgstr ""
 
-#: ../src/globals.py:55
+#: ../src/globals.py:56
 msgid "English"
 msgstr ""
 
-#: ../src/globals.py:56 ../src/globals.py:68 ../src/globals.py:69
+#: ../src/globals.py:57 ../src/globals.py:69 ../src/globals.py:70
 msgid "Unknown"
 msgstr ""
 
-#: ../src/globals.py:57
+#: ../src/globals.py:58
 msgid "Danish"
 msgstr ""
 
-#: ../src/globals.py:58
+#: ../src/globals.py:59
 msgid "Dutch"
 msgstr ""
 
-#: ../src/globals.py:59
+#: ../src/globals.py:60
 msgid "Finnish"
 msgstr ""
 
-#: ../src/globals.py:60
+#: ../src/globals.py:61
 msgid "German"
 msgstr ""
 
-#: ../src/globals.py:61
+#: ../src/globals.py:62
 msgid "Italian"
 msgstr ""
 
-#: ../src/globals.py:62
+#: ../src/globals.py:63
 msgid "Japanese"
 msgstr ""
 
-#: ../src/globals.py:63
+#: ../src/globals.py:64
 msgid "Norwegian"
 msgstr ""
 
-#: ../src/globals.py:64
+#: ../src/globals.py:65
 msgid "Polish"
 msgstr ""
 
-#: ../src/globals.py:65
+#: ../src/globals.py:66
 msgid "Portuguese"
 msgstr ""
 
-#: ../src/globals.py:66
+#: ../src/globals.py:67
 msgid "Spanish"
 msgstr ""
 
-#: ../src/globals.py:67
+#: ../src/globals.py:68
 msgid "Swedish"
 msgstr ""
 
-#: ../src/globals.py:70
+#: ../src/globals.py:71
 msgid "Korean"
 msgstr ""
 
-#: ../src/globals.py:74
+#: ../src/globals.py:75
 msgid "Europe"
 msgstr ""
 
-#: ../src/globals.py:75
+#: ../src/globals.py:76
 msgid "USA"
 msgstr ""
 
-#: ../src/globals.py:76
+#: ../src/globals.py:77
 msgid "Germany"
 msgstr ""
 
-#: ../src/globals.py:77
+#: ../src/globals.py:78
 msgid "Spain"
 msgstr ""
 
-#: ../src/globals.py:78
+#: ../src/globals.py:79
 msgid "France"
 msgstr ""
 
-#: ../src/globals.py:79
+#: ../src/globals.py:80
 msgid "Italy"
 msgstr ""
 
-#: ../src/globals.py:80
+#: ../src/globals.py:81
 msgid "Japan"
 msgstr ""
 
-#: ../src/globals.py:81
+#: ../src/globals.py:82
 msgid "Netherlands"
 msgstr ""
 
-#: ../src/globals.py:82
+#: ../src/globals.py:83
 msgid "Australia"
 msgstr ""
 
-#: ../src/globals.py:83
+#: ../src/globals.py:84
 msgid "South Korea"
 msgstr ""
 
-#: ../src/gui.py:127 ../src/gui.py:354
+#: ../src/gui.py:126 ../src/gui.py:350
 msgid "Hide"
 msgstr ""
 
-#: ../src/gui.py:133
+#: ../src/gui.py:132
 msgid "Update DAT"
 msgstr ""
 
-#: ../src/gui.py:137
+#: ../src/gui.py:136
 msgid "Download all images"
 msgstr ""
 
-#: ../src/gui.py:141
+#: ../src/gui.py:140
 msgid "Reviews"
 msgstr ""
 
-#: ../src/gui.py:147 drm.glade.h:15
+#: ../src/gui.py:146 drm.glade.h:15
 msgid "Options"
 msgstr ""
 
-#: ../src/gui.py:153
+#: ../src/gui.py:152
 msgid "About"
 msgstr ""
 
-#: ../src/gui.py:159
+#: ../src/gui.py:158
 msgid "Quit"
 msgstr ""
 
-#: ../src/gui.py:193
+#: ../src/gui.py:191
 msgid "Found"
 msgstr ""
 
-#: ../src/gui.py:195
+#: ../src/gui.py:193
 msgid "Region"
 msgstr ""
 
-#: ../src/gui.py:200
+#: ../src/gui.py:198
 msgid "Name"
 msgstr ""
 
-#: ../src/gui.py:210 ../src/gui.py:221 ../src/gui.py:233
+#: ../src/gui.py:208 ../src/gui.py:219 ../src/gui.py:231
 msgid "All"
 msgstr ""
 
-#: ../src/gui.py:349
+#: ../src/gui.py:345
 msgid "Show"
 msgstr ""
 
-#: ../src/gui.py:448
+#: ../src/gui.py:447
 msgid "Duplicates:"
 msgstr ""
 
-#: ../src/gui.py:453
+#: ../src/gui.py:452
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:727
+#: ../src/gui.py:722
 #, python-format
 msgid "%d game in list"
 msgstr ""
 
-#: ../src/gui.py:729
+#: ../src/gui.py:724
 #, python-format
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:731 drm.glade.h:13
+#: ../src/gui.py:726 drm.glade.h:13
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:770
+#: ../src/gui.py:767
 msgid "Stop download. (Ctrl+D)"
 msgstr ""
 
-#: ../src/gui.py:787
+#: ../src/gui.py:784
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:793
+#: ../src/gui.py:790
 msgid "Games list loaded."
 msgstr ""
 
@@ -376,18 +376,14 @@ msgid "Show informations about 'DsRomsManager'. (Ctrl+A)"
 msgstr ""
 
 #: drm.glade.h:26
-msgid "Show only found games"
-msgstr ""
-
-#: drm.glade.h:27
 msgid "Size:"
 msgstr ""
 
-#: drm.glade.h:28
+#: drm.glade.h:27
 msgid "Source:"
 msgstr ""
 
-#: drm.glade.h:29
+#: drm.glade.h:28
 msgid ""
 "Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
 "search URL.\n"
@@ -398,38 +394,38 @@ msgid ""
 "Set an empty string to use the default URL."
 msgstr ""
 
-#: drm.glade.h:35
+#: drm.glade.h:34
 msgid "_About"
 msgstr ""
 
-#: drm.glade.h:36
+#: drm.glade.h:35
 msgid "_Clear"
 msgstr ""
 
-#: drm.glade.h:37
+#: drm.glade.h:36
 msgid "_Download all images"
 msgstr ""
 
-#: drm.glade.h:38
+#: drm.glade.h:37
 msgid "_Options"
 msgstr ""
 
-#: drm.glade.h:39
+#: drm.glade.h:38
 msgid "_Reviews"
 msgstr ""
 
-#: drm.glade.h:40
+#: drm.glade.h:39
 msgid "_Update DAT"
 msgstr ""
 
-#: drm.glade.h:41
+#: drm.glade.h:40
 msgid "gtk-cancel"
 msgstr ""
 
-#: drm.glade.h:42
+#: drm.glade.h:41
 msgid "gtk-ok"
 msgstr ""
 
-#: drm.glade.h:43
+#: drm.glade.h:42
 msgid "http://www.voria.org"
 msgstr ""

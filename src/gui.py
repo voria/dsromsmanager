@@ -70,7 +70,6 @@ class Gui(threading.Thread):
 		self.images_window_image2 = self.builder.get_object("images_window_image2")
 		self.list_treeview = self.builder.get_object("list_treeview")
 		self.list_game_label = self.builder.get_object("list_games_label")
-		self.show_found_only_checkbutton = self.builder.get_object("show_found_only_checkbutton")
 		self.images_eventbox = self.builder.get_object("images_eventbox")
 		self.image1 = self.builder.get_object("image1")
 		self.image2 = self.builder.get_object("image2")
@@ -176,14 +175,13 @@ class Gui(threading.Thread):
 		for i in countries_short.keys():
 			file = os.path.join(DATA_IMG_DIR, countries_short[i].lower() + ".png")
 			self.flags.append(gtk.gdk.pixbuf_new_from_file(file))
+		
 		# Load checks images
 		self.checks = []
 		image = gtk.Image()
 		self.checks.append(image.render_icon(gtk.STOCK_NO, gtk.ICON_SIZE_BUTTON))
 		self.checks.append(image.render_icon(gtk.STOCK_OK, gtk.ICON_SIZE_BUTTON))
-		
-		# Set checkbuttons state
-		self.show_found_only_checkbutton.set_active(config.get_option("show_found_games_only"))
+		self.checks.append(image.render_icon(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_BUTTON))
 		
 		# Setup all needed stuff for main list treeview
 		self.list_treeview_model = gtk.ListStore(gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, int, str)
@@ -247,7 +245,6 @@ class Gui(threading.Thread):
 		self.about_toolbutton.connect("clicked", self.on_about_toolbutton_clicked)
 		self.about_dialog.connect("response", self.on_about_dialog_response)
 		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
-		self.show_found_only_checkbutton.connect("toggled", self.on_show_found_only_checkbutton_toggled)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
 		# We need signal id for the following signals
 		self.fne_sid = self.filter_name_entry.connect("changed",self.on_filter_triggered)
@@ -267,7 +264,7 @@ class Gui(threading.Thread):
 		# Save tooltip text
 		self.aidt_tooltip = self.all_images_download_toolbutton.get_tooltip_text()
 		
-		self.show_found_only_checkbutton.hide() # disabled for now
+		self.hide_checks_stuff = True # Temp var to test checks stuff. It will be removed in future
 		
 	def run(self):
 		gtk.main()
@@ -282,18 +279,17 @@ class Gui(threading.Thread):
 		region = game[GAME_LOCATION_INDEX]
 		flag = self.flags[countries_short.keys().index(region)]
 		# Just test if check icons work for now
-		#if relnum%2:
-		#	check = self.checks[NO]
-		#else:
-		#	check = self.checks[YES]
-		check = None
-		if config.get_option("show_found_games_only") == True:
-			if check == self.checks[YES]:
-				self.list_treeview_model.append((check, flag, relnum, title))
-				self.gamesnumber += 1
+		if self.hide_checks_stuff == True:
+			check = None
 		else:
-			self.list_treeview_model.append((check, flag, relnum, title))
-			self.gamesnumber += 1
+			if relnum % 2 == 0:
+				check = self.checks[CHECKS_YES]
+			elif relnum % 3 == 0:
+				check = self.checks[CHECKS_WARN]
+			else:
+				check = self.checks[CHECKS_NO]
+		self.list_treeview_model.append((check, flag, relnum, title))
+		self.gamesnumber += 1
 	
 	def __update_list(self, games):
 		""" List 'games' in treeview """
@@ -520,10 +516,6 @@ class Gui(threading.Thread):
 				
 		path = self.list_treeview_model.get_path(iter)
 		self.list_treeview.set_cursor(path)
-	
-	def on_show_found_only_checkbutton_toggled(self, checkbutton):
-		config.set_option("show_found_games_only", checkbutton.get_active())
-		self.__filter()
 	
 	def on_show_review_toolbutton_clicked(self, button):
 		selection = self.list_treeview.get_selection()

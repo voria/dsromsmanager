@@ -23,74 +23,77 @@ from globals import *
 
 CFG_FILE = os.path.join(WORK_DIR, "config")
 
-DEFAULT_SHOW_FOUND_GAMES_ONLY=False
+DEFAULT_CFG_SECTION = "Main"
+
 DEFAULT_CHECK_IMAGES_CRC=False
 DEFAULT_REVIEW_URL="http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
 
-DEFAULT_CFG_FILE = "[DEFAULT]"
-DEFAULT_CFG_FILE += "\nshow_found_games_only = " + str(DEFAULT_SHOW_FOUND_GAMES_ONLY) 
+DEFAULT_CFG_FILE = "[" + DEFAULT_CFG_SECTION + "]"
 DEFAULT_CFG_FILE += "\ncheck_images_crc = " + str(DEFAULT_CHECK_IMAGES_CRC)
 DEFAULT_CFG_FILE += "\nreview_url = " + DEFAULT_REVIEW_URL
+DEFAULT_CFG_FILE += "\n\n"
 
 class Config():
     def __init__(self):
-        self.config = SafeConfigParser()
-        # If config file exists, create a default one
-        if not os.path.exists(CFG_FILE):
+        try:
+            self.config = SafeConfigParser()
+            self.config.readfp(open(CFG_FILE))
+            if not self.config.has_section(DEFAULT_CFG_SECTION):
+                raise Exception
+        except: # CFG_FILE does not exists or it doesnt have the default section, recreate it           
             cfg = open(CFG_FILE, "w")
             cfg.write(DEFAULT_CFG_FILE)
-            cfg.flush()            
+            cfg.flush()
+            self.config = SafeConfigParser()
+            self.config.readfp(open(CFG_FILE))
 
-        self.config.readfp(open(CFG_FILE))
         try:
-            self.show_found_games_only = self.config.getboolean("DEFAULT", "show_found_games_only")
-        except:
-            self.show_found_games_only = DEFAULT_SHOW_FOUND_GAMES_ONLY
-        try:
-            self.check_images_crc = self.config.getboolean("DEFAULT", "check_images_crc")
-        except:
+            self.check_images_crc = self.config.getboolean(DEFAULT_CFG_SECTION, "check_images_crc")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "check_images_crc", str(DEFAULT_CHECK_IMAGES_CRC))
             self.check_images_crc = DEFAULT_CHECK_IMAGES_CRC
         try:
-            self.review_url = self.config.get("DEFAULT", "review_url")
-        except:
+            self.review_url = self.config.get(DEFAULT_CFG_SECTION, "review_url")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "review_url", DEFAULT_REVIEW_URL)
             self.review_url = DEFAULT_REVIEW_URL
+
+    def get_all_options(self):
+        return self.config.options(DEFAULT_CFG_SECTION)
     
     def get_option(self, option):
         if option == "review_url":
             return self.review_url
-        if option == "show_found_games_only":
-            return self.show_found_games_only
         if option == "check_images_crc":
             return self.check_images_crc
+        raise Exception
     
     def get_option_default(self, option):
         if option == "review_url":
             return DEFAULT_REVIEW_URL
-        if option == "show_found_games_only":
-            return DEFAULT_SHOW_FOUND_GAMES_ONLY
         if option == "check_images_crc":
             return DEFAULT_CHECK_IMAGES_CRC
+        raise Exception
     
     def set_option(self, option, value):
         if option == "review_url":
             self.review_url = value
-        if option == "show_found_games_only":
-            self.show_found_games_only = value
-        if option == "check_images_crc":
+        elif option == "check_images_crc":
             self.check_images_crc = value
+        else:
+            raise Exception        
     
     def set_option_default(self, option):
         if option == "review_url":
             self.review_url = DEFAULT_REVIEW_URL
-        if option == "show_found_games_only":
-            self.show_found_games_only = DEFAULT_SHOW_FOUND_GAMES_ONLY
-        if option == "check_images_crc":
+        elif option == "check_images_crc":
             self.check_images_crc = DEFAULT_CHECK_IMAGES_CRC
+        else:
+            raise Exception
     
     def save(self):
-        self.config.set("DEFAULT", "review_url", self.review_url)
-        self.config.set("DEFAULT", "check_images_crc", str(self.check_images_crc))
-        self.config.set("DEFAULT", "show_found_games_only", str(self.show_found_games_only))
+        self.config.set(DEFAULT_CFG_SECTION, "review_url", self.review_url)
+        self.config.set(DEFAULT_CFG_SECTION, "check_images_crc", str(self.check_images_crc))
         cfg = open(CFG_FILE, "w")
         self.config.write(cfg)
         cfg.flush()
