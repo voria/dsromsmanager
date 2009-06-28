@@ -27,14 +27,16 @@ DEFAULT_CFG_SECTION = "Main"
 
 DEFAULT_CHECK_IMAGES_CRC = False
 DEFAULT_REVIEW_URL = "http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
-DEFAULT_GAMES_ON_DISK_PATH = ROMS_DIR
+DEFAULT_ROMS_PATH = ROMS_DIR
+DEFAULT_UNKNOWN_ROMS_PATH = UNKNOWN_ROMS_DIR
 DEFAULT_SHOW_GAMES_I_HAVE = True
 DEFAULT_SHOW_GAMES_I_DONT_HAVE = True
 
 DEFAULT_CFG_FILE = "[" + DEFAULT_CFG_SECTION + "]"
 DEFAULT_CFG_FILE += "\ncheck_images_crc = " + str(DEFAULT_CHECK_IMAGES_CRC)
 DEFAULT_CFG_FILE += "\nreview_url = " + DEFAULT_REVIEW_URL
-DEFAULT_CFG_FILE += "\ngames_on_disk_path = " + DEFAULT_GAMES_ON_DISK_PATH
+DEFAULT_CFG_FILE += "\nroms_path = " + DEFAULT_ROMS_PATH
+DEFAULT_CFG_FILE += "\nunknown_roms_path = " + DEFAULT_UNKNOWN_ROMS_PATH
 DEFAULT_CFG_FILE += "\nshow_games_i_have = " + str(DEFAULT_SHOW_GAMES_I_HAVE)
 DEFAULT_CFG_FILE += "\nshow_games_i_dont_have = " + str(DEFAULT_SHOW_GAMES_I_DONT_HAVE)
 DEFAULT_CFG_FILE += "\n\n"
@@ -64,10 +66,15 @@ class Config():
             self.config.set(DEFAULT_CFG_SECTION, "review_url", DEFAULT_REVIEW_URL)
             self.review_url = DEFAULT_REVIEW_URL
         try:
-            self.games_on_disk_path = self.config.get(DEFAULT_CFG_SECTION, "games_on_disk_path")
+            self.roms_path = self.config.get(DEFAULT_CFG_SECTION, "roms_path")
         except NoOptionError:
-            self.config.set(DEFAULT_CFG_SECTION, "games_on_disk_path", DEFAULT_GAMES_ON_DISK_PATH)
-            self.games_on_disk_path = DEFAULT_GAMES_ON_DISK_PATH
+            self.config.set(DEFAULT_CFG_SECTION, "roms_path", DEFAULT_ROMS_PATH)
+            self.roms_path = DEFAULT_ROMS_PATH
+        try:
+            self.unknown_roms_path = self.config.get(DEFAULT_CFG_SECTION, "unknown_roms_path")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", DEFAULT_UNKNOWN_ROMS_PATH)
+            self.unknown_roms_path = DEFAULT_UNKNOWN_ROMS_PATH
         try:
             self.show_games_i_have = self.config.getboolean(DEFAULT_CFG_SECTION, "show_games_i_have")
         except NoOptionError:
@@ -87,8 +94,10 @@ class Config():
             return self.review_url
         if option == "check_images_crc":
             return self.check_images_crc
-        if option == "games_on_disk_path":
-            return self.games_on_disk_path
+        if option == "roms_path":
+            return self.roms_path
+        if option == "unknown_roms_path":
+            return self.unknown_roms_path
         if option == "show_games_i_have":
             return self.show_games_i_have
         if option == "show_games_i_dont_have":
@@ -100,8 +109,10 @@ class Config():
             return DEFAULT_REVIEW_URL
         if option == "check_images_crc":
             return DEFAULT_CHECK_IMAGES_CRC
-        if option == "games_on_disk_path":
-            return DEFAULT_GAMES_ON_DISK_PATH
+        if option == "roms_path":
+            return DEFAULT_ROMS_PATH
+        if option == "unknown_roms_path":
+            return DEFAULT_UNKNOWN_ROMS_PATH
         if option == "show_games_i_have":
             return DEFAULT_SHOW_GAMES_I_HAVE
         if option == "show_games_i_dont_have":
@@ -113,8 +124,10 @@ class Config():
             self.review_url = value
         elif option == "check_images_crc":
             self.check_images_crc = value
-        elif option == "games_on_disk_path":
-            self.games_on_disk_path = value
+        elif option == "roms_path":
+            self.roms_path = value
+        elif option == "unknown_roms_path":
+            self.unknown_roms_path = value
         elif option == "show_games_i_have":
             self.show_games_i_have = value
         elif option == "show_games_i_dont_have":
@@ -127,8 +140,10 @@ class Config():
             self.review_url = DEFAULT_REVIEW_URL
         elif option == "check_images_crc":
             self.check_images_crc = DEFAULT_CHECK_IMAGES_CRC
-        elif option == "games_on_disk_path":
-            self.games_on_disk_path = DEFAULT_GAMES_ON_DISK_PATH
+        elif option == "roms_path":
+            self.roms_path = DEFAULT_ROMS_PATH
+        elif option == "unknown_roms_path":
+            self.unknown_roms_path = DEFAULT_UNKNOWN_ROMS_PATH
         elif option == "show_games_i_have":
             self.show_games_i_have = DEFAULT_SHOW_GAMES_I_HAVE
         elif option == "show_games_i_dont_have":
@@ -137,11 +152,14 @@ class Config():
             raise Exception
     
     def save(self):
-        self.config.set(DEFAULT_CFG_SECTION, "show_games_i_dont_have", str(self.show_games_i_dont_have))
-        self.config.set(DEFAULT_CFG_SECTION, "show_games_i_have", str(self.show_games_i_have))
-        self.config.set(DEFAULT_CFG_SECTION, "games_on_disk_path", self.games_on_disk_path)
-        self.config.set(DEFAULT_CFG_SECTION, "review_url", self.review_url)
-        self.config.set(DEFAULT_CFG_SECTION, "check_images_crc", str(self.check_images_crc))
+        config = SafeConfigParser()
+        config.add_section(DEFAULT_CFG_SECTION)
+        config.set(DEFAULT_CFG_SECTION, "show_games_i_dont_have", str(self.show_games_i_dont_have))
+        config.set(DEFAULT_CFG_SECTION, "show_games_i_have", str(self.show_games_i_have))
+        config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", self.unknown_roms_path)
+        config.set(DEFAULT_CFG_SECTION, "roms_path", self.roms_path)
+        config.set(DEFAULT_CFG_SECTION, "review_url", self.review_url)
+        config.set(DEFAULT_CFG_SECTION, "check_images_crc", str(self.check_images_crc))
         cfg = open(CFG_FILE, "w")
-        self.config.write(cfg)
+        config.write(cfg)
         cfg.flush()

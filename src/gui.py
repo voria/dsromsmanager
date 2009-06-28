@@ -65,7 +65,8 @@ class Gui(threading.Thread):
 		self.options_games_check_ok_menuitem = self.builder.get_object("options_games_check_ok_menuitem")
 		self.options_games_check_no_menuitem = self.builder.get_object("options_games_check_no_menuitem")
 		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
-		self.options_games_path_filechooserbutton = self.builder.get_object("options_games_path_filechooserbutton")
+		self.options_roms_path_filechooserbutton = self.builder.get_object("options_roms_path_filechooserbutton")
+		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
 		self.options_review_url_entry = self.builder.get_object("options_review_url_entry")
 		self.options_ok_button = self.builder.get_object("options_ok_button")
 		self.options_cancel_button = self.builder.get_object("options_cancel_button")
@@ -673,21 +674,26 @@ class Gui(threading.Thread):
 	
 	def on_options_toolbutton_clicked(self, menuitem):
 		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
-		self.options_games_path_filechooserbutton.set_current_folder(config.get_option("games_on_disk_path"))
+		self.options_roms_path_filechooserbutton.set_current_folder(config.get_option("roms_path"))
+		self.options_unknown_roms_path_filechooserbutton.set_current_folder(config.get_option("unknown_roms_path"))
 		self.options_review_url_entry.set_text(config.get_option("review_url"))
 		self.options_dialog.show()
 	
 	def on_options_dialog_response(self, dialog, response_id):
 		if response_id == 0: # ok
 			config.set_option("check_images_crc", self.options_check_images_crc_checkbutton.get_active())
+			
 			text = self.options_review_url_entry.get_text()
 			if len(text) != 0:
 				config.set_option("review_url", text)
 			else:
 				config.set_option_default("review_url")
-			old_games_on_disk_path = config.get_option("games_on_disk_path")
-			config.set_option("games_on_disk_path", self.options_games_path_filechooserbutton.get_current_folder())
-			if config.get_option("games_on_disk_path") != old_games_on_disk_path:
+				
+			config.set_option("unknown_roms_path", self.options_unknown_roms_path_filechooserbutton.get_current_folder())
+			
+			old_roms_path = config.get_option("roms_path")
+			config.set_option("roms_path", self.options_roms_path_filechooserbutton.get_current_folder())
+			if config.get_option("roms_path") != old_roms_path:
 				# we need to recheck for games on disk, because path has changed
 				self.add_games(False)
 			
@@ -768,9 +774,9 @@ class Gui(threading.Thread):
 			else:
 				text = _("%d games in list") % self.gamesnumber
 			if self.gamesnumber_ihave > 0:
-				text += _(" - %d found") % self.gamesnumber_ihave
+				text += _(" - %d available") % self.gamesnumber_ihave
 			if self.gamesnumber_idonthave > 0:
-				text += _(" - %d missed") % self.gamesnumber_idonthave
+				text += _(" - %d not available") % self.gamesnumber_idonthave
 		else:
 			text = _("No games in list")
 		
@@ -849,12 +855,12 @@ class Gui(threading.Thread):
 		self.update_statusbar("Games", _("Checking games on disk..."), first_time)
 		
 		paths_to_check = []
-		paths_to_check.append(config.get_option("games_on_disk_path"))
+		paths_to_check.append(config.get_option("roms_path"))
 		
 		while len(paths_to_check) != 0:
 			next_path = paths_to_check[0]
 			for file in glob.iglob(os.path.join(next_path, "*")):
-				if os.path.isdir(file):
+				if os.path.isdir(file) and file != config.get_option("unknown_roms_path"):
 					paths_to_check.append(file)
 				if file[len(file)-4:].lower() == ".zip":
 					crc = get_crc32_zip(file)
