@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-28 17:41+0200\n"
+"POT-Creation-Date: 2009-06-28 22:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,71 +16,71 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/downloaders.py:70
+#: ../src/downloaders.py:49
 msgid "Searching for a new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:76
+#: ../src/downloaders.py:55
 msgid "New DAT file available!"
 msgstr ""
 
-#: ../src/downloaders.py:89
+#: ../src/downloaders.py:68
 msgid "Loading the new DAT file and creating database..."
 msgstr ""
 
-#: ../src/downloaders.py:91 ../src/drm.py:75
+#: ../src/downloaders.py:70 ../src/drm.py:75
 msgid "Database created."
 msgstr ""
 
-#: ../src/downloaders.py:94
+#: ../src/downloaders.py:73
 msgid "DAT file is up to date."
 msgstr ""
 
-#: ../src/downloaders.py:96
+#: ../src/downloaders.py:75
 msgid "Can't download DAT version file!"
 msgstr ""
 
-#: ../src/downloaders.py:115
+#: ../src/downloaders.py:94
 msgid "Downloading the new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:123
+#: ../src/downloaders.py:102
 msgid "Can't download DAT!"
 msgstr ""
 
-#: ../src/downloaders.py:126
+#: ../src/downloaders.py:105
 msgid "Unzipping the new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:163
+#: ../src/downloaders.py:142
 #, python-format
 msgid "Error while downloading image 1 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:176
+#: ../src/downloaders.py:155
 #, python-format
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:194
+#: ../src/downloaders.py:173
 msgid "Downloading all images..."
 msgstr ""
 
-#: ../src/downloaders.py:211
+#: ../src/downloaders.py:190
 #, python-format
 msgid "Checking images integrity for '%s'..."
 msgstr ""
 
-#: ../src/downloaders.py:218
+#: ../src/downloaders.py:197
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr ""
 
-#: ../src/downloaders.py:241
+#: ../src/downloaders.py:220
 msgid "Download of all images stopped."
 msgstr ""
 
-#: ../src/downloaders.py:243
+#: ../src/downloaders.py:222
 msgid "Download of all images completed."
 msgstr ""
 
@@ -110,6 +110,15 @@ msgstr ""
 
 #: ../src/drm.py:82
 msgid "Database loaded."
+msgstr ""
+
+#: ../src/files.py:81
+#, python-format
+msgid "Rebuilding archive for '%s'..."
+msgstr ""
+
+#: ../src/files.py:123
+msgid "Rebuild completed."
 msgstr ""
 
 #: ../src/globals.py:61
@@ -212,99 +221,108 @@ msgstr ""
 msgid "South Korea"
 msgstr ""
 
-#: ../src/gui.py:132 ../src/gui.py:373
+#: ../src/gui.py:134 ../src/gui.py:394
 msgid "Hide"
 msgstr ""
 
-#: ../src/gui.py:138
+#: ../src/gui.py:140
 msgid "Update DAT"
 msgstr ""
 
-#: ../src/gui.py:142
+#: ../src/gui.py:144
 msgid "Download all images"
 msgstr ""
 
-#: ../src/gui.py:146
+#: ../src/gui.py:148 drm.glade.h:17
+msgid "Rebuild archives"
+msgstr ""
+
+#: ../src/gui.py:154
 msgid "Reviews"
 msgstr ""
 
-#: ../src/gui.py:152 drm.glade.h:15
+#: ../src/gui.py:160 drm.glade.h:15
 msgid "Options"
 msgstr ""
 
-#: ../src/gui.py:158
+#: ../src/gui.py:166
 msgid "About"
 msgstr ""
 
-#: ../src/gui.py:164
+#: ../src/gui.py:172
 msgid "Quit"
 msgstr ""
 
-#: ../src/gui.py:197
+#: ../src/gui.py:207
 msgid "Found"
 msgstr ""
 
-#: ../src/gui.py:199
+#: ../src/gui.py:209
 msgid "Region"
 msgstr ""
 
-#: ../src/gui.py:204
+#: ../src/gui.py:214
 msgid "Name"
 msgstr ""
 
-#: ../src/gui.py:214 ../src/gui.py:225 ../src/gui.py:237
+#: ../src/gui.py:224 ../src/gui.py:235 ../src/gui.py:247
 msgid "All"
 msgstr ""
 
-#: ../src/gui.py:368
+#: ../src/gui.py:389
 msgid "Show"
 msgstr ""
 
-#: ../src/gui.py:470
+#: ../src/gui.py:494
 msgid "Duplicates:"
 msgstr ""
 
-#: ../src/gui.py:475
+#: ../src/gui.py:499
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:773
+#: ../src/gui.py:815
 #, python-format
 msgid "%d game in list"
 msgstr ""
 
-#: ../src/gui.py:775
+#: ../src/gui.py:817
 #, python-format
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:777
+#: ../src/gui.py:819
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:779
+#: ../src/gui.py:821
+#, python-format
+msgid " - %d to be fixed"
+msgstr ""
+
+#: ../src/gui.py:823
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:781 drm.glade.h:13
+#: ../src/gui.py:825 drm.glade.h:13
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:827
+#: ../src/gui.py:890
 msgid "Stop download. (Ctrl+D)"
 msgstr ""
 
-#: ../src/gui.py:855
+#: ../src/gui.py:918
 msgid "Checking games on disk..."
 msgstr ""
 
-#: ../src/gui.py:872
+#: ../src/gui.py:947
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:878
+#: ../src/gui.py:953
 msgid "Games list loaded."
 msgstr ""
 
@@ -364,7 +382,13 @@ msgstr ""
 msgid "Publisher:"
 msgstr ""
 
-#: drm.glade.h:17
+#: drm.glade.h:18
+msgid ""
+"Rebuild wrong roms archives, according to informations from DAT file. (Ctrl"
+"+F)"
+msgstr ""
+
+#: drm.glade.h:19
 msgid ""
 "Released under GPL3 terms\n"
 "\n"
@@ -373,59 +397,59 @@ msgid ""
 "vorione@gmail.com"
 msgstr ""
 
-#: drm.glade.h:22
+#: drm.glade.h:24
 msgid "Review URL:"
 msgstr ""
 
-#: drm.glade.h:23
+#: drm.glade.h:25
 msgid "Roms path:"
 msgstr ""
 
-#: drm.glade.h:24
+#: drm.glade.h:26
 msgid "Save:"
 msgstr ""
 
-#: drm.glade.h:25
+#: drm.glade.h:27
 msgid "Search reviews for the selected game. (Ctrl+R)"
 msgstr ""
 
-#: drm.glade.h:26
+#: drm.glade.h:28
 msgid "Select a directory"
 msgstr ""
 
-#: drm.glade.h:27
+#: drm.glade.h:29
 msgid "Set here the directory where the roms are stored"
 msgstr ""
 
-#: drm.glade.h:28
+#: drm.glade.h:30
 msgid "Set here the directory where to move unknown roms"
 msgstr ""
 
-#: drm.glade.h:29
+#: drm.glade.h:31
 msgid "Show available games"
 msgstr ""
 
-#: drm.glade.h:30
+#: drm.glade.h:32
 msgid "Show informations about 'DsRomsManager'. (Ctrl+A)"
 msgstr ""
 
-#: drm.glade.h:31
+#: drm.glade.h:33
 msgid "Show not available games"
 msgstr ""
 
-#: drm.glade.h:32
+#: drm.glade.h:34
 msgid "Size:"
 msgstr ""
 
-#: drm.glade.h:33
+#: drm.glade.h:35
 msgid "Source:"
 msgstr ""
 
-#: drm.glade.h:34
+#: drm.glade.h:36
 msgid "Unknown roms path:"
 msgstr ""
 
-#: drm.glade.h:35
+#: drm.glade.h:37
 msgid ""
 "Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
 "search URL.\n"
@@ -436,38 +460,38 @@ msgid ""
 "Set an empty string to use the default URL."
 msgstr ""
 
-#: drm.glade.h:41
+#: drm.glade.h:43
 msgid "_About"
 msgstr ""
 
-#: drm.glade.h:42
+#: drm.glade.h:44
 msgid "_Clear"
 msgstr ""
 
-#: drm.glade.h:43
+#: drm.glade.h:45
 msgid "_Download all images"
 msgstr ""
 
-#: drm.glade.h:44
+#: drm.glade.h:46
 msgid "_Options"
 msgstr ""
 
-#: drm.glade.h:45
+#: drm.glade.h:47
 msgid "_Reviews"
 msgstr ""
 
-#: drm.glade.h:46
+#: drm.glade.h:48
 msgid "_Update DAT"
 msgstr ""
 
-#: drm.glade.h:47
+#: drm.glade.h:49
 msgid "gtk-cancel"
 msgstr ""
 
-#: drm.glade.h:48
+#: drm.glade.h:50
 msgid "gtk-ok"
 msgstr ""
 
-#: drm.glade.h:49
+#: drm.glade.h:51
 msgid "http://www.voria.org"
 msgstr ""
