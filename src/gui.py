@@ -64,11 +64,13 @@ class Gui(threading.Thread):
 		self.rebuild_roms_archives_toolbutton = self.builder.get_object("rebuild_roms_archives_toolbutton")
 		self.show_review_toolbutton = self.builder.get_object("show_review_toolbutton")
 		self.options_toolbutton = self.builder.get_object("options_toolbutton")
-		self.options_games_check_ok_checkbutton = self.builder.get_object("options_games_check_ok_checkbutton")
-		self.options_games_check_no_checkbutton = self.builder.get_object("options_games_check_no_checkbutton")
+		self.games_check_ok_checkbutton = self.builder.get_object("games_check_ok_checkbutton")
+		self.games_check_no_checkbutton = self.builder.get_object("games_check_no_checkbutton")
+		self.games_check_warn_checkbutton = self.builder.get_object("games_check_warn_checkbutton")
 		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
 		self.options_roms_path_filechooserbutton = self.builder.get_object("options_roms_path_filechooserbutton")
 		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
+		self.options_new_roms_path_filechooserbutton = self.builder.get_object("options_new_roms_path_filechooserbutton")
 		self.options_review_url_entry = self.builder.get_object("options_review_url_entry")
 		self.options_ok_button = self.builder.get_object("options_ok_button")
 		self.options_cancel_button = self.builder.get_object("options_cancel_button")
@@ -250,8 +252,9 @@ class Gui(threading.Thread):
 		self.filter_size_combobox.set_active(0)
 		
 		# Set games checks filters
-		self.options_games_check_ok_checkbutton.set_active(config.get_option("show_games_i_have"))
-		self.options_games_check_no_checkbutton.set_active(config.get_option("show_games_i_dont_have"))
+		self.games_check_ok_checkbutton.set_active(config.get_option("show_available_games"))
+		self.games_check_no_checkbutton.set_active(config.get_option("show_not_available_games"))
+		self.games_check_warn_checkbutton.set_active(config.get_option("show_fixable_games"))
 		
 		# Connect signals
 		self.main_window.connect("delete_event", self.on_main_window_delete_event)
@@ -266,8 +269,9 @@ class Gui(threading.Thread):
 		self.about_dialog.connect("response", self.on_about_dialog_response)
 		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
-		self.options_games_check_ok_checkbutton.connect("toggled", self.on_options_games_check_ok_checkbutton_toggled)
-		self.options_games_check_no_checkbutton.connect("toggled", self.on_options_games_check_no_checkbutton_toggled)
+		self.games_check_ok_checkbutton.connect("toggled", self.on_games_check_ok_checkbutton_toggled)
+		self.games_check_no_checkbutton.connect("toggled", self.on_games_check_no_checkbutton_toggled)
+		self.games_check_warn_checkbutton.connect("toggled", self.on_games_check_warn_checkbutton_toggled)
 		# We need signal id for the following signals
 		self.fne_sid = self.filter_name_entry.connect("changed",self.on_filter_triggered)
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
@@ -280,10 +284,13 @@ class Gui(threading.Thread):
 		self.quitting = False # Are we quitting?
 		
 		self.db = None
+		
 		self.gamesnumber = 0
-		self.gamesnumber_ihave = 0
-		self.gamesnumber_fixable = 0
-		self.gamesnumber_idonthave = 0
+		self.gamesnumber_available = 0
+		self.gamesnumber_not_available = 0
+		self.gamesnumber_fixable = 0 # Only fixable games showed in treeview
+		self.gamesnumber_to_be_fixed = 0 # All fixable games
+		
 		self.dirty_gameslist = False
 		
 		self.checksums = {}	
@@ -298,6 +305,9 @@ class Gui(threading.Thread):
 	
 	def __add_game_to_list(self, game, anyway = False):
 		""" Add 'game' in treeview """
+		if self.quitting == True:
+			return
+		
 		relnum = game[GAME_RELEASE_NUMBER]
 		title = game[GAME_TITLE]
 		region = game[GAME_LOCATION_INDEX]
@@ -305,23 +315,29 @@ class Gui(threading.Thread):
 		flag = self.flags[countries_short.keys().index(region)]
 
 		if self.checksums[crc] != None: # we have the game
-			if anyway == True or self.options_games_check_ok_checkbutton.get_active() == True:
+			if anyway or self.games_check_ok_checkbutton.get_active() or self.games_check_warn_checkbutton.get_active():
 				disk_filename = self.checksums[crc].split(os.sep)
 				disk_filename = disk_filename[len(disk_filename)-1]
 				db_filename = game[GAME_FULLINFO] + disk_filename[len(disk_filename)-4:]
 				nds_filename = game[GAME_FULLINFO] + ".nds"
 				if disk_filename == db_filename and get_nds_filename_from_zip(self.checksums[crc]) == nds_filename:
 					check = self.checks[CHECKS_YES]
+					if self.games_check_ok_checkbutton.get_active():
+						self.gamesnumber_available += 1
+					else:
+						return
 				else:
 					check = self.checks[CHECKS_WARN]
-					self.gamesnumber_fixable += 1
-				self.gamesnumber_ihave += 1
+					if self.games_check_warn_checkbutton.get_active():
+						self.gamesnumber_fixable += 1
+					else:
+						return
 			else:
 				return
 		else:
-			if anyway == True or self.options_games_check_no_checkbutton.get_active() == True:
+			if anyway or self.games_check_no_checkbutton.get_active():
 				check = self.checks[CHECKS_NO]
-				self.gamesnumber_idonthave += 1
+				self.gamesnumber_not_available += 1
 			else:
 				return
 			
@@ -334,9 +350,9 @@ class Gui(threading.Thread):
 			return
 		self.list_treeview_model.clear()
 		self.gamesnumber = 0
-		self.gamesnumber_ihave = 0
+		self.gamesnumber_available = 0
 		self.gamesnumber_fixable = 0
-		self.gamesnumber_idonthave = 0
+		self.gamesnumber_not_available = 0
 		for game in reversed(games):
 			self.__add_game_to_list(game)
 		self.update_list_game_label()
@@ -365,12 +381,16 @@ class Gui(threading.Thread):
 	
 	def __hide_infos(self):
 		""" Hide game's info """
+		if self.quitting == True:
+			return
 		self.images_hbox.hide()
 		self.info_title_label.hide()
 		self.info_label_vbox.hide()
 	
 	def __show_infos(self):
 		""" Show game's info """
+		if self.quitting == True:
+			return
 		self.images_hbox.show()
 		self.info_title_label.show()
 		self.info_label_vbox.show()
@@ -623,15 +643,27 @@ class Gui(threading.Thread):
 	def on_rebuild_roms_archives_toolbutton_clicked(self, button):
 		self.on_filter_clear_button_clicked(self.filter_clear_button)
 		
-		# Get a dictionary of all the games to be fixed
-		games = self.get_games_to_be_fixed()
-		
-		if len(games) == 0: # Nothing to do
-			return
-		
-		rar = RomArchiveRebuild(self, games)
-		self.threads.append(rar)
-		rar.start()
+		if button.get_stock_id() == gtk.STOCK_DIALOG_WARNING:
+			if self.gamesnumber_to_be_fixed == 0: # Nothing to do
+				return
+			# Get a dictionary of all the games to be fixed
+			games = self.get_games_to_be_fixed()
+			
+			widgets = [] # widgets that need to be disabled while updating
+			widgets.append(self.dat_update_toolbutton)
+			widgets.append(self.dat_update_menuitem)
+			
+			rar = RomArchivesRebuild(self, widgets, games)
+			self.threads.append(rar)
+			rar.start()
+		else: # Stop thread
+			self.update_statusbar("RomArchivesRebuild", _("Waiting while the current job is finished..."), False)
+			self.rebuild_roms_archives_toolbutton.set_sensitive(False)
+			self.rebuild_roms_archives_menuitem.set_sensitive(False)
+			for thread in self.threads:
+				if thread.isAlive() and thread.getName() == "RomArchivesRebuild":
+					thread.stop()
+					break
 	
 	def on_filter_triggered(self, widget):
 		""" Filter list """
@@ -701,18 +733,23 @@ class Gui(threading.Thread):
 			self.filter_location_combobox.handler_unblock(self.flocc_sid)
 			self.filter_language_combobox.handler_unblock(self.flanc_sid)
 	
-	def on_options_games_check_ok_checkbutton_toggled(self, widget):
-		config.set_option("show_games_i_have", widget.get_active())
+	def on_games_check_ok_checkbutton_toggled(self, widget):
+		config.set_option("show_available_games", widget.get_active())
 		self.__filter()
 	
-	def on_options_games_check_no_checkbutton_toggled(self, widget):
-		config.set_option("show_games_i_dont_have", widget.get_active())
+	def on_games_check_no_checkbutton_toggled(self, widget):
+		config.set_option("show_not_available_games", widget.get_active())
+		self.__filter()
+	
+	def on_games_check_warn_checkbutton_toggled(self, widget):
+		config.set_option("show_fixable_games", widget.get_active())
 		self.__filter()
 	
 	def on_options_toolbutton_clicked(self, menuitem):
 		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
 		self.options_roms_path_filechooserbutton.set_current_folder(config.get_option("roms_path"))
 		self.options_unknown_roms_path_filechooserbutton.set_current_folder(config.get_option("unknown_roms_path"))
+		self.options_new_roms_path_filechooserbutton.set_current_folder(config.get_option("new_roms_path"))
 		self.options_review_url_entry.set_text(config.get_option("review_url"))
 		self.options_dialog.show()
 	
@@ -729,6 +766,7 @@ class Gui(threading.Thread):
 			config.set_option("unknown_roms_path", self.options_unknown_roms_path_filechooserbutton.get_current_folder())
 			
 			old_roms_path = config.get_option("roms_path")
+			config.set_option("new_roms_path", self.options_new_roms_path_filechooserbutton.get_current_folder())
 			config.set_option("roms_path", self.options_roms_path_filechooserbutton.get_current_folder())
 			if config.get_option("roms_path") != old_roms_path:
 				# we need to recheck for games on disk, because path has changed
@@ -762,6 +800,9 @@ class Gui(threading.Thread):
 		self.show_review_menuitem.set_sensitive(False)
 		self.options_toolbutton.set_sensitive(False)
 		self.options_menuitem.set_sensitive(False)
+		self.games_check_ok_checkbutton.set_sensitive(False)
+		self.games_check_no_checkbutton.set_sensitive(False)
+		self.games_check_warn_checkbutton.set_sensitive(False)
 		self.filter_name_entry.set_sensitive(False)
 		self.filter_clear_button.set_sensitive(False)
 		self.filter_location_combobox.set_sensitive(False)
@@ -772,16 +813,19 @@ class Gui(threading.Thread):
 		""" Enable all widgets' sensitiveness """
 		if self.quitting == True:
 			return
+		if self.gamesnumber_to_be_fixed > 0:
+			self.rebuild_roms_archives_toolbutton.set_sensitive(True)
+			self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		self.list_treeview.set_sensitive(True)
 		self.dat_update_toolbutton.set_sensitive(True)
 		self.dat_update_menuitem.set_sensitive(True)
 		self.all_images_download_toolbutton.set_sensitive(True)
 		self.all_images_download_menuitem.set_sensitive(True)
-		if len(self.get_games_to_be_fixed()) > 0:
-			self.rebuild_roms_archives_toolbutton.set_sensitive(True)
-			self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		self.options_toolbutton.set_sensitive(True)
 		self.options_menuitem.set_sensitive(True)
+		self.games_check_ok_checkbutton.set_sensitive(True)
+		self.games_check_no_checkbutton.set_sensitive(True)
+		self.games_check_warn_checkbutton.set_sensitive(True)
 		self.filter_name_entry.set_sensitive(True)
 		self.filter_clear_button.set_sensitive(True)
 		self.filter_location_combobox.set_sensitive(True)
@@ -815,12 +859,12 @@ class Gui(threading.Thread):
 				text = _("%d game in list") % self.gamesnumber
 			else:
 				text = _("%d games in list") % self.gamesnumber
-			if self.gamesnumber_ihave > 0:
-				text += _(" - %d available") % self.gamesnumber_ihave
+			if self.gamesnumber_available > 0:
+				text += _(" - %d available") % self.gamesnumber_available
 			if self.gamesnumber_fixable > 0:
 				text += _(" - %d to be fixed") % self.gamesnumber_fixable
-			if self.gamesnumber_idonthave > 0:
-				text += _(" - %d not available") % self.gamesnumber_idonthave
+			if self.gamesnumber_not_available > 0:
+				text += _(" - %d not available") % self.gamesnumber_not_available
 		else:
 			text = _("No games in list")
 		
@@ -864,6 +908,9 @@ class Gui(threading.Thread):
 		all the games that need to be fixed """
 		# Dictionary of all the games to be fixed
 		games = {}
+		if self.quitting == True:
+			return games
+		
 		iter = self.list_treeview_model.get_iter_first()
 		while iter != None:
 			if self.list_treeview_model.get_value(iter, TVC_CHECK) == self.checks[CHECKS_WARN]:
@@ -887,13 +934,33 @@ class Gui(threading.Thread):
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_MENU))
 			self.old_aidt_tooltip_text = self.all_images_download_toolbutton.get_tooltip_text()
-			self.all_images_download_toolbutton.set_tooltip_text(_("Stop download. (Ctrl+D)"))
+			self.all_images_download_toolbutton.set_tooltip_text(_("Stop download.") + " (Ctrl+D)")
 		else:
 			# restore original button
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
 			self.all_images_download_toolbutton.set_tooltip_text(self.old_aidt_tooltip_text)
 		gtk.gdk.threads_leave()
+	
+	def toggle_rebuild_roms_archives_toolbutton(self):
+		if self.quitting == True:
+			return
+		gtk.gdk.threads_enter()
+		if self.rebuild_roms_archives_toolbutton.get_stock_id() == gtk.STOCK_DIALOG_WARNING:
+			# switch to cancel button
+			self.rebuild_roms_archives_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
+			self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_MENU))
+			self.old_rrat_tooltip_text = self.rebuild_roms_archives_toolbutton.get_tooltip_text()
+			self.rebuild_roms_archives_toolbutton.set_tooltip_text(_("Stop rebuild.") + " (Ctrl+F)")
+			self.rebuild_roms_archives_toolbutton.set_sensitive(True)
+			self.rebuild_roms_archives_menuitem.set_sensitive(True)
+		else:
+			# restore original button
+			self.rebuild_roms_archives_toolbutton.set_stock_id(gtk.STOCK_DIALOG_WARNING)
+			self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_MENU))
+			self.rebuild_roms_archives_toolbutton.set_tooltip_text(self.old_rrat_tooltip_text)
+		gtk.gdk.threads_leave()
+		
 	
 	def open_db(self):
 		""" Open database """
@@ -918,22 +985,29 @@ class Gui(threading.Thread):
 		self.update_statusbar("Games", _("Checking games on disk..."), threads)
 		
 		# check in 'unknown_roms_path' directory for new roms.
-		# If found, move them in 'roms_path' directory.
+		# If found, move them in 'new_roms_path' directory.
 		for file in glob.iglob(os.path.join(config.get_option("unknown_roms_path"), "*")):
 			if file[len(file)-4:].lower() == ".zip":
 				crc = get_crc32_zip(file)
 				if crc != None and crc in self.checksums:
-					shutil.move(file, config.get_option("roms_path"))	  
+					shutil.move(file, config.get_option("new_roms_path"))	  
 		
 		# recursively check games in 'roms_path' directory.
 		# unknown roms are moved in 'unknown_roms_path' directory. 
 		paths_to_check = []
 		paths_to_check.append(config.get_option("roms_path"))
+		paths_to_check.append(config.get_option("new_roms_path"))
 		while len(paths_to_check) != 0:
 			next_path = paths_to_check[0]
 			for file in glob.iglob(os.path.join(next_path, "*")):
 				if os.path.isdir(file) and file != config.get_option("unknown_roms_path"):
-					paths_to_check.append(file)
+					addpath = True
+					for path in paths_to_check:
+						if path == file:
+							addpath = False
+							break
+					if addpath:
+						paths_to_check.append(file)
 				if file[len(file)-4:].lower() == ".zip":
 					crc = get_crc32_zip(file)
 					if crc != None:
@@ -950,18 +1024,25 @@ class Gui(threading.Thread):
 		except:
 			self.open_db()
 			self.__update_list(self.db.get_all_games())
+			
+		# Count games to be fixed
+		self.gamesnumber_to_be_fixed = len(self.get_games_to_be_fixed())
+		
 		self.update_statusbar("Games", _("Games list loaded."), threads)
+		
 		self.activate_widgets()
+		
 		# Clear up all filter
-		self.filter_name_entry.handler_block(self.fne_sid)
-		self.filter_location_combobox.handler_block(self.flocc_sid)
-		self.filter_language_combobox.handler_block(self.flanc_sid)
-		self.filter_size_combobox.handler_block(self.fsc_sid)
-		self.filter_clear_button.clicked()
-		self.filter_name_entry.handler_unblock(self.fne_sid)
-		self.filter_location_combobox.handler_unblock(self.flocc_sid)
-		self.filter_language_combobox.handler_unblock(self.flanc_sid)
-		self.filter_size_combobox.handler_unblock(self.fsc_sid)
+		if self.quitting == False:		
+			self.filter_name_entry.handler_block(self.fne_sid)
+			self.filter_location_combobox.handler_block(self.flocc_sid)
+			self.filter_language_combobox.handler_block(self.flanc_sid)
+			self.filter_size_combobox.handler_block(self.fsc_sid)
+			self.filter_clear_button.clicked()
+			self.filter_name_entry.handler_unblock(self.fne_sid)
+			self.filter_location_combobox.handler_unblock(self.flocc_sid)
+			self.filter_language_combobox.handler_unblock(self.flanc_sid)
+			self.filter_size_combobox.handler_unblock(self.fsc_sid)
 		
 		# Hide old infos
 		self.__hide_infos()

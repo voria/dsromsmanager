@@ -1,8 +1,16 @@
-drm (0.3+bzr80) jaunty; urgency=low
+drm (0.4) jaunty; urgency=low
 
-  * Update to bazaar revision 80.
+  * Big rewrite of application (mainly on database).
+    Now used RAM is greatly decreased, due to the fact that
+    the database on disk is used. In addition, DAT file is only
+    parsed once, when downloaded/updated.
+  * Cliking on game title below images will cycle through duplicates games.
+  * Add a config file, saved in working directory.
+  * Add option menu, with the ability to customize URL for games reviews.
+  * Add support for internationalization.
+  * Manage games on hard disk (finally). 
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 26 Jun 2009 01:25:11 +0200
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 01:01:24 +0200
 
 drm (0.3) jaunty; urgency=low
 

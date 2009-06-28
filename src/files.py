@@ -59,31 +59,38 @@ def get_nds_filename_from_zip(zipfile):
     zip.close()
     return result
 
-class RomArchiveRebuild(threading.Thread):
+class RomArchivesRebuild(threading.Thread):
     """ Rebuild zip archive for games listed in 'games' dictionary """
-    def __init__(self, gui, games):
-        threading.Thread.__init__(self, name="RomArchiveRebuild")
+    def __init__(self, gui, widgets, games):
+        threading.Thread.__init__(self, name="RomArchivesRebuild")
         self.gui = gui
+        self.widgets = widgets
         self.games = games
         self.games_to_fix = len(games)
         self.games_fixed = 0
         self.stopnow = False
     
     def run(self):
-        # Deactivate all widgets
-        self.gui.deactivate_widgets()
+        # Deactivate widgets
+        for widget in self.widgets:
+            widget.set_sensitive(False)
+            
+        #self.gui.deactivate_widgets()
+        self.gui.toggle_rebuild_roms_archives_toolbutton()
         try:
             for key in self.games.keys():
                 if self.stopnow == True:
                     return
                 self.games_fixed += 1
                 text = " (%d/%d): " % (self.games_fixed, self.games_to_fix)  
-                self.gui.update_statusbar("RomArchiveRebuild", text + _("Rebuilding archive for '%s'...") % key)
+                self.gui.update_statusbar("RomArchivesRebuild", text + _("Rebuilding archive for '%s'...") % key)
+                
+                newzipname = key + ".zip"
+                newndsname = key + ".nds"
                 oldzipfile = self.games[key]
-                zipdir = oldzipfile.rsplit(os.sep, 1)[0]
-                zipfile = os.path.join(zipdir, key + ".zip")
-                ndsname = key + ".nds"
-                ndsfile = os.path.join(zipdir, ndsname)
+                dir = oldzipfile.rsplit(os.sep, 1)[0]
+                newzipfile = os.path.join(dir, newzipname)
+                newndsfile = os.path.join(dir, newndsname)
                 
                 zip = ZipFile(oldzipfile, "r")
                 
@@ -94,10 +101,10 @@ class RomArchiveRebuild(threading.Thread):
                 
                 info = zip.infolist()[0]
                 oldndsname = info.filename
-                oldndsfile = os.path.join(zipdir, oldndsname)
-                if oldndsname == ndsname:
+                oldndsfile = os.path.join(dir, oldndsname)
+                if oldndsname == newndsname:
                     # nds name is ok, check zip name
-                    if oldzipfile == zipfile:
+                    if oldzipfile == newzipfile:
                         # Nothing to do
                         zip.close()
                         continue
@@ -108,19 +115,28 @@ class RomArchiveRebuild(threading.Thread):
                         continue
                 
                 # Extract the nds file and rename it
-                zip.extract(info, zipdir)
-                shutil.move(oldndsfile, ndsfile)
+                zip.extract(info, dir)
+                shutil.move(oldndsfile, newndsfile)
                 # Delete old zip file
                 zip.close()
                 os.remove(oldzipfile)
                 # Create a new zip file
-                zip = ZipFile(zipfile, "w")
-                zip.write(ndsfile, ndsname)
+                zip = ZipFile(newzipfile, "w")
+                zip.write(newndsfile, newndsname)
                 zip.close()
                 # Remove nds file
-                os.remove(ndsfile)
+                os.remove(newndsfile)
+        except:
+            self.gui.update_statusbar("RomArchivesRebuild", _("Error while rebuilding archive for '%s'!") % key)
+            raise
         finally:
-            self.gui.update_statusbar("RomArchiveRebuild", _("Rebuild completed."))
+            if self.stopnow == True:
+                self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild stopped."))
+            else:
+                self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild completed."))
+            # restore original button
+            self.gui.toggle_rebuild_roms_archives_toolbutton()
+            
             # Add games to treeview
             self.gui.add_games()
                     

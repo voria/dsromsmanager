@@ -1,3 +1,14 @@
+DsRomsManager - 0.4
+	* Big rewrite of application (mainly on database).
+	  Now used RAM is greatly decreased, due to the fact that
+	  the database on disk is used. In addition, DAT file is only
+	  parsed once, when downloaded/updated.
+	* Cliking on game title below images will cycle through duplicates games.
+	* Add a config file, saved in working directory.
+	* Add option menu, with the ability to customize URL for games reviews.
+	* Add support for internationalization.
+	* Manage games on hard disk (finally).
+		
 DsRomsManager - 0.3
 	* Do not pass gui elements to external functions.
 	  Instead, pass the gui reference and use its specific
@@ -9,17 +20,8 @@ DsRomsManager - 0.3
 	  when screen vertical resolution is < 800.
 	  When images are resized, clicking on them will open a new window
 	  containing images at original size.
-	* Cliking on game title below images will cycle through duplicates games.
-	* Big rewrite of application (mainly on database).
-	  Now used RAM is greatly decreased, due to the fact that
-	  the database on disk is used. In addition, DAT file is only
-	  parsed once, when downloaded/updated. When it's parsed, a
-	  new database is created and then used.
 	* Enable popup menu on systray icon.
 	* Fix gametitle and duplicates list.
-	* Add a config file, saved in working directory.
-	* Add option menu, with the ability to customize URL for games reviews.
-	* Add support for internationalization.
 	  
 DsRomsManager - 0.2
     

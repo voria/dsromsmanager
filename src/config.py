@@ -29,16 +29,20 @@ DEFAULT_CHECK_IMAGES_CRC = False
 DEFAULT_REVIEW_URL = "http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
 DEFAULT_ROMS_PATH = ROMS_DIR
 DEFAULT_UNKNOWN_ROMS_PATH = UNKNOWN_ROMS_DIR
-DEFAULT_SHOW_GAMES_I_HAVE = True
-DEFAULT_SHOW_GAMES_I_DONT_HAVE = True
+DEFAULT_NEW_ROMS_PATH = DEFAULT_ROMS_PATH
+DEFAULT_SHOW_AVAILABLE_GAMES = True
+DEFAULT_SHOW_NOT_AVAILABLE_GAMES = True
+DEFAULT_SHOW_FIXABLE_GAMES = True
 
 DEFAULT_CFG_FILE = "[" + DEFAULT_CFG_SECTION + "]"
 DEFAULT_CFG_FILE += "\ncheck_images_crc = " + str(DEFAULT_CHECK_IMAGES_CRC)
 DEFAULT_CFG_FILE += "\nreview_url = " + DEFAULT_REVIEW_URL
 DEFAULT_CFG_FILE += "\nroms_path = " + DEFAULT_ROMS_PATH
 DEFAULT_CFG_FILE += "\nunknown_roms_path = " + DEFAULT_UNKNOWN_ROMS_PATH
-DEFAULT_CFG_FILE += "\nshow_games_i_have = " + str(DEFAULT_SHOW_GAMES_I_HAVE)
-DEFAULT_CFG_FILE += "\nshow_games_i_dont_have = " + str(DEFAULT_SHOW_GAMES_I_DONT_HAVE)
+DEFAULT_CFG_FILE += "\nnew_roms_path = " + DEFAULT_NEW_ROMS_PATH
+DEFAULT_CFG_FILE += "\nshow_available_games = " + str(DEFAULT_SHOW_AVAILABLE_GAMES)
+DEFAULT_CFG_FILE += "\nshow_not_available_games = " + str(DEFAULT_SHOW_NOT_AVAILABLE_GAMES)
+DEFAULT_CFG_FILE += "\nshow_fixable_games = " + str(DEFAULT_SHOW_FIXABLE_GAMES)
 DEFAULT_CFG_FILE += "\n\n"
 
 class Config():
@@ -76,15 +80,25 @@ class Config():
             self.config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", DEFAULT_UNKNOWN_ROMS_PATH)
             self.unknown_roms_path = DEFAULT_UNKNOWN_ROMS_PATH
         try:
-            self.show_games_i_have = self.config.getboolean(DEFAULT_CFG_SECTION, "show_games_i_have")
+            self.new_roms_path = self.config.get(DEFAULT_CFG_SECTION, "new_roms_path")
         except NoOptionError:
-            self.config.set(DEFAULT_CFG_SECTION, "show_games_i_have", str(DEFAULT_SHOW_GAMES_I_HAVE))
-            self.show_games_i_have = DEFAULT_SHOW_GAMES_I_HAVE
+            self.config.set(DEFAULT_CFG_SECTION, "new_roms_path", DEFAULT_NEW_ROMS_PATH)
+            self.new_roms_path = DEFAULT_NEW_ROMS_PATH
         try:
-            self.show_games_i_dont_have = self.config.getboolean(DEFAULT_CFG_SECTION, "show_games_i_dont_have")
+            self.show_available_games = self.config.getboolean(DEFAULT_CFG_SECTION, "show_available_games")
         except NoOptionError:
-            self.config.set(DEFAULT_CFG_SECTION, "show_games_i_dont_have", str(DEFAULT_SHOW_GAMES_I_DONT_HAVE))
-            self.show_games_i_dont_have = DEFAULT_SHOW_GAMES_I_DONT_HAVE
+            self.config.set(DEFAULT_CFG_SECTION, "show_available_games", str(DEFAULT_SHOW_AVAILABLE_GAMES))
+            self.show_available_games = DEFAULT_SHOW_AVAILABLE_GAMES
+        try:
+            self.show_not_available_games = self.config.getboolean(DEFAULT_CFG_SECTION, "show_not_available_games")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "show_not_available_games", str(DEFAULT_SHOW_NOT_AVAILABLE_GAMES))
+            self.show_not_available_games = DEFAULT_SHOW_NOT_AVAILABLE_GAMES
+        try:
+            self.show_fixable_games = self.config.getboolean(DEFAULT_CFG_SECTION, "show_fixable_games")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "show_fixable_games", str(DEFAULT_SHOW_FIXABLE_GAMES))
+            self.show_fixable_games = DEFAULT_SHOW_FIXABLE_GAMES
 
     def get_all_options(self):
         return self.config.options(DEFAULT_CFG_SECTION)
@@ -98,10 +112,14 @@ class Config():
             return self.roms_path
         if option == "unknown_roms_path":
             return self.unknown_roms_path
-        if option == "show_games_i_have":
-            return self.show_games_i_have
-        if option == "show_games_i_dont_have":
-            return self.show_games_i_dont_have
+        if option == "new_roms_path":
+            return self.new_roms_path
+        if option == "show_available_games":
+            return self.show_available_games
+        if option == "show_not_available_games":
+            return self.show_not_available_games
+        if option == "show_fixable_games":
+            return self.show_fixable_games
         raise Exception
     
     def get_option_default(self, option):
@@ -113,10 +131,14 @@ class Config():
             return DEFAULT_ROMS_PATH
         if option == "unknown_roms_path":
             return DEFAULT_UNKNOWN_ROMS_PATH
-        if option == "show_games_i_have":
-            return DEFAULT_SHOW_GAMES_I_HAVE
-        if option == "show_games_i_dont_have":
-            return DEFAULT_SHOW_GAMES_I_DONT_HAVE
+        if option == "new_roms_path":
+            return DEFAULT_NEW_ROMS_PATH
+        if option == "show_available_games":
+            return DEFAULT_SHOW_AVAILABLE_GAMES
+        if option == "show_not_available_games":
+            return DEFAULT_SHOW_NOT_AVAILABLE_GAMES
+        if option == "show_fixable_games":
+            return DEFAULT_SHOW_FIXABLE_GAMES
         raise Exception
     
     def set_option(self, option, value):
@@ -128,10 +150,14 @@ class Config():
             self.roms_path = value
         elif option == "unknown_roms_path":
             self.unknown_roms_path = value
-        elif option == "show_games_i_have":
-            self.show_games_i_have = value
-        elif option == "show_games_i_dont_have":
-            self.show_games_i_dont_have = value
+        elif option == "new_roms_path":
+            self.new_roms_path = value
+        elif option == "show_available_games":
+            self.show_available_games = value
+        elif option == "show_not_available_games":
+            self.show_not_available_games = value
+        elif option == "show_fixable_games":
+            self.show_fixable_games = value
         else:
             raise Exception        
     
@@ -144,18 +170,24 @@ class Config():
             self.roms_path = DEFAULT_ROMS_PATH
         elif option == "unknown_roms_path":
             self.unknown_roms_path = DEFAULT_UNKNOWN_ROMS_PATH
-        elif option == "show_games_i_have":
-            self.show_games_i_have = DEFAULT_SHOW_GAMES_I_HAVE
-        elif option == "show_games_i_dont_have":
-            self.show_games_i_dont_have = DEFAULT_SHOW_GAMES_I_DONT_HAVE
+        elif option == "new_roms_path":
+            self.roms_path = DEFAULT_NEW_ROMS_PATH
+        elif option == "show_available_games":
+            self.show_available_games = DEFAULT_SHOW_AVAILABLE_GAMES
+        elif option == "show_not_available_games":
+            self.show_not_available_games = DEFAULT_SHOW_NOT_AVAILABLE_GAMES
+        elif option == "show_fixable_games":
+            self.show_fixable_games = DEFAULT_SHOW_FIXABLE_GAMES
         else:
             raise Exception
     
     def save(self):
         config = SafeConfigParser()
         config.add_section(DEFAULT_CFG_SECTION)
-        config.set(DEFAULT_CFG_SECTION, "show_games_i_dont_have", str(self.show_games_i_dont_have))
-        config.set(DEFAULT_CFG_SECTION, "show_games_i_have", str(self.show_games_i_have))
+        config.set(DEFAULT_CFG_SECTION, "show_fixable_games", str(self.show_fixable_games))
+        config.set(DEFAULT_CFG_SECTION, "show_not_available_games", str(self.show_not_available_games))
+        config.set(DEFAULT_CFG_SECTION, "show_available_games", str(self.show_available_games))
+        config.set(DEFAULT_CFG_SECTION, "new_roms_path", self.new_roms_path)
         config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", self.unknown_roms_path)
         config.set(DEFAULT_CFG_SECTION, "roms_path", self.roms_path)
         config.set(DEFAULT_CFG_SECTION, "review_url", self.review_url)

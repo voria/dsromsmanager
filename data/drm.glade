@@ -210,8 +210,8 @@ vorione@gmail.com</property>
                   <object class="GtkHBox" id="games_checks_hbox">
                     <property name="visible">True</property>
                     <child>
-                      <object class="GtkCheckButton" id="options_games_check_ok_checkbutton">
-                        <property name="label" translatable="yes">Show available games</property>
+                      <object class="GtkCheckButton" id="games_check_ok_checkbutton">
+                        <property name="label" translatable="yes">Available games</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -225,8 +225,8 @@ vorione@gmail.com</property>
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkCheckButton" id="options_games_check_no_checkbutton">
-                        <property name="label" translatable="yes">Show not available games</property>
+                      <object class="GtkCheckButton" id="games_check_no_checkbutton">
+                        <property name="label" translatable="yes">Not available games</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -237,6 +237,20 @@ vorione@gmail.com</property>
                       </object>
                       <packing>
                         <property name="position">1</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="games_check_warn_checkbutton">
+                        <property name="label" translatable="yes">Fixable games</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">True</property>
+                        <accelerator key="3" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                      </object>
+                      <packing>
+                        <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
@@ -868,6 +882,15 @@ vorione@gmail.com</property>
           </packing>
         </child>
         <child>
+          <object class="GtkHSeparator" id="main_hseparator">
+            <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
           <object class="GtkStatusbar" id="statusbar">
             <property name="visible">True</property>
             <property name="spacing">2</property>
@@ -875,7 +898,7 @@ vorione@gmail.com</property>
           </object>
           <packing>
             <property name="expand">False</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
       </object>
@@ -904,6 +927,7 @@ vorione@gmail.com</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Check if downloaded images are valid, checking them against the info in DAT file.</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -927,7 +951,7 @@ vorione@gmail.com</property>
                 <child>
                   <object class="GtkLabel" id="options_roms_path_label">
                     <property name="visible">True</property>
-                    <property name="tooltip_text" translatable="yes">Set here the directory where the roms are stored</property>
+                    <property name="tooltip_text" translatable="yes">Set here the directory where the roms are stored.</property>
                     <property name="label" translatable="yes">Roms path:</property>
                   </object>
                   <packing>
@@ -939,9 +963,9 @@ vorione@gmail.com</property>
                 <child>
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -961,7 +985,7 @@ vorione@gmail.com</property>
                 <child>
                   <object class="GtkLabel" id="options_unknown_roms_path_label">
                     <property name="visible">True</property>
-                    <property name="tooltip_text" translatable="yes">Set here the directory where to move unknown roms</property>
+                    <property name="tooltip_text" translatable="yes">Set here the directory where to move unknown roms.</property>
                     <property name="label" translatable="yes">Unknown roms path:</property>
                   </object>
                   <packing>
@@ -973,9 +997,9 @@ vorione@gmail.com</property>
                 <child>
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -989,12 +1013,46 @@ vorione@gmail.com</property>
               </packing>
             </child>
             <child>
+              <object class="GtkHBox" id="options_new_roms_path_hbox">
+                <property name="visible">True</property>
+                <property name="spacing">5</property>
+                <child>
+                  <object class="GtkLabel" id="options_new_roms_path_label">
+                    <property name="visible">True</property>
+                    <property name="tooltip_text" translatable="yes">When the DAT file is updated, sometime previously unknown roms became known. Set here the directory where to move them.</property>
+                    <property name="label" translatable="yes">New roms path:</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkFileChooserButton" id="options_new_roms_path_filechooserbutton">
+                    <property name="visible">True</property>
+                    <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
+                    <property name="title" translatable="yes">Select a directory</property>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkHSeparator" id="options_hseparator2">
                 <property name="visible">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">4</property>
+                <property name="position">5</property>
               </packing>
             </child>
             <child>
@@ -1031,7 +1089,7 @@ Set an empty string to use the default URL.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">5</property>
+                <property name="position">6</property>
               </packing>
             </child>
           </object>
