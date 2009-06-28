@@ -675,7 +675,7 @@ class Gui(threading.Thread):
 			config.set_option("games_on_disk_path", self.options_games_path_filechooserbutton.get_current_folder())
 			if config.get_option("games_on_disk_path") != old_games_on_disk_path:
 				# we need to recheck for games on disk, because path has changed
-				pass
+				self.add_games(False)
 			
 		self.options_dialog.hide()
 	
@@ -762,12 +762,14 @@ class Gui(threading.Thread):
 		
 		self.list_game_label.set_text(text)
 		
-	def update_statusbar(self, context, text):
+	def update_statusbar(self, context, text, threads = True):
 		if self.quitting == True:
 			return
-		gtk.gdk.threads_enter()
+		if threads == True:
+			gtk.gdk.threads_enter()
 		self.statusbar.push(self.statusbar.get_context_id(context), text)
-		gtk.gdk.threads_leave()
+		if threads == True:
+			gtk.gdk.threads_leave()
 	
 	def update_image(self, game_release_number, image_index, filename):
 		""" Update showed image if needed """
@@ -813,7 +815,7 @@ class Gui(threading.Thread):
 		""" Open database """
 		self.db = DB(DB_FILE)
 	
-	def add_games(self):
+	def add_games(self, first_time = True):
 		""" Add games from database to the treeview model. """
 		if self.quitting == True:
 			return
@@ -824,11 +826,12 @@ class Gui(threading.Thread):
 			self.open_db()
 			crcs = self.db.get_all_games_crc()
 		
+		self.checksums = {}
 		for crc in crcs:
 			self.checksums[crc[0]] = None
 		
 		# Check the games we have on disk, recursively, starting from games_on_disk_path
-		self.update_statusbar("Games", _("Checking games on disk..."))
+		self.update_statusbar("Games", _("Checking games on disk..."), first_time)
 		
 		paths_to_check = []
 		paths_to_check.append(config.get_option("games_on_disk_path"))
@@ -845,13 +848,13 @@ class Gui(threading.Thread):
 			paths_to_check[0:1] = []
 	
 		self.deactivate_widgets()
-		self.update_statusbar("Games", _("Loading games list..."))
+		self.update_statusbar("Games", _("Loading games list..."), first_time)
 		try:
 			self.__update_list(self.db.get_all_games())
 		except:
 			self.open_db()
 			self.__update_list(self.db.get_all_games())
-		self.update_statusbar("Games", _("Games list loaded."))
+		self.update_statusbar("Games", _("Games list loaded."), first_time)
 		self.activate_widgets()
 		# Clear up all filter
 		self.filter_name_entry.handler_block(self.fne_sid)

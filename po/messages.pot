@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-28 15:37+0200\n"
+"POT-Creation-Date: 2009-06-28 15:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -278,33 +278,33 @@ msgstr ""
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:756
+#: ../src/gui.py:757
 #, python-format
 msgid " - %d found"
 msgstr ""
 
-#: ../src/gui.py:757
+#: ../src/gui.py:759
 #, python-format
 msgid " - %d missed"
 msgstr ""
 
-#: ../src/gui.py:759 drm.glade.h:13
+#: ../src/gui.py:761 drm.glade.h:13
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:802
+#: ../src/gui.py:806
 msgid "Stop download. (Ctrl+D)"
 msgstr ""
 
-#: ../src/gui.py:829
+#: ../src/gui.py:834
 msgid "Checking games on disk..."
 msgstr ""
 
-#: ../src/gui.py:846
+#: ../src/gui.py:851
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:852
+#: ../src/gui.py:857
 msgid "Games list loaded."
 msgstr ""
 

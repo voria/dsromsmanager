@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-28 15:37+0200\n"
+"POT-Creation-Date: 2009-06-28 15:56+0200\n"
 "PO-Revision-Date: 2009-06-28 15:40+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
@@ -285,33 +285,33 @@ msgstr "%d gioco in lista"
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:756
+#: ../src/gui.py:757
 #, python-format
 msgid " - %d found"
 msgstr " - %d trovati"
 
-#: ../src/gui.py:757
+#: ../src/gui.py:759
 #, python-format
 msgid " - %d missed"
 msgstr " - %d mancanti"
 
-#: ../src/gui.py:759 drm.glade.h:13
+#: ../src/gui.py:761 drm.glade.h:13
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:802
+#: ../src/gui.py:806
 msgid "Stop download. (Ctrl+D)"
 msgstr "Annulla il download. (Ctrl+D)"
 
-#: ../src/gui.py:829
+#: ../src/gui.py:834
 msgid "Checking games on disk..."
 msgstr "Controllo dei giochi presenti su disco in corso..."
 
-#: ../src/gui.py:846
+#: ../src/gui.py:851
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:852
+#: ../src/gui.py:857
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 
