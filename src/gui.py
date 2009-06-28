@@ -238,6 +238,10 @@ class Gui(threading.Thread):
 			self.filter_size_model.append([_(size), size])
 		self.filter_size_combobox.set_active(0)
 		
+		# Set games checks filters
+		self.options_games_check_ok_menuitem.set_active(config.get_option("show_games_i_have"))
+		self.options_games_check_no_menuitem.set_active(config.get_option("show_games_i_dont_have"))
+		
 		# Connect signals
 		self.main_window.connect("delete_event", self.on_main_window_delete_event)
 		self.statusbar.connect("text-pushed", self.on_statusbar_text_pushed)
@@ -251,8 +255,8 @@ class Gui(threading.Thread):
 		self.about_dialog.connect("response", self.on_about_dialog_response)
 		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
-		self.options_games_check_ok_menuitem.connect("toggled", self.on_options_games_check_checkbuttons_toggled)
-		self.options_games_check_no_menuitem.connect("toggled", self.on_options_games_check_checkbuttons_toggled)
+		self.options_games_check_ok_menuitem.connect("toggled", self.on_options_games_check_ok_checkbutton_toggled)
+		self.options_games_check_no_menuitem.connect("toggled", self.on_options_games_check_no_checkbutton_toggled)
 		# We need signal id for the following signals
 		self.fne_sid = self.filter_name_entry.connect("changed",self.on_filter_triggered)
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
@@ -269,12 +273,9 @@ class Gui(threading.Thread):
 		self.gamesnumber_idonthave = 0
 		self.dirty_gameslist = False
 		
-		self.checksums = {}
+		self.checksums = {}	
 		
 		self.deactivate_widgets()
-		
-		# Save tooltip text
-		self.aidt_tooltip = self.all_images_download_toolbutton.get_tooltip_text()
 		
 	def run(self):
 		gtk.main()
@@ -662,7 +663,12 @@ class Gui(threading.Thread):
 			self.filter_location_combobox.handler_unblock(self.flocc_sid)
 			self.filter_language_combobox.handler_unblock(self.flanc_sid)
 	
-	def on_options_games_check_checkbuttons_toggled(self, widget):
+	def on_options_games_check_ok_checkbutton_toggled(self, widget):
+		config.set_option("show_games_i_have", widget.get_active())
+		self.__filter()
+	
+	def on_options_games_check_no_checkbutton_toggled(self, widget):
+		config.set_option("show_games_i_dont_have", widget.get_active())
 		self.__filter()
 	
 	def on_options_toolbutton_clicked(self, menuitem):
@@ -811,12 +817,13 @@ class Gui(threading.Thread):
 			# switch to cancel button
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_MENU))
+			self.old_aidt_tooltip_text = self.all_images_download_toolbutton.get_tooltip_text()
 			self.all_images_download_toolbutton.set_tooltip_text(_("Stop download. (Ctrl+D)"))
 		else:
 			# restore original button
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
-			self.all_images_download_toolbutton.set_tooltip_text(self.aidt_tooltip)
+			self.all_images_download_toolbutton.set_tooltip_text(self.old_aidt_tooltip_text)
 		gtk.gdk.threads_leave()
 	
 	def open_db(self):
