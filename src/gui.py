@@ -267,6 +267,8 @@ class Gui(threading.Thread):
 		self.gamesnumber = 0
 		self.gamesnumber_ihave = 0
 		self.gamesnumber_idonthave = 0
+		self.dirty_gameslist = False
+		
 		self.checksums = {}
 		
 		self.deactivate_widgets()
@@ -280,7 +282,7 @@ class Gui(threading.Thread):
 	def stop(self):
 		self.quit()
 	
-	def __add_game_to_list(self, game):
+	def __add_game_to_list(self, game, anyway = False):
 		""" Add 'game' in treeview """
 		relnum = game[GAME_RELEASE_NUMBER]
 		title = game[GAME_TITLE]
@@ -289,13 +291,13 @@ class Gui(threading.Thread):
 		flag = self.flags[countries_short.keys().index(region)]
 
 		if self.checksums[crc] != None:
-			if self.options_games_check_ok_menuitem.get_active() == True:
+			if anyway == True or self.options_games_check_ok_menuitem.get_active() == True:
 				check = self.checks[CHECKS_YES]
 				self.gamesnumber_ihave += 1
 			else:
 				return
 		else:
-			if self.options_games_check_no_menuitem.get_active() == True:
+			if anyway == True or self.options_games_check_no_menuitem.get_active() == True:
 				check = self.checks[CHECKS_NO]
 				self.gamesnumber_idonthave += 1
 			else:
@@ -522,12 +524,13 @@ class Gui(threading.Thread):
 			if iter == None:
 				# Not found in current treeview.
 				# Then, add the game we need to the treeview
+				self.dirty_gameslist = True
 				try:
 					game = self.db.get_game(next)
 				except:
 					self.open_db()
 					game = self.db.get_game(next)
-				self.__add_game_to_list(game)
+				self.__add_game_to_list(game, True)
 				self.list_treeview_tvc_relnum.clicked()
 				self.list_treeview_tvc_relnum.clicked()
 				self.update_list_game_label()
@@ -607,8 +610,13 @@ class Gui(threading.Thread):
 		if self.filter_size_combobox.get_active() != 0:
 			filter = 4
 			
-		if filter == 0: # No need to clear anything
-			return
+		if filter == 0:
+			if self.dirty_gameslist == False: # No need to clear anything
+				return
+			else:
+				self.__filter()
+				self.dirty_gameslist = False
+				return
 		elif filter == 1:
 			self.filter_location_combobox.handler_block(self.flocc_sid)
 			self.filter_language_combobox.handler_block(self.flanc_sid)
