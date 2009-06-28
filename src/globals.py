@@ -23,7 +23,7 @@ LOCALE_DIR = "/usr/share/locale/"
 DATA_IMG_DIR = os.path.join(DATA_DIR, "images")
 
 APP_NAME = "DsRomsManager"
-APP_VERSION = "0.3"
+APP_VERSION = "0.4"
 
 # gettext
 import locale, gettext
@@ -94,7 +94,7 @@ countries_short = {
 			0 : "EU",
 			1 : "US",
 			2 : "DE",
-			4 : "SP",
+			4 : "ES",
 			5 : "FR",
 			6 : "IT",
 			7 : "JP",

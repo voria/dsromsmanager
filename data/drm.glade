@@ -85,6 +85,28 @@ vorione@gmail.com</property>
               </packing>
             </child>
             <child>
+              <object class="GtkToolButton" id="rebuild_roms_archives_toolbutton">
+                <property name="visible">True</property>
+                <property name="tooltip_text" translatable="yes">Rebuild wrong roms archives, according to informations from DAT file. (Ctrl+F)</property>
+                <property name="label" translatable="yes">Rebuild archives</property>
+                <property name="use_underline">True</property>
+                <property name="stock_id">gtk-dialog-warning</property>
+                <accelerator key="f" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="separatortoolitem1">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkToolButton" id="show_review_toolbutton">
                 <property name="visible">True</property>
                 <property name="has_tooltip">True</property>
@@ -100,7 +122,7 @@ vorione@gmail.com</property>
               </packing>
             </child>
             <child>
-              <object class="GtkSeparatorToolItem" id="separatortoolitem1">
+              <object class="GtkSeparatorToolItem" id="separatortoolitem2">
                 <property name="visible">True</property>
               </object>
               <packing>
@@ -109,13 +131,12 @@ vorione@gmail.com</property>
               </packing>
             </child>
             <child>
-              <object class="GtkMenuToolButton" id="options_toolbutton">
+              <object class="GtkToolButton" id="options_toolbutton">
                 <property name="visible">True</property>
                 <property name="tooltip_text" translatable="yes">Open the option window. (Ctrl+O)</property>
                 <property name="label" translatable="yes">_Options</property>
                 <property name="use_underline">True</property>
-                <property name="stock_id">gtk-execute</property>
-                <property name="menu">options_games_checks_menu</property>
+                <property name="stock_id">gtk-properties</property>
                 <accelerator key="o" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
               </object>
               <packing>
@@ -124,7 +145,7 @@ vorione@gmail.com</property>
               </packing>
             </child>
             <child>
-              <object class="GtkSeparatorToolItem" id="separatortoolitem2">
+              <object class="GtkSeparatorToolItem" id="separatortoolitem3">
                 <property name="visible">True</property>
               </object>
               <packing>
@@ -184,13 +205,48 @@ vorione@gmail.com</property>
                   </packing>
                 </child>
                 <child>
+                  <object class="GtkHBox" id="games_checks_hbox">
+                    <property name="visible">True</property>
+                    <child>
+                      <object class="GtkCheckButton" id="options_games_check_ok_checkbutton">
+                        <property name="label" translatable="yes">Show available games</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkCheckButton" id="options_games_check_no_checkbutton">
+                        <property name="label" translatable="yes">Show not available games</property>
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="receives_default">False</property>
+                        <property name="active">True</property>
+                        <property name="draw_indicator">True</property>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+                <child>
                   <object class="GtkLabel" id="list_games_label">
                     <property name="visible">True</property>
                     <property name="label" translatable="yes">No games in list</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">1</property>
+                    <property name="position">2</property>
                   </packing>
                 </child>
               </object>
@@ -878,8 +934,8 @@ vorione@gmail.com</property>
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -912,8 +968,8 @@ vorione@gmail.com</property>
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1088,25 +1144,6 @@ Set an empty string to use the default URL.</property>
             </child>
           </object>
         </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkMenu" id="options_games_checks_menu">
-    <property name="visible">True</property>
-    <child>
-      <object class="GtkCheckMenuItem" id="options_games_check_ok_menuitem">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes">Show available games</property>
-        <property name="use_underline">True</property>
-        <property name="active">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkCheckMenuItem" id="options_games_check_no_menuitem">
-        <property name="visible">True</property>
-        <property name="label" translatable="yes">Show not available games</property>
-        <property name="use_underline">True</property>
-        <property name="active">True</property>
       </object>
     </child>
   </object>
