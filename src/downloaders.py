@@ -39,20 +39,18 @@ def get_crc32(filename):
 	bin = struct.pack('>l', binascii.crc32(file(filename, 'r').read()))
 	return binascii.hexlify(bin).upper()
 
-#===============================================================================
-# def get_crc32_zip(zipfile):
-#	""" Return CRC32 of .nds file contained in 'zipfile'.
-#	Return None if no .nds file is found """
-#	result = None
-#	zip = zipfile.ZipFile(zipfile, "r")
-#	for info in zip.infolist():
-#		if info.filename[len(info.filename)-4:].lower() == ".nds":
-#			crc = struct.pack('>l', info.CRC)
-#			result = binascii.hexlify(crc).upper()
-#			break
-#	zip.close()
-#	return result
-#===============================================================================
+def get_crc32_zip(zipfile):
+	""" Return CRC32 of .nds file contained in 'zipfile'.
+	Return None if no .nds file is found """
+	result = None
+	zip = ZipFile(zipfile, "r")
+	for info in zip.infolist():
+		if info.filename[len(info.filename)-4:].lower() == ".nds":
+			crc = struct.pack('>L', info.CRC)
+			result = binascii.hexlify(crc)[:8].upper()
+			break
+	zip.close()
+	return result
 
 class DatUpdater(threading.Thread):
 	""" Update DAT file if needed """

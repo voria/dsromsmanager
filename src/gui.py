@@ -35,6 +35,8 @@ from db import *
 
 from downloaders import *
 
+import glob
+
 TVC_CHECK = 0
 TVC_FLAG = 1
 TVC_RELEASE_NUMBER = 2
@@ -61,6 +63,7 @@ class Gui(threading.Thread):
 		self.show_review_toolbutton = self.builder.get_object("show_review_toolbutton")
 		self.options_toolbutton = self.builder.get_object("options_toolbutton")
 		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
+		self.options_games_path_filechooserbutton = self.builder.get_object("options_games_path_filechooserbutton")
 		self.options_review_url_entry = self.builder.get_object("options_review_url_entry")
 		self.options_ok_button = self.builder.get_object("options_ok_button")
 		self.options_cancel_button = self.builder.get_object("options_cancel_button")
@@ -258,13 +261,12 @@ class Gui(threading.Thread):
 		
 		self.db = None
 		self.gamesnumber = 0
+		self.checksums = {}
 		
 		self.deactivate_widgets()
 		
 		# Save tooltip text
 		self.aidt_tooltip = self.all_images_download_toolbutton.get_tooltip_text()
-		
-		self.hide_checks_stuff = True # Temp var to test checks stuff. It will be removed in future
 		
 	def run(self):
 		gtk.main()
@@ -277,22 +279,21 @@ class Gui(threading.Thread):
 		relnum = game[GAME_RELEASE_NUMBER]
 		title = game[GAME_TITLE]
 		region = game[GAME_LOCATION_INDEX]
+		crc = game[GAME_ROM_CRC]
 		flag = self.flags[countries_short.keys().index(region)]
-		# Just test if check icons work for now
-		if self.hide_checks_stuff == True:
-			check = None
+		# Just test if check icons work for now	
+		if self.checksums[crc] != None:
+			# TODO: CHECKS_WARN
+			check = self.checks[CHECKS_YES]
 		else:
-			if relnum % 2 == 0:
-				check = self.checks[CHECKS_YES]
-			elif relnum % 3 == 0:
-				check = self.checks[CHECKS_WARN]
-			else:
-				check = self.checks[CHECKS_NO]
+			check = self.checks[CHECKS_NO]
 		self.list_treeview_model.append((check, flag, relnum, title))
 		self.gamesnumber += 1
 	
 	def __update_list(self, games):
 		""" List 'games' in treeview """
+		if self.quitting == True:
+			return
 		self.list_treeview_model.clear()
 		self.gamesnumber = 0
 		for game in reversed(games):
@@ -637,6 +638,7 @@ class Gui(threading.Thread):
 	
 	def on_options_toolbutton_clicked(self, menuitem):
 		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
+		self.options_games_path_filechooserbutton.set_current_folder(config.get_option("games_on_disk_path"))
 		self.options_review_url_entry.set_text(config.get_option("review_url"))
 		self.options_dialog.show()
 	
@@ -648,6 +650,12 @@ class Gui(threading.Thread):
 				config.set_option("review_url", text)
 			else:
 				config.set_option_default("review_url")
+			old_games_on_disk_path = config.get_option("games_on_disk_path")
+			config.set_option("games_on_disk_path", self.options_games_path_filechooserbutton.get_current_folder())
+			if config.get_option("games_on_disk_path") != old_games_on_disk_path:
+				# we need to recheck for games on disk, because path has changed
+				pass
+			
 		self.options_dialog.hide()
 	
 	def on_window_delete_event(self, window, event):
@@ -777,9 +785,37 @@ class Gui(threading.Thread):
 		self.db = DB(DB_FILE)
 	
 	def add_games(self):
-		""" Add games from database 'DB_FILE' to the treeview model. """
+		""" Add games from database to the treeview model. """
 		if self.quitting == True:
 			return
+		# Populate checksums dictionary
+		try:
+			crcs = self.db.get_all_games_crc()
+		except:
+			self.open_db()
+			crcs = self.db.get_all_games_crc()
+		
+		for crc in crcs:
+			self.checksums[crc[0]] = None
+		
+		# Check the games we have on disk, recursively, starting from games_on_disk_path
+		self.update_statusbar("Games", _("Checking games on disk..."))
+		
+		paths_to_check = []
+		paths_to_check.append(config.get_option("games_on_disk_path"))
+		
+		while len(paths_to_check) != 0:
+			next_path = paths_to_check[0]
+			for file in glob.iglob(os.path.join(next_path, "*")):
+				if os.path.isdir(file):
+					paths_to_check.append(file)
+				if file[len(file)-4:].lower() == ".zip":
+					crc = get_crc32_zip(file)
+					if crc != None:
+						self.checksums[crc] = file
+			paths_to_check[0:1] = []
+				
+			
 		self.deactivate_widgets()
 		self.update_statusbar("Games", _("Loading games list..."))
 		try:

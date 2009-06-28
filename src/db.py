@@ -137,11 +137,20 @@ class DB():
 		self.cursor.execute("SELECT * FROM games")
 		return self.cursor.fetchall()
 	
+	def get_all_games_crc(self):
+		""" Return all games crc """
+		self.cursor.execute("SELECT rom_crc FROM games")
+		return self.cursor.fetchall()
+	
 	def get_game(self, number):
 		""" Return info for game number 'number' """
 		self.cursor.execute("SELECT * FROM games WHERE release_number = " + str(number))
 		return self.cursor.fetchone()
 	
+	def get_game_crc(self, number):
+		""" Return crc for game number 'number' """
+		self.cursor.execute("SELECT rom_crc FROM games WHERE release_number = " + str(number))
+		
 	def get_games_number(self):
 		""" Return the number of games in database """
 		return self.games

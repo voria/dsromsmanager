@@ -35,6 +35,9 @@ if not os.path.exists(WORK_DIR):
 IMG_DIR = os.path.join(WORK_DIR, "images")
 if not os.path.exists(IMG_DIR):
     os.mkdir(IMG_DIR)
+ROMS_DIR = os.path.join(WORK_DIR, "roms")
+if not os.path.exists(ROMS_DIR):
+	os.mkdir(ROMS_DIR)
 DB_FILE = os.path.join(WORK_DIR, "db")
 DB_VERSION = "3"
 
