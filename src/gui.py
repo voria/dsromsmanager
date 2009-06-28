@@ -62,6 +62,8 @@ class Gui(threading.Thread):
 		self.all_images_download_toolbutton = self.builder.get_object("all_images_download_toolbutton")
 		self.show_review_toolbutton = self.builder.get_object("show_review_toolbutton")
 		self.options_toolbutton = self.builder.get_object("options_toolbutton")
+		self.options_games_check_ok_menuitem = self.builder.get_object("options_games_check_ok_menuitem")
+		self.options_games_check_no_menuitem = self.builder.get_object("options_games_check_no_menuitem")
 		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
 		self.options_games_path_filechooserbutton = self.builder.get_object("options_games_path_filechooserbutton")
 		self.options_review_url_entry = self.builder.get_object("options_review_url_entry")
@@ -249,6 +251,8 @@ class Gui(threading.Thread):
 		self.about_dialog.connect("response", self.on_about_dialog_response)
 		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
+		self.options_games_check_ok_menuitem.connect("toggled", self.on_options_games_check_checkbuttons_toggled)
+		self.options_games_check_no_menuitem.connect("toggled", self.on_options_games_check_checkbuttons_toggled)
 		# We need signal id for the following signals
 		self.fne_sid = self.filter_name_entry.connect("changed",self.on_filter_triggered)
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
@@ -261,6 +265,8 @@ class Gui(threading.Thread):
 		
 		self.db = None
 		self.gamesnumber = 0
+		self.gamesnumber_ihave = 0
+		self.gamesnumber_idonthave = 0
 		self.checksums = {}
 		
 		self.deactivate_widgets()
@@ -281,12 +287,20 @@ class Gui(threading.Thread):
 		region = game[GAME_LOCATION_INDEX]
 		crc = game[GAME_ROM_CRC]
 		flag = self.flags[countries_short.keys().index(region)]
-		# Just test if check icons work for now	
+
 		if self.checksums[crc] != None:
-			# TODO: CHECKS_WARN
-			check = self.checks[CHECKS_YES]
+			if self.options_games_check_ok_menuitem.get_active() == True:
+				check = self.checks[CHECKS_YES]
+				self.gamesnumber_ihave += 1
+			else:
+				return
 		else:
-			check = self.checks[CHECKS_NO]
+			if self.options_games_check_no_menuitem.get_active() == True:
+				check = self.checks[CHECKS_NO]
+				self.gamesnumber_idonthave += 1
+			else:
+				return
+			
 		self.list_treeview_model.append((check, flag, relnum, title))
 		self.gamesnumber += 1
 	
@@ -296,12 +310,16 @@ class Gui(threading.Thread):
 			return
 		self.list_treeview_model.clear()
 		self.gamesnumber = 0
+		self.gamesnumber_ihave = 0
+		self.gamesnumber_idonthave = 0
 		for game in reversed(games):
 			self.__add_game_to_list(game)
 		self.update_list_game_label()
 	
 	def __filter(self):
 		""" Filter list by all criteria """
+		if self.quitting == True:
+			return
 		self.__hide_infos()
 		self.images_window.hide()
 		string = self.filter_name_entry.get_text()
@@ -636,6 +654,9 @@ class Gui(threading.Thread):
 			self.filter_location_combobox.handler_unblock(self.flocc_sid)
 			self.filter_language_combobox.handler_unblock(self.flanc_sid)
 	
+	def on_options_games_check_checkbuttons_toggled(self, widget):
+		self.__filter()
+	
 	def on_options_toolbutton_clicked(self, menuitem):
 		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
 		self.options_games_path_filechooserbutton.set_current_folder(config.get_option("games_on_disk_path"))
@@ -725,13 +746,21 @@ class Gui(threading.Thread):
 		gtk.gdk.threads_leave()
 	
 	def update_list_game_label(self):
+		if self.quitting == True:
+			return
 		if self.gamesnumber != 0:
 			if self.gamesnumber == 1:
-				self.list_game_label.set_text(_("%d game in list") % self.gamesnumber)
+				text = _("%d game in list") % self.gamesnumber
 			else:
-				self.list_game_label.set_text(_("%d games in list") % self.gamesnumber)
+				text = _("%d games in list") % self.gamesnumber
+			if self.gamesnumber_ihave > 0:
+				text += _(" - %d found") % self.gamesnumber_ihave
+			if self.gamesnumber_idonthave > 0:
+				text += _(" - %d missed") % self.gamesnumber_idonthave
 		else:
-			self.list_game_label.set_text(_("No games in list"))
+			text = _("No games in list")
+		
+		self.list_game_label.set_text(text)
 		
 	def update_statusbar(self, context, text):
 		if self.quitting == True:
@@ -814,8 +843,7 @@ class Gui(threading.Thread):
 					if crc != None:
 						self.checksums[crc] = file
 			paths_to_check[0:1] = []
-				
-			
+	
 		self.deactivate_widgets()
 		self.update_statusbar("Games", _("Loading games list..."))
 		try:

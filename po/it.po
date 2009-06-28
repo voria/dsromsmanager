@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-27 16:50+0200\n"
-"PO-Revision-Date: 2009-06-26 14:19+0200\n"
+"POT-Creation-Date: 2009-06-28 15:37+0200\n"
+"PO-Revision-Date: 2009-06-28 15:40+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,71 +17,71 @@ msgstr ""
 "Content-Transfer-Encoding: -\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/downloaders.py:72
+#: ../src/downloaders.py:70
 msgid "Searching for a new DAT file..."
 msgstr "Ricerca di un nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:78
+#: ../src/downloaders.py:76
 msgid "New DAT file available!"
 msgstr "Nuovo file DAT disponibile!"
 
-#: ../src/downloaders.py:91
+#: ../src/downloaders.py:89
 msgid "Loading the new DAT file and creating database..."
 msgstr "Caricamento del nuovo file DAT e creazione del database in corso..."
 
-#: ../src/downloaders.py:93 ../src/drm.py:75
+#: ../src/downloaders.py:91 ../src/drm.py:75
 msgid "Database created."
 msgstr "Database creato."
 
-#: ../src/downloaders.py:96
+#: ../src/downloaders.py:94
 msgid "DAT file is up to date."
 msgstr "Il file DAT è aggiornato."
 
-#: ../src/downloaders.py:98
+#: ../src/downloaders.py:96
 msgid "Can't download DAT version file!"
 msgstr "Non riesco a scaricare il file di controllo versione del DAT!"
 
-#: ../src/downloaders.py:117
+#: ../src/downloaders.py:115
 msgid "Downloading the new DAT file..."
 msgstr "Download del nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:125
+#: ../src/downloaders.py:123
 msgid "Can't download DAT!"
 msgstr "Non riesco a scaricare il file DAT!"
 
-#: ../src/downloaders.py:128
+#: ../src/downloaders.py:126
 msgid "Unzipping the new DAT file..."
 msgstr "Estrazione del nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:165
+#: ../src/downloaders.py:163
 #, python-format
 msgid "Error while downloading image 1 for '%s': File not found."
 msgstr "Errore durante il download dell'immagine 1 di '%s': File non trovato."
 
-#: ../src/downloaders.py:178
+#: ../src/downloaders.py:176
 #, python-format
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr "Errore durante il download dell'immagine 2 di '%s': File non trovato."
 
-#: ../src/downloaders.py:196
+#: ../src/downloaders.py:194
 msgid "Downloading all images..."
 msgstr "Download di tutte le immagini in corso..."
 
-#: ../src/downloaders.py:213
+#: ../src/downloaders.py:211
 #, python-format
 msgid "Checking images integrity for '%s'..."
 msgstr "Controllo integrità delle immagini di '%s' in corso..."
 
-#: ../src/downloaders.py:220
+#: ../src/downloaders.py:218
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr "Download delle immagini di '%s' in corso..."
 
-#: ../src/downloaders.py:243
+#: ../src/downloaders.py:241
 msgid "Download of all images stopped."
 msgstr "Download di tutte le immagini annullato."
 
-#: ../src/downloaders.py:245
+#: ../src/downloaders.py:243
 msgid "Download of all images completed."
 msgstr "Download di tutte le immagini completato."
 
@@ -119,185 +119,199 @@ msgstr "Caricamento del database in corso..."
 msgid "Database loaded."
 msgstr "Database caricato."
 
-#: ../src/globals.py:55
+#: ../src/globals.py:58
 msgid "French"
 msgstr "Francese"
 
-#: ../src/globals.py:56
+#: ../src/globals.py:59
 msgid "English"
 msgstr "Inglese"
 
-#: ../src/globals.py:57 ../src/globals.py:69 ../src/globals.py:70
+#: ../src/globals.py:60 ../src/globals.py:72 ../src/globals.py:73
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: ../src/globals.py:58
+#: ../src/globals.py:61
 msgid "Danish"
 msgstr "Danese"
 
-#: ../src/globals.py:59
+#: ../src/globals.py:62
 msgid "Dutch"
 msgstr "Olandese"
 
-#: ../src/globals.py:60
+#: ../src/globals.py:63
 msgid "Finnish"
 msgstr "Finlandese"
 
-#: ../src/globals.py:61
+#: ../src/globals.py:64
 msgid "German"
 msgstr "Tedesco"
 
-#: ../src/globals.py:62
+#: ../src/globals.py:65
 msgid "Italian"
 msgstr "Italiano"
 
-#: ../src/globals.py:63
+#: ../src/globals.py:66
 msgid "Japanese"
 msgstr "Giapponese"
 
-#: ../src/globals.py:64
+#: ../src/globals.py:67
 msgid "Norwegian"
 msgstr "Norvegese"
 
-#: ../src/globals.py:65
+#: ../src/globals.py:68
 msgid "Polish"
 msgstr "Polacco"
 
-#: ../src/globals.py:66
+#: ../src/globals.py:69
 msgid "Portuguese"
 msgstr "Portoghese"
 
-#: ../src/globals.py:67
+#: ../src/globals.py:70
 msgid "Spanish"
 msgstr "Spagnolo"
 
-#: ../src/globals.py:68
+#: ../src/globals.py:71
 msgid "Swedish"
 msgstr "Svedese"
 
-#: ../src/globals.py:71
+#: ../src/globals.py:74
 msgid "Korean"
 msgstr "Koreano"
 
-#: ../src/globals.py:75
+#: ../src/globals.py:78
 msgid "Europe"
 msgstr "Europa"
 
-#: ../src/globals.py:76
+#: ../src/globals.py:79
 msgid "USA"
 msgstr "USA"
 
-#: ../src/globals.py:77
+#: ../src/globals.py:80
 msgid "Germany"
 msgstr "Germania"
 
-#: ../src/globals.py:78
+#: ../src/globals.py:81
 msgid "Spain"
 msgstr "Spagna"
 
-#: ../src/globals.py:79
+#: ../src/globals.py:82
 msgid "France"
 msgstr "Francia"
 
-#: ../src/globals.py:80
+#: ../src/globals.py:83
 msgid "Italy"
 msgstr "Italia"
 
-#: ../src/globals.py:81
+#: ../src/globals.py:84
 msgid "Japan"
 msgstr "Giappone"
 
-#: ../src/globals.py:82
+#: ../src/globals.py:85
 msgid "Netherlands"
 msgstr "Olanda"
 
-#: ../src/globals.py:83
+#: ../src/globals.py:86
 msgid "Australia"
 msgstr "Australia"
 
-#: ../src/globals.py:84
+#: ../src/globals.py:87
 msgid "South Korea"
 msgstr "Korea del Sud"
 
-#: ../src/gui.py:126 ../src/gui.py:350
+#: ../src/gui.py:131 ../src/gui.py:369
 msgid "Hide"
 msgstr "Nascondi"
 
-#: ../src/gui.py:132
+#: ../src/gui.py:137
 msgid "Update DAT"
 msgstr "Aggiorna DAT"
 
-#: ../src/gui.py:136
+#: ../src/gui.py:141
 msgid "Download all images"
 msgstr "Scarica tutte le immagini"
 
-#: ../src/gui.py:140
+#: ../src/gui.py:145
 msgid "Reviews"
 msgstr "Recensioni"
 
-#: ../src/gui.py:146 drm.glade.h:15
+#: ../src/gui.py:151 drm.glade.h:15
 msgid "Options"
 msgstr "Opzioni"
 
-#: ../src/gui.py:152
+#: ../src/gui.py:157
 msgid "About"
 msgstr "Informazioni"
 
-#: ../src/gui.py:158
+#: ../src/gui.py:163
 msgid "Quit"
 msgstr "Esci"
 
-#: ../src/gui.py:191
+#: ../src/gui.py:196
 msgid "Found"
 msgstr "Disponibile"
 
-#: ../src/gui.py:193
+#: ../src/gui.py:198
 msgid "Region"
 msgstr "Regione"
 
-#: ../src/gui.py:198
+#: ../src/gui.py:203
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gui.py:208 ../src/gui.py:219 ../src/gui.py:231
+#: ../src/gui.py:213 ../src/gui.py:224 ../src/gui.py:236
 msgid "All"
 msgstr "Tutte"
 
-#: ../src/gui.py:345
+#: ../src/gui.py:364
 msgid "Show"
 msgstr "Mostra"
 
-#: ../src/gui.py:447
+#: ../src/gui.py:466
 msgid "Duplicates:"
 msgstr "Duplicati:"
 
-#: ../src/gui.py:452
+#: ../src/gui.py:471
 msgid "No duplicates"
 msgstr "Nessun duplicato"
 
-#: ../src/gui.py:722
+#: ../src/gui.py:753
 #, python-format
 msgid "%d game in list"
 msgstr "%d gioco in lista"
 
-#: ../src/gui.py:724
+#: ../src/gui.py:755
 #, python-format
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:726 drm.glade.h:13
+#: ../src/gui.py:756
+#, python-format
+msgid " - %d found"
+msgstr " - %d trovati"
+
+#: ../src/gui.py:757
+#, python-format
+msgid " - %d missed"
+msgstr " - %d mancanti"
+
+#: ../src/gui.py:759 drm.glade.h:13
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:767
+#: ../src/gui.py:802
 msgid "Stop download. (Ctrl+D)"
 msgstr "Annulla il download. (Ctrl+D)"
 
-#: ../src/gui.py:784
+#: ../src/gui.py:829
+msgid "Checking games on disk..."
+msgstr "Controllo dei giochi presenti su disco in corso..."
+
+#: ../src/gui.py:846
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:790
+#: ../src/gui.py:852
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 
@@ -355,10 +369,14 @@ msgid "Open the option window. (Ctrl+O)"
 msgstr "Apre la finestra delle opzioni. (Ctrl+O)"
 
 #: drm.glade.h:16
+msgid "Path for games:"
+msgstr "Percorso per i giochi:"
+
+#: drm.glade.h:17
 msgid "Publisher:"
 msgstr "Publisher:"
 
-#: drm.glade.h:17
+#: drm.glade.h:18
 msgid ""
 "Released under GPL3 terms\n"
 "\n"
@@ -372,31 +390,47 @@ msgstr ""
 "Fortunato Ventre (voRia)\n"
 "vorione@gmail.com"
 
-#: drm.glade.h:22
+#: drm.glade.h:23
 msgid "Review URL:"
 msgstr "URL recensioni:"
 
-#: drm.glade.h:23
+#: drm.glade.h:24
 msgid "Save:"
 msgstr "Salvataggio:"
 
-#: drm.glade.h:24
+#: drm.glade.h:25
 msgid "Search reviews for the selected game. (Ctrl+R)"
 msgstr "Cerca recensioni per il gioco selezionato. (Ctrl+R)"
 
-#: drm.glade.h:25
+#: drm.glade.h:26
+msgid "Select a directory"
+msgstr "Seleziona una directory"
+
+#: drm.glade.h:27
+msgid "Set here the directory where games are stored"
+msgstr "Imposta qui la directory contenente i giochi"
+
+#: drm.glade.h:28
 msgid "Show informations about 'DsRomsManager'. (Ctrl+A)"
 msgstr "Mostra informazioni su 'DsRomsManager'. (Ctrl+A)"
 
-#: drm.glade.h:26
+#: drm.glade.h:29
+msgid "Show the games I don't have"
+msgstr "Mostra i giochi che non ho"
+
+#: drm.glade.h:30
+msgid "Show the games I have"
+msgstr "Mostra i giochi che ho"
+
+#: drm.glade.h:31
 msgid "Size:"
 msgstr "Dimensione:"
 
-#: drm.glade.h:27
+#: drm.glade.h:32
 msgid "Source:"
 msgstr "Sorgente:"
 
-#: drm.glade.h:28
+#: drm.glade.h:33
 msgid ""
 "Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
 "search URL.\n"
@@ -414,39 +448,39 @@ msgstr ""
 "\n"
 "Imposta una stringa vuota per usare l'URL di default."
 
-#: drm.glade.h:34
+#: drm.glade.h:39
 msgid "_About"
 msgstr "Informazioni"
 
-#: drm.glade.h:35
+#: drm.glade.h:40
 msgid "_Clear"
 msgstr "Pulisci"
 
-#: drm.glade.h:36
+#: drm.glade.h:41
 msgid "_Download all images"
 msgstr "Scarica tutte le immagini"
 
-#: drm.glade.h:37
+#: drm.glade.h:42
 msgid "_Options"
 msgstr "Opzioni"
 
-#: drm.glade.h:38
+#: drm.glade.h:43
 msgid "_Reviews"
 msgstr "Recensioni"
 
-#: drm.glade.h:39
+#: drm.glade.h:44
 msgid "_Update DAT"
 msgstr "Aggiorna DAT"
 
-#: drm.glade.h:40
+#: drm.glade.h:45
 msgid "gtk-cancel"
 msgstr "gtk-cancel"
 
-#: drm.glade.h:41
+#: drm.glade.h:46
 msgid "gtk-ok"
 msgstr "gtk-ok"
 
-#: drm.glade.h:42
+#: drm.glade.h:47
 msgid "http://www.voria.org"
 msgstr "http://www.voria.org"
 
