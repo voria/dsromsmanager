@@ -51,12 +51,16 @@ def get_nds_filename_from_zip(zipf):
     """ Return the filename of .nds file contained in 'zipf',
     or None if no .nds file is found """
     result = None
-    zip = zipfile.ZipFile(zipf, "r")
-    for info in zip.infolist():
-        if info.filename[len(info.filename)-4:].lower() == ".nds":
-            result = info.filename
-            break
-    zip.close()
+    try:
+        zip = zipfile.ZipFile(zipf, "r")
+        for info in zip.infolist():
+            if info.filename[len(info.filename)-4:].lower() == ".nds":
+                result = info.filename
+                break
+        zip.close()
+    except:
+        print zipf
+        raise
     return result
 
 class RomArchivesRebuild(threading.Thread):
@@ -109,7 +113,7 @@ class RomArchivesRebuild(threading.Thread):
                     else:
                         # Just rename the zip file, its content is ok
                         zip.close()
-                        shutil.move(oldzipfile, zipfile)
+                        shutil.move(oldzipfile, newzipfile)
                         continue
                 
                 # Extract the nds file and rename it

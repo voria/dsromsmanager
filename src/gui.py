@@ -314,30 +314,30 @@ class Gui(threading.Thread):
 		crc = game[GAME_ROM_CRC]
 		flag = self.flags[countries_short.keys().index(region)]
 
-		if self.checksums[crc] != None: # we have the game
-			if anyway or self.games_check_ok_checkbutton.get_active() or self.games_check_warn_checkbutton.get_active():
-				disk_filename = self.checksums[crc].split(os.sep)
-				disk_filename = disk_filename[len(disk_filename)-1]
-				db_filename = game[GAME_FULLINFO] + disk_filename[len(disk_filename)-4:]
-				nds_filename = game[GAME_FULLINFO] + ".nds"
-				if disk_filename == db_filename and get_nds_filename_from_zip(self.checksums[crc]) == nds_filename:
-					check = self.checks[CHECKS_YES]
-					if self.games_check_ok_checkbutton.get_active():
-						self.gamesnumber_available += 1
-					else:
-						return
-				else:
-					check = self.checks[CHECKS_WARN]
-					if self.games_check_warn_checkbutton.get_active():
-						self.gamesnumber_fixable += 1
-					else:
-						return
-			else:
-				return
-		else:
+		if self.checksums[crc] == None: # we dont have the game
 			if anyway or self.games_check_no_checkbutton.get_active():
 				check = self.checks[CHECKS_NO]
 				self.gamesnumber_not_available += 1
+			else:
+				return	
+		else: # we have the game
+			if anyway or self.games_check_ok_checkbutton.get_active() or self.games_check_warn_checkbutton.get_active():
+				disk_zip_filename = self.checksums[crc].split(os.sep)
+				disk_zip_filename = disk_zip_filename[len(disk_zip_filename)-1]
+				db_zip_filename = game[GAME_FULLINFO] + ".zip"
+				nds_filename = game[GAME_FULLINFO] + ".nds"
+				if disk_zip_filename == db_zip_filename and get_nds_filename_from_zip(self.checksums[crc]) == nds_filename:
+					check = self.checks[CHECKS_YES]
+					if anyway or self.games_check_ok_checkbutton.get_active():
+						self.gamesnumber_available += 1
+					else:
+						return
+				else: # game to be fixed
+					check = self.checks[CHECKS_WARN]
+					if anyway or self.games_check_warn_checkbutton.get_active():
+						self.gamesnumber_fixable += 1
+					else:
+						return
 			else:
 				return
 			
@@ -905,7 +905,6 @@ class Gui(threading.Thread):
 		games = {}
 		if self.quitting == True:
 			return games
-		
 		iter = self.list_treeview_model.get_iter_first()
 		while iter != None:
 			if self.list_treeview_model.get_value(iter, TVC_CHECK) == self.checks[CHECKS_WARN]:
