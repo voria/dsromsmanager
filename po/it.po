@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 03:20+0200\n"
-"PO-Revision-Date: 2009-06-29 03:21+0200\n"
+"POT-Creation-Date: 2009-06-29 03:40+0200\n"
+"PO-Revision-Date: 2009-06-29 03:40+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,71 +17,70 @@ msgstr ""
 "Content-Transfer-Encoding: -\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../src/downloaders.py:49
+#: ../src/downloaders.py:50
 msgid "Searching for a new DAT file..."
 msgstr "Ricerca di un nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:55
+#: ../src/downloaders.py:56
 msgid "New DAT file available!"
 msgstr "Nuovo file DAT disponibile!"
 
-#: ../src/downloaders.py:68
+#: ../src/downloaders.py:69
 msgid "Loading the new DAT file and creating database..."
 msgstr "Caricamento del nuovo file DAT e creazione del database in corso..."
 
-#: ../src/downloaders.py:70 ../src/drm.py:75
+#: ../src/downloaders.py:71 ../src/drm.py:75
 msgid "Database created."
 msgstr "Database creato."
 
-#: ../src/downloaders.py:73
+#: ../src/downloaders.py:74
 msgid "DAT file is up to date."
 msgstr "Il file DAT è aggiornato."
 
-#: ../src/downloaders.py:75
+#: ../src/downloaders.py:76
 msgid "Can't download DAT version file!"
 msgstr "Non riesco a scaricare il file di controllo versione del DAT!"
 
-#: ../src/downloaders.py:94
+#: ../src/downloaders.py:95
 msgid "Downloading the new DAT file..."
 msgstr "Download del nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:102
+#: ../src/downloaders.py:103
 msgid "Can't download DAT!"
 msgstr "Non riesco a scaricare il file DAT!"
 
-#: ../src/downloaders.py:105
+#: ../src/downloaders.py:106
 msgid "Unzipping the new DAT file..."
 msgstr "Estrazione del nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:142
+#: ../src/downloaders.py:143
 #, python-format
 msgid "Error while downloading image 1 for '%s': File not found."
 msgstr "Errore durante il download dell'immagine 1 di '%s': File non trovato."
 
-#: ../src/downloaders.py:155
+#: ../src/downloaders.py:156
 #, python-format
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr "Errore durante il download dell'immagine 2 di '%s': File non trovato."
 
-#: ../src/downloaders.py:173
+#: ../src/downloaders.py:175
 msgid "Downloading all images..."
 msgstr "Download di tutte le immagini in corso..."
 
-#: ../src/downloaders.py:190
-#, python-format
-msgid "Checking images integrity for '%s'..."
-msgstr "Controllo integrità delle immagini di '%s' in corso..."
+#: ../src/downloaders.py:193
+msgid "Checking images integrity..."
+msgstr "Controllo integrità delle immagini in corso..."
 
-#: ../src/downloaders.py:197
+#: ../src/downloaders.py:201
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr "Download delle immagini di '%s' in corso..."
 
-#: ../src/downloaders.py:220
+#: ../src/downloaders.py:225
 msgid "Download of all images stopped."
 msgstr "Download di tutte le immagini annullato."
 
-#: ../src/downloaders.py:222
+#: ../src/downloaders.py:227
 msgid "Download of all images completed."
 msgstr "Download di tutte le immagini completato."
 

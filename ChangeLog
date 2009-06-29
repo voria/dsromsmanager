@@ -1,3 +1,7 @@
+DsRomsManager - 0.4.4
+	* Fix DAT file zip opening in DatDownloader.
+	* Avoid flood in statusbar when check images integrity while downloading is enabled.
+
 DsRomsManager - 0.4.3
 	* Handle an exception when trying to open a zip file that
 	  does not exist anymore, due to the roms archives rebuild in progress.

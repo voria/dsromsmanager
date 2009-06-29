@@ -25,6 +25,7 @@ _ = gettext.gettext
 import gtk
 
 from urllib2 import urlopen, HTTPError
+from zipfile import ZipFile
 
 from globals import *
 from db import *
@@ -165,7 +166,8 @@ class AllImagesDownloader(threading.Thread):
 		threading.Thread.__init__(self, name="AllImagesDownloader")
 		self.games = games
 		self.gui = gui
-		self.check_images_crc = config.get_option("check_images_crc") 
+		self.check_images_crc = config.get_option("check_images_crc")
+		self.check_images_notified = False
 		self.stopnow = False
 	
 	def run(self):
@@ -187,7 +189,9 @@ class AllImagesDownloader(threading.Thread):
 			
 			# check images CRC
 			if self.check_images_crc == True:
-				self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity for '%s'...") % game[GAME_FULLINFO])
+				if self.check_images_notified == False:
+				    self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity..."))
+				    self.check_images_notified = True
 				if os.path.exists(img1) and game[GAME_IMG1_CRC] != get_crc32(img1):
 					os.remove(img1)
 				if os.path.exists(img2) and game[GAME_IMG2_CRC] != get_crc32(img2):
@@ -195,6 +199,7 @@ class AllImagesDownloader(threading.Thread):
 
 			if not os.path.exists(img1) or not os.path.exists(img2):
 				self.gui.update_statusbar("AllImagesDownloader", _("Downloading images for '%s'...") % game[GAME_FULLINFO])
+				self.check_images_notified = False
 			
 			if not os.path.exists(img1):
 				try:

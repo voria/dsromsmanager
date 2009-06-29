@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 03:20+0200\n"
+"POT-Creation-Date: 2009-06-29 03:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,71 +16,70 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/downloaders.py:49
+#: ../src/downloaders.py:50
 msgid "Searching for a new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:55
+#: ../src/downloaders.py:56
 msgid "New DAT file available!"
 msgstr ""
 
-#: ../src/downloaders.py:68
+#: ../src/downloaders.py:69
 msgid "Loading the new DAT file and creating database..."
 msgstr ""
 
-#: ../src/downloaders.py:70 ../src/drm.py:75
+#: ../src/downloaders.py:71 ../src/drm.py:75
 msgid "Database created."
 msgstr ""
 
-#: ../src/downloaders.py:73
+#: ../src/downloaders.py:74
 msgid "DAT file is up to date."
 msgstr ""
 
-#: ../src/downloaders.py:75
+#: ../src/downloaders.py:76
 msgid "Can't download DAT version file!"
 msgstr ""
 
-#: ../src/downloaders.py:94
+#: ../src/downloaders.py:95
 msgid "Downloading the new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:102
+#: ../src/downloaders.py:103
 msgid "Can't download DAT!"
 msgstr ""
 
-#: ../src/downloaders.py:105
+#: ../src/downloaders.py:106
 msgid "Unzipping the new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:142
+#: ../src/downloaders.py:143
 #, python-format
 msgid "Error while downloading image 1 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:155
+#: ../src/downloaders.py:156
 #, python-format
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:173
+#: ../src/downloaders.py:175
 msgid "Downloading all images..."
 msgstr ""
 
-#: ../src/downloaders.py:190
-#, python-format
-msgid "Checking images integrity for '%s'..."
+#: ../src/downloaders.py:193
+msgid "Checking images integrity..."
 msgstr ""
 
-#: ../src/downloaders.py:197
+#: ../src/downloaders.py:201
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr ""
 
-#: ../src/downloaders.py:220
+#: ../src/downloaders.py:225
 msgid "Download of all images stopped."
 msgstr ""
 
-#: ../src/downloaders.py:222
+#: ../src/downloaders.py:227
 msgid "Download of all images completed."
 msgstr ""
 

@@ -1,3 +1,11 @@
+drm (0.4.4) jaunty; urgency=low
+
+  * Fix DAT file zip opening in DatDownloader.
+  * Avoid flood in statusbar when check images integrity while
+    downloading is enabled.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 03:34:28 +0200
+
 drm (0.4.3) jaunty; urgency=low
 
   * Handle an exception when trying to open a zip file that
