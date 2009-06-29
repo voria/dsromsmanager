@@ -71,6 +71,7 @@ class Gui(threading.Thread):
 		self.options_roms_path_filechooserbutton = self.builder.get_object("options_roms_path_filechooserbutton")
 		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
 		self.options_new_roms_path_filechooserbutton = self.builder.get_object("options_new_roms_path_filechooserbutton")
+		self.options_images_path_filechooserbutton = self.builder.get_object("options_images_path_filechooserbutton")
 		self.options_review_url_entry = self.builder.get_object("options_review_url_entry")
 		self.options_ok_button = self.builder.get_object("options_ok_button")
 		self.options_cancel_button = self.builder.get_object("options_cancel_button")
@@ -745,6 +746,7 @@ class Gui(threading.Thread):
 		self.options_roms_path_filechooserbutton.set_current_folder(config.get_option("roms_path"))
 		self.options_unknown_roms_path_filechooserbutton.set_current_folder(config.get_option("unknown_roms_path"))
 		self.options_new_roms_path_filechooserbutton.set_current_folder(config.get_option("new_roms_path"))
+		self.options_images_path_filechooserbutton.set_current_folder(config.get_option("images_path"))
 		self.options_review_url_entry.set_text(config.get_option("review_url"))
 		self.options_dialog.show()
 	
@@ -760,10 +762,19 @@ class Gui(threading.Thread):
 				
 			config.set_option("unknown_roms_path", self.options_unknown_roms_path_filechooserbutton.get_current_folder())
 			
+			old_images_path = config.get_option("images_path")
+			config.set_option("images_path", self.options_images_path_filechooserbutton.get_current_folder())
+			if config.get_option("images_path") != old_images_path:
+				message = _("Images path has been changed.\n")
+				message += _("\nPlease restart DsRomsManager, database will be rebuilt according to new settings.")
+				self.show_info_dialog(message, False)
+				dbrebuild = open(DB_FILE_REBUILD, "w")
+				dbrebuild.close()
 			old_roms_path = config.get_option("roms_path")
-			config.set_option("new_roms_path", self.options_new_roms_path_filechooserbutton.get_current_folder())
+			old_new_roms_path = config.get_option("new_roms_path")
 			config.set_option("roms_path", self.options_roms_path_filechooserbutton.get_current_folder())
-			if config.get_option("roms_path") != old_roms_path:
+			config.set_option("new_roms_path", self.options_new_roms_path_filechooserbutton.get_current_folder())
+			if config.get_option("roms_path") != old_roms_path or config.get_option("new_roms_path") != old_new_roms_path:
 				# we need to recheck for games on disk, because path has changed
 				self.add_games(False)
 			
@@ -787,10 +798,12 @@ class Gui(threading.Thread):
 		self.list_treeview.set_sensitive(False)
 		self.dat_update_toolbutton.set_sensitive(False)
 		self.dat_update_menuitem.set_sensitive(False)
-		self.all_images_download_toolbutton.set_sensitive(False)
-		self.all_images_download_menuitem.set_sensitive(False)
-		self.rebuild_roms_archives_toolbutton.set_sensitive(False)
-		self.rebuild_roms_archives_menuitem.set_sensitive(False)
+		if self.all_images_download_toolbutton.get_stock_id() != gtk.STOCK_CANCEL:
+			self.all_images_download_toolbutton.set_sensitive(False)
+			self.all_images_download_menuitem.set_sensitive(False)
+		if self.rebuild_roms_archives_toolbutton.get_stock_id() != gtk.STOCK_CANCEL:
+			self.rebuild_roms_archives_toolbutton.set_sensitive(False)
+			self.rebuild_roms_archives_menuitem.set_sensitive(False)
 		self.show_review_toolbutton.set_sensitive(False)
 		self.show_review_menuitem.set_sensitive(False)
 		self.options_toolbutton.set_sensitive(False)
@@ -798,6 +811,8 @@ class Gui(threading.Thread):
 		self.games_check_ok_checkbutton.set_sensitive(False)
 		self.games_check_no_checkbutton.set_sensitive(False)
 		self.games_check_warn_checkbutton.set_sensitive(False)
+		self.info_title_eventbox.set_sensitive(False)
+		self.info_label_vbox.set_sensitive(False)
 		self.filter_name_entry.set_sensitive(False)
 		self.filter_clear_button.set_sensitive(False)
 		self.filter_location_combobox.set_sensitive(False)
@@ -821,6 +836,8 @@ class Gui(threading.Thread):
 		self.games_check_ok_checkbutton.set_sensitive(True)
 		self.games_check_no_checkbutton.set_sensitive(True)
 		self.games_check_warn_checkbutton.set_sensitive(True)
+		self.info_title_eventbox.set_sensitive(True)
+		self.info_label_vbox.set_sensitive(True)
 		self.filter_name_entry.set_sensitive(True)
 		self.filter_clear_button.set_sensitive(True)
 		self.filter_location_combobox.set_sensitive(True)
@@ -838,13 +855,15 @@ class Gui(threading.Thread):
 		else:
 			self.images_window.hide()
 	
-	def show_info_dialog(self, message):
+	def show_info_dialog(self, message, threads = True):
 		""" Show an info dialog with just an OK button, showing 'message' """
-		gtk.gdk.threads_enter()
+		if threads == True:
+			gtk.gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_INFO, gtk.BUTTONS_OK, message)
 		dialog.run()
 		dialog.destroy()
-		gtk.gdk.threads_leave()
+		if threads == True:
+			gtk.gdk.threads_leave()
 	
 	def update_list_game_label(self):
 		if self.quitting == True:

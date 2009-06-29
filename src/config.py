@@ -30,6 +30,7 @@ DEFAULT_REVIEW_URL = "http://www.google.com/search?hl=en&q={FOOBAR} DS review si
 DEFAULT_ROMS_PATH = ROMS_DIR
 DEFAULT_UNKNOWN_ROMS_PATH = UNKNOWN_ROMS_DIR
 DEFAULT_NEW_ROMS_PATH = DEFAULT_ROMS_PATH
+DEFAULT_IMAGES_PATH = IMG_DIR
 DEFAULT_SHOW_AVAILABLE_GAMES = True
 DEFAULT_SHOW_NOT_AVAILABLE_GAMES = True
 DEFAULT_SHOW_FIXABLE_GAMES = True
@@ -40,6 +41,7 @@ DEFAULT_CFG_FILE += "\nreview_url = " + DEFAULT_REVIEW_URL
 DEFAULT_CFG_FILE += "\nroms_path = " + DEFAULT_ROMS_PATH
 DEFAULT_CFG_FILE += "\nunknown_roms_path = " + DEFAULT_UNKNOWN_ROMS_PATH
 DEFAULT_CFG_FILE += "\nnew_roms_path = " + DEFAULT_NEW_ROMS_PATH
+DEFAULT_CFG_FILE += "\nimages_path = " + DEFAULT_IMAGES_PATH
 DEFAULT_CFG_FILE += "\nshow_available_games = " + str(DEFAULT_SHOW_AVAILABLE_GAMES)
 DEFAULT_CFG_FILE += "\nshow_not_available_games = " + str(DEFAULT_SHOW_NOT_AVAILABLE_GAMES)
 DEFAULT_CFG_FILE += "\nshow_fixable_games = " + str(DEFAULT_SHOW_FIXABLE_GAMES)
@@ -85,6 +87,11 @@ class Config():
             self.config.set(DEFAULT_CFG_SECTION, "new_roms_path", DEFAULT_NEW_ROMS_PATH)
             self.new_roms_path = DEFAULT_NEW_ROMS_PATH
         try:
+            self.images_path = self.config.get(DEFAULT_CFG_SECTION, "images_path")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "images_path", DEFAULT_IMAGES_PATH)
+            self.images_path = DEFAULT_IMAGES_PATH
+        try:
             self.show_available_games = self.config.getboolean(DEFAULT_CFG_SECTION, "show_available_games")
         except NoOptionError:
             self.config.set(DEFAULT_CFG_SECTION, "show_available_games", str(DEFAULT_SHOW_AVAILABLE_GAMES))
@@ -114,6 +121,8 @@ class Config():
             return self.unknown_roms_path
         if option == "new_roms_path":
             return self.new_roms_path
+        if option == "images_path":
+            return self.images_path
         if option == "show_available_games":
             return self.show_available_games
         if option == "show_not_available_games":
@@ -133,6 +142,8 @@ class Config():
             return DEFAULT_UNKNOWN_ROMS_PATH
         if option == "new_roms_path":
             return DEFAULT_NEW_ROMS_PATH
+        if option == "images_path":
+            return DEFAULT_IMAGES_PATH
         if option == "show_available_games":
             return DEFAULT_SHOW_AVAILABLE_GAMES
         if option == "show_not_available_games":
@@ -152,6 +163,8 @@ class Config():
             self.unknown_roms_path = value
         elif option == "new_roms_path":
             self.new_roms_path = value
+        elif option == "images_path":
+            self.images_path = value
         elif option == "show_available_games":
             self.show_available_games = value
         elif option == "show_not_available_games":
@@ -172,6 +185,8 @@ class Config():
             self.unknown_roms_path = DEFAULT_UNKNOWN_ROMS_PATH
         elif option == "new_roms_path":
             self.roms_path = DEFAULT_NEW_ROMS_PATH
+        elif option == "images_path":
+            self.images_path = DEFAULT_IMAGES_PATH
         elif option == "show_available_games":
             self.show_available_games = DEFAULT_SHOW_AVAILABLE_GAMES
         elif option == "show_not_available_games":
@@ -187,6 +202,7 @@ class Config():
         config.set(DEFAULT_CFG_SECTION, "show_fixable_games", str(self.show_fixable_games))
         config.set(DEFAULT_CFG_SECTION, "show_not_available_games", str(self.show_not_available_games))
         config.set(DEFAULT_CFG_SECTION, "show_available_games", str(self.show_available_games))
+        config.set(DEFAULT_CFG_SECTION, "images_path", self.images_path)
         config.set(DEFAULT_CFG_SECTION, "new_roms_path", self.new_roms_path)
         config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", self.unknown_roms_path)
         config.set(DEFAULT_CFG_SECTION, "roms_path", self.roms_path)

@@ -118,12 +118,13 @@ class ImagesDownloader(threading.Thread):
 	def __init__(self, gui, game):
 		threading.Thread.__init__(self,  name="ImagesDownloader")
 
+		self.fullinfo = game[GAME_FULLINFO]
 		self.release_number = game[GAME_RELEASE_NUMBER]
 		self.filename1 = game[GAME_IMG1_LOCAL_PATH]
 		self.url1 = game[GAME_IMG1_REMOTE_URL]
 		self.filename2 = game[GAME_IMG2_LOCAL_PATH]
 		self.url2 = game[GAME_IMG2_REMOTE_URL]
-		range_dir = os.path.join(IMG_DIR, game[GAME_RANGE_DIR])
+		range_dir = os.path.join(config.get_option("images_path"), game[GAME_RANGE_DIR])
 		
 		self.gui = gui
 		
@@ -131,6 +132,11 @@ class ImagesDownloader(threading.Thread):
 			os.mkdir(range_dir)
 	
 	def run(self):
+		if os.path.exists(DB_FILE_REBUILD):
+			self.gui.update_statusbar("ImagesDownloader", _("Unable to show images. Please restart DsRomsManager."))
+			return
+			
+		self.gui.update_statusbar("ImagesDownloader", _("Downloading images for '%s'...") % self.fullinfo)
 		if not os.path.exists(self.filename1):
 			try:
 				input = urlopen(self.url1)
@@ -140,7 +146,7 @@ class ImagesDownloader(threading.Thread):
 				output.close()
 			except HTTPError:
 				self.gui.update_statusbar("ImageDownloader",
-								_("Error while downloading image 1 for '%s': File not found.") % str(game))
+								_("Error while downloading image 1 for '%s': File not found.") % self.fullinfo)
 			else:
 				self.gui.update_image(self.release_number, 1, self.filename1)
 		
@@ -153,9 +159,10 @@ class ImagesDownloader(threading.Thread):
 				output.close()
 			except HTTPError:
 				self.gui.update_statusbar("ImageDownloader",
-								_("Error while downloading image 2 for '%s': File not found.") % str(game))
+								_("Error while downloading image 2 for '%s': File not found.") % self.fullinfo)
 			else:
 				self.gui.update_image(self.release_number, 2, self.filename2)
+		self.gui.update_statusbar("ImagesDownloader", _("Download of images for '%s' completed.") % self.fullinfo)
 			
 	def stop(self):
 		return
@@ -171,6 +178,10 @@ class AllImagesDownloader(threading.Thread):
 		self.stopnow = False
 	
 	def run(self):
+		if os.path.exists(DB_FILE_REBUILD):
+			self.gui.update_statusbar("AllImagesDownloader", _("Unable to download images. Please restart DsRomsManager."))
+			return
+		
 		self.gui.toggle_all_images_download_toolbutton()
 		self.gui.update_statusbar("AllImagesDownloader", _("Downloading all images..."))
 
@@ -178,7 +189,7 @@ class AllImagesDownloader(threading.Thread):
 			if self.stopnow == True:
 				break
 			
-			range_dir = os.path.join(IMG_DIR, game[GAME_RANGE_DIR])
+			range_dir = os.path.join(config.get_option("images_path"), game[GAME_RANGE_DIR])
 			img1 = game[GAME_IMG1_LOCAL_PATH]
 			img2 = game[GAME_IMG2_LOCAL_PATH]
 			url1 = game[GAME_IMG1_REMOTE_URL]

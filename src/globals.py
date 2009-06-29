@@ -43,6 +43,7 @@ if not os.path.exists(UNKNOWN_ROMS_DIR):
 	os.mkdir(UNKNOWN_ROMS_DIR)
 DB_FILE = os.path.join(WORK_DIR, "db")
 DB_VERSION = "4"
+DB_FILE_REBUILD = os.path.join(WORK_DIR, "db.rebuild")
 
 from config import Config
 config = Config()
