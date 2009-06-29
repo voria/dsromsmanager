@@ -21,7 +21,7 @@ import shutil
 import threading
 import struct
 import binascii
-from zipfile import ZipFile
+import zipfile
 
 import locale, gettext
 _ = gettext.gettext
@@ -34,11 +34,11 @@ def get_crc32(filename):
     bin = struct.pack('>l', binascii.crc32(file(filename, 'r').read()))
     return binascii.hexlify(bin).upper()
 
-def get_crc32_zip(zipfile):
-    """ Return CRC32 of .nds file contained in 'zipfile'.
+def get_crc32_zip(zipf):
+    """ Return CRC32 of .nds file contained in 'zipf'.
     Return None if no .nds file is found """
     result = None
-    zip = ZipFile(zipfile, "r")
+    zip = zipfile.ZipFile(zipf, "r")
     for info in zip.infolist():
         if info.filename[len(info.filename)-4:].lower() == ".nds":
             crc = struct.pack('>L', info.CRC)
@@ -47,11 +47,11 @@ def get_crc32_zip(zipfile):
     zip.close()
     return result
 
-def get_nds_filename_from_zip(zipfile):
-    """ Return the filename of .nds file contained in 'zipfile',
+def get_nds_filename_from_zip(zipf):
+    """ Return the filename of .nds file contained in 'zipf',
     or None if no .nds file is found """
     result = None
-    zip = ZipFile(zipfile, "r")
+    zip = zipfile.ZipFile(zipf, "r")
     for info in zip.infolist():
         if info.filename[len(info.filename)-4:].lower() == ".nds":
             result = info.filename
@@ -89,8 +89,8 @@ class RomArchivesRebuild(threading.Thread):
             newzipfile = os.path.join(dir, key + ".zip")
             newndsname = key + ".nds"
             
-            try:    
-                zip = ZipFile(oldzipfile, "r")
+            try:  
+                zip = zipfile.ZipFile(oldzipfile, "r")
                 
                 if len(zip.infolist()) != 1:
                     # We can't handle zip with multiple files in it for now
@@ -116,7 +116,7 @@ class RomArchivesRebuild(threading.Thread):
                 zip.extract(info, dir)
                 # Reopen zip file in write mode (truncate it)
                 zip.close()
-                zip = ZipFile(oldzipfile, "w")
+                zip = zipfile.ZipFile(oldzipfile, "w", zipfile.ZIP_DEFLATED)
                 zip.write(oldndsfile, newndsname)
                 zip.close()
                 # Rename zip file

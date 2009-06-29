@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 00:54+0200\n"
+"POT-Creation-Date: 2009-06-29 02:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,21 +112,21 @@ msgstr ""
 msgid "Database loaded."
 msgstr ""
 
-#: ../src/files.py:86
+#: ../src/files.py:85
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:130
+#: ../src/files.py:127
 #, python-format
 msgid "Error while rebuilding archive for '%s'!"
 msgstr ""
 
-#: ../src/files.py:134
+#: ../src/files.py:130
 msgid "Rebuild stopped."
 msgstr ""
 
-#: ../src/files.py:136
+#: ../src/files.py:132
 msgid "Rebuild completed."
 msgstr ""
 
@@ -290,56 +290,56 @@ msgstr ""
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:660
+#: ../src/gui.py:655
 msgid "Waiting while the current job is finished..."
 msgstr ""
 
-#: ../src/gui.py:859
+#: ../src/gui.py:854
 #, python-format
 msgid "%d game in list"
 msgstr ""
 
-#: ../src/gui.py:861
+#: ../src/gui.py:856
 #, python-format
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:863
+#: ../src/gui.py:858
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:865
+#: ../src/gui.py:860
 #, python-format
 msgid " - %d to be fixed"
 msgstr ""
 
-#: ../src/gui.py:867
+#: ../src/gui.py:862
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:869 drm.glade.h:17
+#: ../src/gui.py:864 drm.glade.h:17
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:937
+#: ../src/gui.py:932
 msgid "Stop download."
 msgstr ""
 
-#: ../src/gui.py:954
+#: ../src/gui.py:949
 msgid "Stop rebuild."
 msgstr ""
 
-#: ../src/gui.py:985
+#: ../src/gui.py:980
 msgid "Checking games on disk..."
 msgstr ""
 
-#: ../src/gui.py:1021
+#: ../src/gui.py:1016
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1031
+#: ../src/gui.py:1026
 msgid "Games list loaded."
 msgstr ""
 

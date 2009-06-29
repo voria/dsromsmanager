@@ -1,3 +1,7 @@
+DsRomsManager - 0.4.1
+	* Enable compression while rebuilding roms archives.
+	* Rebuild roms archives in a sorted order.
+	
 DsRomsManager - 0.4
 	* Big rewrite of application (mainly on database).
 	  Now used RAM is greatly decreased, due to the fact that
