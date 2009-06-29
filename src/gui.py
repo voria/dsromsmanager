@@ -289,7 +289,7 @@ class Gui(threading.Thread):
 		self.gamesnumber_available = 0
 		self.gamesnumber_not_available = 0
 		self.gamesnumber_fixable = 0 # Only fixable games showed in treeview
-		self.gamesnumber_to_be_fixed = 0 # All fixable games
+		self.games_to_be_fixed = {} # All fixable games
 		
 		self.dirty_gameslist = False
 		
@@ -644,16 +644,11 @@ class Gui(threading.Thread):
 		self.on_filter_clear_button_clicked(self.filter_clear_button)
 		
 		if button.get_stock_id() == gtk.STOCK_DIALOG_WARNING:
-			if self.gamesnumber_to_be_fixed == 0: # Nothing to do
-				return
-			# Get a dictionary of all the games to be fixed
-			games = self.get_games_to_be_fixed()
-			
 			widgets = [] # widgets that need to be disabled while updating
 			widgets.append(self.dat_update_toolbutton)
 			widgets.append(self.dat_update_menuitem)
 			
-			rar = RomArchivesRebuild(self, widgets, games)
+			rar = RomArchivesRebuild(self, widgets, self.games_to_be_fixed)
 			self.threads.append(rar)
 			rar.start()
 		else: # Stop thread
@@ -813,7 +808,7 @@ class Gui(threading.Thread):
 		""" Enable all widgets' sensitiveness """
 		if self.quitting == True:
 			return
-		if self.gamesnumber_to_be_fixed > 0:
+		if len(self.games_to_be_fixed) > 0:
 			self.rebuild_roms_archives_toolbutton.set_sensitive(True)
 			self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		self.list_treeview.set_sensitive(True)
@@ -1025,8 +1020,8 @@ class Gui(threading.Thread):
 			self.open_db()
 			self.__update_list(self.db.get_all_games())
 			
-		# Count games to be fixed
-		self.gamesnumber_to_be_fixed = len(self.get_games_to_be_fixed())
+		# Look for games to be fixed
+		self.games_to_be_fixed = self.get_games_to_be_fixed()
 		
 		self.update_statusbar("Games", _("Games list loaded."), threads)
 		

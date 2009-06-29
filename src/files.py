@@ -75,23 +75,21 @@ class RomArchivesRebuild(threading.Thread):
         for widget in self.widgets:
             widget.set_sensitive(False)
             
-        #self.gui.deactivate_widgets()
         self.gui.toggle_rebuild_roms_archives_toolbutton()
-        try:
-            for key in self.games.keys():
-                if self.stopnow == True:
-                    return
-                self.games_fixed += 1
-                text = " (%d/%d): " % (self.games_fixed, self.games_to_fix)  
-                self.gui.update_statusbar("RomArchivesRebuild", text + _("Rebuilding archive for '%s'...") % key)
+        
+        for key in sorted(self.games.iterkeys()):
+            if self.stopnow == True:
+                break
+            self.games_fixed += 1
+            text = " (%d/%d): " % (self.games_fixed, self.games_to_fix)  
+            self.gui.update_statusbar("RomArchivesRebuild", text + _("Rebuilding archive for '%s'...") % key)
                 
-                newzipname = key + ".zip"
-                newndsname = key + ".nds"
-                oldzipfile = self.games[key]
-                dir = oldzipfile.rsplit(os.sep, 1)[0]
-                newzipfile = os.path.join(dir, newzipname)
-                newndsfile = os.path.join(dir, newndsname)
-                
+            oldzipfile = self.games[key]
+            dir = oldzipfile.rsplit(os.sep, 1)[0]
+            newzipfile = os.path.join(dir, key + ".zip")
+            newndsname = key + ".nds"
+            
+            try:    
                 zip = ZipFile(oldzipfile, "r")
                 
                 if len(zip.infolist()) != 1:
@@ -116,29 +114,27 @@ class RomArchivesRebuild(threading.Thread):
                 
                 # Extract the nds file and rename it
                 zip.extract(info, dir)
-                shutil.move(oldndsfile, newndsfile)
-                # Delete old zip file
+                # Reopen zip file in write mode (truncate it)
                 zip.close()
-                os.remove(oldzipfile)
-                # Create a new zip file
-                zip = ZipFile(newzipfile, "w")
-                zip.write(newndsfile, newndsname)
+                zip = ZipFile(oldzipfile, "w")
+                zip.write(oldndsfile, newndsname)
                 zip.close()
+                # Rename zip file
+                shutil.move(oldzipfile, newzipfile)
                 # Remove nds file
-                os.remove(newndsfile)
-        except:
-            self.gui.update_statusbar("RomArchivesRebuild", _("Error while rebuilding archive for '%s'!") % key)
-            raise
-        finally:
-            if self.stopnow == True:
-                self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild stopped."))
-            else:
-                self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild completed."))
-            # restore original button
-            self.gui.toggle_rebuild_roms_archives_toolbutton()
-            
-            # Add games to treeview
-            self.gui.add_games()
+                os.remove(oldndsfile)
+            except:
+                self.gui.update_statusbar("RomArchivesRebuild", _("Error while rebuilding archive for '%s'!") % key)
+        
+        if self.stopnow == True:
+            self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild stopped."))
+        else:
+            self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild completed."))
+        
+        # restore original button
+        self.gui.toggle_rebuild_roms_archives_toolbutton()
+        # Add games to treeview
+        self.gui.add_games()
                     
     def stop(self):
         """ Stop the thread """
