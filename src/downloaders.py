@@ -204,9 +204,9 @@ class AllImagesDownloader(threading.Thread):
 				if self.check_images_notified == False:
 				    self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity..."))
 				    self.check_images_notified = True
-				if os.path.exists(img1) and game[GAME_IMG1_CRC] != get_crc32_img(img1):
+				if os.path.exists(img1) and game[GAME_IMG1_CRC] != get_crc32(img1):
 					os.remove(img1)
-				if os.path.exists(img2) and game[GAME_IMG2_CRC] != get_crc32_img(img2):
+				if os.path.exists(img2) and game[GAME_IMG2_CRC] != get_crc32(img2):
 					os.remove(img2)
 
 			if not os.path.exists(img1) or not os.path.exists(img2):

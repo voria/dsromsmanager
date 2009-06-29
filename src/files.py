@@ -29,14 +29,8 @@ _ = gettext.gettext
 from globals import *
 from db import DB
 
-def get_crc32_img(filename):
-    """ Return CRC32 of 'filename' image """
-    crc = binascii.crc32(file(filename, 'r').read())
-    bin = struct.pack('>L', crc & 0xffffffff)
-    return binascii.hexlify(bin).upper()
-
-def get_crc32_nds(filename):
-    """ Return CRC32 of 'filename' nds rom """
+def get_crc32(filename):
+    """ Return CRC32 of 'filename' """
     result = None
     try:
         crc = binascii.crc32(file(filename, 'r').read())
@@ -126,14 +120,16 @@ class RomArchiveExtract(threading.Thread):
         return
 
 class RomArchivesRebuild(threading.Thread):
-    """ Rebuild zip archive for games listed in 'games' dictionary """
+    """ Rebuild zip archive for games listed in 'games' dictionary.
+    games = { fullinfo : (oldfile, relnum) } """
+    
     def __init__(self, gui, widgets, games):
         threading.Thread.__init__(self, name="RomArchivesRebuild")
         self.gui = gui
         self.widgets = widgets
         self.games = games
-        self.games_to_fix = len(games)
-        self.games_fixed = 0
+        self.gamesnumber_to_fix = len(games)
+        self.gamesnumber_fixed = 0
         self.is_zip = True # Are we working on zip or nds?
         self.stopnow = False
     
@@ -147,11 +143,11 @@ class RomArchivesRebuild(threading.Thread):
         for key in sorted(self.games.iterkeys()):
             if self.stopnow == True:
                 break
-            self.games_fixed += 1
-            text = " (%d/%d): " % (self.games_fixed, self.games_to_fix)  
+            self.gamesnumber_fixed += 1
+            text = " (%d/%d) : " % (self.gamesnumber_fixed, self.gamesnumber_to_fix)  
             self.gui.update_statusbar("RomArchivesRebuild", text + _("Rebuilding archive for '%s'...") % key)
             
-            oldfile = self.games[key]
+            oldfile = self.games[key][0]
             if oldfile[len(oldfile)-4:].lower() == ".zip":
                 self.is_zip = True
             else: # '.nds' file
@@ -175,11 +171,15 @@ class RomArchivesRebuild(threading.Thread):
                         if oldfile == newzipfile:
                             # Nothing to do
                             zip.close()
+                            # Update game in treeview
+                            self.gui.update_game(self.games[key][1], newzipfile)
                             continue
                         else:
                             # Just rename the zip file, its content is ok
                             zip.close()
                             shutil.move(oldfile, newzipfile)
+                            # Update game in treeview
+                            self.gui.update_game(self.games[key][1], newzipfile)
                             continue
                     # Extract the nds file and delete the old zip file
                     zip.extract(info, dir)
@@ -192,9 +192,11 @@ class RomArchivesRebuild(threading.Thread):
                 # Open the new zip file andrite in it the 'oldfile' as 'newndsname'
                 zip = zipfile.ZipFile(newzipfile, "w", zipfile.ZIP_DEFLATED)
                 zip.write(oldfile, newndsname)
-                zip.close() 
+                zip.close()
                 # Remove old nds file
                 os.remove(oldfile)
+                # Update game in treeview
+                self.gui.update_game(self.games[key][1], newzipfile)
             except:
                 self.gui.update_statusbar("RomArchivesRebuild", _("Error while building archive for '%s'!") % key)
                 raise
@@ -206,13 +208,6 @@ class RomArchivesRebuild(threading.Thread):
         
         # restore original button
         self.gui.toggle_rebuild_roms_archives_toolbutton()
-        # Add games to treeview
-        if self.games_to_fix > 1:
-            self.gui.add_games()
-        else:
-            # Get the release number
-            relnum = int(newndsname.split()[0])
-            self.gui.update_game(relnum, newzipfile)
         # Restore previous treeview selection
         self.gui.set_previous_treeview_cursor()
                     

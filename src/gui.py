@@ -689,7 +689,20 @@ class Gui(threading.Thread):
 	def on_list_treeview_popup_rebuildarchive_menuitem_activate(self, button):
 		if self.quitting == True:
 			return
-		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton, True)
+		
+		dict = {}
+		
+		path, column = self.list_treeview.get_cursor()
+		iter = self.list_treeview_model.get_iter(path)
+		relnum = self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER)
+		try:
+			game = self.db.get_game(relnum)
+		except:
+			self.open_db()
+			game = self.db.get_game(relnum)
+		dict[game[GAME_FULLINFO]] = (self.checksums[game[GAME_ROM_CRC]], relnum)
+		
+		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton, dict)
 			
 	def on_show_review_toolbutton_clicked(self, button):
 		if self.quitting == True:
@@ -752,29 +765,17 @@ class Gui(threading.Thread):
 					thread.stop()
 					break
 	
-	def on_rebuild_roms_archives_toolbutton_clicked(self, button, one_game_only = False):
+	def on_rebuild_roms_archives_toolbutton_clicked(self, button, dict = None):
 		if self.quitting == True:
 			return
 		if button.get_stock_id() == gtk.STOCK_DIALOG_WARNING:
-			if one_game_only == True:
-				path, column = self.list_treeview.get_cursor()
-				iter = self.list_treeview_model.get_iter(path)
-				relnum = self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER)
-				try:
-					game = self.db.get_game(relnum)
-				except:
-					self.open_db()
-					game = self.db.get_game(relnum)
-				dict = { game[GAME_FULLINFO] : self.checksums[game[GAME_ROM_CRC]] }
-			
 			widgets = [] # widgets that need to be disabled while updating
 			widgets.append(self.dat_update_toolbutton)
 			widgets.append(self.dat_update_menuitem)
 			
-			if one_game_only == True:
+			if dict != None:
 				rar = RomArchivesRebuild(self, widgets, dict)
 			else:
-				self.on_filter_clear_button_clicked(self.filter_clear_button)
 				rar = RomArchivesRebuild(self, widgets, self.games_to_be_fixed)
 			self.threads.append(rar)
 			rar.start()
@@ -1156,28 +1157,6 @@ class Gui(threading.Thread):
 				self.list_treeview.set_cursor(path)
 		if threads == True:
 			gtk.gdk.threads_leave()
-		
-	
-	def get_games_to_be_fixed(self):
-		""" Return a dictionary with ('game_fullinfo': 'actual_path') of
-		all the games that need to be fixed """
-		# Dictionary of all the games to be fixed
-		games = {}
-		if self.quitting == True:
-			return games
-		iter = self.list_treeview_model.get_iter_first()
-		while iter != None:
-			if self.list_treeview_model.get_value(iter, TVC_CHECK) == self.checks[CHECKS_WARN]:
-				relnum = self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER)
-				try:
-					game = self.db.get_game(relnum)
-				except:
-					self.open_db()
-					game = self.db.get_game(relnum)
-				# Populate the dictionary
-				games[game[GAME_FULLINFO]] = self.checksums[game[GAME_ROM_CRC]]
-			iter = self.list_treeview_model.iter_next(iter)
-		return games
 	
 	def toggle_all_images_download_toolbutton(self):
 		if self.quitting == True:
@@ -1213,6 +1192,9 @@ class Gui(threading.Thread):
 			self.rebuild_roms_archives_toolbutton.set_stock_id(gtk.STOCK_DIALOG_WARNING)
 			self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_MENU))
 			self.rebuild_roms_archives_toolbutton.set_tooltip_text(self.old_rrat_tooltip_text)
+			if len(self.games_to_be_fixed) > 0:
+				self.rebuild_roms_archives_toolbutton.set_sensitive(True)
+				self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		gtk.gdk.threads_leave()
 		
 	
@@ -1263,7 +1245,7 @@ class Gui(threading.Thread):
 					if file[len(file)-4:].lower() == ".zip":
 						crc = get_crc32_zip(file)
 					if file[len(file)-4:].lower() == ".nds":
-						crc = get_crc32_nds(file)
+						crc = get_crc32(file)
 					if crc != None and crc in self.checksums and self.checksums[crc] == None:
 						self.checksums[crc] = file
 					else:
@@ -1278,7 +1260,7 @@ class Gui(threading.Thread):
 			if file[len(file)-4:].lower() == ".zip":
 				crc = get_crc32_zip(file)
 			if file[len(file)-4:].lower() == ".nds":
-				crc = get_crc32_nds(file)
+				crc = get_crc32(file)
 			if crc != None and crc in self.checksums and self.checksums[crc] == None:
 				new_file = os.path.join(config.get_option("new_roms_path"), file.rsplit(os.sep, 1)[1])
 				shutil.move(file, new_file)
@@ -1286,6 +1268,7 @@ class Gui(threading.Thread):
 		
 		self.deactivate_widgets()
 		self.update_statusbar("Games", _("Loading games list..."), threads)
+		
 		try:
 			self.__update_list(self.db.get_all_games())
 		except:
@@ -1293,7 +1276,18 @@ class Gui(threading.Thread):
 			self.__update_list(self.db.get_all_games())
 			
 		# Look for games to be fixed
-		self.games_to_be_fixed = self.get_games_to_be_fixed()
+		iter = self.list_treeview_model.get_iter_first()
+		while iter != None:
+			if self.list_treeview_model.get_value(iter, TVC_CHECK) == self.checks[CHECKS_WARN]:
+				relnum = self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER)
+				try:
+					game = self.db.get_game(relnum)
+				except:
+					self.open_db()
+					game = self.db.get_game(relnum)
+				# Populate the dictionary
+				self.games_to_be_fixed[game[GAME_FULLINFO]] = (self.checksums[game[GAME_ROM_CRC]], relnum)
+			iter = self.list_treeview_model.iter_next(iter)
 		
 		self.update_statusbar("Games", _("Games list loaded."), threads)
 		
