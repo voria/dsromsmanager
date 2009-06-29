@@ -1,3 +1,11 @@
+DsRomsManager - 0.4.5
+	* Add support for a custom images path.
+	* Add a popup menu to games list, with support for archive
+	  extraction and rebuild.
+	* When a game is selected in games list and list gets updated,
+	  if possible restore the selection.
+	* Update translations.
+
 DsRomsManager - 0.4.4
 	* Fix DAT file zip opening in DatDownloader.
 	* Avoid flood in statusbar when check images integrity while downloading is enabled.

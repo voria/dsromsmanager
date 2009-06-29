@@ -1,3 +1,14 @@
+drm (0.4.5) jaunty; urgency=low
+
+  * Add support for a custom images path.
+  * Add a popup menu to games list, with support for archive
+    extraction and rebuild.
+  * When a game is selected in games list and list gets updated,
+    if possible restore the selection.
+  * Update translations.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 16:03:09 +0200
+
 drm (0.4.4) jaunty; urgency=low
 
   * Fix DAT file zip opening in DatDownloader.
