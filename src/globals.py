@@ -56,7 +56,7 @@ sizes = ["64 MBits", "128 MBits", "256 MBits", "512 MBits", "1024 MBits", "2048 
 
 CHECKS_NO = 0
 CHECKS_YES = 1
-CHECKS_WARN = 2
+CHECKS_CONVERT = 2
 
 langs = {
 		0 : _("French"),

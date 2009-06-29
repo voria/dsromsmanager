@@ -152,7 +152,7 @@ class Gui(threading.Thread):
 		self.all_images_download_menuitem.connect('activate', self.on_statusicon_all_images_download_activate)
 		self.popup_menu.append(self.all_images_download_menuitem)
 		self.rebuild_roms_archives_menuitem = gtk.ImageMenuItem(_("Rebuild archives"))
-		self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_MENU))
+		self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CONVERT, gtk.ICON_SIZE_MENU))
 		self.rebuild_roms_archives_menuitem.connect('activate', self.on_statusicon_rebuild_roms_archives_activate)
 		self.popup_menu.append(self.rebuild_roms_archives_menuitem)
 		menuitem = gtk.SeparatorMenuItem()
@@ -201,9 +201,9 @@ class Gui(threading.Thread):
 		# Load checks images
 		self.checks = []
 		image = gtk.Image()
-		self.checks.append(image.render_icon(gtk.STOCK_NO, gtk.ICON_SIZE_BUTTON))
-		self.checks.append(image.render_icon(gtk.STOCK_OK, gtk.ICON_SIZE_BUTTON))
-		self.checks.append(image.render_icon(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_BUTTON))
+		self.checks.append(image.render_icon(gtk.STOCK_NO, gtk.ICON_SIZE_MENU))
+		self.checks.append(image.render_icon(gtk.STOCK_OK, gtk.ICON_SIZE_MENU))
+		self.checks.append(image.render_icon(gtk.STOCK_CONVERT, gtk.ICON_SIZE_MENU))
 		
 		# Setup all needed stuff for main list treeview
 		self.list_treeview_model = gtk.ListStore(gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, int, str)
@@ -341,7 +341,7 @@ class Gui(threading.Thread):
 					else:
 						return
 				else: # game to be fixed
-					check = self.checks[CHECKS_WARN]
+					check = self.checks[CHECKS_CONVERT]
 					if anyway or self.games_check_warn_checkbutton.get_active():
 						self.gamesnumber_fixable += 1
 					else:
@@ -644,7 +644,7 @@ class Gui(threading.Thread):
 			elif check == self.checks[CHECKS_NO]:
 				self.list_treeview_popup_extract_menuitem.set_sensitive(False)
 				self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
-			else: # CHECKS_WARN
+			else: # CHECKS_CONVERT
 				self.list_treeview_popup_extract_menuitem.set_sensitive(False)
 				self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(True)
 				for thread in self.threads:
@@ -768,7 +768,7 @@ class Gui(threading.Thread):
 	def on_rebuild_roms_archives_toolbutton_clicked(self, button, dict = None):
 		if self.quitting == True:
 			return
-		if button.get_stock_id() == gtk.STOCK_DIALOG_WARNING:
+		if button.get_stock_id() == gtk.STOCK_CONVERT:
 			widgets = [] # widgets that need to be disabled while updating
 			widgets.append(self.dat_update_toolbutton)
 			widgets.append(self.dat_update_menuitem)
@@ -1179,7 +1179,7 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		gtk.gdk.threads_enter()
-		if self.rebuild_roms_archives_toolbutton.get_stock_id() == gtk.STOCK_DIALOG_WARNING:
+		if self.rebuild_roms_archives_toolbutton.get_stock_id() == gtk.STOCK_CONVERT:
 			# switch to cancel button
 			self.rebuild_roms_archives_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
 			self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_MENU))
@@ -1189,8 +1189,8 @@ class Gui(threading.Thread):
 			self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		else:
 			# restore original button
-			self.rebuild_roms_archives_toolbutton.set_stock_id(gtk.STOCK_DIALOG_WARNING)
-			self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_DIALOG_WARNING, gtk.ICON_SIZE_MENU))
+			self.rebuild_roms_archives_toolbutton.set_stock_id(gtk.STOCK_CONVERT)
+			self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CONVERT, gtk.ICON_SIZE_MENU))
 			self.rebuild_roms_archives_toolbutton.set_tooltip_text(self.old_rrat_tooltip_text)
 			if len(self.games_to_be_fixed) > 0:
 				self.rebuild_roms_archives_toolbutton.set_sensitive(True)
@@ -1278,7 +1278,7 @@ class Gui(threading.Thread):
 		# Look for games to be fixed
 		iter = self.list_treeview_model.get_iter_first()
 		while iter != None:
-			if self.list_treeview_model.get_value(iter, TVC_CHECK) == self.checks[CHECKS_WARN]:
+			if self.list_treeview_model.get_value(iter, TVC_CHECK) == self.checks[CHECKS_CONVERT]:
 				relnum = self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER)
 				try:
 					game = self.db.get_game(relnum)
