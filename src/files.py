@@ -59,8 +59,9 @@ def get_nds_filename_from_zip(zipf):
                 break
         zip.close()
     except:
-        print zipf
-        raise
+        # zipf doesnt exist anymore, probably the roms archives are getting updated
+        # and old files are deleted
+        pass
     return result
 
 class RomArchivesRebuild(threading.Thread):

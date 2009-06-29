@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 02:19+0200\n"
-"PO-Revision-Date: 2009-06-29 00:57+0200\n"
+"POT-Creation-Date: 2009-06-29 03:20+0200\n"
+"PO-Revision-Date: 2009-06-29 03:21+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -119,21 +119,21 @@ msgstr "Caricamento del database in corso..."
 msgid "Database loaded."
 msgstr "Database caricato."
 
-#: ../src/files.py:85
+#: ../src/files.py:90
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr "Ricostruzione dell'archivio di '%s' in corso..."
 
-#: ../src/files.py:127
+#: ../src/files.py:132
 #, python-format
 msgid "Error while rebuilding archive for '%s'!"
 msgstr "Errore durante la ricostruzione dell'archivio di '%s'!"
 
-#: ../src/files.py:130
+#: ../src/files.py:135
 msgid "Rebuild stopped."
 msgstr "Ricostruzione annullata."
 
-#: ../src/files.py:132
+#: ../src/files.py:137
 msgid "Rebuild completed."
 msgstr "Ricostruzione completata."
 
@@ -195,7 +195,7 @@ msgstr "Svedese"
 
 #: ../src/globals.py:77
 msgid "Korean"
-msgstr "Koreano"
+msgstr "Coreano"
 
 #: ../src/globals.py:81
 msgid "Europe"
@@ -227,7 +227,7 @@ msgstr "Giappone"
 
 #: ../src/globals.py:88
 msgid "Netherlands"
-msgstr "Olanda"
+msgstr "Paesi Bassi"
 
 #: ../src/globals.py:89
 msgid "Australia"
@@ -235,7 +235,7 @@ msgstr "Australia"
 
 #: ../src/globals.py:90
 msgid "South Korea"
-msgstr "Korea del Sud"
+msgstr "Corea del sud"
 
 #: ../src/gui.py:136 ../src/gui.py:414
 msgid "Hide"
@@ -330,23 +330,23 @@ msgstr " - %d non disponibili"
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:932
+#: ../src/gui.py:931
 msgid "Stop download."
 msgstr "Annulla il download."
 
-#: ../src/gui.py:949
+#: ../src/gui.py:948
 msgid "Stop rebuild."
 msgstr "Annulla la ricostruzione."
 
-#: ../src/gui.py:980
+#: ../src/gui.py:979
 msgid "Checking games on disk..."
 msgstr "Controllo dei giochi presenti su disco in corso..."
 
-#: ../src/gui.py:1016
+#: ../src/gui.py:1015
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:1026
+#: ../src/gui.py:1025
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 

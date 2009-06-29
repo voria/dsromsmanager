@@ -23,7 +23,7 @@ LOCALE_DIR = "/usr/share/locale/"
 DATA_IMG_DIR = os.path.join(DATA_DIR, "images")
 
 APP_NAME = "DsRomsManager"
-APP_VERSION = "0.4.2"
+APP_VERSION = "0.4.3"
 
 # gettext
 import locale, gettext
@@ -42,7 +42,7 @@ UNKNOWN_ROMS_DIR = os.path.join(ROMS_DIR, "unknown")
 if not os.path.exists(UNKNOWN_ROMS_DIR):
 	os.mkdir(UNKNOWN_ROMS_DIR)
 DB_FILE = os.path.join(WORK_DIR, "db")
-DB_VERSION = "3"
+DB_VERSION = "4"
 
 from config import Config
 config = Config()

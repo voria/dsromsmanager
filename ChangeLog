@@ -1,3 +1,7 @@
+DsRomsManager - 0.4.3
+	* Handle an exception when trying to open a zip file that
+	  does not exist anymore, due to the roms archives rebuild in progress.
+
 DsRomsManager - 0.4.2
 	* Fix a crash when cycling duplicates games with available
       games not showed.

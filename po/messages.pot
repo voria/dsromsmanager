@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 02:19+0200\n"
+"POT-Creation-Date: 2009-06-29 03:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,21 +112,21 @@ msgstr ""
 msgid "Database loaded."
 msgstr ""
 
-#: ../src/files.py:85
+#: ../src/files.py:90
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:127
+#: ../src/files.py:132
 #, python-format
 msgid "Error while rebuilding archive for '%s'!"
 msgstr ""
 
-#: ../src/files.py:130
+#: ../src/files.py:135
 msgid "Rebuild stopped."
 msgstr ""
 
-#: ../src/files.py:132
+#: ../src/files.py:137
 msgid "Rebuild completed."
 msgstr ""
 
@@ -323,23 +323,23 @@ msgstr ""
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:932
+#: ../src/gui.py:931
 msgid "Stop download."
 msgstr ""
 
-#: ../src/gui.py:949
+#: ../src/gui.py:948
 msgid "Stop rebuild."
 msgstr ""
 
-#: ../src/gui.py:980
+#: ../src/gui.py:979
 msgid "Checking games on disk..."
 msgstr ""
 
-#: ../src/gui.py:1016
+#: ../src/gui.py:1015
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1026
+#: ../src/gui.py:1025
 msgid "Games list loaded."
 msgstr ""
 

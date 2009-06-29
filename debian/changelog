@@ -1,3 +1,10 @@
+drm (0.4.3) jaunty; urgency=low
+
+  * Handle an exception when trying to open a zip file that
+    does not exist anymore, due to the roms archives rebuild in progress. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 03:14:59 +0200
+
 drm (0.4.2) jaunty; urgency=low
 
   * Fix a crash when cycling duplicates games with available
