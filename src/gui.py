@@ -647,6 +647,10 @@ class Gui(threading.Thread):
 			else: # CHECKS_WARN
 				self.list_treeview_popup_extract_menuitem.set_sensitive(False)
 				self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(True)
+				for thread in self.threads:
+					if thread.getName() == "RomArchivesRebuild" and thread.isAlive():
+						self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
+						break
 			self.list_treeview_popup_menu.popup(None, None, None, event.button, time)
 	
 	def on_list_treeview_popup_extract_menuitem_activate(self, button):
