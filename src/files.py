@@ -184,6 +184,8 @@ class RomArchivesRebuild(threading.Thread):
         self.gui.toggle_rebuild_roms_archives_toolbutton()
         # Add games to treeview
         self.gui.add_games()
+        # Restore previous treeview selection
+        self.gui.set_previous_treeview_cursor()
                     
     def stop(self):
         """ Stop the thread """

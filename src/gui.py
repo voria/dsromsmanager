@@ -82,6 +82,7 @@ class Gui(threading.Thread):
 		self.list_treeview = self.builder.get_object("list_treeview")
 		self.list_treeview_popup_menu = self.builder.get_object("list_treeview_popup_menu")
 		self.list_treeview_popup_extract_menuitem = self.builder.get_object("list_treeview_popup_extract_menuitem")
+		self.list_treeview_popup_rebuildarchive_menuitem = self.builder.get_object("list_treeview_popup_rebuildarchive_menuitem")
 		self.list_game_label = self.builder.get_object("list_games_label")
 		self.images_eventbox = self.builder.get_object("images_eventbox")
 		self.image1 = self.builder.get_object("image1")
@@ -273,6 +274,7 @@ class Gui(threading.Thread):
 		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
 		self.list_treeview.connect("button-press-event", self.on_list_treeview_button_press_event)
 		self.list_treeview_popup_extract_menuitem.connect("activate", self.on_list_treeview_popup_extract_menuitem_activate)
+		self.list_treeview_popup_rebuildarchive_menuitem.connect("activate", self.on_list_treeview_popup_rebuildarchive_menuitem_activate)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
 		self.games_check_ok_checkbutton.connect("toggled", self.on_games_check_ok_checkbutton_toggled)
 		self.games_check_no_checkbutton.connect("toggled", self.on_games_check_no_checkbutton_toggled)
@@ -297,6 +299,7 @@ class Gui(threading.Thread):
 		self.games_to_be_fixed = {} # All fixable games
 		
 		self.dirty_gameslist = False
+		self.previous_selection_release_number = None
 		
 		self.checksums = {}	
 		
@@ -366,6 +369,7 @@ class Gui(threading.Thread):
 		""" Filter list by all criteria """
 		if self.quitting == True:
 			return
+#		self.previous_selection_release_number = None
 		self.__hide_infos()
 		self.images_window.hide()
 		string = self.filter_name_entry.get_text()
@@ -550,6 +554,7 @@ class Gui(threading.Thread):
 		
 		self.show_review_toolbutton.set_sensitive(True)
 		self.show_review_menuitem.set_sensitive(True)
+		self.previous_selection_release_number = game[GAME_RELEASE_NUMBER]
 		self.__show_infos()
 	
 	def on_info_title_eventbox_button_press_event(self, widget, event, current, duplicates):
@@ -608,8 +613,13 @@ class Gui(threading.Thread):
 			check = model.get_value(iter, TVC_CHECK)
 			if check == self.checks[CHECKS_YES]:
 				self.list_treeview_popup_extract_menuitem.set_sensitive(True)
-			else:
+				self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
+			elif check == self.checks[CHECKS_NO]:
 				self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+				self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
+			else: # CHECKS_WARN
+				self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+				self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(True)
 			self.list_treeview_popup_menu.popup(None, None, None, event.button, time)
 	
 	def on_list_treeview_popup_extract_menuitem_activate(self, button):
@@ -643,6 +653,9 @@ class Gui(threading.Thread):
 		self.threads.append(rae)
 		rae.start()
 	
+	def on_list_treeview_popup_rebuildarchive_menuitem_activate(self, button):
+		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton, True)
+			
 	def on_show_review_toolbutton_clicked(self, button):
 		selection = self.list_treeview.get_selection()
 		model, iter = selection.get_selected()
@@ -698,15 +711,29 @@ class Gui(threading.Thread):
 					thread.stop()
 					break
 	
-	def on_rebuild_roms_archives_toolbutton_clicked(self, button):
-		self.on_filter_clear_button_clicked(self.filter_clear_button)
-		
+	def on_rebuild_roms_archives_toolbutton_clicked(self, button, one_game_only = False):
 		if button.get_stock_id() == gtk.STOCK_DIALOG_WARNING:
+			if one_game_only == True:
+				path, column = self.list_treeview.get_cursor()
+				iter = self.list_treeview_model.get_iter(path)
+				relnum = self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER)
+				try:
+					game = self.db.get_game(relnum)
+				except:
+					self.open_db()
+					game = self.db.get_game(relnum)
+				dict = { game[GAME_FULLINFO] : self.checksums[game[GAME_ROM_CRC]] }
+			
+			self.on_filter_clear_button_clicked(self.filter_clear_button)
+			
 			widgets = [] # widgets that need to be disabled while updating
 			widgets.append(self.dat_update_toolbutton)
 			widgets.append(self.dat_update_menuitem)
 			
-			rar = RomArchivesRebuild(self, widgets, self.games_to_be_fixed)
+			if one_game_only == True:
+				rar = RomArchivesRebuild(self, widgets, dict)
+			else:
+				rar = RomArchivesRebuild(self, widgets, self.games_to_be_fixed)
 			self.threads.append(rar)
 			rar.start()
 		else: # Stop thread
@@ -721,6 +748,7 @@ class Gui(threading.Thread):
 	def on_filter_triggered(self, widget):
 		""" Filter list """
 		self.__filter()
+		self.set_previous_treeview_cursor(False)
 	
 	def on_filter_clear_button_clicked(self, button):
 		""" Clear all filters """
@@ -989,6 +1017,27 @@ class Gui(threading.Thread):
 						self.images_window_image2.set_from_file(filename)
 		except:
 			pass
+	
+	def set_previous_treeview_cursor(self, threads = True):
+		""" If there was a previous treeview selection, restore it """
+		if threads == True:
+			gtk.gdk.threads_enter()
+		if self.previous_selection_release_number != None:
+			iter = self.list_treeview_model.get_iter_first()
+			while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != self.previous_selection_release_number:
+				iter = self.list_treeview_model.iter_next(iter)
+				if iter == None:
+					# game not found in list
+					self.previous_selection_release_number = None
+					if threads == True:
+						gtk.gdk.threads_leave()
+					return
+			if iter != None:
+				path = self.list_treeview_model.get_path(iter)
+				self.list_treeview.set_cursor(path)
+		if threads == True:
+			gtk.gdk.threads_leave()
+		
 	
 	def get_games_to_be_fixed(self):
 		""" Return a dictionary with ('game_fullinfo': 'actual_path') of
