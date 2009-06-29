@@ -52,7 +52,7 @@ class DatUpdater(threading.Thread):
 				new_version_file = urlopen(self.dat_version_url)
 				new_version = new_version_file.read()
 							
-				if int(self.dat_version) <= int(new_version):
+				if int(self.dat_version) < int(new_version):
 					self.gui.update_statusbar("DatUpdater", _("New DAT file available!"))
 					# Make sure we are not downloading all images nor rebuilding archives
 					for thread in self.threads:
