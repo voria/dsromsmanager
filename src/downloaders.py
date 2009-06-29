@@ -30,7 +30,7 @@ from zipfile import ZipFile
 from globals import *
 from db import *
 from dat import *
-from files import get_crc32
+from files import *
 
 class DatUpdater(threading.Thread):
 	""" Update DAT file if needed """
@@ -52,11 +52,11 @@ class DatUpdater(threading.Thread):
 				new_version_file = urlopen(self.dat_version_url)
 				new_version = new_version_file.read()
 							
-				if int(self.dat_version) < int(new_version):
+				if int(self.dat_version) <= int(new_version):
 					self.gui.update_statusbar("DatUpdater", _("New DAT file available!"))
-					# Make sure we are not downloading all images
+					# Make sure we are not downloading all images nor rebuilding archives
 					for thread in self.threads:
-						if thread.getName() == "AllImagesDownloader" and thread.isAlive():
+						if thread.getName() == "AllImagesDownloader"  and thread.isAlive():
 							thread.stop()
 							thread.join()
 							break
@@ -78,6 +78,7 @@ class DatUpdater(threading.Thread):
 		finally:
 			# reactivate widgets
 			self.gui.activate_widgets()
+			self.gui.set_previous_treeview_cursor()
 		
 	def stop(self):
 		return
@@ -203,9 +204,9 @@ class AllImagesDownloader(threading.Thread):
 				if self.check_images_notified == False:
 				    self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity..."))
 				    self.check_images_notified = True
-				if os.path.exists(img1) and game[GAME_IMG1_CRC] != get_crc32(img1):
+				if os.path.exists(img1) and game[GAME_IMG1_CRC] != get_crc32_img(img1):
 					os.remove(img1)
-				if os.path.exists(img2) and game[GAME_IMG2_CRC] != get_crc32(img2):
+				if os.path.exists(img2) and game[GAME_IMG2_CRC] != get_crc32_img(img2):
 					os.remove(img2)
 
 			if not os.path.exists(img1) or not os.path.exists(img2):

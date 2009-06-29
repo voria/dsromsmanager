@@ -29,22 +29,39 @@ _ = gettext.gettext
 from globals import *
 from db import DB
 
-def get_crc32(filename):
-    """ Return CRC32 of 'filename' """
-    bin = struct.pack('>l', binascii.crc32(file(filename, 'r').read()))
+def get_crc32_img(filename):
+    """ Return CRC32 of 'filename' image """
+    crc = binascii.crc32(file(filename, 'r').read())
+    bin = struct.pack('>L', crc & 0xffffffff)
     return binascii.hexlify(bin).upper()
+
+def get_crc32_nds(filename):
+    """ Return CRC32 of 'filename' nds rom """
+    result = None
+    try:
+        crc = binascii.crc32(file(filename, 'r').read())
+        bin = struct.pack('>L', crc & 0xffffffff)
+        result = binascii.hexlify(bin)[:8].upper()
+    except:
+        pass
+    return result
 
 def get_crc32_zip(zipf):
     """ Return CRC32 of .nds file contained in 'zipf'.
     Return None if no .nds file is found """
     result = None
-    zip = zipfile.ZipFile(zipf, "r")
-    for info in zip.infolist():
-        if info.filename[len(info.filename)-4:].lower() == ".nds":
-            crc = struct.pack('>L', info.CRC)
-            result = binascii.hexlify(crc)[:8].upper()
-            break
-    zip.close()
+    try:
+        zip = zipfile.ZipFile(zipf, "r")
+        for info in zip.infolist():
+            if info.filename[len(info.filename)-4:].lower() == ".nds":
+                crc = struct.pack('>L', info.CRC)
+                result = binascii.hexlify(crc)[:8].upper()
+                break
+        zip.close()
+    except:
+        # Not a valid zip or it does not exist. Remove it if possible
+        if os.path.exists(zipf):
+            os.remove(zipf)
     return result
 
 def get_nds_filename_from_zip(zipf):
@@ -117,6 +134,7 @@ class RomArchivesRebuild(threading.Thread):
         self.games = games
         self.games_to_fix = len(games)
         self.games_fixed = 0
+        self.is_zip = True # Are we working on zip or nds?
         self.stopnow = False
     
     def run(self):
@@ -132,48 +150,54 @@ class RomArchivesRebuild(threading.Thread):
             self.games_fixed += 1
             text = " (%d/%d): " % (self.games_fixed, self.games_to_fix)  
             self.gui.update_statusbar("RomArchivesRebuild", text + _("Rebuilding archive for '%s'...") % key)
-                
-            oldzipfile = self.games[key]
-            dir = oldzipfile.rsplit(os.sep, 1)[0]
+            
+            oldfile = self.games[key]
+            if oldfile[len(oldfile)-4:].lower() == ".zip":
+                self.is_zip = True
+            else: # '.nds' file
+                self.is_zip = False
+            dir = oldfile.rsplit(os.sep, 1)[0]
             newzipfile = os.path.join(dir, key + ".zip")
             newndsname = key + ".nds"
             
-            try:  
-                zip = zipfile.ZipFile(oldzipfile, "r")
-                
-                if len(zip.infolist()) != 1:
-                    # We can't handle zip with multiple files in it for now
+            try:
+                if self.is_zip == True:
+                    zip = zipfile.ZipFile(oldfile, "r")
+                    if len(zip.infolist()) != 1:
+                        # We can't handle zip with multiple files in it for now
+                        zip.close()
+                        continue
+                    info = zip.infolist()[0]
+                    oldndsname = info.filename
+                    oldndsfile = os.path.join(dir, oldndsname)
+                    if oldndsname == newndsname:
+                        # nds name is ok, check zip name
+                        if oldfile == newzipfile:
+                            # Nothing to do
+                            zip.close()
+                            continue
+                        else:
+                            # Just rename the zip file, its content is ok
+                            zip.close()
+                            shutil.move(oldfile, newzipfile)
+                            continue
+                    # Extract the nds file and delete the old zip file
+                    zip.extract(info, dir)
                     zip.close()
-                    continue
+                    os.remove(oldfile)
+                    oldfile = os.path.join(dir, oldndsname)
                 
-                info = zip.infolist()[0]
-                oldndsname = info.filename
-                oldndsfile = os.path.join(dir, oldndsname)
-                if oldndsname == newndsname:
-                    # nds name is ok, check zip name
-                    if oldzipfile == newzipfile:
-                        # Nothing to do
-                        zip.close()
-                        continue
-                    else:
-                        # Just rename the zip file, its content is ok
-                        zip.close()
-                        shutil.move(oldzipfile, newzipfile)
-                        continue
+                # Now we can work with oldfile
                 
-                # Extract the nds file and rename it
-                zip.extract(info, dir)
-                # Reopen zip file in write mode (truncate it)
-                zip.close()
-                zip = zipfile.ZipFile(oldzipfile, "w", zipfile.ZIP_DEFLATED)
-                zip.write(oldndsfile, newndsname)
-                zip.close()
-                # Rename zip file
-                shutil.move(oldzipfile, newzipfile)
-                # Remove nds file
-                os.remove(oldndsfile)
+                # Open the new zip file andrite in it the 'oldfile' as 'newndsname'
+                zip = zipfile.ZipFile(newzipfile, "w", zipfile.ZIP_DEFLATED)
+                zip.write(oldfile, newndsname)
+                zip.close() 
+                # Remove old nds file
+                os.remove(oldfile)
             except:
-                self.gui.update_statusbar("RomArchivesRebuild", _("Error while rebuilding archive for '%s'!") % key)
+                self.gui.update_statusbar("RomArchivesRebuild", _("Error while building archive for '%s'!") % key)
+                raise
         
         if self.stopnow == True:
             self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild stopped."))
@@ -183,7 +207,12 @@ class RomArchivesRebuild(threading.Thread):
         # restore original button
         self.gui.toggle_rebuild_roms_archives_toolbutton()
         # Add games to treeview
-        self.gui.add_games()
+        if self.games_to_fix > 1:
+            self.gui.add_games()
+        else:
+            # Get the release number
+            relnum = int(newndsname.split()[0])
+            self.gui.update_game(relnum, newzipfile)
         # Restore previous treeview selection
         self.gui.set_previous_treeview_cursor()
                     

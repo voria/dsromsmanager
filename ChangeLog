@@ -1,3 +1,11 @@
+DsRomsManager - 0.4.6
+	* A lot of bug fixes.
+	* When an archive is rebuild through the treeview popup menu,
+	  the treeview is instantly updated.
+	* Add support for .nds files, in addition to .zip files.
+	  When a .nds file is found and the relative game archive is rebuilt,
+	  a new .zip archive is created and the original .nds file is deleted. 
+	
 DsRomsManager - 0.4.5
 	* Add support for a custom images path.
 	* Add a popup menu to games list, with support for archive

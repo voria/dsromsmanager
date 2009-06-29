@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 16:04+0200\n"
+"POT-Creation-Date: 2009-06-29 20:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,59 +40,59 @@ msgstr ""
 msgid "Can't download DAT version file!"
 msgstr ""
 
-#: ../src/downloaders.py:95
+#: ../src/downloaders.py:96
 msgid "Downloading the new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:103
+#: ../src/downloaders.py:104
 msgid "Can't download DAT!"
 msgstr ""
 
-#: ../src/downloaders.py:106
+#: ../src/downloaders.py:107
 msgid "Unzipping the new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:136
+#: ../src/downloaders.py:137
 msgid "Unable to show images. Please restart DsRomsManager."
 msgstr ""
 
-#: ../src/downloaders.py:139 ../src/downloaders.py:212
+#: ../src/downloaders.py:140 ../src/downloaders.py:213
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr ""
 
-#: ../src/downloaders.py:149
+#: ../src/downloaders.py:150
 #, python-format
 msgid "Error while downloading image 1 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:162
+#: ../src/downloaders.py:163
 #, python-format
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:165
+#: ../src/downloaders.py:166
 #, python-format
 msgid "Download of images for '%s' completed."
 msgstr ""
 
-#: ../src/downloaders.py:182
+#: ../src/downloaders.py:183
 msgid "Unable to download images. Please restart DsRomsManager."
 msgstr ""
 
-#: ../src/downloaders.py:186
+#: ../src/downloaders.py:187
 msgid "Downloading all images..."
 msgstr ""
 
-#: ../src/downloaders.py:204
+#: ../src/downloaders.py:205
 msgid "Checking images integrity..."
 msgstr ""
 
-#: ../src/downloaders.py:236
+#: ../src/downloaders.py:237
 msgid "Download of all images stopped."
 msgstr ""
 
-#: ../src/downloaders.py:238
+#: ../src/downloaders.py:239
 msgid "Download of all images completed."
 msgstr ""
 
@@ -124,58 +124,58 @@ msgstr ""
 msgid "Database loaded."
 msgstr ""
 
-#: ../src/files.py:78
+#: ../src/files.py:95
 #, python-format
 msgid "Unable to extract archive to '%s'. Check write permissions."
 msgstr ""
 
-#: ../src/files.py:82
+#: ../src/files.py:99
 #, python-format
 msgid "Extracting archive for '%s' "
 msgstr ""
 
-#: ../src/files.py:83
+#: ../src/files.py:100
 #, python-format
 msgid "in '%s'..."
 msgstr ""
 
-#: ../src/files.py:93
+#: ../src/files.py:110
 msgid "Target file already exists. Overwrite?"
 msgstr ""
 
-#: ../src/files.py:94
+#: ../src/files.py:111
 msgid "Extraction canceled."
 msgstr ""
 
-#: ../src/files.py:98
+#: ../src/files.py:115
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr ""
 
-#: ../src/files.py:102
+#: ../src/files.py:119
 #, python-format
 msgid "Unable to open '%s'."
 msgstr ""
 
-#: ../src/files.py:105
+#: ../src/files.py:122
 msgid "Extraction completed."
 msgstr ""
 
-#: ../src/files.py:134
+#: ../src/files.py:152
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:176
+#: ../src/files.py:199
 #, python-format
-msgid "Error while rebuilding archive for '%s'!"
+msgid "Error while building archive for '%s'!"
 msgstr ""
 
-#: ../src/files.py:179
+#: ../src/files.py:203
 msgid "Rebuild stopped."
 msgstr ""
 
-#: ../src/files.py:181
+#: ../src/files.py:205
 msgid "Rebuild completed."
 msgstr ""
 
@@ -279,7 +279,7 @@ msgstr ""
 msgid "South Korea"
 msgstr ""
 
-#: ../src/gui.py:140 ../src/gui.py:423
+#: ../src/gui.py:140 ../src/gui.py:424
 msgid "Hide"
 msgstr ""
 
@@ -327,83 +327,83 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: ../src/gui.py:418
+#: ../src/gui.py:419
 msgid "Show"
 msgstr ""
 
-#: ../src/gui.py:523
+#: ../src/gui.py:546
 msgid "Duplicates:"
 msgstr ""
 
-#: ../src/gui.py:528
+#: ../src/gui.py:551
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:638
+#: ../src/gui.py:667
 msgid "Select destination directory"
 msgstr ""
 
-#: ../src/gui.py:740
+#: ../src/gui.py:778
 msgid "Waiting while the current job is finished..."
 msgstr ""
 
-#: ../src/gui.py:853
+#: ../src/gui.py:905
 msgid "Images path has been changed.\n"
 msgstr ""
 
-#: ../src/gui.py:854
+#: ../src/gui.py:906
 msgid ""
 "\n"
 "Please restart DsRomsManager, database will be rebuilt according to new "
 "settings."
 msgstr ""
 
-#: ../src/gui.py:974
+#: ../src/gui.py:1038
 #, python-format
 msgid "%d game in list"
 msgstr ""
 
-#: ../src/gui.py:976
+#: ../src/gui.py:1040
 #, python-format
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:978
+#: ../src/gui.py:1042
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:980
+#: ../src/gui.py:1044
 #, python-format
 msgid " - %d to be fixed"
 msgstr ""
 
-#: ../src/gui.py:982
+#: ../src/gui.py:1046
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:984 drm.glade.h:18
+#: ../src/gui.py:1048 drm.glade.h:18
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:1072
+#: ../src/gui.py:1187
 msgid "Stop download."
 msgstr ""
 
-#: ../src/gui.py:1089
+#: ../src/gui.py:1204
 msgid "Stop rebuild."
 msgstr ""
 
-#: ../src/gui.py:1120
+#: ../src/gui.py:1237
 msgid "Checking games on disk..."
 msgstr ""
 
-#: ../src/gui.py:1156
+#: ../src/gui.py:1284
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1166
+#: ../src/gui.py:1294
 msgid "Games list loaded."
 msgstr ""
 
