@@ -196,9 +196,9 @@ vorione@gmail.com</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="headers_visible">False</property>
+                        <property name="headers_clickable">False</property>
                         <property name="rules_hint">True</property>
                         <property name="enable_search">False</property>
-                        <property name="search_column">0</property>
                       </object>
                     </child>
                   </object>
@@ -1074,9 +1074,9 @@ vorione@gmail.com</property>
                 <child>
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
+                    <property name="show_hidden">True</property>
                     <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
-                    <property name="show_hidden">True</property>
                     <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
@@ -1252,6 +1252,16 @@ Set an empty string to use the default URL.</property>
             </child>
           </object>
         </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMenu" id="list_treeview_popup_menu">
+    <property name="visible">True</property>
+    <child>
+      <object class="GtkMenuItem" id="list_treeview_popup_extract_menuitem">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Extract in...</property>
+        <property name="use_underline">True</property>
       </object>
     </child>
   </object>

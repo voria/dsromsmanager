@@ -64,6 +64,50 @@ def get_nds_filename_from_zip(zipf):
         pass
     return result
 
+class RomArchiveExtract(threading.Thread):
+    """ Extract an archive """
+    def __init__(self, gui, game, zipf, target):
+        threading.Thread.__init__(self, name="RomArchiveExtract")
+        self.gui = gui
+        self.game = game
+        self.zipf = zipf
+        self.target = target
+    
+    def run(self):
+        if not os.access(self.target, os.W_OK):
+            text = _("Unable to extract archive to '%s'. Check write permissions.") % self.target
+            self.gui.update_statusbar("RomArchiveExtract", text)
+            return        
+        
+        text = _("Extracting archive for '%s' ") % self.game
+        text += _("in '%s'...") % self.target
+        self.gui.update_statusbar("RomArchiveExtract", text)
+        
+        text = None
+        
+        try:
+            zip = zipfile.ZipFile(self.zipf, "r")
+            try:
+                info = zip.infolist()[0]
+                if os.path.exists(os.path.join(self.target, info.filename)):
+                    if self.gui.show_question_dialog(_("Target file already exists. Overwrite?")) == False:
+                        text = _("Extraction canceled.")
+                        return
+                zip.extractall(self.target)
+            except:
+                text = _("Unable to extract file from '%s'.") % self.zipf
+            finally:
+                zip.close()
+        except:
+            text = _("Unable to open '%s'.") % self.zipf
+        finally:
+            if text == None:
+                text = _("Extraction completed.")
+            self.gui.update_statusbar("RomArchiveExtract", text)
+        
+    def stop(self):
+        return
+
 class RomArchivesRebuild(threading.Thread):
     """ Rebuild zip archive for games listed in 'games' dictionary """
     def __init__(self, gui, widgets, games):

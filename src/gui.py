@@ -80,6 +80,8 @@ class Gui(threading.Thread):
 		self.images_window_image1 = self.builder.get_object("images_window_image1")
 		self.images_window_image2 = self.builder.get_object("images_window_image2")
 		self.list_treeview = self.builder.get_object("list_treeview")
+		self.list_treeview_popup_menu = self.builder.get_object("list_treeview_popup_menu")
+		self.list_treeview_popup_extract_menuitem = self.builder.get_object("list_treeview_popup_extract_menuitem")
 		self.list_game_label = self.builder.get_object("list_games_label")
 		self.images_eventbox = self.builder.get_object("images_eventbox")
 		self.image1 = self.builder.get_object("image1")
@@ -269,6 +271,8 @@ class Gui(threading.Thread):
 		self.about_toolbutton.connect("clicked", self.on_about_toolbutton_clicked)
 		self.about_dialog.connect("response", self.on_about_dialog_response)
 		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
+		self.list_treeview.connect("button-press-event", self.on_list_treeview_button_press_event)
+		self.list_treeview_popup_extract_menuitem.connect("activate", self.on_list_treeview_popup_extract_menuitem_activate)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
 		self.games_check_ok_checkbutton.connect("toggled", self.on_games_check_ok_checkbutton_toggled)
 		self.games_check_no_checkbutton.connect("toggled", self.on_games_check_no_checkbutton_toggled)
@@ -586,6 +590,59 @@ class Gui(threading.Thread):
 		path = self.list_treeview_model.get_path(iter)
 		self.list_treeview.set_cursor(path)
 	
+	def on_list_treeview_button_press_event(self, treeview, event):
+		if event.button == 3:
+			x = int(event.x)
+			y = int(event.y)
+			time = event.time
+			pathinfo = treeview.get_path_at_pos(x, y)
+			if pathinfo == None:
+				return
+			path, col, cellx, celly = pathinfo
+			treeview.grab_focus()
+			treeview.set_cursor(path, col, 0)
+			model = treeview.get_model()
+			iter = model.get_iter(path)
+			if iter == None:
+				return
+			check = model.get_value(iter, TVC_CHECK)
+			if check == self.checks[CHECKS_YES]:
+				self.list_treeview_popup_extract_menuitem.set_sensitive(True)
+			else:
+				self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+			self.list_treeview_popup_menu.popup(None, None, None, event.button, time)
+	
+	def on_list_treeview_popup_extract_menuitem_activate(self, button):
+		path, column = self.list_treeview.get_cursor()
+		iter = self.list_treeview_model.get_iter(path)
+		relnum = self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER)
+		try:
+			game = self.db.get_game(relnum)
+		except:
+			self.open_db()
+			game = self.db.get_game(relnum)
+		
+		zipfile = self.checksums[game[GAME_ROM_CRC]]
+		
+		# Open a filechooserdialog to select the target directory
+		fcd = gtk.FileChooserDialog(_("Select destination directory"),
+								    self.main_window,
+								    gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
+								    ("gtk-cancel", gtk.RESPONSE_CANCEL, "gtk-ok", gtk.RESPONSE_ACCEPT))
+		fcd.set_current_folder(os.path.expandvars("$HOME"))
+		if fcd.run() == gtk.RESPONSE_ACCEPT:
+			target = fcd.get_current_folder() 
+		else:
+			target = None
+		fcd.destroy()
+		
+		if target == None:
+			return
+		
+		rae = RomArchiveExtract(self, game[GAME_FULLINFO], zipfile, target)
+		self.threads.append(rae)
+		rae.start()
+	
 	def on_show_review_toolbutton_clicked(self, button):
 		selection = self.list_treeview.get_selection()
 		model, iter = selection.get_selected()
@@ -854,6 +911,22 @@ class Gui(threading.Thread):
 			self.images_window.show()
 		else:
 			self.images_window.hide()
+	
+	def show_question_dialog(self, message, threads = True):
+		""" Show a question dialog with OK and Cancel button, showing 'message'.
+		Return True if OK is pressed, else False. """
+		if threads == True:
+			gtk.gdk.threads_enter()
+		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK_CANCEL, message)
+		response = dialog.run()
+		dialog.destroy()
+		if threads == True:
+			gtk.gdk.threads_leave()
+		
+		if response == gtk.RESPONSE_OK:
+			return True
+		else:
+		  return False
 	
 	def show_info_dialog(self, message, threads = True):
 		""" Show an info dialog with just an OK button, showing 'message' """
