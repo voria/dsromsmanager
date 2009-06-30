@@ -380,7 +380,7 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		if dirty_list == True:
-			# Remove alien games (according to games_checks checkbuttons) from the list
+			# Remove alien games (according to games_checks checkbuttons) from the games list
 			# Get checkbuttons status
 			check_ok = self.games_check_ok_checkbutton.get_active()
 			check_no = self.games_check_no_checkbutton.get_active()
@@ -388,8 +388,6 @@ class Gui(threading.Thread):
 			# Check the list
 			model = self.list_treeview_model
 			iter = model.get_iter_first()
-			if iter == None: # List empty, nothing to do
-				pass
 			while iter != None:
 				iter_next = model.iter_next(iter)
 				check = model.get_value(iter, TVC_CHECK)
@@ -410,6 +408,8 @@ class Gui(threading.Thread):
 						self.gamesnumber_fixable -= 1
 					self.update_list_game_label()
 				iter = iter_next
+			# Games list is no more dirty
+			self.dirty_gameslist = False
 		else: # dirty_list == False
 			# Rebuild the list
 			string = self.filter_name_entry.get_text()
@@ -667,13 +667,13 @@ class Gui(threading.Thread):
 			if iter == None:
 				# Not found in current treeview.
 				# Then, add the game we need to the treeview
-				self.dirty_gameslist = True
 				try:
 					game = self.db.get_game(next)
 				except:
 					self.open_db()
 					game = self.db.get_game(next)
 				self.__add_game_to_list(game, True)
+				# Reorder games list
 				self.list_treeview_tvc_relnum.clicked()
 				self.list_treeview_tvc_relnum.clicked()
 				self.update_list_game_label()
@@ -926,13 +926,12 @@ class Gui(threading.Thread):
 		if self.filter_size_combobox.get_active() != 0:
 			filter = 4
 			
+		if self.dirty_gameslist == True:
+			self.__filter(True)
+			return
+		
 		if filter == 0:
-			if self.dirty_gameslist == False: # No need to clear anything
-				return
-			else:
-				self.__filter(True)
-				self.dirty_gameslist = False
-				return
+			pass
 		elif filter == 1:
 			self.filter_location_combobox.handler_block(self.flocc_sid)
 			self.filter_language_combobox.handler_block(self.flanc_sid)
