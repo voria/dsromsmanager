@@ -24,9 +24,9 @@ _ = gettext.gettext
 
 try:
 	import gtk
-	import gtk.glade
+	import gtk.gdk as gdk
 except:
-	print "You have to install 'gtk' and 'gtk.glade' modules to run this application."
+	print "You have to install 'gtk' modules to run this application."
 	from sys import exit
 	exit(1)
 
@@ -43,7 +43,7 @@ TVC_FLAG = 1
 TVC_RELEASE_NUMBER = 2
 TVC_TITLE = 3
 
-gtk.gdk.threads_init()
+gdk.threads_init()
 
 class Gui(threading.Thread):
 	""" Graphical User Interface """
@@ -127,7 +127,7 @@ class Gui(threading.Thread):
 		# Set icon and logo in about_dialog
 		try:
 			self.about_dialog.set_icon_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
-			self.about_dialog.set_logo(gtk.gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.png")))
+			self.about_dialog.set_logo(gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.png")))
 		except:
 			pass
 		
@@ -204,7 +204,7 @@ class Gui(threading.Thread):
 		self.flags = []
 		for i in countries_short.keys():
 			file = os.path.join(DATA_IMG_DIR, countries_short[i].lower() + ".png")
-			self.flags.append(gtk.gdk.pixbuf_new_from_file(file))
+			self.flags.append(gdk.pixbuf_new_from_file(file))
 		
 		# Load checks images
 		self.checks = []
@@ -215,7 +215,7 @@ class Gui(threading.Thread):
 		
 		# Setup all needed stuff for the main list treeview
 		self.list_treeview.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
-		self.list_treeview_model = gtk.ListStore(gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, int, str)
+		self.list_treeview_model = gtk.ListStore(gdk.Pixbuf, gdk.Pixbuf, int, str)
 		self.list_treeview.set_model(self.list_treeview_model)
 		self.list_treeview_crt = gtk.CellRendererText()
 		self.list_treeview_crt_img = gtk.CellRendererPixbuf()
@@ -563,16 +563,16 @@ class Gui(threading.Thread):
 		
 		if os.path.exists(img1) and os.path.exists(img2):
 			try:
-				pixbuf1 = gtk.gdk.pixbuf_new_from_file(img1)
-				pixbuf2 = gtk.gdk.pixbuf_new_from_file(img2)
+				pixbuf1 = gdk.pixbuf_new_from_file(img1)
+				pixbuf2 = gdk.pixbuf_new_from_file(img2)
 				if self.screen_height < 800: # resize images to 50% and enable images_window
 					self.images_eventbox.connect("button-press-event", self.toggle_images_window,
 												 game[GAME_FULLINFO], img1, img2)
 					self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
 					self.images_window_image1.set_from_file(img1)
 					self.images_window_image2.set_from_file(img2)
-					pixbuf1 = pixbuf1.scale_simple(pixbuf1.get_width()/2, pixbuf1.get_height()/2, gtk.gdk.INTERP_BILINEAR)
-					pixbuf2 = pixbuf2.scale_simple(pixbuf2.get_width()/2, pixbuf2.get_height()/2, gtk.gdk.INTERP_BILINEAR)
+					pixbuf1 = pixbuf1.scale_simple(pixbuf1.get_width()/2, pixbuf1.get_height()/2, gdk.INTERP_BILINEAR)
+					pixbuf2 = pixbuf2.scale_simple(pixbuf2.get_width()/2, pixbuf2.get_height()/2, gdk.INTERP_BILINEAR)
 					# resize images frames too
 					self.image1_frame.set_size_request(pixbuf1.get_width(), pixbuf1.get_height())
 					self.image2_frame.set_size_request(pixbuf2.get_width(), pixbuf2.get_height())
@@ -580,7 +580,9 @@ class Gui(threading.Thread):
 				self.image1.set_from_pixbuf(pixbuf1)
 				self.image2.set_from_pixbuf(pixbuf2)
 			except:
-				# Probably image files were in download when we tried to load them
+				# Probably we were still downloading image files when we tried to load them.
+				# In other words, file exists but it's not complete yet (ie, corrupt).
+				# Well, ignore the problem.
 				pass				
 		else:
 			self.image1.clear()
@@ -1140,7 +1142,7 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		if use_threads == True:
-			gtk.gdk.threads_enter()
+			gdk.threads_enter()
 		self.list_scrolledwindow.set_sensitive(False)
 		self.dat_update_toolbutton.set_sensitive(False)
 		self.dat_update_menuitem.set_sensitive(False)
@@ -1167,14 +1169,14 @@ class Gui(threading.Thread):
 		self.filter_language_combobox.set_sensitive(False)
 		self.filter_size_combobox.set_sensitive(False)
 		if use_threads == True:
-			gtk.gdk.threads_leave()
+			gdk.threads_leave()
 	
 	def activate_widgets(self, use_threads = True):
 		""" Enable all widgets' sensitiveness """
 		if self.quitting == True:
 			return
 		if use_threads == True:
-			gtk.gdk.threads_enter()
+			gdk.threads_enter()
 		self.list_scrolledwindow.set_sensitive(True)
 		self.dat_update_toolbutton.set_sensitive(True)
 		self.dat_update_menuitem.set_sensitive(True)
@@ -1201,7 +1203,7 @@ class Gui(threading.Thread):
 		self.filter_language_combobox.set_sensitive(True)
 		self.filter_size_combobox.set_sensitive(True)
 		if use_threads == True:
-			gtk.gdk.threads_leave()
+			gdk.threads_leave()
 	
 	def toggle_images_window(self, widget, event, title = None, img1 = None, img2 = None):
 		if self.quitting == True:
@@ -1222,12 +1224,12 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		if use_threads == True:
-			gtk.gdk.threads_enter()
+			gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK_CANCEL, message)
 		response = dialog.run()
 		dialog.destroy()
 		if use_threads == True:
-			gtk.gdk.threads_leave()		
+			gdk.threads_leave()		
 		if response == gtk.RESPONSE_OK:
 			return True
 		else:
@@ -1239,12 +1241,12 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		if use_threads == True:
-			gtk.gdk.threads_enter()
+			gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, message)
 		response = dialog.run()
 		dialog.destroy()
 		if use_threads == True:
-			gtk.gdk.threads_leave()		
+			gdk.threads_leave()		
 		if response == gtk.RESPONSE_YES:
 			return True
 		else:
@@ -1255,12 +1257,12 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		if use_threads == True:
-			gtk.gdk.threads_enter()
+			gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_INFO, gtk.BUTTONS_OK, message)
 		dialog.run()
 		dialog.destroy()
 		if use_threads == True:
-			gtk.gdk.threads_leave()
+			gdk.threads_leave()
 	
 	def update_list_game_label(self):
 		if self.quitting == True:
@@ -1285,10 +1287,10 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		if use_threads == True:
-			gtk.gdk.threads_enter()
+			gdk.threads_enter()
 		self.statusbar.push(self.statusbar.get_context_id(context), text)
 		if use_threads == True:
-			gtk.gdk.threads_leave()
+			gdk.threads_leave()
 	
 	def update_game(self, game_release_number, new_zip_file):
 		""" Update game's check status in treeview """
@@ -1336,9 +1338,9 @@ class Gui(threading.Thread):
 				return
 			iter = model.get_iter(path)
 			if model.get_value(iter, TVC_RELEASE_NUMBER) == game_release_number:
-				pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
+				pixbuf = gdk.pixbuf_new_from_file(filename)
 				if self.screen_height < 800: #resize images to 50%
-					pixbuf = pixbuf.scale_simple(pixbuf.get_width()/2, pixbuf.get_height()/2, gtk.gdk.INTERP_BILINEAR)
+					pixbuf = pixbuf.scale_simple(pixbuf.get_width()/2, pixbuf.get_height()/2, gdk.INTERP_BILINEAR)
 				if image_index == 1:
 					self.image1.set_from_pixbuf(pixbuf)
 					self.image1_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
@@ -1357,7 +1359,7 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return	
 		if use_threads == True:
-			gtk.gdk.threads_enter()
+			gdk.threads_enter()
 		if self.previous_selection_release_number == None:
 			self.__hide_infos()
 		else:
@@ -1368,7 +1370,7 @@ class Gui(threading.Thread):
 				if self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) == self.previous_selection_release_number:
 					# nothing to do
 					if use_threads == True:
-						gtk.gdk.threads_leave()
+						gdk.threads_leave()
 					return
 			
 			iter = self.list_treeview_model.get_iter_first()
@@ -1376,7 +1378,7 @@ class Gui(threading.Thread):
 				self.previous_selection_release_number = None
 				self.__hide_infos()
 				if use_threads == True:
-					gtk.gdk.threads_leave()
+					gdk.threads_leave()
 				return
 			while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != self.previous_selection_release_number:
 				iter = self.list_treeview_model.iter_next(iter)
@@ -1385,19 +1387,19 @@ class Gui(threading.Thread):
 					self.previous_selection_release_number = None
 					self.__hide_infos()
 					if use_threads == True:
-						gtk.gdk.threads_leave()
+						gdk.threads_leave()
 					return
 			if iter != None:
 				path = self.list_treeview_model.get_path(iter)
 				self.list_treeview.set_cursor(path)
 		if use_threads == True:
-			gtk.gdk.threads_leave()
+			gdk.threads_leave()
 	
 	def toggle_all_images_download_toolbutton(self, use_threads = True):
 		if self.quitting == True:
 			return
 		if use_threads == True:
-			gtk.gdk.threads_enter()
+			gdk.threads_enter()
 		if self.all_images_download_toolbutton.get_stock_id() == gtk.STOCK_JUMP_TO:
 			# switch to cancel button
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
@@ -1410,13 +1412,13 @@ class Gui(threading.Thread):
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
 			self.all_images_download_toolbutton.set_tooltip_text(self.old_aidt_tooltip_text)
 		if use_threads == True:
-			gtk.gdk.threads_leave()
+			gdk.threads_leave()
 	
 	def toggle_rebuild_roms_archives_toolbutton(self, use_threads = True):
 		if self.quitting == True:
 			return
 		if use_threads == True:
-			gtk.gdk.threads_enter()
+			gdk.threads_enter()
 		if self.rebuild_roms_archives_toolbutton.get_stock_id() == gtk.STOCK_CONVERT:
 			# switch to cancel button
 			self.rebuild_roms_archives_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
@@ -1434,7 +1436,7 @@ class Gui(threading.Thread):
 				self.rebuild_roms_archives_toolbutton.set_sensitive(True)
 				self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		if use_threads == True:
-			gtk.gdk.threads_leave()
+			gdk.threads_leave()
 		
 	
 	def open_db(self):
