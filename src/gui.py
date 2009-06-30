@@ -436,6 +436,8 @@ class Gui(threading.Thread):
 		self.images_hbox.hide()
 		self.info_title_label.hide()
 		self.info_label_vbox.hide()
+		self.show_review_toolbutton.set_sensitive(False)
+		self.show_review_menuitem.set_sensitive(False)
 	
 	def __show_infos(self):
 		""" Show game's info """
@@ -444,6 +446,8 @@ class Gui(threading.Thread):
 		self.images_hbox.show()
 		self.info_title_label.show()
 		self.info_label_vbox.show()
+		self.show_review_toolbutton.set_sensitive(True)
+		self.show_review_menuitem.set_sensitive(True)
 	
 	# Callback functions
 	def on_main_window_delete_event(self, window, event):
@@ -815,15 +819,11 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		selection = self.list_treeview.get_selection()
-		model, iter = selection.get_selected()
-		relnum = model.get_value(iter, TVC_RELEASE_NUMBER)
-		try:
-			game = self.db.get_game(relnum)
-		except:
-			self.open_db()
-			game = self.db.get_game(relnum) 
-		
-		title = game[GAME_TITLE]
+		if selection.count_selected_rows() > 1:
+			return
+		model, paths = selection.get_selected_rows()
+		iter = model.get_iter(paths[0])
+		title = model.get_value(iter, TVC_TITLE)
 		title = title.replace("&", " ")
 		title = title.replace("-", " ")
 		url = config.get_option("review_url").replace("{FOOBAR}", title)
