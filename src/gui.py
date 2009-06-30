@@ -393,7 +393,14 @@ class Gui(threading.Thread):
 					pass
 				else: # games has to be removed
 					model.remove(iter)
-					pass
+					self.gamesnumber -= 1
+					if check == self.checks[CHECKS_YES]:
+						self.gamesnumber_available -= 1
+					elif check == self.checks[CHECKS_NO]:
+						self.gamesnumber_not_available -= 1
+					else: # CHECKS_CONVERT
+						self.gamesnumber_fixable -= 1
+					self.update_list_game_label()
 				iter = iter_next
 		else: # dirty_list == False
 			# Rebuild the list
