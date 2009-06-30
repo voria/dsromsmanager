@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-30 20:46+0200\n"
+"POT-Creation-Date: 2009-06-30 20:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -350,7 +350,7 @@ msgstr ""
 #: ../src/gui.py:877
 msgid ""
 "\n"
-"Do you really want to rescan roms archives?"
+"Rescan roms archives?"
 msgstr ""
 
 #: ../src/gui.py:901

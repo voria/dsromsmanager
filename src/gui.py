@@ -874,7 +874,7 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		if confirm == True:
-			message = _("\nDo you really want to rescan roms archives?")
+			message = _("\nRescan roms archives?")
 			if self.show_okcancel_question_dialog(message, False) == False:
 				return
 		rar = RomArchivesRescan(self)
