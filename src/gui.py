@@ -79,6 +79,7 @@ class Gui(threading.Thread):
 		self.images_window_eventbox = self.builder.get_object("images_window_eventbox")
 		self.images_window_image1 = self.builder.get_object("images_window_image1")
 		self.images_window_image2 = self.builder.get_object("images_window_image2")
+		self.list_scrolledwindow = self.builder.get_object("list_scrolledwindow")
 		self.list_treeview = self.builder.get_object("list_treeview")
 		self.list_treeview_popup_menu = self.builder.get_object("list_treeview_popup_menu")
 		self.list_treeview_popup_extract_menuitem = self.builder.get_object("list_treeview_popup_extract_menuitem")
@@ -353,7 +354,7 @@ class Gui(threading.Thread):
 		self.list_treeview_model.append((check, flag, relnum, title))
 		self.gamesnumber += 1
 	
-	def __update_list(self, games):
+	def __update_list(self, games, anyway = False):
 		""" List 'games' in treeview """
 		if self.quitting == True:
 			return
@@ -363,7 +364,7 @@ class Gui(threading.Thread):
 		self.gamesnumber_fixable = 0
 		self.gamesnumber_not_available = 0
 		for game in reversed(games):
-			self.__add_game_to_list(game)
+			self.__add_game_to_list(game, anyway)
 		self.update_list_game_label()
 	
 	def __filter(self):
@@ -385,7 +386,6 @@ class Gui(threading.Thread):
 			self.__update_list(self.db.filter_by(string, location, language, size))
 		self.show_review_toolbutton.set_sensitive(False)
 		self.show_review_menuitem.set_sensitive(False)
-		
 		self.set_previous_treeview_cursor(False)
 	
 	def __hide_infos(self):
@@ -937,44 +937,124 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
-		self.options_roms_path_filechooserbutton.set_current_folder(config.get_option("roms_path"))
-		self.options_unknown_roms_path_filechooserbutton.set_current_folder(config.get_option("unknown_roms_path"))
-		self.options_new_roms_path_filechooserbutton.set_current_folder(config.get_option("new_roms_path"))
-		self.options_images_path_filechooserbutton.set_current_folder(config.get_option("images_path"))
+		
+		roms_path = config.get_option("roms_path")
+		if os.path.exists(roms_path):
+			self.options_roms_path_filechooserbutton.set_current_folder(roms_path)
+		else: # roms_path does not exist, fallback to the default path
+			self.options_roms_path_filechooserbutton.set_current_folder(config.get_option_default("roms_path"))
+		
+		unknown_roms_path = config.get_option("unknown_roms_path")
+		if os.path.exists(unknown_roms_path):
+			self.options_unknown_roms_path_filechooserbutton.set_current_folder(unknown_roms_path)
+		else: # unknown_roms_path does not exist, fallback to the default path
+			self.options_unknown_roms_path_filechooserbutton.set_current_folder(config.get_option_default("unknown_roms_path"))
+		
+		new_roms_path = config.get_option("new_roms_path")
+		if os.path.exists(new_roms_path):
+			self.options_new_roms_path_filechooserbutton.set_current_folder(new_roms_path)
+		else: # new_roms_path does not exist, fallback to the default path
+			self.options_new_roms_path_filechooserbutton.set_current_folder(config.get_option_default("new_roms_path"))
+		
+		images_path = config.get_option("images_path")
+		if os.path.exists(images_path):
+			self.options_images_path_filechooserbutton.set_current_folder(images_path)
+		else: # images_path does not exist, fallback to the default path
+			self.options_images_path_filechooserbutton.set_current_folder(config.get_option_default("images_path"))
+		
 		self.options_review_url_entry.set_text(config.get_option("review_url"))
+		self.options_dialog.set_sensitive(True)
 		self.options_dialog.show()
 	
 	def on_options_dialog_response(self, dialog, response_id):
 		if self.quitting == True:
 			return
 		if response_id == 0: # ok
+			# Get new paths
+			unknown_roms_path_new = self.options_unknown_roms_path_filechooserbutton.get_current_folder()
+			roms_path_new = self.options_roms_path_filechooserbutton.get_current_folder()
+			new_roms_path_new = self.options_new_roms_path_filechooserbutton.get_current_folder()
+			images_path_new = self.options_images_path_filechooserbutton.get_current_folder()
+			# Check if new paths are ok
+			if roms_path_new == WORK_DIR:
+			 	message = _("'DsRomsManager' directory has been selected as roms path.")
+			 	message += _("\n\nThe default roms path will be used in its place.")
+				roms_path_new = config.get_option_default("roms_path")
+				self.show_info_dialog(message, False)
+			if unknown_roms_path_new == WORK_DIR:
+				message = _("'DsRomsManager' directory has been selected as unknown roms path.")
+				message += _("\n\nThe default unknown roms path will be used in its place.")
+				unknown_roms_path_new = config.get_option_default("unknown_roms_path")
+				self.show_info_dialog(message, False)			 	 
+			if new_roms_path_new == WORK_DIR:
+				message = _("'DsRomsManager' directory has been selected as new roms path.")
+				message += _("\n\nThe default new roms path will be used in its place.")
+				new_roms_path_new = config.get_option_default("new_roms_path")
+				self.show_info_dialog(message, False)
+			if unknown_roms_path_new == roms_path_new or unknown_roms_path_new == new_roms_path_new:
+				message = _("Unknown roms path can't be the same as roms or new roms paths.")
+				message += _("\n\nSelect a different path.")
+				self.show_info_dialog(message, False)
+				return False
+			if images_path_new == WORK_DIR:
+			 	message = _("'DsRomsManager' directory has been selected as images path.")
+			 	message += _("\n\nThe default images path will be used in its place.")
+				images_path_new = config.get_option_default("images_roms_path")
+				self.show_info_dialog(message, False)
+			if images_path_new == roms_path_new:
+				message = _("Images path can't be the same as roms path.")
+				message += _("\n\nSelect a different path.")
+				self.show_info_dialog(message, False)
+				return False
+			# Get old roms paths
+			roms_path_old = config.get_option("roms_path")
+			unknown_roms_path_old = config.get_option("unknown_roms_path")
+			new_roms_path_old = config.get_option("new_roms_path")
+			# Check if paths are changed
+			romspaths_changed = False
+			if roms_path_old != roms_path_new:
+				romspaths_changed = True
+			if unknown_roms_path_old != unknown_roms_path_new:
+				romspaths_changed = True
+			if new_roms_path_old != new_roms_path_new:
+				romspaths_changed = True
+			# Save new roms paths
+			config.set_option("roms_path", roms_path_new)
+			config.set_option("unknown_roms_path", unknown_roms_path_new)
+			config.set_option("new_roms_path", new_roms_path_new)
+			# Get old images path
+			images_path_old = config.get_option("images_path")
+			# Check if database has to be rebuilt.
+			dbrebuild = False
+			if images_path_old != images_path_new:
+				dbrebuild = True
+			# Save new images path
+			config.set_option("images_path", images_path_new)
+			
+			### check_images_crc checkbutton
 			config.set_option("check_images_crc", self.options_check_images_crc_checkbutton.get_active())
 			
+			### review_url
 			text = self.options_review_url_entry.get_text()
 			if len(text) != 0:
 				config.set_option("review_url", text)
 			else:
-				config.set_option_default("review_url")
-				
-			config.set_option("unknown_roms_path", self.options_unknown_roms_path_filechooserbutton.get_current_folder())
+				config.set_option_default("review_url")			
 			
-			old_images_path = config.get_option("images_path")
-			config.set_option("images_path", self.options_images_path_filechooserbutton.get_current_folder())
-			if config.get_option("images_path") != old_images_path:
-				message = _("Images path has been changed.\n")
-				message += _("\nPlease restart DsRomsManager, database will be rebuilt according to new settings.")
+			# Disable options window and apply changes
+			dialog.set_sensitive(False)
+			if dbrebuild == True:
+				message = _("'Images' path has changed.")
+				message += _("\n\nOn next start the database will be rebuilt according to new settings.")
 				self.show_info_dialog(message, False)
-				dbrebuild = open(DB_FILE_REBUILD, "w")
-				dbrebuild.close()
-			old_roms_path = config.get_option("roms_path")
-			old_new_roms_path = config.get_option("new_roms_path")
-			config.set_option("roms_path", self.options_roms_path_filechooserbutton.get_current_folder())
-			config.set_option("new_roms_path", self.options_new_roms_path_filechooserbutton.get_current_folder())
-			if config.get_option("roms_path") != old_roms_path or config.get_option("new_roms_path") != old_new_roms_path:
-				# we need to recheck for games on disk, because path has changed
+				open(DB_FILE_REBUILD, "w").close()
+			if romspaths_changed == True:
+				# we need to recheck for games on disk
+				message = _("Games list will be reloaded.")
+				self.show_info_dialog(message, False)
 				self.add_games(False)
-			
-		self.options_dialog.hide()
+		
+		dialog.hide()
 	
 	def on_window_delete_event(self, window, event):
 		if self.quitting == True:
@@ -997,7 +1077,7 @@ class Gui(threading.Thread):
 		""" Disable all widgets' sensitiveness """
 		if self.quitting == True:
 			return
-		self.list_treeview.set_sensitive(False)
+		self.list_scrolledwindow.set_sensitive(False)
 		self.dat_update_toolbutton.set_sensitive(False)
 		self.dat_update_menuitem.set_sensitive(False)
 		if self.all_images_download_toolbutton.get_stock_id() != gtk.STOCK_CANCEL:
@@ -1028,7 +1108,10 @@ class Gui(threading.Thread):
 		if len(self.games_to_be_fixed) > 0:
 			self.rebuild_roms_archives_toolbutton.set_sensitive(True)
 			self.rebuild_roms_archives_menuitem.set_sensitive(True)
-		self.list_treeview.set_sensitive(True)
+		else:
+			self.rebuild_roms_archives_toolbutton.set_sensitive(False)
+			self.rebuild_roms_archives_menuitem.set_sensitive(False)
+		self.list_scrolledwindow.set_sensitive(True)
 		self.dat_update_toolbutton.set_sensitive(True)
 		self.dat_update_menuitem.set_sensitive(True)
 		self.all_images_download_toolbutton.set_sensitive(True)
@@ -1284,60 +1367,143 @@ class Gui(threading.Thread):
 		## Check the games we have on disk
 		self.update_statusbar("Games", _("Checking games on disk..."), threads)
 		
-		# recursively check games in 'roms_path'  and 'new_roms_path' directories.
-		# unknown and duplicate roms are moved in 'unknown_roms_path' directory.
-		paths_to_check = []
-		paths_to_check.append(config.get_option("roms_path"))
-		if config.get_option("new_roms_path") != config.get_option("roms_path"):
-			paths_to_check.append(config.get_option("new_roms_path"))
-		while len(paths_to_check) != 0:
-			next_path = paths_to_check[0]
-			for file in glob.iglob(os.path.join(next_path, "*")):
-				if os.path.isdir(file):
-					if file != config.get_option("unknown_roms_path"):
-						addpath = True
-						for path in paths_to_check:
-							if path == file:
-								addpath = False
-								break
-						if addpath:
-							paths_to_check.append(file)
-				else: # 'file' is not a directory
-					crc = None
-					if file[len(file)-4:].lower() == ".zip":
-						crc = get_crc32_zip(file)
-					if file[len(file)-4:].lower() == ".nds":
-						crc = get_crc32(file)
-					if crc != None and crc in self.checksums and self.checksums[crc] == None:
+		# Check roms on disk
+		unknown_roms_path = config.get_option("unknown_roms_path")
+		roms_path = config.get_option("roms_path")
+		new_roms_path = config.get_option("new_roms_path")
+		images_path = config.get_option("images_path") # Useful to avoid scanning recursively in directories
+		                                               # full of images, when 'images_path' is a subdirectory
+		                                               # of 'roms_path'.		
+		if os.path.exists(unknown_roms_path):
+			# check in 'unknown_roms_path' directory for new roms.
+			# If one is found, move it in 'new_roms_path' directory.
+			for file in glob.iglob(os.path.join(unknown_roms_path, "*")):
+				if os.path.isdir(file): # no recursive directory scan in 'unknown_roms_path'
+					continue
+				crc = None
+				if file[len(file)-4:].lower() == ".zip":
+					crc = get_crc32_zip(file)
+				elif file[len(file)-4:].lower() == ".nds":
+					crc = get_crc32(file)
+				else: # Not a .zip or .nds file, skip to next file.
+					continue
+				if crc != None and crc in self.checksums:
+					if os.path.exists(new_roms_path) and os.access(new_roms_path, os.W_OK):
+						try:
+							shutil.move(file, new_roms_path)
+						except:
+							# Annoying file, remove it
+							os.remove(file)
+							message = _("'%s' was annoying. Deleted.") % file
+							self.show_info_dialog(message, threads)
+		
+		if os.path.exists(roms_path):
+			# recursively check games in 'roms_path' directory.
+			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
+			paths_to_check = []
+			paths_to_check.append(roms_path)
+			while len(paths_to_check) != 0:
+				next_path = paths_to_check[0]
+				paths_to_check[0:1] = []
+				for file in glob.iglob(os.path.join(next_path, "*")):
+					if os.path.isdir(file):
+						if file != unknown_roms_path and file != new_roms_path and file != images_path:
+							addpath = True
+							for path in paths_to_check:
+								if path == file: # we have already set this dir to be scanned
+									addpath = False
+									break
+							if addpath:
+								paths_to_check.append(file)
+					else: # 'file' is not a directory
+						crc = None
+						if file[len(file)-4:].lower() == ".zip":
+							crc = get_crc32_zip(file)
+						elif file[len(file)-4:].lower() == ".nds":
+							crc = get_crc32(file)
+						else: # Not a .zip or .nds file, skip.
+							continue
+						if crc != None and crc in self.checksums:
+							if self.checksums[crc] == None:
+								self.checksums[crc] = file
+							else:
+								# Duplicate file
+								message = _("'%s' is a duplicate.\n\nDelete?") % file
+								if self.show_question_dialog(message, threads) == True:
+									os.remove(file)
+								else:
+									# Move in 'unknown_roms_path'
+									if os.path.exists(unknown_roms_path) and os.access(unknown_roms_path, os.W_OK):
+										try:
+											shutil.move(file, unknown_roms_path)
+										except:
+											# Annoying file, remove it
+											os.remove(file)
+											message = _("'%s' was annoying. Deleted.") % file
+											self.show_info_dialog(message, threads)
+						else: # crc == None or crc not in self.checksums
+							if os.path.exists(unknown_roms_path) and os.access(unknown_roms_path, os.W_OK):
+								try:
+									shutil.move(file, unknown_roms_path)
+								except:
+									# Annoying file, remove it
+									os.remove(file)
+									message = _("'%s' was annoying. Deleted.") % file
+									self.show_info_dialog(message, threads)
+									
+		
+		if os.path.exists(new_roms_path) and new_roms_path != roms_path:
+			# check games in 'new_roms_path' directory.
+			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
+			for file in glob.iglob(os.path.join(new_roms_path, "*")):
+				if os.path.isdir(file): # no recursive directory scan in 'new_roms_path'
+					continue
+				crc = None
+				if file[len(file)-4:].lower() == ".zip":
+					crc = get_crc32_zip(file)
+				elif file[len(file)-4:].lower() == ".nds":
+					crc = get_crc32(file)
+				else: # Not a .zip or .nds file, skip to next file.
+					continue
+				if crc != None and crc in self.checksums:
+					if self.checksums[crc] == None:
 						self.checksums[crc] = file
 					else:
-						shutil.move(file, config.get_option("unknown_roms_path"))
-			paths_to_check[0:1] = []
-	
-		# check in 'unknown_roms_path' directory for new roms.
-		# If one is found, and we dont have it already, move it in 'new_roms_path' directory
-		# and add it to self.checksums.
-		for file in glob.iglob(os.path.join(config.get_option("unknown_roms_path"), "*")):
-			crc = None
-			if file[len(file)-4:].lower() == ".zip":
-				crc = get_crc32_zip(file)
-			if file[len(file)-4:].lower() == ".nds":
-				crc = get_crc32(file)
-			if crc != None and crc in self.checksums and self.checksums[crc] == None:
-				new_file = os.path.join(config.get_option("new_roms_path"), file.rsplit(os.sep, 1)[1])
-				shutil.move(file, new_file)
-				self.checksums[crc] = new_file
+						# Duplicate file
+						message = _("'%s' is a duplicate.\n\nDelete?") % file
+						if self.show_question_dialog(message, threads) == True:
+					   	   os.remove(file)
+					   	else:
+							# Move in 'unknown_roms_path'
+							if os.path.exists(unknown_roms_path) and os.access(unknown_roms_path, os.W_OK):
+								try:
+									shutil.move(file, unknown_roms_path)
+								except:
+									# Annoying file, remove it
+									os.remove(file)
+									message = _("'%s' was annoying. Deleted.") % file
+									self.show_info_dialog(message, threads)
+				else: # crc == None or crc not in self.checksums
+					if os.path.exists(unknown_roms_path) and os.access(unknown_roms_path, os.W_OK):
+						try:
+							shutil.move(file, unknown_roms_path)
+						except:
+							# Annoying file, remove it
+							os.remove(file)
+							message = _("'%s' was annoying. Deleted.") % file
+							self.show_info_dialog(message, threads)		
 		
 		self.deactivate_widgets()
 		self.update_statusbar("Games", _("Loading games list..."), threads)
 		
 		try:
-			self.__update_list(self.db.get_all_games())
+			self.__update_list(self.db.get_all_games(), True)
 		except:
 			self.open_db()
-			self.__update_list(self.db.get_all_games())
+			self.__update_list(self.db.get_all_games(), True)
 			
 		# Look for games to be fixed
+		self.games_to_be_fixed = {}
 		iter = self.list_treeview_model.get_iter_first()
 		while iter != None:
 			if self.list_treeview_model.get_value(iter, TVC_CHECK) == self.checks[CHECKS_CONVERT]:
@@ -1350,6 +1516,14 @@ class Gui(threading.Thread):
 				# Populate the dictionary
 				self.games_to_be_fixed[game[GAME_FULLINFO]] = (self.checksums[game[GAME_ROM_CRC]], relnum)
 			iter = self.list_treeview_model.iter_next(iter)
+		
+		# Set back the games checks checkbuttons status
+		if self.games_check_ok_checkbutton.get_active() == False:
+			self.on_games_check_ok_checkbutton_toggled(self.games_check_ok_checkbutton)
+		if self.games_check_no_checkbutton.get_active() == False:
+			self.on_games_check_no_checkbutton_toggled(self.games_check_no_checkbutton)
+		if self.games_check_warn_checkbutton.get_active() == False:
+			self.on_games_check_warn_checkbutton_toggled(self.games_check_warn_checkbutton)
 		
 		self.update_statusbar("Games", _("Games list loaded."), threads)
 		

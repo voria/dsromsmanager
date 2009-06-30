@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-30 03:38+0200\n"
-"PO-Revision-Date: 2009-06-30 03:38+0200\n"
+"POT-Creation-Date: 2009-06-30 14:43+0200\n"
+"PO-Revision-Date: 2009-06-30 14:46+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -25,42 +25,37 @@ msgstr "Ricerca di un nuovo file DAT in corso..."
 msgid "New DAT file available!"
 msgstr "Nuovo file DAT disponibile!"
 
-#: ../src/downloaders.py:69
+#: ../src/downloaders.py:70
 msgid "Loading the new DAT file and creating database..."
 msgstr "Caricamento del nuovo file DAT e creazione del database in corso..."
 
-#: ../src/downloaders.py:71 ../src/drm.py:80
+#: ../src/downloaders.py:72 ../src/drm.py:80
 msgid "Database created."
 msgstr "Database creato."
 
-#: ../src/downloaders.py:74
+#: ../src/downloaders.py:75
 msgid "DAT file is up to date."
 msgstr "Il file DAT è aggiornato."
 
-#: ../src/downloaders.py:76
+#: ../src/downloaders.py:77
 msgid "Can't download DAT version file!"
 msgstr "Non riesco a scaricare il file di controllo versione del DAT!"
 
-#: ../src/downloaders.py:96
+#: ../src/downloaders.py:97
 msgid "Downloading the new DAT file..."
 msgstr "Download del nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:104
+#: ../src/downloaders.py:105
 msgid "Can't download DAT!"
 msgstr "Non riesco a scaricare il file DAT!"
 
-#: ../src/downloaders.py:107
+#: ../src/downloaders.py:108
 msgid "Unzipping the new DAT file..."
 msgstr "Estrazione del nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:137
-msgid "Unable to show images. Please restart DsRomsManager."
-msgstr "Impossibile mostrare le immagini. Per favore riavvia DsRomsManager."
-
-#: ../src/downloaders.py:140 ../src/downloaders.py:213
-#, python-format
-msgid "Downloading images for '%s'..."
-msgstr "Download delle immagini di '%s' in corso..."
+#: ../src/downloaders.py:135
+msgid "Unable to show images. Restart 'DsRomsManager'."
+msgstr "Impossibile mostrare le immagini. Riavviare 'DsRomsManager'."
 
 #: ../src/downloaders.py:150
 #, python-format
@@ -72,30 +67,29 @@ msgstr "Errore durante il download dell'immagine 1 di '%s': File non trovato."
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr "Errore durante il download dell'immagine 2 di '%s': File non trovato."
 
-#: ../src/downloaders.py:166
-#, python-format
-msgid "Download of images for '%s' completed."
-msgstr "Download delle immagini di '%s' completato."
-
-#: ../src/downloaders.py:183
-msgid "Unable to download images. Please restart DsRomsManager."
+#: ../src/downloaders.py:182
+msgid "Unable to download images. Restart 'DsRomsManager'."
 msgstr ""
-"Impossibile eseguire il download delle immagini. Per favore riavvia "
-"DsRomsManager."
+"Impossibile eseguire il download delle immagini. Riavviare 'DsRomsManager'."
 
-#: ../src/downloaders.py:187
+#: ../src/downloaders.py:186
 msgid "Downloading all images..."
 msgstr "Download di tutte le immagini in corso..."
 
-#: ../src/downloaders.py:205
+#: ../src/downloaders.py:204
 msgid "Checking images integrity..."
 msgstr "Controllo integrità delle immagini in corso..."
 
-#: ../src/downloaders.py:237
+#: ../src/downloaders.py:212
+#, python-format
+msgid "Downloading images for '%s'..."
+msgstr "Download delle immagini di '%s' in corso..."
+
+#: ../src/downloaders.py:236
 msgid "Download of all images stopped."
 msgstr "Download di tutte le immagini annullato."
 
-#: ../src/downloaders.py:239
+#: ../src/downloaders.py:238
 msgid "Download of all images completed."
 msgstr "Download di tutte le immagini completato."
 
@@ -135,9 +129,12 @@ msgstr "Database caricato."
 
 #: ../src/files.py:90
 #, python-format
-msgid "Unable to extract archive to '%s'. Check write permissions."
+msgid ""
+"Unable to extract archive to '%s'. Check write permissions of target "
+"directory."
 msgstr ""
-"Impossibile estrarre l'archivio in '%s'. Controllare i permessi di scrittura."
+"Impossibile estrarre l'archivio in '%s'. Controllare i permessi di scrittura "
+"della directory di destinazione."
 
 #: ../src/files.py:102
 #, python-format
@@ -290,51 +287,51 @@ msgstr "Australia"
 msgid "South Korea"
 msgstr "Corea del sud"
 
-#: ../src/gui.py:140 ../src/gui.py:425
+#: ../src/gui.py:141 ../src/gui.py:425
 msgid "Hide"
 msgstr "Nascondi"
 
-#: ../src/gui.py:146
+#: ../src/gui.py:147
 msgid "Update DAT"
 msgstr "Aggiorna DAT"
 
-#: ../src/gui.py:150
+#: ../src/gui.py:151
 msgid "Download all images"
 msgstr "Scarica tutte le immagini"
 
-#: ../src/gui.py:154 drm.glade.h:24
+#: ../src/gui.py:155 drm.glade.h:24
 msgid "Rebuild archives"
 msgstr "Ricostruisci archivi"
 
-#: ../src/gui.py:160
+#: ../src/gui.py:161
 msgid "Reviews"
 msgstr "Recensioni"
 
-#: ../src/gui.py:166 drm.glade.h:21
+#: ../src/gui.py:167 drm.glade.h:21
 msgid "Options"
 msgstr "Opzioni"
 
-#: ../src/gui.py:172
+#: ../src/gui.py:173
 msgid "About"
 msgstr "Informazioni"
 
-#: ../src/gui.py:178
+#: ../src/gui.py:179
 msgid "Quit"
 msgstr "Esci"
 
-#: ../src/gui.py:214
+#: ../src/gui.py:215
 msgid "Found"
 msgstr "Disponibile"
 
-#: ../src/gui.py:216
+#: ../src/gui.py:217
 msgid "Region"
 msgstr "Regione"
 
-#: ../src/gui.py:221
+#: ../src/gui.py:222
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gui.py:231 ../src/gui.py:242 ../src/gui.py:254
+#: ../src/gui.py:232 ../src/gui.py:243 ../src/gui.py:255
 msgid "All"
 msgstr "Tutte"
 
@@ -358,65 +355,169 @@ msgstr "Seleziona la directory di destinazione"
 msgid "Waiting while the current job is finished..."
 msgstr "In attesa che il lavoro corrente venga completato..."
 
-#: ../src/gui.py:964
-msgid "Images path has been changed.\n"
-msgstr "Il percorso delle immagini è stato cambiato.\n"
+#: ../src/gui.py:980
+msgid "'DsRomsManager' directory has been selected as roms path."
+msgstr ""
+"E' stata selezionata la directory di 'DsRomsManager' come percorso delle "
+"roms."
 
-#: ../src/gui.py:965
+#: ../src/gui.py:981
 msgid ""
 "\n"
-"Please restart DsRomsManager, database will be rebuilt according to new "
-"settings."
+"\n"
+"The default roms path will be used in its place."
 msgstr ""
 "\n"
-"Per favore riavvia DsRomsManager, il database sarà ricostruito secondo le nuove impostazioni."
+"\n"
+"Il percorso di default delle roms sarà usato al suo posto."
 
-#: ../src/gui.py:1097
+#: ../src/gui.py:985
+msgid "'DsRomsManager' directory has been selected as unknown roms path."
+msgstr ""
+"E' stata selezionata la directory di 'DsRomsManager' come percorso delle "
+"roms sconosciute."
+
+#: ../src/gui.py:986
+msgid ""
+"\n"
+"\n"
+"The default unknown roms path will be used in its place."
+msgstr ""
+"\n"
+"\n"
+"Il percorso di default delle roms sconosciute sarà usato al suo posto."
+
+#: ../src/gui.py:990
+msgid "'DsRomsManager' directory has been selected as new roms path."
+msgstr ""
+"E' stata selezionata la directory di 'DsRomsManager' come percorso delle "
+"nuove roms."
+
+#: ../src/gui.py:991
+msgid ""
+"\n"
+"\n"
+"The default new roms path will be used in its place."
+msgstr ""
+"\n"
+"\n"
+"Il percorso di default delle nuove roms sarà usato al suo posto."
+
+#: ../src/gui.py:995
+msgid "Unknown roms path can't be the same as roms or new roms paths."
+msgstr "Il percorso delle roms sconosciute non può essere uguale ai percorsi delle roms o delle nuove roms."
+
+#: ../src/gui.py:996 ../src/gui.py:1006
+msgid ""
+"\n"
+"\n"
+"Select a different path."
+msgstr ""
+"\n"
+"\n"
+"Selezionare un percorso diverso."
+
+#: ../src/gui.py:1000
+msgid "'DsRomsManager' directory has been selected as images path."
+msgstr ""
+"E' stata selezionata la directory di 'DsRomsManager' come percorso delle "
+"immagini."
+
+#: ../src/gui.py:1001
+msgid ""
+"\n"
+"\n"
+"The default images path will be used in its place."
+msgstr ""
+"\n"
+"\n"
+"Il percorso di default delle immagini sarà usato al suo posto."
+
+#: ../src/gui.py:1005
+msgid "Images path can't be the same as roms path."
+msgstr "Il percorso delle immagini non può essere uguale al percorso delle roms."
+
+#: ../src/gui.py:1047
+msgid "'Images' path has changed."
+msgstr "Il percorso delle immagini è stato cambiato."
+
+#: ../src/gui.py:1048
+msgid ""
+"\n"
+"\n"
+"On next start the database will be rebuilt according to new settings."
+msgstr ""
+"\n"
+"\n"
+"Al prossimo avvio il database sarà ricostruito con le nuove impostazioni."
+
+#: ../src/gui.py:1053
+msgid "Games list will be reloaded."
+msgstr "La lista dei giochi sarà ricaricata."
+
+#: ../src/gui.py:1180
 #, python-format
 msgid "%d game in list"
 msgstr "%d gioco in lista"
 
-#: ../src/gui.py:1099
+#: ../src/gui.py:1182
 #, python-format
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:1101
+#: ../src/gui.py:1184
 #, python-format
 msgid " - %d available"
 msgstr " - %d disponibili"
 
-#: ../src/gui.py:1103
+#: ../src/gui.py:1186
 #, python-format
 msgid " - %d to be fixed"
 msgstr " - %d da sistemare"
 
-#: ../src/gui.py:1105
+#: ../src/gui.py:1188
 #, python-format
 msgid " - %d not available"
 msgstr " - %d non disponibili"
 
-#: ../src/gui.py:1107 drm.glade.h:18
+#: ../src/gui.py:1190 drm.glade.h:18
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:1224
+#: ../src/gui.py:1315
 msgid "Stop download."
 msgstr "Annulla il download."
 
-#: ../src/gui.py:1241
+#: ../src/gui.py:1332
 msgid "Stop rebuild."
 msgstr "Annulla la ricostruzione."
 
-#: ../src/gui.py:1277
+#: ../src/gui.py:1368
 msgid "Checking games on disk..."
 msgstr "Controllo dei giochi presenti su disco in corso..."
 
-#: ../src/gui.py:1324
+#: ../src/gui.py:1397 ../src/gui.py:1442 ../src/gui.py:1451 ../src/gui.py:1484
+#: ../src/gui.py:1493
+#, python-format
+msgid "'%s' was annoying. Deleted."
+msgstr "'%s' era noioso. Eliminato."
+
+#: ../src/gui.py:1431 ../src/gui.py:1473
+#, python-format
+msgid ""
+"'%s' is a duplicate.\n"
+"\n"
+"Delete?"
+msgstr ""
+"'%s' è un file duplicato.\n"
+"\n"
+"Eliminare?"
+
+#: ../src/gui.py:1497
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:1346
+#: ../src/gui.py:1528
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 
@@ -474,8 +575,8 @@ msgid "Images"
 msgstr "Immagini"
 
 #: drm.glade.h:13
-msgid "Images path:"
-msgstr "Percorso delle immagini:"
+msgid "Images:"
+msgstr "Immagini:"
 
 #: drm.glade.h:14
 msgid "Informations"
@@ -490,8 +591,8 @@ msgid "Location:"
 msgstr "Regione:"
 
 #: drm.glade.h:17
-msgid "New roms path:"
-msgstr "Percorso delle nuove roms:"
+msgid "New roms:"
+msgstr "Nuove roms:"
 
 #: drm.glade.h:19
 msgid "Not available games"
@@ -540,8 +641,8 @@ msgid "Review URL:"
 msgstr "URL recensioni:"
 
 #: drm.glade.h:33
-msgid "Roms path:"
-msgstr "Percorso delle roms:"
+msgid "Roms:"
+msgstr "Roms:"
 
 #: drm.glade.h:34
 msgid "Save:"
@@ -580,8 +681,8 @@ msgid "Source:"
 msgstr "Sorgente:"
 
 #: drm.glade.h:43
-msgid "Unknown roms path:"
-msgstr "Percorso delle roms sconosciute:"
+msgid "Unknown roms:"
+msgstr "Roms sconosciute:"
 
 #: drm.glade.h:44
 msgid ""
@@ -644,6 +745,24 @@ msgstr "gtk-ok"
 #: drm.glade.h:59
 msgid "http://www.voria.org"
 msgstr "http://www.voria.org"
+
+#~ msgid "'Roms' path."
+#~ msgstr "percorso delle roms."
+
+#, fuzzy
+#~ msgid "'Unknown roms' path."
+#~ msgstr "Percorso delle roms sconosciute:"
+
+#, fuzzy
+#~ msgid "'New roms' path."
+#~ msgstr "Percorso delle nuove roms:"
+
+#, fuzzy
+#~ msgid "'Images' path."
+#~ msgstr "Percorso delle immagini:"
+
+#~ msgid "Download of images for '%s' completed."
+#~ msgstr "Download delle immagini di '%s' completato."
 
 #~ msgid "Fixable games"
 #~ msgstr "Giochi da sistemare"

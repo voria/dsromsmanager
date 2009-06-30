@@ -952,7 +952,7 @@ vorione@gmail.com</property>
                   <object class="GtkLabel" id="options_roms_path_label">
                     <property name="visible">True</property>
                     <property name="tooltip_text" translatable="yes">Set here the directory where the roms are stored.</property>
-                    <property name="label" translatable="yes">Roms path:</property>
+                    <property name="label" translatable="yes">Roms:</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -963,9 +963,9 @@ vorione@gmail.com</property>
                 <child>
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -986,7 +986,7 @@ vorione@gmail.com</property>
                   <object class="GtkLabel" id="options_unknown_roms_path_label">
                     <property name="visible">True</property>
                     <property name="tooltip_text" translatable="yes">Set here the directory where to move unknown roms.</property>
-                    <property name="label" translatable="yes">Unknown roms path:</property>
+                    <property name="label" translatable="yes">Unknown roms:</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -997,9 +997,9 @@ vorione@gmail.com</property>
                 <child>
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1020,7 +1020,7 @@ vorione@gmail.com</property>
                   <object class="GtkLabel" id="options_new_roms_path_label">
                     <property name="visible">True</property>
                     <property name="tooltip_text" translatable="yes">When the DAT file is updated, sometime previously unknown roms became known. Set here the directory where to move them.</property>
-                    <property name="label" translatable="yes">New roms path:</property>
+                    <property name="label" translatable="yes">New roms:</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -1031,9 +1031,9 @@ vorione@gmail.com</property>
                 <child>
                   <object class="GtkFileChooserButton" id="options_new_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1063,7 +1063,7 @@ vorione@gmail.com</property>
                   <object class="GtkLabel" id="options_images_path_label">
                     <property name="visible">True</property>
                     <property name="tooltip_text" translatable="yes">Set here the directory where the downloaded images will be stored.</property>
-                    <property name="label" translatable="yes">Images path:</property>
+                    <property name="label" translatable="yes">Images:</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -1074,10 +1074,10 @@ vorione@gmail.com</property>
                 <child>
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="show_hidden">True</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="show_hidden">True</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>

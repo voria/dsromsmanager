@@ -55,6 +55,7 @@ class DatUpdater(threading.Thread):
 				if int(self.dat_version) < int(new_version):
 					self.gui.update_statusbar("DatUpdater", _("New DAT file available!"))
 					# Make sure we are not downloading all images
+					# No need to check if we are rebuilding archives, because we can't be here if it's so.
 					for thread in self.threads:
 						if thread.isAlive() and thread.getName() == "AllImagesDownloader":
 							thread.stop()
@@ -125,19 +126,18 @@ class ImagesDownloader(threading.Thread):
 		self.url1 = game[GAME_IMG1_REMOTE_URL]
 		self.filename2 = game[GAME_IMG2_LOCAL_PATH]
 		self.url2 = game[GAME_IMG2_REMOTE_URL]
-		range_dir = os.path.join(config.get_option("images_path"), game[GAME_RANGE_DIR])
+		self.range_dir = os.path.join(config.get_option("images_path"), game[GAME_RANGE_DIR])
 		
 		self.gui = gui
-		
-		if not os.path.exists(range_dir):
-			os.mkdir(range_dir)
 	
 	def run(self):
 		if os.path.exists(DB_FILE_REBUILD):
-			self.gui.update_statusbar("ImagesDownloader", _("Unable to show images. Please restart DsRomsManager."))
+			self.gui.update_statusbar("ImagesDownloader", _("Unable to show images. Restart 'DsRomsManager'."))
 			return
+		
+		if not os.path.exists(self.range_dir):
+			os.mkdir(self.range_dir)
 			
-		self.gui.update_statusbar("ImagesDownloader", _("Downloading images for '%s'...") % self.fullinfo)
 		if not os.path.exists(self.filename1):
 			try:
 				input = urlopen(self.url1)
@@ -163,7 +163,6 @@ class ImagesDownloader(threading.Thread):
 								_("Error while downloading image 2 for '%s': File not found.") % self.fullinfo)
 			else:
 				self.gui.update_image(self.release_number, 2, self.filename2)
-		self.gui.update_statusbar("ImagesDownloader", _("Download of images for '%s' completed.") % self.fullinfo)
 			
 	def stop(self):
 		return
@@ -180,7 +179,7 @@ class AllImagesDownloader(threading.Thread):
 	
 	def run(self):
 		if os.path.exists(DB_FILE_REBUILD):
-			self.gui.update_statusbar("AllImagesDownloader", _("Unable to download images. Please restart DsRomsManager."))
+			self.gui.update_statusbar("AllImagesDownloader", _("Unable to download images. Restart 'DsRomsManager'."))
 			return
 		
 		self.gui.toggle_all_images_download_toolbutton()
