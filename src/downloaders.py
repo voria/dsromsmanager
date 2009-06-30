@@ -54,9 +54,9 @@ class DatUpdater(threading.Thread):
 							
 				if int(self.dat_version) < int(new_version):
 					self.gui.update_statusbar("DatUpdater", _("New DAT file available!"))
-					# Make sure we are not downloading all images nor rebuilding archives
+					# Make sure we are not downloading all images
 					for thread in self.threads:
-						if thread.getName() == "AllImagesDownloader"  and thread.isAlive():
+						if thread.isAlive() and thread.getName() == "AllImagesDownloader":
 							thread.stop()
 							thread.join()
 							break

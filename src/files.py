@@ -76,12 +76,13 @@ def get_nds_filename_from_zip(zipf):
     return result
 
 class RomArchiveExtract(threading.Thread):
-    """ Extract an archive """
-    def __init__(self, gui, game, zipf, target):
+    """ Extract the archives for games in 'games' dictionary { game_fullinfo : zipfile } """
+    def __init__(self, gui, games, target):
         threading.Thread.__init__(self, name="RomArchiveExtract")
         self.gui = gui
-        self.game = game
-        self.zipf = zipf
+        self.games = games
+        self.gamesnumber_to_extract = len(games)
+        self.gamesnumber_extracted = 0
         self.target = target
     
     def run(self):
@@ -90,31 +91,39 @@ class RomArchiveExtract(threading.Thread):
             self.gui.update_statusbar("RomArchiveExtract", text)
             return        
         
-        text = _("Extracting archive for '%s' ") % self.game
-        text += _("in '%s'...") % self.target
-        self.gui.update_statusbar("RomArchiveExtract", text)
-        
-        text = None
-        
-        try:
-            zip = zipfile.ZipFile(self.zipf, "r")
-            try:
-                info = zip.infolist()[0]
-                if os.path.exists(os.path.join(self.target, info.filename)):
-                    if self.gui.show_question_dialog(_("Target file already exists. Overwrite?")) == False:
-                        text = _("Extraction canceled.")
-                        return
-                zip.extractall(self.target)
-            except:
-                text = _("Unable to extract file from '%s'.") % self.zipf
-            finally:
-                zip.close()
-        except:
-            text = _("Unable to open '%s'.") % self.zipf
-        finally:
-            if text == None:
-                text = _("Extraction completed.")
+        for key in sorted(self.games.iterkeys()):
+            game = key
+            zipf = self.games[key]
+            
+            if self.gamesnumber_to_extract > 1:
+                text = " (%d/%d) : " % (self.gamesnumber_extracted + 1, self.gamesnumber_to_extract)
+            else:
+                text = ""
+            text += _("Extracting archive for '%s' ") % game
+            text += _("in '%s'...") % self.target
             self.gui.update_statusbar("RomArchiveExtract", text)
+        
+            try:
+                zip = zipfile.ZipFile(zipf, "r")
+                try:
+                    info = zip.infolist()[0]
+                    if os.path.exists(os.path.join(self.target, info.filename)):
+                        message = _("Target file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
+                        if self.gui.show_question_dialog(message) == False:
+                            zip.close()
+                            continue
+                    zip.extractall(self.target)
+                    self.gamesnumber_extracted += 1
+                except:
+                    self.gui.show_info_dialog(_("Unable to extract file from '%s'.") % zipf)
+                zip.close()
+            except:
+                self.gui.show_info_dialog(_("Unable to open '%s'.") % zipf)
+        
+        if self.gamesnumber_extracted > 0:
+            self.gui.update_statusbar("RomArchiveExtract", _("Extraction completed."))
+        else:
+            self.gui.update_statusbar("RomArchiveExtract", _("Extraction canceled."))
         
     def stop(self):
         return
@@ -144,8 +153,12 @@ class RomArchivesRebuild(threading.Thread):
             if self.stopnow == True:
                 break
             self.gamesnumber_fixed += 1
-            text = " (%d/%d) : " % (self.gamesnumber_fixed, self.gamesnumber_to_fix)  
-            self.gui.update_statusbar("RomArchivesRebuild", text + _("Rebuilding archive for '%s'...") % key)
+            if self.gamesnumber_to_fix > 1:
+                text = " (%d/%d) : " % (self.gamesnumber_fixed, self.gamesnumber_to_fix)
+            else:
+                text = ""
+            text += _("Rebuilding archive for '%s'...") % key
+            self.gui.update_statusbar("RomArchivesRebuild", text)
             
             oldfile = self.games[key][0]
             if oldfile[len(oldfile)-4:].lower() == ".zip":
@@ -199,7 +212,6 @@ class RomArchivesRebuild(threading.Thread):
                 self.gui.update_game(self.games[key][1], newzipfile)
             except:
                 self.gui.update_statusbar("RomArchivesRebuild", _("Error while building archive for '%s'!") % key)
-                raise
         
         if self.stopnow == True:
             self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild stopped."))

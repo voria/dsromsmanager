@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 20:24+0200\n"
-"PO-Revision-Date: 2009-06-29 20:24+0200\n"
+"POT-Creation-Date: 2009-06-30 03:38+0200\n"
+"PO-Revision-Date: 2009-06-30 03:38+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -133,59 +133,60 @@ msgstr "Caricamento del database in corso..."
 msgid "Database loaded."
 msgstr "Database caricato."
 
-#: ../src/files.py:95
+#: ../src/files.py:90
 #, python-format
 msgid "Unable to extract archive to '%s'. Check write permissions."
 msgstr ""
 "Impossibile estrarre l'archivio in '%s'. Controllare i permessi di scrittura."
 
-#: ../src/files.py:99
+#: ../src/files.py:102
 #, python-format
 msgid "Extracting archive for '%s' "
 msgstr "Estrazione dell'archivio di '%s' "
 
-#: ../src/files.py:100
+#: ../src/files.py:103
 #, python-format
 msgid "in '%s'..."
 msgstr "in '%s' in corso..."
 
-#: ../src/files.py:110
-msgid "Target file already exists. Overwrite?"
-msgstr "File destinazione già esistente. Sovrascrivere?"
-
 #: ../src/files.py:111
-msgid "Extraction canceled."
-msgstr "Estrazione annullata."
+#, python-format
+msgid "Target file '%s' already exists. Overwrite?"
+msgstr "File destinazione '%s' già esistente. Sovrascrivere?"
 
-#: ../src/files.py:115
+#: ../src/files.py:118
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr "Impossibile estrarre il file da '%s'."
 
-#: ../src/files.py:119
+#: ../src/files.py:121
 #, python-format
 msgid "Unable to open '%s'."
 msgstr "Impossibile aprire '%s'."
 
-#: ../src/files.py:122
+#: ../src/files.py:124
 msgid "Extraction completed."
 msgstr "Estrazione completata."
 
-#: ../src/files.py:152
+#: ../src/files.py:126
+msgid "Extraction canceled."
+msgstr "Estrazione annullata."
+
+#: ../src/files.py:160
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr "Ricostruzione dell'archivio di '%s' in corso..."
 
-#: ../src/files.py:199
+#: ../src/files.py:214
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr "Errore durante la ricostruzione dell'archivio di '%s'!"
 
-#: ../src/files.py:203
+#: ../src/files.py:217
 msgid "Rebuild stopped."
 msgstr "Ricostruzione annullata."
 
-#: ../src/files.py:205
+#: ../src/files.py:219
 msgid "Rebuild completed."
 msgstr "Ricostruzione completata."
 
@@ -289,7 +290,7 @@ msgstr "Australia"
 msgid "South Korea"
 msgstr "Corea del sud"
 
-#: ../src/gui.py:140 ../src/gui.py:424
+#: ../src/gui.py:140 ../src/gui.py:425
 msgid "Hide"
 msgstr "Nascondi"
 
@@ -321,47 +322,47 @@ msgstr "Informazioni"
 msgid "Quit"
 msgstr "Esci"
 
-#: ../src/gui.py:213
+#: ../src/gui.py:214
 msgid "Found"
 msgstr "Disponibile"
 
-#: ../src/gui.py:215
+#: ../src/gui.py:216
 msgid "Region"
 msgstr "Regione"
 
-#: ../src/gui.py:220
+#: ../src/gui.py:221
 msgid "Name"
 msgstr "Nome"
 
-#: ../src/gui.py:230 ../src/gui.py:241 ../src/gui.py:253
+#: ../src/gui.py:231 ../src/gui.py:242 ../src/gui.py:254
 msgid "All"
 msgstr "Tutte"
 
-#: ../src/gui.py:419
+#: ../src/gui.py:420
 msgid "Show"
 msgstr "Mostra"
 
-#: ../src/gui.py:546
+#: ../src/gui.py:558
 msgid "Duplicates:"
 msgstr "Duplicati:"
 
-#: ../src/gui.py:551
+#: ../src/gui.py:563
 msgid "No duplicates"
 msgstr "Nessun duplicato"
 
-#: ../src/gui.py:667
+#: ../src/gui.py:722
 msgid "Select destination directory"
 msgstr "Seleziona la directory di destinazione"
 
-#: ../src/gui.py:778
+#: ../src/gui.py:838
 msgid "Waiting while the current job is finished..."
 msgstr "In attesa che il lavoro corrente venga completato..."
 
-#: ../src/gui.py:905
+#: ../src/gui.py:964
 msgid "Images path has been changed.\n"
 msgstr "Il percorso delle immagini è stato cambiato.\n"
 
-#: ../src/gui.py:906
+#: ../src/gui.py:965
 msgid ""
 "\n"
 "Please restart DsRomsManager, database will be rebuilt according to new "
@@ -370,52 +371,52 @@ msgstr ""
 "\n"
 "Per favore riavvia DsRomsManager, il database sarà ricostruito secondo le nuove impostazioni."
 
-#: ../src/gui.py:1038
+#: ../src/gui.py:1097
 #, python-format
 msgid "%d game in list"
 msgstr "%d gioco in lista"
 
-#: ../src/gui.py:1040
+#: ../src/gui.py:1099
 #, python-format
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:1042
+#: ../src/gui.py:1101
 #, python-format
 msgid " - %d available"
 msgstr " - %d disponibili"
 
-#: ../src/gui.py:1044
+#: ../src/gui.py:1103
 #, python-format
 msgid " - %d to be fixed"
 msgstr " - %d da sistemare"
 
-#: ../src/gui.py:1046
+#: ../src/gui.py:1105
 #, python-format
 msgid " - %d not available"
 msgstr " - %d non disponibili"
 
-#: ../src/gui.py:1048 drm.glade.h:18
+#: ../src/gui.py:1107 drm.glade.h:18
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:1187
+#: ../src/gui.py:1224
 msgid "Stop download."
 msgstr "Annulla il download."
 
-#: ../src/gui.py:1204
+#: ../src/gui.py:1241
 msgid "Stop rebuild."
 msgstr "Annulla la ricostruzione."
 
-#: ../src/gui.py:1237
+#: ../src/gui.py:1277
 msgid "Checking games on disk..."
 msgstr "Controllo dei giochi presenti su disco in corso..."
 
-#: ../src/gui.py:1284
+#: ../src/gui.py:1324
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:1294
+#: ../src/gui.py:1346
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 
@@ -505,8 +506,8 @@ msgid "Publisher:"
 msgstr "Publisher:"
 
 #: drm.glade.h:23
-msgid "Rebuild archive"
-msgstr "Ricostruisci archivio"
+msgid "Rebuild"
+msgstr "Ricostruisci"
 
 #: drm.glade.h:25
 msgid ""

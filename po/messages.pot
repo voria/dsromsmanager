@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-29 20:24+0200\n"
+"POT-Creation-Date: 2009-06-30 03:38+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,58 +124,59 @@ msgstr ""
 msgid "Database loaded."
 msgstr ""
 
-#: ../src/files.py:95
+#: ../src/files.py:90
 #, python-format
 msgid "Unable to extract archive to '%s'. Check write permissions."
 msgstr ""
 
-#: ../src/files.py:99
+#: ../src/files.py:102
 #, python-format
 msgid "Extracting archive for '%s' "
 msgstr ""
 
-#: ../src/files.py:100
+#: ../src/files.py:103
 #, python-format
 msgid "in '%s'..."
 msgstr ""
 
-#: ../src/files.py:110
-msgid "Target file already exists. Overwrite?"
-msgstr ""
-
 #: ../src/files.py:111
-msgid "Extraction canceled."
+#, python-format
+msgid "Target file '%s' already exists. Overwrite?"
 msgstr ""
 
-#: ../src/files.py:115
+#: ../src/files.py:118
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr ""
 
-#: ../src/files.py:119
+#: ../src/files.py:121
 #, python-format
 msgid "Unable to open '%s'."
 msgstr ""
 
-#: ../src/files.py:122
+#: ../src/files.py:124
 msgid "Extraction completed."
 msgstr ""
 
-#: ../src/files.py:152
+#: ../src/files.py:126
+msgid "Extraction canceled."
+msgstr ""
+
+#: ../src/files.py:160
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:199
+#: ../src/files.py:214
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr ""
 
-#: ../src/files.py:203
+#: ../src/files.py:217
 msgid "Rebuild stopped."
 msgstr ""
 
-#: ../src/files.py:205
+#: ../src/files.py:219
 msgid "Rebuild completed."
 msgstr ""
 
@@ -279,7 +280,7 @@ msgstr ""
 msgid "South Korea"
 msgstr ""
 
-#: ../src/gui.py:140 ../src/gui.py:424
+#: ../src/gui.py:140 ../src/gui.py:425
 msgid "Hide"
 msgstr ""
 
@@ -311,99 +312,99 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
-#: ../src/gui.py:213
+#: ../src/gui.py:214
 msgid "Found"
 msgstr ""
 
-#: ../src/gui.py:215
+#: ../src/gui.py:216
 msgid "Region"
 msgstr ""
 
-#: ../src/gui.py:220
+#: ../src/gui.py:221
 msgid "Name"
 msgstr ""
 
-#: ../src/gui.py:230 ../src/gui.py:241 ../src/gui.py:253
+#: ../src/gui.py:231 ../src/gui.py:242 ../src/gui.py:254
 msgid "All"
 msgstr ""
 
-#: ../src/gui.py:419
+#: ../src/gui.py:420
 msgid "Show"
 msgstr ""
 
-#: ../src/gui.py:546
+#: ../src/gui.py:558
 msgid "Duplicates:"
 msgstr ""
 
-#: ../src/gui.py:551
+#: ../src/gui.py:563
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:667
+#: ../src/gui.py:722
 msgid "Select destination directory"
 msgstr ""
 
-#: ../src/gui.py:778
+#: ../src/gui.py:838
 msgid "Waiting while the current job is finished..."
 msgstr ""
 
-#: ../src/gui.py:905
+#: ../src/gui.py:964
 msgid "Images path has been changed.\n"
 msgstr ""
 
-#: ../src/gui.py:906
+#: ../src/gui.py:965
 msgid ""
 "\n"
 "Please restart DsRomsManager, database will be rebuilt according to new "
 "settings."
 msgstr ""
 
-#: ../src/gui.py:1038
+#: ../src/gui.py:1097
 #, python-format
 msgid "%d game in list"
 msgstr ""
 
-#: ../src/gui.py:1040
+#: ../src/gui.py:1099
 #, python-format
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:1042
+#: ../src/gui.py:1101
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1044
+#: ../src/gui.py:1103
 #, python-format
 msgid " - %d to be fixed"
 msgstr ""
 
-#: ../src/gui.py:1046
+#: ../src/gui.py:1105
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1048 drm.glade.h:18
+#: ../src/gui.py:1107 drm.glade.h:18
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:1187
+#: ../src/gui.py:1224
 msgid "Stop download."
 msgstr ""
 
-#: ../src/gui.py:1204
+#: ../src/gui.py:1241
 msgid "Stop rebuild."
 msgstr ""
 
-#: ../src/gui.py:1237
+#: ../src/gui.py:1277
 msgid "Checking games on disk..."
 msgstr ""
 
-#: ../src/gui.py:1284
+#: ../src/gui.py:1324
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1294
+#: ../src/gui.py:1346
 msgid "Games list loaded."
 msgstr ""
 
@@ -490,7 +491,7 @@ msgid "Publisher:"
 msgstr ""
 
 #: drm.glade.h:23
-msgid "Rebuild archive"
+msgid "Rebuild"
 msgstr ""
 
 #: drm.glade.h:25

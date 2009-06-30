@@ -205,7 +205,8 @@ class Gui(threading.Thread):
 		self.checks.append(image.render_icon(gtk.STOCK_OK, gtk.ICON_SIZE_MENU))
 		self.checks.append(image.render_icon(gtk.STOCK_CONVERT, gtk.ICON_SIZE_MENU))
 		
-		# Setup all needed stuff for main list treeview
+		# Setup all needed stuff for the main list treeview
+		self.list_treeview.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
 		self.list_treeview_model = gtk.ListStore(gtk.gdk.Pixbuf, gtk.gdk.Pixbuf, int, str)
 		self.list_treeview.set_model(self.list_treeview_model)
 		self.list_treeview_crt = gtk.CellRendererText()
@@ -271,7 +272,7 @@ class Gui(threading.Thread):
 		self.images_window.connect("delete_event", self.on_window_delete_event)
 		self.about_toolbutton.connect("clicked", self.on_about_toolbutton_clicked)
 		self.about_dialog.connect("response", self.on_about_dialog_response)
-		self.list_treeview.connect("cursor-changed", self.on_list_treeview_cursor_changed)
+		self.list_treeview.get_selection().connect("changed", self.on_list_treeview_selection_changed)
 		self.list_treeview.connect("button-press-event", self.on_list_treeview_button_press_event)
 		self.list_treeview_popup_extract_menuitem.connect("activate", self.on_list_treeview_popup_extract_menuitem_activate)
 		self.list_treeview_popup_rebuildarchive_menuitem.connect("activate", self.on_list_treeview_popup_rebuildarchive_menuitem_activate)
@@ -478,15 +479,26 @@ class Gui(threading.Thread):
 			return
 		self.statusicon.set_tooltip(text)
 	
-	def on_list_treeview_cursor_changed(self, treeview):
+	def on_list_treeview_selection_changed(self, selection):
 		if self.quitting == True:
 			return
+		
 		if self.ite_sid != None:
 			self.info_title_eventbox.disconnect(self.ite_sid)
 			self.ite_sid = None
 					
-		selection = treeview.get_selection()
-		model, iter = selection.get_selected()
+		rowsnum = selection.count_selected_rows()
+		if rowsnum > 1:
+			self.previous_selection_release_number = None
+			self.set_previous_treeview_cursor(False)
+			return
+		
+		model, paths = selection.get_selected_rows()
+		try:
+			iter = model.get_iter(paths[0])
+		except:
+			# treeview is changing
+			return
 		
 		try:
 			relnum = model.get_value(iter, TVC_RELEASE_NUMBER)
@@ -622,50 +634,89 @@ class Gui(threading.Thread):
 	
 	def on_list_treeview_button_press_event(self, treeview, event):
 		if self.quitting == True:
-			return
+			return True
+		
 		if event.button == 3:
 			x = int(event.x)
 			y = int(event.y)
-			time = event.time
-			pathinfo = treeview.get_path_at_pos(x, y)
-			if pathinfo == None:
+			# Figure out which item has been clicked on
+			path = treeview.get_path_at_pos(x, y)[0]
+			if path == None:
 				return
-			path, col, cellx, celly = pathinfo
-			treeview.grab_focus()
-			treeview.set_cursor(path, col, 0)
-			model = treeview.get_model()
-			iter = model.get_iter(path)
-			if iter == None:
-				return
-			check = model.get_value(iter, TVC_CHECK)
-			if check == self.checks[CHECKS_YES]:
-				self.list_treeview_popup_extract_menuitem.set_sensitive(True)
-				self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
-			elif check == self.checks[CHECKS_NO]:
+			# Get selection
+			selection = treeview.get_selection()
+			# Get selected paths
+			model, paths = selection.get_selected_rows()
+			
+			# Check if clicked item is in selected paths.
+			# If not, move cursor on it and create a new 'paths'.
+			if not path in paths:
+				treeview.set_cursor(path)
+				paths = [path, ]
+			
+			check_yes = False
+			check_no = False
+			check_convert = False
+			
+			for p in paths:
+				iter = model.get_iter(p)
+				if iter == None:
+					return
+				check = model.get_value(iter, TVC_CHECK)
+				if check == self.checks[CHECKS_YES]:
+					check_yes = True
+				elif check == self.checks[CHECKS_NO]:
+					check_no = True
+				else: # CHECKS_CONVERT
+					check_convert = True
+			
+			# Let's see what options we can enable
+			if check_no == True:
 				self.list_treeview_popup_extract_menuitem.set_sensitive(False)
 				self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
-			else: # CHECKS_CONVERT
-				self.list_treeview_popup_extract_menuitem.set_sensitive(False)
-				self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(True)
-				for thread in self.threads:
-					if thread.getName() == "RomArchivesRebuild" and thread.isAlive():
+			else:
+				if check_yes == True and check_convert == False:
+					self.list_treeview_popup_extract_menuitem.set_sensitive(True)
+					self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
+				if check_yes == True and check_convert == True:
+					self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+					self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
+				if check_yes == False and check_convert == True:
+					self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+					self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(True)
+			
+			# If we are rebuilding archives, we can't enable the relative menuitem
+			for thread in self.threads:
+				    if thread.isAlive() and thread.getName() == "RomArchivesRebuild":
 						self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
 						break
-			self.list_treeview_popup_menu.popup(None, None, None, event.button, time)
+			
+			# Finally show the popup menu
+			self.list_treeview_popup_menu.popup(None, None, None, event.button, event.time)			
+			return True
 	
 	def on_list_treeview_popup_extract_menuitem_activate(self, button):
 		if self.quitting == True:
 			return
-		path, column = self.list_treeview.get_cursor()
-		iter = self.list_treeview_model.get_iter(path)
-		relnum = self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER)
-		try:
-			game = self.db.get_game(relnum)
-		except:
-			self.open_db()
-			game = self.db.get_game(relnum)
+
+		gamesdict = {} # games to extract, in format { game_fullinfo : zipfile }
 		
-		zipfile = self.checksums[game[GAME_ROM_CRC]]
+		selection = self.list_treeview.get_selection()
+		model, paths = selection.get_selected_rows()
+		
+		# Add all selected games to games dictionary
+		for path in paths:
+			iter = model.get_iter(path)
+			relnum = model.get_value(iter, TVC_RELEASE_NUMBER)
+			try:
+				game = self.db.get_game(relnum)
+			except:
+				self.open_db()
+				game = self.db.get_game(relnum)
+			# Get zipfile
+			zipfile = self.checksums[game[GAME_ROM_CRC]]
+			# Add game to games dictionary
+			gamesdict[game[GAME_FULLINFO]] = zipfile
 		
 		# Open a filechooserdialog to select the target directory
 		fcd = gtk.FileChooserDialog(_("Select destination directory"),
@@ -682,7 +733,7 @@ class Gui(threading.Thread):
 		if target == None:
 			return
 		
-		rae = RomArchiveExtract(self, game[GAME_FULLINFO], zipfile, target)
+		rae = RomArchiveExtract(self, gamesdict, target)
 		self.threads.append(rae)
 		rae.start()
 	
@@ -690,19 +741,23 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		
-		dict = {}
+		gamesdict = {}
 		
-		path, column = self.list_treeview.get_cursor()
-		iter = self.list_treeview_model.get_iter(path)
-		relnum = self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER)
-		try:
-			game = self.db.get_game(relnum)
-		except:
-			self.open_db()
-			game = self.db.get_game(relnum)
-		dict[game[GAME_FULLINFO]] = (self.checksums[game[GAME_ROM_CRC]], relnum)
+		selection = self.list_treeview.get_selection()
+		model, paths = selection.get_selected_rows()
 		
-		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton, dict)
+		# Add all selected games to games dictionary
+		for path in paths:
+			iter = model.get_iter(path)
+			relnum = model.get_value(iter, TVC_RELEASE_NUMBER)
+			try:
+				game = self.db.get_game(relnum)
+			except:
+				self.open_db()
+				game = self.db.get_game(relnum)
+			gamesdict[game[GAME_FULLINFO]] = (self.checksums[game[GAME_ROM_CRC]], relnum)
+		
+		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton, gamesdict)
 			
 	def on_show_review_toolbutton_clicked(self, button):
 		if self.quitting == True:
@@ -793,7 +848,6 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		self.__filter()
-		self.set_previous_treeview_cursor(False)
 	
 	def on_filter_clear_button_clicked(self, button):
 		""" Clear all filters """
