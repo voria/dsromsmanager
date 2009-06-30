@@ -108,8 +108,8 @@ class RomArchiveExtract(threading.Thread):
                 try:
                     info = zip.infolist()[0]
                     if os.path.exists(os.path.join(self.target, info.filename)):
-                        message = _("Target file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
-                        if self.gui.show_question_dialog(message) == False:
+                        message = _("\nTarget file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
+                        if self.gui.show_yesno_question_dialog(message) == False:
                             zip.close()
                             continue
                     zip.extractall(self.target)
@@ -128,14 +128,13 @@ class RomArchiveExtract(threading.Thread):
     def stop(self):
         return
 
-class RomArchivesRecheck(threading.Thread):
-    """ Recheck roms archives on disk and rebuild games list """
+class RomArchivesRescan(threading.Thread):
+    """ Rescan roms archives on disk and rebuild games list """
     def __init__(self, gui):
-        threading.Thread.__init__(self, name="RomArchivesRecheck")
+        threading.Thread.__init__(self, name="RomArchivesRescan")
         self.gui = gui
     
     def run(self):
-        self.gui.deactivate_widgets()
         self.gui.add_games()
         
     def stop(self):

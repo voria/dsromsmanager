@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-30 18:36+0200\n"
-"PO-Revision-Date: 2009-06-30 18:36+0200\n"
+"POT-Creation-Date: 2009-06-30 20:43+0200\n"
+"PO-Revision-Date: 2009-06-30 20:47+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -148,8 +148,12 @@ msgstr "in '%s' in corso..."
 
 #: ../src/files.py:111
 #, python-format
-msgid "Target file '%s' already exists. Overwrite?"
-msgstr "File destinazione '%s' già esistente. Sovrascrivere?"
+msgid ""
+"\n"
+"Target file '%s' already exists. Overwrite?"
+msgstr ""
+"\n"
+"File destinazione '%s' già esistente. Sovrascrivere?"
 
 #: ../src/files.py:118
 #, python-format
@@ -169,21 +173,21 @@ msgstr "Estrazione completata."
 msgid "Extraction canceled."
 msgstr "Estrazione annullata."
 
-#: ../src/files.py:172
+#: ../src/files.py:171
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr "Ricostruzione dell'archivio di '%s' in corso..."
 
-#: ../src/files.py:226
+#: ../src/files.py:225
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr "Errore durante la ricostruzione dell'archivio di '%s'!"
 
-#: ../src/files.py:229
+#: ../src/files.py:228
 msgid "Rebuild stopped."
 msgstr "Ricostruzione annullata."
 
-#: ../src/files.py:231
+#: ../src/files.py:230
 msgid "Rebuild completed."
 msgstr "Ricostruzione completata."
 
@@ -299,9 +303,9 @@ msgstr "Aggiorna DAT"
 msgid "Download all images"
 msgstr "Scarica tutte le immagini"
 
-#: ../src/gui.py:158 drm.glade.h:30
-msgid "Recheck archives"
-msgstr "Ricontrolla archivi"
+#: ../src/gui.py:158 drm.glade.h:35
+msgid "Rescan archives"
+msgstr "Riscansiona archivi"
 
 #: ../src/gui.py:162 drm.glade.h:24
 msgid "Rebuild archives"
@@ -343,29 +347,37 @@ msgstr "Tutte"
 msgid "Show"
 msgstr "Mostra"
 
-#: ../src/gui.py:604
+#: ../src/gui.py:608
 msgid "Duplicates:"
 msgstr "Duplicati:"
 
-#: ../src/gui.py:609
+#: ../src/gui.py:613
 msgid "No duplicates"
 msgstr "Nessun duplicato"
 
-#: ../src/gui.py:768
+#: ../src/gui.py:772
 msgid "Select destination directory"
 msgstr "Seleziona la directory di destinazione"
 
-#: ../src/gui.py:893
+#: ../src/gui.py:877
+msgid ""
+"\n"
+"Do you really want to rescan roms archives?"
+msgstr ""
+"\n"
+"Vuoi davvero riscansionare gli archivi delle roms?"
+
+#: ../src/gui.py:901
 msgid "Waiting while the current job is finished..."
 msgstr "In attesa che il lavoro corrente venga completato..."
 
-#: ../src/gui.py:1035
+#: ../src/gui.py:1043
 msgid "'DsRomsManager' working directory has been selected as roms path."
 msgstr ""
 "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso "
 "delle roms."
 
-#: ../src/gui.py:1036
+#: ../src/gui.py:1044
 msgid ""
 "\n"
 "\n"
@@ -375,14 +387,14 @@ msgstr ""
 "\n"
 "Non può essere utilizzata, il percorso delle roms verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1040
+#: ../src/gui.py:1048
 msgid ""
 "'DsRomsManager' working directory has been selected as unknown roms path."
 msgstr ""
 "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso "
 "delle roms sconosciute."
 
-#: ../src/gui.py:1041
+#: ../src/gui.py:1049
 msgid ""
 "\n"
 "\n"
@@ -393,13 +405,13 @@ msgstr ""
 "\n"
 "Non può essere utilizzata, il percorso delle roms sconosciute verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1045
+#: ../src/gui.py:1053
 msgid "'DsRomsManager' working directory has been selected as new roms path."
 msgstr ""
 "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso "
 "delle nuove roms."
 
-#: ../src/gui.py:1046
+#: ../src/gui.py:1054
 msgid ""
 "\n"
 "\n"
@@ -409,11 +421,11 @@ msgstr ""
 "\n"
 "Non può essere utilizzata, il percorso delle nuove roms verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1050
+#: ../src/gui.py:1058
 msgid "Unknown roms path can't be the same as roms or new roms paths."
 msgstr "Il percorso delle roms sconosciute non può essere uguale ai percorsi delle roms o delle nuove roms."
 
-#: ../src/gui.py:1051 ../src/gui.py:1061
+#: ../src/gui.py:1059 ../src/gui.py:1069
 msgid ""
 "\n"
 "\n"
@@ -423,13 +435,13 @@ msgstr ""
 "\n"
 "Selezionare un percorso diverso."
 
-#: ../src/gui.py:1055
+#: ../src/gui.py:1063
 msgid "'DsRomsManager' working directory has been selected as images path."
 msgstr ""
 "E' stata selezionata la directory di lavoro 'DsRomsManager' come percorso "
 "delle immagini."
 
-#: ../src/gui.py:1056
+#: ../src/gui.py:1064
 msgid ""
 "\n"
 "\n"
@@ -439,15 +451,15 @@ msgstr ""
 "\n"
 "Non può essere utilizzata, il percorso delle immagini verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1060
+#: ../src/gui.py:1068
 msgid "Images path can't be the same as roms path."
 msgstr "Il percorso delle immagini non può essere uguale al percorso delle roms."
 
-#: ../src/gui.py:1102
+#: ../src/gui.py:1110
 msgid "'Images' path has changed."
 msgstr "Il percorso delle immagini è stato cambiato."
 
-#: ../src/gui.py:1103
+#: ../src/gui.py:1111
 msgid ""
 "\n"
 "\n"
@@ -457,7 +469,7 @@ msgstr ""
 "\n"
 "Al prossimo avvio il database sarà ricostruito con le nuove impostazioni."
 
-#: ../src/gui.py:1108
+#: ../src/gui.py:1116
 msgid ""
 "\n"
 "Games list will be reloaded."
@@ -465,69 +477,67 @@ msgstr ""
 "\n"
 "La lista dei giochi verrà ricaricata."
 
-#: ../src/gui.py:1239
+#: ../src/gui.py:1271
 #, python-format
 msgid "%d game in list"
 msgstr "%d gioco in lista"
 
-#: ../src/gui.py:1241
+#: ../src/gui.py:1273
 #, python-format
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:1243
+#: ../src/gui.py:1275
 #, python-format
 msgid " - %d available"
 msgstr " - %d disponibili"
 
-#: ../src/gui.py:1245
+#: ../src/gui.py:1277
 #, python-format
 msgid " - %d to be fixed"
 msgstr " - %d da sistemare"
 
-#: ../src/gui.py:1247
+#: ../src/gui.py:1279
 #, python-format
 msgid " - %d not available"
 msgstr " - %d non disponibili"
 
-#: ../src/gui.py:1249 drm.glade.h:18
+#: ../src/gui.py:1281 drm.glade.h:18
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:1374
+#: ../src/gui.py:1407
 msgid "Stop download."
 msgstr "Annulla il download."
 
-#: ../src/gui.py:1391
+#: ../src/gui.py:1426
 msgid "Stop rebuild."
 msgstr "Annulla la ricostruzione."
 
-#: ../src/gui.py:1427
+#: ../src/gui.py:1466
 msgid "Checking games on disk..."
 msgstr "Controllo dei giochi presenti su disco in corso..."
 
-#: ../src/gui.py:1456 ../src/gui.py:1501 ../src/gui.py:1510 ../src/gui.py:1542
-#: ../src/gui.py:1551
+#: ../src/gui.py:1495 ../src/gui.py:1540 ../src/gui.py:1549 ../src/gui.py:1581
+#: ../src/gui.py:1590
 #, python-format
 msgid "'%s' was annoying. Deleted."
 msgstr "'%s' era noioso. Eliminato."
 
-#: ../src/gui.py:1490 ../src/gui.py:1531
+#: ../src/gui.py:1529 ../src/gui.py:1570
 #, python-format
 msgid ""
-"'%s' is a duplicate file.\n"
 "\n"
-"Delete?"
+"'%s' is a duplicate file. Delete?"
 msgstr ""
-"Il file '%s' è un duplicato.\n"
 "\n"
-"Eliminare?"
+"Il file '%s' è un duplicato. Eliminare?"
 
-#: ../src/gui.py:1555
+#: ../src/gui.py:1593
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:1586
+#: ../src/gui.py:1624
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 
@@ -633,20 +643,14 @@ msgstr ""
 "\n"
 "Nota:\n"
 "A causa del pesante carico di operazioni di I/O necessarie alla "
-"ricostruzione degli archivi, la GUI potrebbe non essere pienamente reattiva "
+"ricostruzione degli archivi, la GUI potrebbe non essere molto reattiva "
 "durante il processo."
 
 #: drm.glade.h:29
 msgid "Rebuildable archives"
 msgstr "Archivi ricostruibili"
 
-#: drm.glade.h:31
-msgid "Recheck roms archives on disk and rebuild the games list. (Ctrl+L)"
-msgstr ""
-"Ricontrolla gli archivi delle roms su disco e ricostruisce la lista dei "
-"giochi. (Ctrl+L)"
-
-#: drm.glade.h:32
+#: drm.glade.h:30
 msgid ""
 "Released under GPL3 terms\n"
 "\n"
@@ -659,6 +663,12 @@ msgstr ""
 "Copyleft by\n"
 "Fortunato Ventre (voRia)\n"
 "vorione@gmail.com"
+
+#: drm.glade.h:36
+msgid "Rescan roms archives on disk and rebuild the games list. (Ctrl+L)"
+msgstr ""
+"Riscansiona gli archivi delle roms su disco e ricostruisce la lista dei "
+"giochi. (Ctrl+L)"
 
 #: drm.glade.h:37
 msgid "Review URL:"

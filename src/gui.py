@@ -61,7 +61,7 @@ class Gui(threading.Thread):
 		self.options_dialog = self.builder.get_object("options_dialog")
 		self.dat_update_toolbutton = self.builder.get_object("dat_update_toolbutton")
 		self.all_images_download_toolbutton = self.builder.get_object("all_images_download_toolbutton")
-		self.recheck_roms_archives_toolbutton = self.builder.get_object("recheck_roms_archives_toolbutton")
+		self.rescan_roms_archives_toolbutton = self.builder.get_object("rescan_roms_archives_toolbutton")
 		self.rebuild_roms_archives_toolbutton = self.builder.get_object("rebuild_roms_archives_toolbutton")
 		self.show_review_toolbutton = self.builder.get_object("show_review_toolbutton")
 		self.options_toolbutton = self.builder.get_object("options_toolbutton")
@@ -155,10 +155,10 @@ class Gui(threading.Thread):
 		self.popup_menu.append(self.all_images_download_menuitem)
 		menuitem = gtk.SeparatorMenuItem()
 		self.popup_menu.append(menuitem)
-		self.recheck_roms_archives_menuitem = gtk.ImageMenuItem(_("Recheck archives"))
-		self.recheck_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_REDO, gtk.ICON_SIZE_MENU))
-		self.recheck_roms_archives_menuitem.connect('activate', self.on_statusicon_recheck_roms_archives_activate)
-		self.popup_menu.append(self.recheck_roms_archives_menuitem)
+		self.rescan_roms_archives_menuitem = gtk.ImageMenuItem(_("Rescan archives"))
+		self.rescan_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_REDO, gtk.ICON_SIZE_MENU))
+		self.rescan_roms_archives_menuitem.connect('activate', self.on_statusicon_rescan_roms_archives_activate)
+		self.popup_menu.append(self.rescan_roms_archives_menuitem)
 		self.rebuild_roms_archives_menuitem = gtk.ImageMenuItem(_("Rebuild archives"))
 		self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CONVERT, gtk.ICON_SIZE_MENU))
 		self.rebuild_roms_archives_menuitem.connect('activate', self.on_statusicon_rebuild_roms_archives_activate)
@@ -273,7 +273,7 @@ class Gui(threading.Thread):
 		self.main_window.connect("delete_event", self.on_main_window_delete_event)
 		self.statusbar.connect("text-pushed", self.on_statusbar_text_pushed)
 		self.dat_update_toolbutton.connect("clicked", self.on_dat_update_toolbutton_clicked)
-		self.recheck_roms_archives_toolbutton.connect("clicked", self.on_recheck_roms_archives_toolbutton_clicked)
+		self.rescan_roms_archives_toolbutton.connect("clicked", self.on_rescan_roms_archives_toolbutton_clicked)
 		self.filter_clear_button.connect("clicked", self.on_filter_clear_button_clicked)
 		self.options_toolbutton.connect("clicked", self.on_options_toolbutton_clicked)
 		self.options_dialog.connect("response", self.on_options_dialog_response)
@@ -311,7 +311,7 @@ class Gui(threading.Thread):
 		self.dirty_gameslist = False
 		self.previous_selection_release_number = None
 		
-		self.checksums = {}	
+		self.checksums = {}
 		
 		self.deactivate_widgets()
 		
@@ -481,10 +481,10 @@ class Gui(threading.Thread):
 			return
 		self.on_all_images_download_toolbutton_clicked(self.all_images_download_toolbutton)
 	
-	def on_statusicon_recheck_roms_archives_activate(self, widget):
+	def on_statusicon_rescan_roms_archives_activate(self, widget):
 		if self.quitting == True:
 			return
-		self.on_recheck_roms_archives_toolbutton_clicked(self.recheck_roms_archives_toolbutton)
+		self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton)
 	
 	def on_statusicon_rebuild_roms_archives_activate(self, widget):
 		if self.quitting == True:
@@ -562,22 +562,26 @@ class Gui(threading.Thread):
 		img2 = game[GAME_IMG2_LOCAL_PATH]
 		
 		if os.path.exists(img1) and os.path.exists(img2):
-			pixbuf1 = gtk.gdk.pixbuf_new_from_file(img1)
-			pixbuf2 = gtk.gdk.pixbuf_new_from_file(img2)
-			if self.screen_height < 800: # resize images to 50% and enable images_window
-				self.images_eventbox.connect("button-press-event", self.toggle_images_window,
-											 game[GAME_FULLINFO], img1, img2)
-				self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
-				self.images_window_image1.set_from_file(img1)
-				self.images_window_image2.set_from_file(img2)
-				pixbuf1 = pixbuf1.scale_simple(pixbuf1.get_width()/2, pixbuf1.get_height()/2, gtk.gdk.INTERP_BILINEAR)
-				pixbuf2 = pixbuf2.scale_simple(pixbuf2.get_width()/2, pixbuf2.get_height()/2, gtk.gdk.INTERP_BILINEAR)
-				# resize images frames too
-				self.image1_frame.set_size_request(pixbuf1.get_width(), pixbuf1.get_height())
-				self.image2_frame.set_size_request(pixbuf2.get_width(), pixbuf2.get_height())
-				
-			self.image1.set_from_pixbuf(pixbuf1)
-			self.image2.set_from_pixbuf(pixbuf2)
+			try:
+				pixbuf1 = gtk.gdk.pixbuf_new_from_file(img11)
+				pixbuf2 = gtk.gdk.pixbuf_new_from_file(img2)
+				if self.screen_height < 800: # resize images to 50% and enable images_window
+					self.images_eventbox.connect("button-press-event", self.toggle_images_window,
+												 game[GAME_FULLINFO], img1, img2)
+					self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
+					self.images_window_image1.set_from_file(img1)
+					self.images_window_image2.set_from_file(img2)
+					pixbuf1 = pixbuf1.scale_simple(pixbuf1.get_width()/2, pixbuf1.get_height()/2, gtk.gdk.INTERP_BILINEAR)
+					pixbuf2 = pixbuf2.scale_simple(pixbuf2.get_width()/2, pixbuf2.get_height()/2, gtk.gdk.INTERP_BILINEAR)
+					# resize images frames too
+					self.image1_frame.set_size_request(pixbuf1.get_width(), pixbuf1.get_height())
+					self.image2_frame.set_size_request(pixbuf2.get_width(), pixbuf2.get_height())
+					
+				self.image1.set_from_pixbuf(pixbuf1)
+				self.image2.set_from_pixbuf(pixbuf2)
+			except:
+				# Probably image files were in download when we tried to load them
+				pass				
 		else:
 			self.image1.clear()
 			self.image2.clear()
@@ -866,10 +870,14 @@ class Gui(threading.Thread):
 					thread.stop()
 					break
 	
-	def on_recheck_roms_archives_toolbutton_clicked(self, button):
+	def on_rescan_roms_archives_toolbutton_clicked(self, button, confirm = True):
 		if self.quitting == True:
 			return
-		rar = RomArchivesRecheck(self)
+		if confirm == True:
+			message = _("\nDo you really want to rescan roms archives?")
+			if self.show_okcancel_question_dialog(message, False) == False:
+				return
+		rar = RomArchivesRescan(self)
 		self.threads.append(rar)
 		rar.start()
 	
@@ -880,8 +888,8 @@ class Gui(threading.Thread):
 			widgets = [] # widgets that need to be disabled while updating
 			widgets.append(self.dat_update_toolbutton)
 			widgets.append(self.dat_update_menuitem)
-			widgets.append(self.recheck_roms_archives_toolbutton)
-			widgets.append(self.recheck_roms_archives_menuitem)
+			widgets.append(self.rescan_roms_archives_toolbutton)
+			widgets.append(self.rescan_roms_archives_menuitem)
 			
 			if dict != None:
 				rar = RomArchivesRebuild(self, widgets, dict)
@@ -1104,10 +1112,10 @@ class Gui(threading.Thread):
 				self.show_info_dialog(message, False)
 				open(DB_FILE_REBUILD, "w").close()
 			if romspaths_changed == True:
-				# we need to recheck for games on disk
+				# we need to rescan for games on disk
 				message = _("\nGames list will be reloaded.")
 				self.show_info_dialog(message, False)
-				self.on_recheck_roms_archives_toolbutton_clicked(self.recheck_roms_archives_toolbutton)
+				self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton, False)
 		
 		dialog.hide()
 	
@@ -1128,18 +1136,20 @@ class Gui(threading.Thread):
 		dialog.hide()
 			
 	# General functions
-	def deactivate_widgets(self):
+	def deactivate_widgets(self, use_threads = True):
 		""" Disable all widgets' sensitiveness """
 		if self.quitting == True:
 			return
+		if use_threads == True:
+			gtk.gdk.threads_enter()
 		self.list_scrolledwindow.set_sensitive(False)
 		self.dat_update_toolbutton.set_sensitive(False)
 		self.dat_update_menuitem.set_sensitive(False)
 		if self.all_images_download_toolbutton.get_stock_id() != gtk.STOCK_CANCEL:
 			self.all_images_download_toolbutton.set_sensitive(False)
 			self.all_images_download_menuitem.set_sensitive(False)
-		self.recheck_roms_archives_toolbutton.set_sensitive(False)
-		self.recheck_roms_archives_menuitem.set_sensitive(False)
+		self.rescan_roms_archives_toolbutton.set_sensitive(False)
+		self.rescan_roms_archives_menuitem.set_sensitive(False)
 		if self.rebuild_roms_archives_toolbutton.get_stock_id() != gtk.STOCK_CANCEL:
 			self.rebuild_roms_archives_toolbutton.set_sensitive(False)
 			self.rebuild_roms_archives_menuitem.set_sensitive(False)
@@ -1157,18 +1167,22 @@ class Gui(threading.Thread):
 		self.filter_location_combobox.set_sensitive(False)
 		self.filter_language_combobox.set_sensitive(False)
 		self.filter_size_combobox.set_sensitive(False)
+		if use_threads == True:
+			gtk.gdk.threads_leave()
 	
-	def activate_widgets(self):
+	def activate_widgets(self, use_threads = True):
 		""" Enable all widgets' sensitiveness """
 		if self.quitting == True:
 			return
+		if use_threads == True:
+			gtk.gdk.threads_enter()
 		self.list_scrolledwindow.set_sensitive(True)
 		self.dat_update_toolbutton.set_sensitive(True)
 		self.dat_update_menuitem.set_sensitive(True)
 		self.all_images_download_toolbutton.set_sensitive(True)
 		self.all_images_download_menuitem.set_sensitive(True)
-		self.recheck_roms_archives_toolbutton.set_sensitive(True)
-		self.recheck_roms_archives_menuitem.set_sensitive(True)
+		self.rescan_roms_archives_toolbutton.set_sensitive(True)
+		self.rescan_roms_archives_menuitem.set_sensitive(True)
 		if len(self.games_to_be_fixed) > 0:
 			self.rebuild_roms_archives_toolbutton.set_sensitive(True)
 			self.rebuild_roms_archives_menuitem.set_sensitive(True)
@@ -1187,6 +1201,8 @@ class Gui(threading.Thread):
 		self.filter_location_combobox.set_sensitive(True)
 		self.filter_language_combobox.set_sensitive(True)
 		self.filter_size_combobox.set_sensitive(True)
+		if use_threads == True:
+			gtk.gdk.threads_leave()
 	
 	def toggle_images_window(self, widget, event, title = None, img1 = None, img2 = None):
 		if self.quitting == True:
@@ -1201,34 +1217,50 @@ class Gui(threading.Thread):
 		else:
 			self.images_window.hide()
 	
-	def show_question_dialog(self, message, threads = True):
-		""" Show a question dialog with OK and Cancel button, showing 'message'.
-		Return True if OK is pressed, else False. """
+	def show_okcancel_question_dialog(self, message, use_threads = True):
+		""" Show a question dialog with 'OK' and 'Cancel' buttons, showing 'message'.
+		Return True if 'OK' is pressed, else return False. """
 		if self.quitting == True:
 			return
-		if threads == True:
+		if use_threads == True:
+			gtk.gdk.threads_enter()
+		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK_CANCEL, message)
+		response = dialog.run()
+		dialog.destroy()
+		if use_threads == True:
+			gtk.gdk.threads_leave()		
+		if response == gtk.RESPONSE_OK:
+			return True
+		else:
+			return False
+	
+	def show_yesno_question_dialog(self, message, use_threads = True):
+		""" Show a question dialog with 'Yes' and 'No' buttons, showing 'message'.
+		Return True if 'YES' is pressed, else return False. """
+		if self.quitting == True:
+			return
+		if use_threads == True:
 			gtk.gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, message)
 		response = dialog.run()
-		dialog.destroy()		
+		dialog.destroy()
+		if use_threads == True:
+			gtk.gdk.threads_leave()		
 		if response == gtk.RESPONSE_YES:
-			res = True
+			return True
 		else:
-			res = False
-		if threads == True:
-			gtk.gdk.threads_leave()
-		return res
+			return False
 	
-	def show_info_dialog(self, message, threads = True):
+	def show_info_dialog(self, message, use_threads = True):
 		""" Show an info dialog with just an OK button, showing 'message' """
 		if self.quitting == True:
 			return
-		if threads == True:
+		if use_threads == True:
 			gtk.gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_INFO, gtk.BUTTONS_OK, message)
 		dialog.run()
 		dialog.destroy()
-		if threads == True:
+		if use_threads == True:
 			gtk.gdk.threads_leave()
 	
 	def update_list_game_label(self):
@@ -1250,13 +1282,13 @@ class Gui(threading.Thread):
 		
 		self.list_game_label.set_text(text)
 		
-	def update_statusbar(self, context, text, threads = True):
+	def update_statusbar(self, context, text, use_threads = True):
 		if self.quitting == True:
 			return
-		if threads == True:
+		if use_threads == True:
 			gtk.gdk.threads_enter()
 		self.statusbar.push(self.statusbar.get_context_id(context), text)
-		if threads == True:
+		if use_threads == True:
 			gtk.gdk.threads_leave()
 	
 	def update_game(self, game_release_number, new_zip_file):
@@ -1321,11 +1353,11 @@ class Gui(threading.Thread):
 		except:
 			pass
 	
-	def set_previous_treeview_cursor(self, threads = True):
+	def set_previous_treeview_cursor(self, use_threads = True):
 		""" If there was a previous treeview selection, restore it """
 		if self.quitting == True:
 			return	
-		if threads == True:
+		if use_threads == True:
 			gtk.gdk.threads_enter()
 		if self.previous_selection_release_number == None:
 			self.__hide_infos()
@@ -1336,7 +1368,7 @@ class Gui(threading.Thread):
 				iter = self.list_treeview_model.get_iter(path)
 				if self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) == self.previous_selection_release_number:
 					# nothing to do
-					if threads == True:
+					if use_threads == True:
 						gtk.gdk.threads_leave()
 					return
 			
@@ -1344,7 +1376,7 @@ class Gui(threading.Thread):
 			if iter == None: # Treeview is empty, nothing to do.
 				self.previous_selection_release_number = None
 				self.__hide_infos()
-				if threads == True:
+				if use_threads == True:
 					gtk.gdk.threads_leave()
 				return
 			while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != self.previous_selection_release_number:
@@ -1353,19 +1385,20 @@ class Gui(threading.Thread):
 					# game not found in list
 					self.previous_selection_release_number = None
 					self.__hide_infos()
-					if threads == True:
+					if use_threads == True:
 						gtk.gdk.threads_leave()
 					return
 			if iter != None:
 				path = self.list_treeview_model.get_path(iter)
 				self.list_treeview.set_cursor(path)
-		if threads == True:
+		if use_threads == True:
 			gtk.gdk.threads_leave()
 	
-	def toggle_all_images_download_toolbutton(self):
+	def toggle_all_images_download_toolbutton(self, use_threads = True):
 		if self.quitting == True:
 			return
-		gtk.gdk.threads_enter()
+		if use_threads == True:
+			gtk.gdk.threads_enter()
 		if self.all_images_download_toolbutton.get_stock_id() == gtk.STOCK_JUMP_TO:
 			# switch to cancel button
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
@@ -1377,12 +1410,14 @@ class Gui(threading.Thread):
 			self.all_images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
 			self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
 			self.all_images_download_toolbutton.set_tooltip_text(self.old_aidt_tooltip_text)
-		gtk.gdk.threads_leave()
+		if use_threads == True:
+			gtk.gdk.threads_leave()
 	
-	def toggle_rebuild_roms_archives_toolbutton(self):
+	def toggle_rebuild_roms_archives_toolbutton(self, use_threads = True):
 		if self.quitting == True:
 			return
-		gtk.gdk.threads_enter()
+		if use_threads == True:
+			gtk.gdk.threads_enter()
 		if self.rebuild_roms_archives_toolbutton.get_stock_id() == gtk.STOCK_CONVERT:
 			# switch to cancel button
 			self.rebuild_roms_archives_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
@@ -1399,7 +1434,8 @@ class Gui(threading.Thread):
 			if len(self.games_to_be_fixed) > 0:
 				self.rebuild_roms_archives_toolbutton.set_sensitive(True)
 				self.rebuild_roms_archives_menuitem.set_sensitive(True)
-		gtk.gdk.threads_leave()
+		if use_threads == True:
+			gtk.gdk.threads_leave()
 		
 	
 	def open_db(self):
@@ -1408,7 +1444,7 @@ class Gui(threading.Thread):
 			return
 		self.db = DB(DB_FILE)
 	
-	def add_games(self, threads = True):
+	def add_games(self, use_threads = True):
 		""" Add games from database to the treeview model. """
 		if self.quitting == True:
 			return
@@ -1423,8 +1459,11 @@ class Gui(threading.Thread):
 		for crc in crcs:
 			self.checksums[crc[0]] = None
 		
+		# Deactivate widgets
+		self.deactivate_widgets(use_threads)
+		
 		## Check the games we have on disk
-		self.update_statusbar("Games", _("Checking games on disk..."), threads)
+		self.update_statusbar("Games", _("Checking games on disk..."), use_threads)
 		
 		# Check roms on disk
 		unknown_roms_path = config.get_option("unknown_roms_path")
@@ -1454,7 +1493,7 @@ class Gui(threading.Thread):
 							# Annoying file, remove it
 							os.remove(file)
 							message = _("'%s' was annoying. Deleted.") % file
-							self.show_info_dialog(message, threads)
+							self.show_info_dialog(message, use_threads)
 
 		if os.path.exists(roms_path):
 			# recursively check games in 'roms_path' directory.
@@ -1487,8 +1526,8 @@ class Gui(threading.Thread):
 								self.checksums[crc] = file
 							else:
 								# Duplicate file
-								message = _("'%s' is a duplicate file.\n\nDelete?") % file
-								if self.show_question_dialog(message, threads) == True:
+								message = _("\n'%s' is a duplicate file. Delete?") % file
+								if self.show_yesno_question_dialog(message, use_threads) == True:
 									os.remove(file)
 								else:
 									# Move in 'unknown_roms_path'
@@ -1499,7 +1538,7 @@ class Gui(threading.Thread):
 											# Annoying file, remove it
 											os.remove(file)
 											message = _("'%s' was annoying. Deleted.") % file
-											self.show_info_dialog(message, threads)
+											self.show_info_dialog(message, use_threads)
 						else: # crc == None or crc not in self.checksums
 							if os.path.exists(unknown_roms_path) and os.access(unknown_roms_path, os.W_OK):
 								try:
@@ -1508,7 +1547,7 @@ class Gui(threading.Thread):
 									# Annoying file, remove it
 									os.remove(file)
 									message = _("'%s' was annoying. Deleted.") % file
-									self.show_info_dialog(message, threads)
+									self.show_info_dialog(message, use_threads)
 		
 		if os.path.exists(new_roms_path) and new_roms_path != roms_path:
 			# check games in 'new_roms_path' directory.
@@ -1528,8 +1567,8 @@ class Gui(threading.Thread):
 						self.checksums[crc] = file
 					else:
 						# Duplicate file
-						message = _("'%s' is a duplicate file.\n\nDelete?") % file
-						if self.show_question_dialog(message, threads) == True:
+						message = _("\n'%s' is a duplicate file. Delete?") % file
+						if self.show_yesno_question_dialog(message, use_threads) == True:
 					   	   os.remove(file)
 					   	else:
 							# Move in 'unknown_roms_path'
@@ -1540,7 +1579,7 @@ class Gui(threading.Thread):
 									# Annoying file, remove it
 									os.remove(file)
 									message = _("'%s' was annoying. Deleted.") % file
-									self.show_info_dialog(message, threads)
+									self.show_info_dialog(message, use_threads)
 				else: # crc == None or crc not in self.checksums
 					if os.path.exists(unknown_roms_path) and os.access(unknown_roms_path, os.W_OK):
 						try:
@@ -1549,10 +1588,9 @@ class Gui(threading.Thread):
 							# Annoying file, remove it
 							os.remove(file)
 							message = _("'%s' was annoying. Deleted.") % file
-							self.show_info_dialog(message, threads)		
+							self.show_info_dialog(message, use_threads)		
 		
-		self.deactivate_widgets()
-		self.update_statusbar("Games", _("Loading games list..."), threads)
+		self.update_statusbar("Games", _("Loading games list..."), use_threads)
 		
 		try:
 			self.__update_list(self.db.get_all_games(), True)
@@ -1583,9 +1621,9 @@ class Gui(threading.Thread):
 		if self.games_check_convert_checkbutton.get_active() == False:
 			self.on_games_check_convert_checkbutton_toggled(self.games_check_convert_checkbutton)
 		
-		self.update_statusbar("Games", _("Games list loaded."), threads)
+		self.update_statusbar("Games", _("Games list loaded."), use_threads)
 		
-		self.activate_widgets()
+		self.activate_widgets(use_threads)
 		
 		# Clear up all filter
 		if self.quitting == False:		
@@ -1601,7 +1639,7 @@ class Gui(threading.Thread):
 		
 		# Hide old infos
 		self.previous_selection_release_number = None
-		self.set_previous_treeview_cursor(threads)
+		self.set_previous_treeview_cursor(use_threads)
 	
 	def quit(self):
 		# Prepare for quitting
