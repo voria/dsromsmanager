@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-30 16:20+0200\n"
+"POT-Creation-Date: 2009-06-30 18:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,7 @@ msgid "Database created."
 msgstr ""
 
 #: ../src/downloaders.py:75
-msgid "DAT file is up to date."
+msgid "DAT file is already up to date to the latest version."
 msgstr ""
 
 #: ../src/downloaders.py:77
@@ -159,21 +159,21 @@ msgstr ""
 msgid "Extraction canceled."
 msgstr ""
 
-#: ../src/files.py:160
+#: ../src/files.py:172
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:214
+#: ../src/files.py:226
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr ""
 
-#: ../src/files.py:217
+#: ../src/files.py:229
 msgid "Rebuild stopped."
 msgstr ""
 
-#: ../src/files.py:219
+#: ../src/files.py:231
 msgid "Rebuild completed."
 msgstr ""
 
@@ -277,208 +277,216 @@ msgstr ""
 msgid "South Korea"
 msgstr ""
 
-#: ../src/gui.py:141 ../src/gui.py:451
+#: ../src/gui.py:142 ../src/gui.py:466
 msgid "Hide"
 msgstr ""
 
-#: ../src/gui.py:147
+#: ../src/gui.py:148
 msgid "Update DAT"
 msgstr ""
 
-#: ../src/gui.py:151
+#: ../src/gui.py:152
 msgid "Download all images"
 msgstr ""
 
-#: ../src/gui.py:155 drm.glade.h:24
+#: ../src/gui.py:158 drm.glade.h:30
+msgid "Recheck archives"
+msgstr ""
+
+#: ../src/gui.py:162 drm.glade.h:24
 msgid "Rebuild archives"
 msgstr ""
 
-#: ../src/gui.py:161
+#: ../src/gui.py:168
 msgid "Reviews"
 msgstr ""
 
-#: ../src/gui.py:167 drm.glade.h:21
+#: ../src/gui.py:174 drm.glade.h:21
 msgid "Options"
 msgstr ""
 
-#: ../src/gui.py:173
+#: ../src/gui.py:180
 msgid "About"
 msgstr ""
 
-#: ../src/gui.py:179
+#: ../src/gui.py:186
 msgid "Quit"
 msgstr ""
 
-#: ../src/gui.py:215
+#: ../src/gui.py:222
 msgid "Found"
 msgstr ""
 
-#: ../src/gui.py:217
+#: ../src/gui.py:224
 msgid "Region"
 msgstr ""
 
-#: ../src/gui.py:222
+#: ../src/gui.py:229
 msgid "Name"
 msgstr ""
 
-#: ../src/gui.py:232 ../src/gui.py:243 ../src/gui.py:255
+#: ../src/gui.py:239 ../src/gui.py:250 ../src/gui.py:262
 msgid "All"
 msgstr ""
 
-#: ../src/gui.py:446
+#: ../src/gui.py:461
 msgid "Show"
 msgstr ""
 
-#: ../src/gui.py:584
+#: ../src/gui.py:604
 msgid "Duplicates:"
 msgstr ""
 
-#: ../src/gui.py:589
+#: ../src/gui.py:609
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:748
+#: ../src/gui.py:768
 msgid "Select destination directory"
 msgstr ""
 
-#: ../src/gui.py:864
+#: ../src/gui.py:893
 msgid "Waiting while the current job is finished..."
 msgstr ""
 
-#: ../src/gui.py:1006
-msgid "'DsRomsManager' directory has been selected as roms path."
+#: ../src/gui.py:1035
+msgid "'DsRomsManager' working directory has been selected as roms path."
 msgstr ""
 
-#: ../src/gui.py:1007
+#: ../src/gui.py:1036
 msgid ""
 "\n"
 "\n"
-"The default roms path will be used in its place."
+"It can't be used, the roms path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1011
-msgid "'DsRomsManager' directory has been selected as unknown roms path."
+#: ../src/gui.py:1040
+msgid ""
+"'DsRomsManager' working directory has been selected as unknown roms path."
 msgstr ""
 
-#: ../src/gui.py:1012
+#: ../src/gui.py:1041
 msgid ""
 "\n"
 "\n"
-"The default unknown roms path will be used in its place."
+"It can't be used, the unknown roms path will be restored to its default "
+"value."
 msgstr ""
 
-#: ../src/gui.py:1016
-msgid "'DsRomsManager' directory has been selected as new roms path."
+#: ../src/gui.py:1045
+msgid "'DsRomsManager' working directory has been selected as new roms path."
 msgstr ""
 
-#: ../src/gui.py:1017
+#: ../src/gui.py:1046
 msgid ""
 "\n"
 "\n"
-"The default new roms path will be used in its place."
+"It can't be used, the new roms path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1021
+#: ../src/gui.py:1050
 msgid "Unknown roms path can't be the same as roms or new roms paths."
 msgstr ""
 
-#: ../src/gui.py:1022 ../src/gui.py:1032
+#: ../src/gui.py:1051 ../src/gui.py:1061
 msgid ""
 "\n"
 "\n"
 "Select a different path."
 msgstr ""
 
-#: ../src/gui.py:1026
-msgid "'DsRomsManager' directory has been selected as images path."
+#: ../src/gui.py:1055
+msgid "'DsRomsManager' working directory has been selected as images path."
 msgstr ""
 
-#: ../src/gui.py:1027
+#: ../src/gui.py:1056
 msgid ""
 "\n"
 "\n"
-"The default images path will be used in its place."
+"It can't be used, the images path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1031
+#: ../src/gui.py:1060
 msgid "Images path can't be the same as roms path."
 msgstr ""
 
-#: ../src/gui.py:1073
+#: ../src/gui.py:1102
 msgid "'Images' path has changed."
 msgstr ""
 
-#: ../src/gui.py:1074
+#: ../src/gui.py:1103
 msgid ""
 "\n"
 "\n"
 "On next start the database will be rebuilt according to new settings."
 msgstr ""
 
-#: ../src/gui.py:1079
-msgid "Games list will be reloaded."
+#: ../src/gui.py:1108
+msgid ""
+"\n"
+"Games list will be reloaded."
 msgstr ""
 
-#: ../src/gui.py:1206
+#: ../src/gui.py:1239
 #, python-format
 msgid "%d game in list"
 msgstr ""
 
-#: ../src/gui.py:1208
+#: ../src/gui.py:1241
 #, python-format
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:1210
+#: ../src/gui.py:1243
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1212
+#: ../src/gui.py:1245
 #, python-format
 msgid " - %d to be fixed"
 msgstr ""
 
-#: ../src/gui.py:1214
+#: ../src/gui.py:1247
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1216 drm.glade.h:18
+#: ../src/gui.py:1249 drm.glade.h:18
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:1341
+#: ../src/gui.py:1374
 msgid "Stop download."
 msgstr ""
 
-#: ../src/gui.py:1358
+#: ../src/gui.py:1391
 msgid "Stop rebuild."
 msgstr ""
 
-#: ../src/gui.py:1394
+#: ../src/gui.py:1427
 msgid "Checking games on disk..."
 msgstr ""
 
-#: ../src/gui.py:1423 ../src/gui.py:1468 ../src/gui.py:1477 ../src/gui.py:1510
-#: ../src/gui.py:1519
+#: ../src/gui.py:1456 ../src/gui.py:1501 ../src/gui.py:1510 ../src/gui.py:1542
+#: ../src/gui.py:1551
 #, python-format
 msgid "'%s' was annoying. Deleted."
 msgstr ""
 
-#: ../src/gui.py:1457 ../src/gui.py:1499
+#: ../src/gui.py:1490 ../src/gui.py:1531
 #, python-format
 msgid ""
-"'%s' is a duplicate.\n"
+"'%s' is a duplicate file.\n"
 "\n"
 "Delete?"
 msgstr ""
 
-#: ../src/gui.py:1523
+#: ../src/gui.py:1555
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1554
+#: ../src/gui.py:1586
 msgid "Games list loaded."
 msgstr ""
 
@@ -571,14 +579,22 @@ msgstr ""
 #: drm.glade.h:25
 msgid ""
 "Rebuild wrong roms archives, according to informations from DAT file. (Ctrl"
-"+F)"
+"+F)\n"
+"\n"
+"Note:\n"
+"Due to the heavy load of I/O operations needed for rebuilding archives, the "
+"GUI might not be fully responsive during the process."
 msgstr ""
 
-#: drm.glade.h:26
+#: drm.glade.h:29
 msgid "Rebuildable archives"
 msgstr ""
 
-#: drm.glade.h:27
+#: drm.glade.h:31
+msgid "Recheck roms archives on disk and rebuild the games list. (Ctrl+L)"
+msgstr ""
+
+#: drm.glade.h:32
 msgid ""
 "Released under GPL3 terms\n"
 "\n"
@@ -587,55 +603,55 @@ msgid ""
 "vorione@gmail.com"
 msgstr ""
 
-#: drm.glade.h:32
+#: drm.glade.h:37
 msgid "Review URL:"
 msgstr ""
 
-#: drm.glade.h:33
+#: drm.glade.h:38
 msgid "Roms:"
 msgstr ""
 
-#: drm.glade.h:34
+#: drm.glade.h:39
 msgid "Save:"
 msgstr ""
 
-#: drm.glade.h:35
+#: drm.glade.h:40
 msgid "Search reviews for the selected game. (Ctrl+R)"
 msgstr ""
 
-#: drm.glade.h:36
+#: drm.glade.h:41
 msgid "Select a directory"
 msgstr ""
 
-#: drm.glade.h:37
+#: drm.glade.h:42
 msgid "Set here the directory where the downloaded images will be stored."
 msgstr ""
 
-#: drm.glade.h:38
+#: drm.glade.h:43
 msgid "Set here the directory where the roms are stored."
 msgstr ""
 
-#: drm.glade.h:39
+#: drm.glade.h:44
 msgid "Set here the directory where to move unknown roms."
 msgstr ""
 
-#: drm.glade.h:40
+#: drm.glade.h:45
 msgid "Show informations about 'DsRomsManager'. (Ctrl+A)"
 msgstr ""
 
-#: drm.glade.h:41
+#: drm.glade.h:46
 msgid "Size:"
 msgstr ""
 
-#: drm.glade.h:42
+#: drm.glade.h:47
 msgid "Source:"
 msgstr ""
 
-#: drm.glade.h:43
+#: drm.glade.h:48
 msgid "Unknown roms:"
 msgstr ""
 
-#: drm.glade.h:44
+#: drm.glade.h:49
 msgid ""
 "Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
 "search URL.\n"
@@ -646,44 +662,44 @@ msgid ""
 "Set an empty string to use the default URL."
 msgstr ""
 
-#: drm.glade.h:50
+#: drm.glade.h:55
 msgid ""
 "When the DAT file is updated, sometime previously unknown roms became known. "
 "Set here the directory where to move them."
 msgstr ""
 
-#: drm.glade.h:51
+#: drm.glade.h:56
 msgid "_About"
 msgstr ""
 
-#: drm.glade.h:52
+#: drm.glade.h:57
 msgid "_Clear"
 msgstr ""
 
-#: drm.glade.h:53
+#: drm.glade.h:58
 msgid "_Download all images"
 msgstr ""
 
-#: drm.glade.h:54
+#: drm.glade.h:59
 msgid "_Options"
 msgstr ""
 
-#: drm.glade.h:55
+#: drm.glade.h:60
 msgid "_Reviews"
 msgstr ""
 
-#: drm.glade.h:56
+#: drm.glade.h:61
 msgid "_Update DAT"
 msgstr ""
 
-#: drm.glade.h:57
+#: drm.glade.h:62
 msgid "gtk-cancel"
 msgstr ""
 
-#: drm.glade.h:58
+#: drm.glade.h:63
 msgid "gtk-ok"
 msgstr ""
 
-#: drm.glade.h:59
+#: drm.glade.h:64
 msgid "http://www.voria.org"
 msgstr ""

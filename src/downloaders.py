@@ -72,7 +72,7 @@ class DatUpdater(threading.Thread):
 					self.gui.update_statusbar("DatUpdater", _("Database created."))
 					self.gui.add_games()
 				else:
-					self.gui.update_statusbar("DatUpdater", _("DAT file is up to date."))
+					self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date to the latest version."))
 			except:
 				self.gui.update_statusbar("DatUpdater", _("Can't download DAT version file!"))
 				raise

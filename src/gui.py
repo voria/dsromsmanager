@@ -61,6 +61,7 @@ class Gui(threading.Thread):
 		self.options_dialog = self.builder.get_object("options_dialog")
 		self.dat_update_toolbutton = self.builder.get_object("dat_update_toolbutton")
 		self.all_images_download_toolbutton = self.builder.get_object("all_images_download_toolbutton")
+		self.recheck_roms_archives_toolbutton = self.builder.get_object("recheck_roms_archives_toolbutton")
 		self.rebuild_roms_archives_toolbutton = self.builder.get_object("rebuild_roms_archives_toolbutton")
 		self.show_review_toolbutton = self.builder.get_object("show_review_toolbutton")
 		self.options_toolbutton = self.builder.get_object("options_toolbutton")
@@ -152,6 +153,12 @@ class Gui(threading.Thread):
 		self.all_images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_JUMP_TO, gtk.ICON_SIZE_MENU))
 		self.all_images_download_menuitem.connect('activate', self.on_statusicon_all_images_download_activate)
 		self.popup_menu.append(self.all_images_download_menuitem)
+		menuitem = gtk.SeparatorMenuItem()
+		self.popup_menu.append(menuitem)
+		self.recheck_roms_archives_menuitem = gtk.ImageMenuItem(_("Recheck archives"))
+		self.recheck_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_REDO, gtk.ICON_SIZE_MENU))
+		self.recheck_roms_archives_menuitem.connect('activate', self.on_statusicon_recheck_roms_archives_activate)
+		self.popup_menu.append(self.recheck_roms_archives_menuitem)
 		self.rebuild_roms_archives_menuitem = gtk.ImageMenuItem(_("Rebuild archives"))
 		self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CONVERT, gtk.ICON_SIZE_MENU))
 		self.rebuild_roms_archives_menuitem.connect('activate', self.on_statusicon_rebuild_roms_archives_activate)
@@ -266,6 +273,7 @@ class Gui(threading.Thread):
 		self.main_window.connect("delete_event", self.on_main_window_delete_event)
 		self.statusbar.connect("text-pushed", self.on_statusbar_text_pushed)
 		self.dat_update_toolbutton.connect("clicked", self.on_dat_update_toolbutton_clicked)
+		self.recheck_roms_archives_toolbutton.connect("clicked", self.on_recheck_roms_archives_toolbutton_clicked)
 		self.filter_clear_button.connect("clicked", self.on_filter_clear_button_clicked)
 		self.options_toolbutton.connect("clicked", self.on_options_toolbutton_clicked)
 		self.options_dialog.connect("response", self.on_options_dialog_response)
@@ -472,6 +480,11 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		self.on_all_images_download_toolbutton_clicked(self.all_images_download_toolbutton)
+	
+	def on_statusicon_recheck_roms_archives_activate(self, widget):
+		if self.quitting == True:
+			return
+		self.on_recheck_roms_archives_toolbutton_clicked(self.recheck_roms_archives_toolbutton)
 	
 	def on_statusicon_rebuild_roms_archives_activate(self, widget):
 		if self.quitting == True:
@@ -853,6 +866,13 @@ class Gui(threading.Thread):
 					thread.stop()
 					break
 	
+	def on_recheck_roms_archives_toolbutton_clicked(self, button):
+		if self.quitting == True:
+			return
+		rar = RomArchivesRecheck(self)
+		self.threads.append(rar)
+		rar.start()
+	
 	def on_rebuild_roms_archives_toolbutton_clicked(self, button, dict = None):
 		if self.quitting == True:
 			return
@@ -860,6 +880,8 @@ class Gui(threading.Thread):
 			widgets = [] # widgets that need to be disabled while updating
 			widgets.append(self.dat_update_toolbutton)
 			widgets.append(self.dat_update_menuitem)
+			widgets.append(self.recheck_roms_archives_toolbutton)
+			widgets.append(self.recheck_roms_archives_menuitem)
 			
 			if dict != None:
 				rar = RomArchivesRebuild(self, widgets, dict)
@@ -1010,18 +1032,18 @@ class Gui(threading.Thread):
 			images_path_new = self.options_images_path_filechooserbutton.get_current_folder()
 			# Check if new paths are ok
 			if roms_path_new == WORK_DIR:
-			 	message = _("'DsRomsManager' directory has been selected as roms path.")
-			 	message += _("\n\nThe default roms path will be used in its place.")
+			 	message = _("'DsRomsManager' working directory has been selected as roms path.")
+			 	message += _("\n\nIt can't be used, the roms path will be restored to its default value.")
 				roms_path_new = config.get_option_default("roms_path")
 				self.show_info_dialog(message, False)
 			if unknown_roms_path_new == WORK_DIR:
-				message = _("'DsRomsManager' directory has been selected as unknown roms path.")
-				message += _("\n\nThe default unknown roms path will be used in its place.")
+				message = _("'DsRomsManager' working directory has been selected as unknown roms path.")
+				message += _("\n\nIt can't be used, the unknown roms path will be restored to its default value.")
 				unknown_roms_path_new = config.get_option_default("unknown_roms_path")
 				self.show_info_dialog(message, False)			 	 
 			if new_roms_path_new == WORK_DIR:
-				message = _("'DsRomsManager' directory has been selected as new roms path.")
-				message += _("\n\nThe default new roms path will be used in its place.")
+				message = _("'DsRomsManager' working directory has been selected as new roms path.")
+				message += _("\n\nIt can't be used, the new roms path will be restored to its default value.")
 				new_roms_path_new = config.get_option_default("new_roms_path")
 				self.show_info_dialog(message, False)
 			if unknown_roms_path_new == roms_path_new or unknown_roms_path_new == new_roms_path_new:
@@ -1030,8 +1052,8 @@ class Gui(threading.Thread):
 				self.show_info_dialog(message, False)
 				return False
 			if images_path_new == WORK_DIR:
-			 	message = _("'DsRomsManager' directory has been selected as images path.")
-			 	message += _("\n\nThe default images path will be used in its place.")
+			 	message = _("'DsRomsManager' working directory has been selected as images path.")
+			 	message += _("\n\nIt can't be used, the images path will be restored to its default value.")
 				images_path_new = config.get_option_default("images_roms_path")
 				self.show_info_dialog(message, False)
 			if images_path_new == roms_path_new:
@@ -1083,9 +1105,9 @@ class Gui(threading.Thread):
 				open(DB_FILE_REBUILD, "w").close()
 			if romspaths_changed == True:
 				# we need to recheck for games on disk
-				message = _("Games list will be reloaded.")
+				message = _("\nGames list will be reloaded.")
 				self.show_info_dialog(message, False)
-				self.add_games(False)
+				self.on_recheck_roms_archives_toolbutton_clicked(self.recheck_roms_archives_toolbutton)
 		
 		dialog.hide()
 	
@@ -1116,6 +1138,8 @@ class Gui(threading.Thread):
 		if self.all_images_download_toolbutton.get_stock_id() != gtk.STOCK_CANCEL:
 			self.all_images_download_toolbutton.set_sensitive(False)
 			self.all_images_download_menuitem.set_sensitive(False)
+		self.recheck_roms_archives_toolbutton.set_sensitive(False)
+		self.recheck_roms_archives_menuitem.set_sensitive(False)
 		if self.rebuild_roms_archives_toolbutton.get_stock_id() != gtk.STOCK_CANCEL:
 			self.rebuild_roms_archives_toolbutton.set_sensitive(False)
 			self.rebuild_roms_archives_menuitem.set_sensitive(False)
@@ -1138,17 +1162,19 @@ class Gui(threading.Thread):
 		""" Enable all widgets' sensitiveness """
 		if self.quitting == True:
 			return
+		self.list_scrolledwindow.set_sensitive(True)
+		self.dat_update_toolbutton.set_sensitive(True)
+		self.dat_update_menuitem.set_sensitive(True)
+		self.all_images_download_toolbutton.set_sensitive(True)
+		self.all_images_download_menuitem.set_sensitive(True)
+		self.recheck_roms_archives_toolbutton.set_sensitive(True)
+		self.recheck_roms_archives_menuitem.set_sensitive(True)
 		if len(self.games_to_be_fixed) > 0:
 			self.rebuild_roms_archives_toolbutton.set_sensitive(True)
 			self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		else:
 			self.rebuild_roms_archives_toolbutton.set_sensitive(False)
 			self.rebuild_roms_archives_menuitem.set_sensitive(False)
-		self.list_scrolledwindow.set_sensitive(True)
-		self.dat_update_toolbutton.set_sensitive(True)
-		self.dat_update_menuitem.set_sensitive(True)
-		self.all_images_download_toolbutton.set_sensitive(True)
-		self.all_images_download_menuitem.set_sensitive(True)
 		self.options_toolbutton.set_sensitive(True)
 		self.options_menuitem.set_sensitive(True)
 		self.games_check_ok_checkbutton.set_sensitive(True)
@@ -1182,10 +1208,10 @@ class Gui(threading.Thread):
 			return
 		if threads == True:
 			gtk.gdk.threads_enter()
-		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK_CANCEL, message)
+		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, message)
 		response = dialog.run()
 		dialog.destroy()		
-		if response == gtk.RESPONSE_OK:
+		if response == gtk.RESPONSE_YES:
 			res = True
 		else:
 			res = False
@@ -1429,7 +1455,7 @@ class Gui(threading.Thread):
 							os.remove(file)
 							message = _("'%s' was annoying. Deleted.") % file
 							self.show_info_dialog(message, threads)
-		
+
 		if os.path.exists(roms_path):
 			# recursively check games in 'roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
@@ -1461,7 +1487,7 @@ class Gui(threading.Thread):
 								self.checksums[crc] = file
 							else:
 								# Duplicate file
-								message = _("'%s' is a duplicate.\n\nDelete?") % file
+								message = _("'%s' is a duplicate file.\n\nDelete?") % file
 								if self.show_question_dialog(message, threads) == True:
 									os.remove(file)
 								else:
@@ -1483,7 +1509,6 @@ class Gui(threading.Thread):
 									os.remove(file)
 									message = _("'%s' was annoying. Deleted.") % file
 									self.show_info_dialog(message, threads)
-									
 		
 		if os.path.exists(new_roms_path) and new_roms_path != roms_path:
 			# check games in 'new_roms_path' directory.
@@ -1503,7 +1528,7 @@ class Gui(threading.Thread):
 						self.checksums[crc] = file
 					else:
 						# Duplicate file
-						message = _("'%s' is a duplicate.\n\nDelete?") % file
+						message = _("'%s' is a duplicate file.\n\nDelete?") % file
 						if self.show_question_dialog(message, threads) == True:
 					   	   os.remove(file)
 					   	else:
@@ -1575,8 +1600,8 @@ class Gui(threading.Thread):
 			self.filter_size_combobox.handler_unblock(self.fsc_sid)
 		
 		# Hide old infos
-		self.__hide_infos()
 		self.previous_selection_release_number = None
+		self.set_previous_treeview_cursor(threads)
 	
 	def quit(self):
 		# Prepare for quitting

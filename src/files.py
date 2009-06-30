@@ -128,10 +128,22 @@ class RomArchiveExtract(threading.Thread):
     def stop(self):
         return
 
+class RomArchivesRecheck(threading.Thread):
+    """ Recheck roms archives on disk and rebuild games list """
+    def __init__(self, gui):
+        threading.Thread.__init__(self, name="RomArchivesRecheck")
+        self.gui = gui
+    
+    def run(self):
+        self.gui.deactivate_widgets()
+        self.gui.add_games()
+        
+    def stop(self):
+        return
+
 class RomArchivesRebuild(threading.Thread):
     """ Rebuild zip archive for games listed in 'games' dictionary.
     games = { fullinfo : (oldfile, relnum) } """
-    
     def __init__(self, gui, widgets, games):
         threading.Thread.__init__(self, name="RomArchivesRebuild")
         self.gui = gui
