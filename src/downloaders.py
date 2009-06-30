@@ -182,7 +182,7 @@ class AllImagesDownloader(threading.Thread):
 			self.gui.update_statusbar("AllImagesDownloader", _("Unable to download images. Restart 'DsRomsManager'."))
 			return
 		
-		self.gui.toggle_all_images_download_toolbutton(True)
+		self.gui.toggle_images_download_toolbutton(True)
 		self.gui.update_statusbar("AllImagesDownloader", _("Downloading all images..."))
 
 		for game in self.games:
@@ -237,7 +237,7 @@ class AllImagesDownloader(threading.Thread):
 		else:
 			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images completed."))
 		# restore original button
-		self.gui.toggle_all_images_download_toolbutton(True)
+		self.gui.toggle_images_download_toolbutton(True)
 				
 	def stop(self):
 		""" Stop the thread """

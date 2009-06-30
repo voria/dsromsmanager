@@ -108,7 +108,7 @@ class RomArchiveExtract(threading.Thread):
                 try:
                     info = zip.infolist()[0]
                     if os.path.exists(os.path.join(self.target, info.filename)):
-                        message = _("\nTarget file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
+                        message = _("Target file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
                         if self.gui.show_yesno_question_dialog(message) == False:
                             zip.close()
                             continue
