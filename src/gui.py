@@ -1154,8 +1154,14 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		selection = self.list_treeview.get_selection()
+		if selection.count_selected_rows() > 1:
+			return
 		try:
-			model, iter = selection.get_selected()
+			model, paths = selection.get_selected_rows()
+			path = paths[0]
+			if path == None:
+				return
+			iter = model.get_iter(path)
 			if model.get_value(iter, TVC_RELEASE_NUMBER) == game_release_number:
 				pixbuf = gtk.gdk.pixbuf_new_from_file(filename)
 				if self.screen_height < 800: #resize images to 50%
