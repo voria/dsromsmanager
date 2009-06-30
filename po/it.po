@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-30 20:54+0200\n"
-"PO-Revision-Date: 2009-06-30 20:55+0200\n"
+"POT-Creation-Date: 2009-06-30 21:04+0200\n"
+"PO-Revision-Date: 2009-06-30 21:05+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -362,10 +362,10 @@ msgstr "Seleziona la directory di destinazione"
 #: ../src/gui.py:877
 msgid ""
 "\n"
-"Rescan roms archives?"
+"Rescan roms archives and rebuild games list?"
 msgstr ""
 "\n"
-"Riscansionare gli archivi delle roms?"
+"Riscansionare gli archivi delle roms e ricaricare la lista dei giochi?"
 
 #: ../src/gui.py:901
 msgid "Waiting while the current job is finished..."
@@ -665,10 +665,10 @@ msgstr ""
 "vorione@gmail.com"
 
 #: drm.glade.h:36
-msgid "Rescan roms archives on disk and rebuild the games list. (Ctrl+L)"
+msgid "Rescan roms archives on disk and reload the games list. (Ctrl+L)"
 msgstr ""
-"Riscansiona gli archivi delle roms su disco e ricostruisce la lista dei "
-"giochi. (Ctrl+L)"
+"Riscansiona gli archivi delle roms su disco e ricarica la lista dei giochi. "
+"(Ctrl+L)"
 
 #: drm.glade.h:37
 msgid "Review URL:"
@@ -779,6 +779,13 @@ msgstr "gtk-ok"
 #: drm.glade.h:64
 msgid "http://www.voria.org"
 msgstr "http://www.voria.org"
+
+#~ msgid ""
+#~ "\n"
+#~ "Rescan roms archives?"
+#~ msgstr ""
+#~ "\n"
+#~ "Riscansionare gli archivi delle roms?"
 
 #~ msgid ""
 #~ "\n"

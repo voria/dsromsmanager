@@ -563,7 +563,7 @@ class Gui(threading.Thread):
 		
 		if os.path.exists(img1) and os.path.exists(img2):
 			try:
-				pixbuf1 = gtk.gdk.pixbuf_new_from_file(img11)
+				pixbuf1 = gtk.gdk.pixbuf_new_from_file(img1)
 				pixbuf2 = gtk.gdk.pixbuf_new_from_file(img2)
 				if self.screen_height < 800: # resize images to 50% and enable images_window
 					self.images_eventbox.connect("button-press-event", self.toggle_images_window,
@@ -874,7 +874,7 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		if confirm == True:
-			message = _("\nRescan roms archives?")
+			message = _("\nRescan roms archives and rebuild games list?")
 			if self.show_okcancel_question_dialog(message, False) == False:
 				return
 		rar = RomArchivesRescan(self)
