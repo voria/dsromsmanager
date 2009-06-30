@@ -1140,6 +1140,8 @@ class Gui(threading.Thread):
 				return
 		
 		self.list_treeview_model.set_value(iter, TVC_CHECK, self.checks[CHECKS_YES])
+		if self.games_check_ok_checkbutton.get_active() == False:
+			self.dirty_gameslist = True
 		# remove the current game from the dictionary of games to be fixed
 		del self.games_to_be_fixed[game[GAME_FULLINFO]]
 		# Update counters and label
