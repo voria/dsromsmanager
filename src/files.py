@@ -220,6 +220,8 @@ class RomArchivesRebuild(threading.Thread):
         
         # restore original button
         self.gui.toggle_rebuild_roms_archives_toolbutton()
+        # reactivate all widgets
+        self.gui.activate_widgets()
         # Restore previous treeview selection
         self.gui.set_previous_treeview_cursor()
                     
