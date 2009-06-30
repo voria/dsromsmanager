@@ -1,7 +1,7 @@
 #!/bin/bash
 
 for file in *.po; do
-	echo "Compiling '$file'..."
+	echo "*** Compiling '$file'..."
 	LANG=`echo $file | sed s/.po//`
 	DIR=locale/$LANG/LC_MESSAGES/
 	mkdir -p $DIR

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-30 14:43+0200\n"
+"POT-Creation-Date: 2009-06-30 16:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -277,7 +277,7 @@ msgstr ""
 msgid "South Korea"
 msgstr ""
 
-#: ../src/gui.py:141 ../src/gui.py:425
+#: ../src/gui.py:141 ../src/gui.py:451
 msgid "Hide"
 msgstr ""
 
@@ -325,148 +325,148 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: ../src/gui.py:420
+#: ../src/gui.py:446
 msgid "Show"
 msgstr ""
 
-#: ../src/gui.py:558
+#: ../src/gui.py:584
 msgid "Duplicates:"
 msgstr ""
 
-#: ../src/gui.py:563
+#: ../src/gui.py:589
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:722
+#: ../src/gui.py:748
 msgid "Select destination directory"
 msgstr ""
 
-#: ../src/gui.py:838
+#: ../src/gui.py:864
 msgid "Waiting while the current job is finished..."
 msgstr ""
 
-#: ../src/gui.py:980
+#: ../src/gui.py:1006
 msgid "'DsRomsManager' directory has been selected as roms path."
 msgstr ""
 
-#: ../src/gui.py:981
+#: ../src/gui.py:1007
 msgid ""
 "\n"
 "\n"
 "The default roms path will be used in its place."
 msgstr ""
 
-#: ../src/gui.py:985
+#: ../src/gui.py:1011
 msgid "'DsRomsManager' directory has been selected as unknown roms path."
 msgstr ""
 
-#: ../src/gui.py:986
+#: ../src/gui.py:1012
 msgid ""
 "\n"
 "\n"
 "The default unknown roms path will be used in its place."
 msgstr ""
 
-#: ../src/gui.py:990
+#: ../src/gui.py:1016
 msgid "'DsRomsManager' directory has been selected as new roms path."
 msgstr ""
 
-#: ../src/gui.py:991
+#: ../src/gui.py:1017
 msgid ""
 "\n"
 "\n"
 "The default new roms path will be used in its place."
 msgstr ""
 
-#: ../src/gui.py:995
+#: ../src/gui.py:1021
 msgid "Unknown roms path can't be the same as roms or new roms paths."
 msgstr ""
 
-#: ../src/gui.py:996 ../src/gui.py:1006
+#: ../src/gui.py:1022 ../src/gui.py:1032
 msgid ""
 "\n"
 "\n"
 "Select a different path."
 msgstr ""
 
-#: ../src/gui.py:1000
+#: ../src/gui.py:1026
 msgid "'DsRomsManager' directory has been selected as images path."
 msgstr ""
 
-#: ../src/gui.py:1001
+#: ../src/gui.py:1027
 msgid ""
 "\n"
 "\n"
 "The default images path will be used in its place."
 msgstr ""
 
-#: ../src/gui.py:1005
+#: ../src/gui.py:1031
 msgid "Images path can't be the same as roms path."
 msgstr ""
 
-#: ../src/gui.py:1047
+#: ../src/gui.py:1073
 msgid "'Images' path has changed."
 msgstr ""
 
-#: ../src/gui.py:1048
+#: ../src/gui.py:1074
 msgid ""
 "\n"
 "\n"
 "On next start the database will be rebuilt according to new settings."
 msgstr ""
 
-#: ../src/gui.py:1053
+#: ../src/gui.py:1079
 msgid "Games list will be reloaded."
 msgstr ""
 
-#: ../src/gui.py:1180
+#: ../src/gui.py:1206
 #, python-format
 msgid "%d game in list"
 msgstr ""
 
-#: ../src/gui.py:1182
+#: ../src/gui.py:1208
 #, python-format
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:1184
+#: ../src/gui.py:1210
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1186
+#: ../src/gui.py:1212
 #, python-format
 msgid " - %d to be fixed"
 msgstr ""
 
-#: ../src/gui.py:1188
+#: ../src/gui.py:1214
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1190 drm.glade.h:18
+#: ../src/gui.py:1216 drm.glade.h:18
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:1315
+#: ../src/gui.py:1341
 msgid "Stop download."
 msgstr ""
 
-#: ../src/gui.py:1332
+#: ../src/gui.py:1358
 msgid "Stop rebuild."
 msgstr ""
 
-#: ../src/gui.py:1368
+#: ../src/gui.py:1394
 msgid "Checking games on disk..."
 msgstr ""
 
-#: ../src/gui.py:1397 ../src/gui.py:1442 ../src/gui.py:1451 ../src/gui.py:1484
-#: ../src/gui.py:1493
+#: ../src/gui.py:1423 ../src/gui.py:1468 ../src/gui.py:1477 ../src/gui.py:1510
+#: ../src/gui.py:1519
 #, python-format
 msgid "'%s' was annoying. Deleted."
 msgstr ""
 
-#: ../src/gui.py:1431 ../src/gui.py:1473
+#: ../src/gui.py:1457 ../src/gui.py:1499
 #, python-format
 msgid ""
 "'%s' is a duplicate.\n"
@@ -474,11 +474,11 @@ msgid ""
 "Delete?"
 msgstr ""
 
-#: ../src/gui.py:1497
+#: ../src/gui.py:1523
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1528
+#: ../src/gui.py:1554
 msgid "Games list loaded."
 msgstr ""
 
@@ -505,7 +505,7 @@ msgid "Check integrity while downloading images"
 msgstr ""
 
 #: drm.glade.h:6
-msgid "Clear all filters and restore full games list. (Ctrl+C)"
+msgid "Clear all filters and restore the games list. (Ctrl+C)"
 msgstr ""
 
 #: drm.glade.h:7

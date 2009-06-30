@@ -66,7 +66,7 @@ class Gui(threading.Thread):
 		self.options_toolbutton = self.builder.get_object("options_toolbutton")
 		self.games_check_ok_checkbutton = self.builder.get_object("games_check_ok_checkbutton")
 		self.games_check_no_checkbutton = self.builder.get_object("games_check_no_checkbutton")
-		self.games_check_warn_checkbutton = self.builder.get_object("games_check_warn_checkbutton")
+		self.games_check_convert_checkbutton = self.builder.get_object("games_check_convert_checkbutton")
 		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
 		self.options_roms_path_filechooserbutton = self.builder.get_object("options_roms_path_filechooserbutton")
 		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
@@ -260,7 +260,7 @@ class Gui(threading.Thread):
 		# Set games checks filters
 		self.games_check_ok_checkbutton.set_active(config.get_option("show_available_games"))
 		self.games_check_no_checkbutton.set_active(config.get_option("show_not_available_games"))
-		self.games_check_warn_checkbutton.set_active(config.get_option("show_fixable_games"))
+		self.games_check_convert_checkbutton.set_active(config.get_option("show_fixable_games"))
 		
 		# Connect signals
 		self.main_window.connect("delete_event", self.on_main_window_delete_event)
@@ -280,7 +280,7 @@ class Gui(threading.Thread):
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
 		self.games_check_ok_checkbutton.connect("toggled", self.on_games_check_ok_checkbutton_toggled)
 		self.games_check_no_checkbutton.connect("toggled", self.on_games_check_no_checkbutton_toggled)
-		self.games_check_warn_checkbutton.connect("toggled", self.on_games_check_warn_checkbutton_toggled)
+		self.games_check_convert_checkbutton.connect("toggled", self.on_games_check_convert_checkbutton_toggled)
 		# We need signal id for the following signals
 		self.fne_sid = self.filter_name_entry.connect("changed",self.on_filter_triggered)
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
@@ -331,7 +331,7 @@ class Gui(threading.Thread):
 			else:
 				return	
 		else: # we have the game
-			if anyway or self.games_check_ok_checkbutton.get_active() or self.games_check_warn_checkbutton.get_active():
+			if anyway or self.games_check_ok_checkbutton.get_active() or self.games_check_convert_checkbutton.get_active():
 				disk_zip_filename = self.checksums[crc].split(os.sep)
 				disk_zip_filename = disk_zip_filename[len(disk_zip_filename)-1]
 				db_zip_filename = game[GAME_FULLINFO] + ".zip"
@@ -344,7 +344,7 @@ class Gui(threading.Thread):
 						return
 				else: # game to be fixed
 					check = self.checks[CHECKS_CONVERT]
-					if anyway or self.games_check_warn_checkbutton.get_active():
+					if anyway or self.games_check_convert_checkbutton.get_active():
 						self.gamesnumber_fixable += 1
 					else:
 						return
@@ -367,23 +367,49 @@ class Gui(threading.Thread):
 			self.__add_game_to_list(game, anyway)
 		self.update_list_game_label()
 	
-	def __filter(self):
+	def __filter(self, dirty_list = False):
 		""" Filter list by all criteria """
 		if self.quitting == True:
 			return
-		string = self.filter_name_entry.get_text()
-		location_iter = self.filter_location_combobox.get_active_iter()
-		location = self.filter_location_model.get_value(location_iter, 1)
-		language_iter = self.filter_language_combobox.get_active_iter()
-		language = self.filter_language_model.get_value(language_iter, 1)
-		size_iter = self.filter_size_combobox.get_active_iter()
-		size = self.filter_size_model.get_value(size_iter, 1)
-		try:
-			self.__update_list(self.db.filter_by(string, location, language, size))
-		except:
-			# Open a new database connection
-			self.open_db()
-			self.__update_list(self.db.filter_by(string, location, language, size))
+		if dirty_list == True:
+			# Remove alien games (according to games_checks checkbuttons) from the list
+			# Get checkbuttons status
+			check_ok = self.games_check_ok_checkbutton.get_active()
+			check_no = self.games_check_no_checkbutton.get_active()
+			check_convert = self.games_check_convert_checkbutton.get_active()
+			# Check the list
+			model = self.list_treeview_model
+			iter = model.get_iter_first()
+			if iter == None: # List empty, nothing to do
+				pass
+			while iter != None:
+				iter_next = model.iter_next(iter)
+				check = model.get_value(iter, TVC_CHECK)
+				if check == self.checks[CHECKS_YES] and check_ok == True:
+					pass
+				elif check == self.checks[CHECKS_NO] and check_no == True:
+					pass
+				elif check == self.checks[CHECKS_CONVERT] and check_convert == True:
+					pass
+				else: # games has to be removed
+					model.remove(iter)
+					pass
+				iter = iter_next
+		else: # dirty_list == False
+			# Rebuild the list
+			string = self.filter_name_entry.get_text()
+			location_iter = self.filter_location_combobox.get_active_iter()
+			location = self.filter_location_model.get_value(location_iter, 1)
+			language_iter = self.filter_language_combobox.get_active_iter()
+			language = self.filter_language_model.get_value(language_iter, 1)
+			size_iter = self.filter_size_combobox.get_active_iter()
+			size = self.filter_size_model.get_value(size_iter, 1)
+			try:
+				self.__update_list(self.db.filter_by(string, location, language, size))
+			except:
+				# Open a new database connection
+				self.open_db()
+				self.__update_list(self.db.filter_by(string, location, language, size))
 		self.show_review_toolbutton.set_sensitive(False)
 		self.show_review_menuitem.set_sensitive(False)
 		self.set_previous_treeview_cursor(False)
@@ -867,7 +893,7 @@ class Gui(threading.Thread):
 			if self.dirty_gameslist == False: # No need to clear anything
 				return
 			else:
-				self.__filter()
+				self.__filter(True)
 				self.dirty_gameslist = False
 				return
 		elif filter == 1:
@@ -927,7 +953,7 @@ class Gui(threading.Thread):
 		config.set_option("show_not_available_games", widget.get_active())
 		self.__filter()
 	
-	def on_games_check_warn_checkbutton_toggled(self, widget):
+	def on_games_check_convert_checkbutton_toggled(self, widget):
 		if self.quitting == True:
 			return
 		config.set_option("show_fixable_games", widget.get_active())
@@ -1092,7 +1118,7 @@ class Gui(threading.Thread):
 		self.options_menuitem.set_sensitive(False)
 		self.games_check_ok_checkbutton.set_sensitive(False)
 		self.games_check_no_checkbutton.set_sensitive(False)
-		self.games_check_warn_checkbutton.set_sensitive(False)
+		self.games_check_convert_checkbutton.set_sensitive(False)
 		self.info_title_eventbox.set_sensitive(False)
 		self.info_label_vbox.set_sensitive(False)
 		self.filter_name_entry.set_sensitive(False)
@@ -1120,7 +1146,7 @@ class Gui(threading.Thread):
 		self.options_menuitem.set_sensitive(True)
 		self.games_check_ok_checkbutton.set_sensitive(True)
 		self.games_check_no_checkbutton.set_sensitive(True)
-		self.games_check_warn_checkbutton.set_sensitive(True)
+		self.games_check_convert_checkbutton.set_sensitive(True)
 		self.info_title_eventbox.set_sensitive(True)
 		self.info_label_vbox.set_sensitive(True)
 		self.filter_name_entry.set_sensitive(True)
@@ -1522,8 +1548,8 @@ class Gui(threading.Thread):
 			self.on_games_check_ok_checkbutton_toggled(self.games_check_ok_checkbutton)
 		if self.games_check_no_checkbutton.get_active() == False:
 			self.on_games_check_no_checkbutton_toggled(self.games_check_no_checkbutton)
-		if self.games_check_warn_checkbutton.get_active() == False:
-			self.on_games_check_warn_checkbutton_toggled(self.games_check_warn_checkbutton)
+		if self.games_check_convert_checkbutton.get_active() == False:
+			self.on_games_check_convert_checkbutton_toggled(self.games_check_convert_checkbutton)
 		
 		self.update_statusbar("Games", _("Games list loaded."), threads)
 		
