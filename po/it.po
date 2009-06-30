@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-06-30 21:04+0200\n"
-"PO-Revision-Date: 2009-06-30 21:05+0200\n"
+"POT-Creation-Date: 2009-07-01 00:55+0200\n"
+"PO-Revision-Date: 2009-07-01 00:55+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -191,107 +191,107 @@ msgstr "Ricostruzione annullata."
 msgid "Rebuild completed."
 msgstr "Ricostruzione completata."
 
-#: ../src/globals.py:62
+#: ../src/globals.py:63
 msgid "French"
 msgstr "Francese"
 
-#: ../src/globals.py:63
+#: ../src/globals.py:64
 msgid "English"
 msgstr "Inglese"
 
-#: ../src/globals.py:64 ../src/globals.py:76 ../src/globals.py:77
+#: ../src/globals.py:65 ../src/globals.py:77 ../src/globals.py:78
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: ../src/globals.py:65
+#: ../src/globals.py:66
 msgid "Danish"
 msgstr "Danese"
 
-#: ../src/globals.py:66
+#: ../src/globals.py:67
 msgid "Dutch"
 msgstr "Olandese"
 
-#: ../src/globals.py:67
+#: ../src/globals.py:68
 msgid "Finnish"
 msgstr "Finlandese"
 
-#: ../src/globals.py:68
+#: ../src/globals.py:69
 msgid "German"
 msgstr "Tedesco"
 
-#: ../src/globals.py:69
+#: ../src/globals.py:70
 msgid "Italian"
 msgstr "Italiano"
 
-#: ../src/globals.py:70
+#: ../src/globals.py:71
 msgid "Japanese"
 msgstr "Giapponese"
 
-#: ../src/globals.py:71
+#: ../src/globals.py:72
 msgid "Norwegian"
 msgstr "Norvegese"
 
-#: ../src/globals.py:72
+#: ../src/globals.py:73
 msgid "Polish"
 msgstr "Polacco"
 
-#: ../src/globals.py:73
+#: ../src/globals.py:74
 msgid "Portuguese"
 msgstr "Portoghese"
 
-#: ../src/globals.py:74
+#: ../src/globals.py:75
 msgid "Spanish"
 msgstr "Spagnolo"
 
-#: ../src/globals.py:75
+#: ../src/globals.py:76
 msgid "Swedish"
 msgstr "Svedese"
 
-#: ../src/globals.py:78
+#: ../src/globals.py:79
 msgid "Korean"
 msgstr "Coreano"
 
-#: ../src/globals.py:82
+#: ../src/globals.py:83
 msgid "Europe"
 msgstr "Europa"
 
-#: ../src/globals.py:83
+#: ../src/globals.py:84
 msgid "USA"
 msgstr "USA"
 
-#: ../src/globals.py:84
+#: ../src/globals.py:85
 msgid "Germany"
 msgstr "Germania"
 
-#: ../src/globals.py:85
+#: ../src/globals.py:86
 msgid "Spain"
 msgstr "Spagna"
 
-#: ../src/globals.py:86
+#: ../src/globals.py:87
 msgid "France"
 msgstr "Francia"
 
-#: ../src/globals.py:87
+#: ../src/globals.py:88
 msgid "Italy"
 msgstr "Italia"
 
-#: ../src/globals.py:88
+#: ../src/globals.py:89
 msgid "Japan"
 msgstr "Giappone"
 
-#: ../src/globals.py:89
+#: ../src/globals.py:90
 msgid "Netherlands"
 msgstr "Paesi Bassi"
 
-#: ../src/globals.py:90
+#: ../src/globals.py:91
 msgid "Australia"
 msgstr "Australia"
 
-#: ../src/globals.py:91
+#: ../src/globals.py:92
 msgid "South Korea"
 msgstr "Corea del sud"
 
-#: ../src/gui.py:142 ../src/gui.py:466
+#: ../src/gui.py:142 ../src/gui.py:505
 msgid "Hide"
 msgstr "Nascondi"
 
@@ -343,23 +343,23 @@ msgstr "Nome"
 msgid "All"
 msgstr "Tutte"
 
-#: ../src/gui.py:461
+#: ../src/gui.py:500
 msgid "Show"
 msgstr "Mostra"
 
-#: ../src/gui.py:608
+#: ../src/gui.py:649
 msgid "Duplicates:"
 msgstr "Duplicati:"
 
-#: ../src/gui.py:613
+#: ../src/gui.py:654
 msgid "No duplicates"
 msgstr "Nessun duplicato"
 
-#: ../src/gui.py:772
+#: ../src/gui.py:814
 msgid "Select destination directory"
 msgstr "Seleziona la directory di destinazione"
 
-#: ../src/gui.py:877
+#: ../src/gui.py:915
 msgid ""
 "\n"
 "Rescan roms archives and rebuild games list?"
@@ -367,17 +367,17 @@ msgstr ""
 "\n"
 "Riscansionare gli archivi delle roms e ricaricare la lista dei giochi?"
 
-#: ../src/gui.py:901
+#: ../src/gui.py:939
 msgid "Waiting while the current job is finished..."
 msgstr "In attesa che il lavoro corrente venga completato..."
 
-#: ../src/gui.py:1043
+#: ../src/gui.py:1081
 msgid "'DsRomsManager' working directory has been selected as roms path."
 msgstr ""
 "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso "
 "delle roms."
 
-#: ../src/gui.py:1044
+#: ../src/gui.py:1082
 msgid ""
 "\n"
 "\n"
@@ -387,14 +387,14 @@ msgstr ""
 "\n"
 "Non può essere utilizzata, il percorso delle roms verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1048
+#: ../src/gui.py:1086
 msgid ""
 "'DsRomsManager' working directory has been selected as unknown roms path."
 msgstr ""
 "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso "
 "delle roms sconosciute."
 
-#: ../src/gui.py:1049
+#: ../src/gui.py:1087
 msgid ""
 "\n"
 "\n"
@@ -405,13 +405,13 @@ msgstr ""
 "\n"
 "Non può essere utilizzata, il percorso delle roms sconosciute verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1053
+#: ../src/gui.py:1091
 msgid "'DsRomsManager' working directory has been selected as new roms path."
 msgstr ""
 "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso "
 "delle nuove roms."
 
-#: ../src/gui.py:1054
+#: ../src/gui.py:1092
 msgid ""
 "\n"
 "\n"
@@ -421,11 +421,11 @@ msgstr ""
 "\n"
 "Non può essere utilizzata, il percorso delle nuove roms verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1058
+#: ../src/gui.py:1096
 msgid "Unknown roms path can't be the same as roms or new roms paths."
 msgstr "Il percorso delle roms sconosciute non può essere uguale ai percorsi delle roms o delle nuove roms."
 
-#: ../src/gui.py:1059 ../src/gui.py:1069
+#: ../src/gui.py:1097 ../src/gui.py:1107
 msgid ""
 "\n"
 "\n"
@@ -435,13 +435,13 @@ msgstr ""
 "\n"
 "Selezionare un percorso diverso."
 
-#: ../src/gui.py:1063
+#: ../src/gui.py:1101
 msgid "'DsRomsManager' working directory has been selected as images path."
 msgstr ""
 "E' stata selezionata la directory di lavoro 'DsRomsManager' come percorso "
 "delle immagini."
 
-#: ../src/gui.py:1064
+#: ../src/gui.py:1102
 msgid ""
 "\n"
 "\n"
@@ -451,15 +451,15 @@ msgstr ""
 "\n"
 "Non può essere utilizzata, il percorso delle immagini verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1068
+#: ../src/gui.py:1106
 msgid "Images path can't be the same as roms path."
 msgstr "Il percorso delle immagini non può essere uguale al percorso delle roms."
 
-#: ../src/gui.py:1110
+#: ../src/gui.py:1148
 msgid "'Images' path has changed."
 msgstr "Il percorso delle immagini è stato cambiato."
 
-#: ../src/gui.py:1111
+#: ../src/gui.py:1149
 msgid ""
 "\n"
 "\n"
@@ -469,7 +469,7 @@ msgstr ""
 "\n"
 "Al prossimo avvio il database sarà ricostruito con le nuove impostazioni."
 
-#: ../src/gui.py:1116
+#: ../src/gui.py:1154
 msgid ""
 "\n"
 "Games list will be reloaded."
@@ -477,54 +477,54 @@ msgstr ""
 "\n"
 "La lista dei giochi verrà ricaricata."
 
-#: ../src/gui.py:1271
+#: ../src/gui.py:1309
 #, python-format
 msgid "%d game in list"
 msgstr "%d gioco in lista"
 
-#: ../src/gui.py:1273
+#: ../src/gui.py:1311
 #, python-format
 msgid "%d games in list"
 msgstr "%d giochi in lista"
 
-#: ../src/gui.py:1275
+#: ../src/gui.py:1313
 #, python-format
 msgid " - %d available"
 msgstr " - %d disponibili"
 
-#: ../src/gui.py:1277
+#: ../src/gui.py:1315
 #, python-format
 msgid " - %d to be fixed"
 msgstr " - %d da sistemare"
 
-#: ../src/gui.py:1279
+#: ../src/gui.py:1317
 #, python-format
 msgid " - %d not available"
 msgstr " - %d non disponibili"
 
-#: ../src/gui.py:1281 drm.glade.h:18
+#: ../src/gui.py:1319 drm.glade.h:18
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: ../src/gui.py:1407
+#: ../src/gui.py:1445
 msgid "Stop download."
 msgstr "Annulla il download."
 
-#: ../src/gui.py:1426
+#: ../src/gui.py:1464
 msgid "Stop rebuild."
 msgstr "Annulla la ricostruzione."
 
-#: ../src/gui.py:1466
+#: ../src/gui.py:1504
 msgid "Checking games on disk..."
 msgstr "Controllo dei giochi presenti su disco in corso..."
 
-#: ../src/gui.py:1495 ../src/gui.py:1540 ../src/gui.py:1549 ../src/gui.py:1581
-#: ../src/gui.py:1590
+#: ../src/gui.py:1533 ../src/gui.py:1578 ../src/gui.py:1587 ../src/gui.py:1619
+#: ../src/gui.py:1628
 #, python-format
-msgid "'%s' was annoying. Deleted."
-msgstr "'%s' era noioso. Eliminato."
+msgid "'%s' was redundant. Deleted."
+msgstr "'%s' era ridondante. Eliminato."
 
-#: ../src/gui.py:1529 ../src/gui.py:1570
+#: ../src/gui.py:1567 ../src/gui.py:1608
 #, python-format
 msgid ""
 "\n"
@@ -533,11 +533,11 @@ msgstr ""
 "\n"
 "Il file '%s' è un duplicato. Eliminare?"
 
-#: ../src/gui.py:1593
+#: ../src/gui.py:1631
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:1624
+#: ../src/gui.py:1652
 msgid "Games list loaded."
 msgstr "Lista dei giochi caricata."
 

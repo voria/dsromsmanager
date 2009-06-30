@@ -158,7 +158,7 @@ class RomArchivesRebuild(threading.Thread):
         for widget in self.widgets:
             widget.set_sensitive(False)
             
-        self.gui.toggle_rebuild_roms_archives_toolbutton()
+        self.gui.toggle_rebuild_roms_archives_toolbutton(True)
         
         for key in sorted(self.games.iterkeys()):
             if self.stopnow == True:
@@ -230,11 +230,11 @@ class RomArchivesRebuild(threading.Thread):
             self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild completed."))
         
         # restore original button
-        self.gui.toggle_rebuild_roms_archives_toolbutton()
+        self.gui.toggle_rebuild_roms_archives_toolbutton(True)
         # reactivate all widgets
         self.gui.activate_widgets()
         # Restore previous treeview selection
-        self.gui.set_previous_treeview_cursor()
+        self.gui.set_previous_treeview_cursor(True)
                     
     def stop(self):
         """ Stop the thread """

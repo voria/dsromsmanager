@@ -73,6 +73,5 @@ class Dat():
 			db.add_game(info)
 		# Save the newly create database on disk
 		db.save_as(DB_FILE)
-		# Remove DAT file
-		os.remove(filename)
+
 		

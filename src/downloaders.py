@@ -79,7 +79,7 @@ class DatUpdater(threading.Thread):
 		finally:
 			# reactivate widgets
 			self.gui.activate_widgets()
-			self.gui.set_previous_treeview_cursor()
+			self.gui.set_previous_treeview_cursor(True)
 		
 	def stop(self):
 		return
@@ -107,7 +107,7 @@ class DatDownloader(threading.Thread):
 		
 		self.gui.update_statusbar("FirstRun", _("Unzipping the new DAT file..."))
 		zip = ZipFile(self.dat_name_zip, "r")
-		file(self.dat_name, "wb").write(zip.read(self.dat_name))
+		zip.extractall()
 		zip.close()
 		os.remove(self.dat_name_zip)
 	
@@ -182,7 +182,7 @@ class AllImagesDownloader(threading.Thread):
 			self.gui.update_statusbar("AllImagesDownloader", _("Unable to download images. Restart 'DsRomsManager'."))
 			return
 		
-		self.gui.toggle_all_images_download_toolbutton()
+		self.gui.toggle_all_images_download_toolbutton(True)
 		self.gui.update_statusbar("AllImagesDownloader", _("Downloading all images..."))
 
 		for game in self.games:
@@ -237,7 +237,7 @@ class AllImagesDownloader(threading.Thread):
 		else:
 			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images completed."))
 		# restore original button
-		self.gui.toggle_all_images_download_toolbutton()
+		self.gui.toggle_all_images_download_toolbutton(True)
 				
 	def stop(self):
 		""" Stop the thread """

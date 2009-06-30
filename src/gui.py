@@ -306,7 +306,7 @@ class Gui(threading.Thread):
 		self.gamesnumber_available = 0
 		self.gamesnumber_not_available = 0
 		self.gamesnumber_fixable = 0 # Only fixable games showed in treeview
-		self.games_to_be_fixed = {} # All fixable games
+		self.games_to_rebuild = {} # Dictionary of all the games to rebuild: { fullinfo : (oldfile, relnum) }
 		
 		self.dirty_gameslist = False
 		self.previous_selection_release_number = None
@@ -321,10 +321,11 @@ class Gui(threading.Thread):
 	def stop(self):
 		self.quit()
 	
-	def __add_game_to_list(self, game, anyway = False):
-		""" Add 'game' in treeview """
+	def __add_game_to_list(self, game, use_threads = False, anyway = False):
+		""" Add 'game' in treeview and return it's archive state (CHECKS_OK, CHECKS_NO, CHECKS_CONVERT) """
+		returnvalue = CHECKS_ERROR
 		if self.quitting == True:
-			return
+			return returnvalue
 		
 		relnum = game[GAME_RELEASE_NUMBER]
 		title = game[GAME_TITLE]
@@ -332,48 +333,82 @@ class Gui(threading.Thread):
 		crc = game[GAME_ROM_CRC]
 		flag = self.flags[countries_short.keys().index(region)]
 
+		# Get the games_checks checkbuttons status
+		if use_threads == True:
+				gdk.threads_enter()
+		check_ok_active = self.games_check_ok_checkbutton.get_active()
+		check_no_active = self.games_check_no_checkbutton.get_active()
+		check_convert_active = self.games_check_convert_checkbutton.get_active()
+		if use_threads == True:
+				gdk.threads_leave()
+
 		if self.checksums[crc] == None: # we dont have the game
-			if anyway or self.games_check_no_checkbutton.get_active():
+			returnvalue = CHECKS_NO
+			if anyway or check_no_active:
 				check = self.checks[CHECKS_NO]
 				self.gamesnumber_not_available += 1
 			else:
-				return	
+				return returnvalue
 		else: # we have the game
-			if anyway or self.games_check_ok_checkbutton.get_active() or self.games_check_convert_checkbutton.get_active():
-				disk_zip_filename = self.checksums[crc].split(os.sep)
-				disk_zip_filename = disk_zip_filename[len(disk_zip_filename)-1]
-				db_zip_filename = game[GAME_FULLINFO] + ".zip"
-				nds_filename = game[GAME_FULLINFO] + ".nds"
-				if disk_zip_filename == db_zip_filename and get_nds_filename_from_zip(self.checksums[crc]) == nds_filename:
-					check = self.checks[CHECKS_YES]
-					if anyway or self.games_check_ok_checkbutton.get_active():
-						self.gamesnumber_available += 1
-					else:
-						return
-				else: # game to be fixed
-					check = self.checks[CHECKS_CONVERT]
-					if anyway or self.games_check_convert_checkbutton.get_active():
-						self.gamesnumber_fixable += 1
-					else:
-						return
-			else:
-				return
+			disk_zip_filename = self.checksums[crc].split(os.sep)
+			disk_zip_filename = disk_zip_filename[len(disk_zip_filename)-1]
+			db_zip_filename = game[GAME_FULLINFO] + ".zip"
+			nds_filename = game[GAME_FULLINFO] + ".nds"
+			if disk_zip_filename == db_zip_filename and get_nds_filename_from_zip(self.checksums[crc]) == nds_filename:
+				returnvalue = CHECKS_YES
+				check = self.checks[CHECKS_YES]
+				if anyway or check_ok_active:
+					self.gamesnumber_available += 1
+				else:
+					return returnvalue
+			else: # game to rebuild
+				returnvalue = CHECKS_CONVERT
+				check = self.checks[CHECKS_CONVERT]
+				if anyway or check_convert_active:
+					self.gamesnumber_fixable += 1
+				else:
+					return returnvalue
 			
+		if use_threads == True:
+				gdk.threads_enter()
 		self.list_treeview_model.append((check, flag, relnum, title))
+		if use_threads == True:
+				gdk.threads_leave()
 		self.gamesnumber += 1
+		return returnvalue
 	
-	def __update_list(self, games, anyway = False):
+	def __update_list(self, games, use_threads = False, anyway = False, rebuild_dict = False):
 		""" List 'games' in treeview """
+		"""
+		anyway -  add the game to the list anyway, even if there are filters set
+		rebuild_dict - rebuild dictionary containing games to be fixed
+		"""
 		if self.quitting == True:
 			return
+		if rebuild_dict == True:
+			# delete old dictionary
+			self.games_to_rebuild = {}
+		if use_threads == True:
+			gdk.threads_enter()
 		self.list_treeview_model.clear()
+		if use_threads == True:
+			gdk.threads_leave()
 		self.gamesnumber = 0
 		self.gamesnumber_available = 0
 		self.gamesnumber_fixable = 0
 		self.gamesnumber_not_available = 0
 		for game in reversed(games):
-			self.__add_game_to_list(game, anyway)
+			if self.__add_game_to_list(game, use_threads, anyway) == CHECKS_CONVERT and rebuild_dict == True:
+				# add game to dictionary
+				fullinfo = game[GAME_FULLINFO]
+				crc = game[GAME_ROM_CRC]
+				relnum = game[GAME_RELEASE_NUMBER]
+				self.games_to_rebuild[fullinfo] = (self.checksums[crc], relnum)
+		if use_threads == True:
+			gdk.threads_enter()
 		self.update_list_game_label()
+		if use_threads == True:
+			gdk.threads_leave()
 	
 	def __filter(self, dirty_list = False):
 		""" Filter list by all criteria """
@@ -427,7 +462,7 @@ class Gui(threading.Thread):
 				self.__update_list(self.db.filter_by(string, location, language, size))
 		self.show_review_toolbutton.set_sensitive(False)
 		self.show_review_menuitem.set_sensitive(False)
-		self.set_previous_treeview_cursor(False)
+		self.set_previous_treeview_cursor()
 	
 	def __hide_infos(self):
 		""" Hide game's info """
@@ -540,7 +575,7 @@ class Gui(threading.Thread):
 		rowsnum = selection.count_selected_rows()
 		if rowsnum > 1:
 			self.previous_selection_release_number = None
-			self.set_previous_treeview_cursor(False)
+			self.set_previous_treeview_cursor()
 			return
 		
 		model, paths = selection.get_selected_rows()
@@ -678,7 +713,7 @@ class Gui(threading.Thread):
 				except:
 					self.open_db()
 					game = self.db.get_game(next)
-				self.__add_game_to_list(game, True)
+				self.__add_game_to_list(game, anyway=True)
 				# Reorder games list
 				self.list_treeview_tvc_relnum.clicked()
 				self.list_treeview_tvc_relnum.clicked()
@@ -696,8 +731,9 @@ class Gui(threading.Thread):
 			x = int(event.x)
 			y = int(event.y)
 			# Figure out which item has been clicked on
-			path = treeview.get_path_at_pos(x, y)[0]
-			if path == None:
+			try:
+				path = treeview.get_path_at_pos(x, y)[0]
+			except:
 				return
 			# Get selection
 			selection = treeview.get_selection()
@@ -896,7 +932,7 @@ class Gui(threading.Thread):
 			if dict != None:
 				rar = RomArchivesRebuild(self, widgets, dict)
 			else:
-				rar = RomArchivesRebuild(self, widgets, self.games_to_be_fixed)
+				rar = RomArchivesRebuild(self, widgets, self.games_to_rebuild)
 			self.threads.append(rar)
 			rar.start()
 		else: # Stop thread
@@ -912,6 +948,7 @@ class Gui(threading.Thread):
 		""" Filter list """
 		if self.quitting == True:
 			return
+		self.dirty_gameslist = False
 		self.__filter()
 	
 	def on_filter_clear_button_clicked(self, button):
@@ -1184,7 +1221,7 @@ class Gui(threading.Thread):
 		self.all_images_download_menuitem.set_sensitive(True)
 		self.rescan_roms_archives_toolbutton.set_sensitive(True)
 		self.rescan_roms_archives_menuitem.set_sensitive(True)
-		if len(self.games_to_be_fixed) > 0:
+		if len(self.games_to_rebuild) > 0:
 			self.rebuild_roms_archives_toolbutton.set_sensitive(True)
 			self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		else:
@@ -1318,7 +1355,7 @@ class Gui(threading.Thread):
 		if self.games_check_ok_checkbutton.get_active() == False:
 			self.dirty_gameslist = True
 		# remove the current game from the dictionary of games to be fixed
-		del self.games_to_be_fixed[game[GAME_FULLINFO]]
+		del self.games_to_rebuild[game[GAME_FULLINFO]]
 		# Update counters and label
 		self.gamesnumber_fixable -= 1
 		self.gamesnumber_available += 1
@@ -1354,7 +1391,7 @@ class Gui(threading.Thread):
 		except:
 			pass
 	
-	def set_previous_treeview_cursor(self, use_threads = True):
+	def set_previous_treeview_cursor(self, use_threads = False):
 		""" If there was a previous treeview selection, restore it """
 		if self.quitting == True:
 			return	
@@ -1395,7 +1432,7 @@ class Gui(threading.Thread):
 		if use_threads == True:
 			gdk.threads_leave()
 	
-	def toggle_all_images_download_toolbutton(self, use_threads = True):
+	def toggle_all_images_download_toolbutton(self, use_threads = False):
 		if self.quitting == True:
 			return
 		if use_threads == True:
@@ -1414,7 +1451,7 @@ class Gui(threading.Thread):
 		if use_threads == True:
 			gdk.threads_leave()
 	
-	def toggle_rebuild_roms_archives_toolbutton(self, use_threads = True):
+	def toggle_rebuild_roms_archives_toolbutton(self, use_threads = False):
 		if self.quitting == True:
 			return
 		if use_threads == True:
@@ -1432,7 +1469,7 @@ class Gui(threading.Thread):
 			self.rebuild_roms_archives_toolbutton.set_stock_id(gtk.STOCK_CONVERT)
 			self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CONVERT, gtk.ICON_SIZE_MENU))
 			self.rebuild_roms_archives_toolbutton.set_tooltip_text(self.old_rrat_tooltip_text)
-			if len(self.games_to_be_fixed) > 0:
+			if len(self.games_to_rebuild) > 0:
 				self.rebuild_roms_archives_toolbutton.set_sensitive(True)
 				self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		if use_threads == True:
@@ -1491,9 +1528,9 @@ class Gui(threading.Thread):
 						try:
 							shutil.move(file, new_roms_path)
 						except:
-							# Annoying file, remove it
+							# Redundant file, remove it
 							os.remove(file)
-							message = _("'%s' was annoying. Deleted.") % file
+							message = _("'%s' was redundant. Deleted.") % file
 							self.show_info_dialog(message, use_threads)
 
 		if os.path.exists(roms_path):
@@ -1536,18 +1573,18 @@ class Gui(threading.Thread):
 										try:
 											shutil.move(file, unknown_roms_path)
 										except:
-											# Annoying file, remove it
+											# Redundant file, remove it
 											os.remove(file)
-											message = _("'%s' was annoying. Deleted.") % file
+											message = _("'%s' was redundant. Deleted.") % file
 											self.show_info_dialog(message, use_threads)
 						else: # crc == None or crc not in self.checksums
 							if os.path.exists(unknown_roms_path) and os.access(unknown_roms_path, os.W_OK):
 								try:
 									shutil.move(file, unknown_roms_path)
 								except:
-									# Annoying file, remove it
+									# Redundant file, remove it
 									os.remove(file)
-									message = _("'%s' was annoying. Deleted.") % file
+									message = _("'%s' was redundant. Deleted.") % file
 									self.show_info_dialog(message, use_threads)
 		
 		if os.path.exists(new_roms_path) and new_roms_path != roms_path:
@@ -1577,57 +1614,49 @@ class Gui(threading.Thread):
 								try:
 									shutil.move(file, unknown_roms_path)
 								except:
-									# Annoying file, remove it
+									# Redundant file, remove it
 									os.remove(file)
-									message = _("'%s' was annoying. Deleted.") % file
+									message = _("'%s' was redundant. Deleted.") % file
 									self.show_info_dialog(message, use_threads)
 				else: # crc == None or crc not in self.checksums
 					if os.path.exists(unknown_roms_path) and os.access(unknown_roms_path, os.W_OK):
 						try:
 							shutil.move(file, unknown_roms_path)
 						except:
-							# Annoying file, remove it
+							# Redundant file, remove it
 							os.remove(file)
-							message = _("'%s' was annoying. Deleted.") % file
+							message = _("'%s' was redundant. Deleted.") % file
 							self.show_info_dialog(message, use_threads)		
 		
 		self.update_statusbar("Games", _("Loading games list..."), use_threads)
 		
+		# Populate games list and rebuild dictionary of games to rebuild.
 		try:
-			self.__update_list(self.db.get_all_games(), True)
+			self.__update_list(self.db.get_all_games(), use_threads, True, True)
 		except:
 			self.open_db()
-			self.__update_list(self.db.get_all_games(), True)
-			
-		# Look for games to be fixed
-		self.games_to_be_fixed = {}
-		iter = self.list_treeview_model.get_iter_first()
-		while iter != None:
-			if self.list_treeview_model.get_value(iter, TVC_CHECK) == self.checks[CHECKS_CONVERT]:
-				relnum = self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER)
-				try:
-					game = self.db.get_game(relnum)
-				except:
-					self.open_db()
-					game = self.db.get_game(relnum)
-				# Populate the dictionary
-				self.games_to_be_fixed[game[GAME_FULLINFO]] = (self.checksums[game[GAME_ROM_CRC]], relnum)
-			iter = self.list_treeview_model.iter_next(iter)
+			self.__update_list(self.db.get_all_games(), use_threads, True, True)
 		
 		# Set back the games checks checkbuttons status
+		if use_threads == True:
+			gdk.threads_enter()
 		if self.games_check_ok_checkbutton.get_active() == False:
 			self.on_games_check_ok_checkbutton_toggled(self.games_check_ok_checkbutton)
 		if self.games_check_no_checkbutton.get_active() == False:
 			self.on_games_check_no_checkbutton_toggled(self.games_check_no_checkbutton)
 		if self.games_check_convert_checkbutton.get_active() == False:
 			self.on_games_check_convert_checkbutton_toggled(self.games_check_convert_checkbutton)
+		if use_threads == True:
+			gdk.threads_leave()
 		
 		self.update_statusbar("Games", _("Games list loaded."), use_threads)
 		
 		self.activate_widgets(use_threads)
 		
 		# Clear up all filter
-		if self.quitting == False:		
+		if self.quitting == False:
+			if use_threads == True:
+				gdk.threads_enter()		
 			self.filter_name_entry.handler_block(self.fne_sid)
 			self.filter_location_combobox.handler_block(self.flocc_sid)
 			self.filter_language_combobox.handler_block(self.flanc_sid)
@@ -1637,6 +1666,8 @@ class Gui(threading.Thread):
 			self.filter_location_combobox.handler_unblock(self.flocc_sid)
 			self.filter_language_combobox.handler_unblock(self.flanc_sid)
 			self.filter_size_combobox.handler_unblock(self.fsc_sid)
+			if use_threads == True:
+				gdk.threads_leave()
 		
 		# Hide old infos
 		self.previous_selection_release_number = None
