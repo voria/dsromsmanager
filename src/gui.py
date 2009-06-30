@@ -1482,7 +1482,7 @@ class Gui(threading.Thread):
 			return
 		self.db = DB(DB_FILE)
 	
-	def add_games(self, use_threads = True):
+	def add_games(self, use_threads = False):
 		""" Add games from database to the treeview model. """
 		if self.quitting == True:
 			return

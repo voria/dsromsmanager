@@ -135,7 +135,7 @@ class RomArchivesRescan(threading.Thread):
         self.gui = gui
     
     def run(self):
-        self.gui.add_games()
+        self.gui.add_games(True)
         
     def stop(self):
         return

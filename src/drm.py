@@ -85,7 +85,7 @@ A new DAT file will be automatically downloaded and a new database will be creat
 		self.gui.open_db()
 		if self.stopnow == False:
 			self.gui.update_statusbar("DB", _("Database loaded."))
-		self.gui.add_games()
+		self.gui.add_games(True)
 
 	def stop(self):
 		self.stopnow = True
