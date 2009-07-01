@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-01 02:01+0200\n"
+"POT-Creation-Date: 2009-07-01 02:23+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -355,7 +355,7 @@ msgstr ""
 
 #: ../src/gui.py:1081
 msgid ""
-"'DsRomsManager' working directory has been selected as roms path, but it "
+"'DsRomsManager' working directory has been selected as 'Roms' path, but it "
 "can't be used."
 msgstr ""
 
@@ -363,12 +363,12 @@ msgstr ""
 msgid ""
 "\n"
 "\n"
-"The roms path will be restored to its default value."
+"The 'Roms' path will be restored to its default value."
 msgstr ""
 
 #: ../src/gui.py:1086
 msgid ""
-"'DsRomsManager' working directory has been selected as unknown roms path, "
+"'DsRomsManager' working directory has been selected as 'Unknown roms' path, "
 "but it can't be used."
 msgstr ""
 
@@ -376,24 +376,24 @@ msgstr ""
 msgid ""
 "\n"
 "\n"
-"The unknown roms path will be restored to its default value."
+"The 'Unknown roms' path will be restored to its default value."
 msgstr ""
 
 #: ../src/gui.py:1091
 msgid ""
-"'DsRomsManager' working directory has been selected as new roms path, but it "
-"can't be used."
+"'DsRomsManager' working directory has been selected as 'New roms' path, but "
+"it can't be used."
 msgstr ""
 
 #: ../src/gui.py:1092
 msgid ""
 "\n"
 "\n"
-"The new roms path will be restored to its default value."
+"The 'New roms' path will be restored to its default value."
 msgstr ""
 
 #: ../src/gui.py:1096
-msgid "Unknown roms path can't be the same as roms or new roms paths."
+msgid "'Unknown roms' path can't be the same as 'Roms' or 'New roms' paths."
 msgstr ""
 
 #: ../src/gui.py:1097 ../src/gui.py:1107
@@ -405,7 +405,7 @@ msgstr ""
 
 #: ../src/gui.py:1101
 msgid ""
-"'DsRomsManager' working directory has been selected as images path, but it "
+"'DsRomsManager' working directory has been selected as 'Images' path, but it "
 "can't be used."
 msgstr ""
 
@@ -413,11 +413,11 @@ msgstr ""
 msgid ""
 "\n"
 "\n"
-"The images path will be restored to its default value."
+"The 'Images' path will be restored to its default value."
 msgstr ""
 
 #: ../src/gui.py:1106
-msgid "Images path can't be the same as roms path."
+msgid "'Images' path can't be the same as 'Roms' path."
 msgstr ""
 
 #: ../src/gui.py:1148
@@ -431,67 +431,67 @@ msgid ""
 "On next start the database will be rebuilt according to new settings."
 msgstr ""
 
-#: ../src/gui.py:1159
+#: ../src/gui.py:1158
 msgid "Games list will be reloaded."
 msgstr ""
 
-#: ../src/gui.py:1314
+#: ../src/gui.py:1313
 #, python-format
 msgid "%d game in list"
 msgstr ""
 
-#: ../src/gui.py:1316
+#: ../src/gui.py:1315
 #, python-format
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:1318
+#: ../src/gui.py:1317
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1320
+#: ../src/gui.py:1319
 #, python-format
 msgid " - %d to be fixed"
 msgstr ""
 
-#: ../src/gui.py:1322
+#: ../src/gui.py:1321
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1324 drm.glade.h:21
+#: ../src/gui.py:1323 drm.glade.h:21
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:1450
+#: ../src/gui.py:1449
 msgid "Stop download."
 msgstr ""
 
-#: ../src/gui.py:1469
+#: ../src/gui.py:1468
 msgid "Stop rebuild."
 msgstr ""
 
-#: ../src/gui.py:1509
+#: ../src/gui.py:1508
 msgid "Scanning roms on disk..."
 msgstr ""
 
-#: ../src/gui.py:1538 ../src/gui.py:1583 ../src/gui.py:1592 ../src/gui.py:1624
-#: ../src/gui.py:1633
+#: ../src/gui.py:1537 ../src/gui.py:1582 ../src/gui.py:1591 ../src/gui.py:1623
+#: ../src/gui.py:1632
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr ""
 
-#: ../src/gui.py:1572 ../src/gui.py:1613
+#: ../src/gui.py:1571 ../src/gui.py:1612
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr ""
 
-#: ../src/gui.py:1636
+#: ../src/gui.py:1635
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1660
+#: ../src/gui.py:1659
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr ""

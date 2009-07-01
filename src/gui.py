@@ -1078,32 +1078,32 @@ class Gui(threading.Thread):
 			images_path_new = self.options_images_path_filechooserbutton.get_current_folder()
 			# Check if new paths are ok
 			if roms_path_new == WORK_DIR:
-			 	message = _("'DsRomsManager' working directory has been selected as roms path, but it can't be used.")
-			 	message += _("\n\nThe roms path will be restored to its default value.")
+			 	message = _("'DsRomsManager' working directory has been selected as 'Roms' path, but it can't be used.")
+			 	message += _("\n\nThe 'Roms' path will be restored to its default value.")
 				roms_path_new = config.get_option_default("roms_path")
 				self.show_info_dialog(message)
 			if unknown_roms_path_new == WORK_DIR:
-				message = _("'DsRomsManager' working directory has been selected as unknown roms path, but it can't be used.")
-				message += _("\n\nThe unknown roms path will be restored to its default value.")
+				message = _("'DsRomsManager' working directory has been selected as 'Unknown roms' path, but it can't be used.")
+				message += _("\n\nThe 'Unknown roms' path will be restored to its default value.")
 				unknown_roms_path_new = config.get_option_default("unknown_roms_path")
 				self.show_info_dialog(message)			 	 
 			if new_roms_path_new == WORK_DIR:
-				message = _("'DsRomsManager' working directory has been selected as new roms path, but it can't be used.")
-				message += _("\n\nThe new roms path will be restored to its default value.")
+				message = _("'DsRomsManager' working directory has been selected as 'New roms' path, but it can't be used.")
+				message += _("\n\nThe 'New roms' path will be restored to its default value.")
 				new_roms_path_new = config.get_option_default("new_roms_path")
 				self.show_info_dialog(message)
 			if unknown_roms_path_new == roms_path_new or unknown_roms_path_new == new_roms_path_new:
-				message = _("Unknown roms path can't be the same as roms or new roms paths.")
+				message = _("'Unknown roms' path can't be the same as 'Roms' or 'New roms' paths.")
 				message += _("\n\nSelect a different path.")
 				self.show_info_dialog(message)
 				return False
 			if images_path_new == WORK_DIR:
-			 	message = _("'DsRomsManager' working directory has been selected as images path, but it can't be used.")
-			 	message += _("\n\nThe images path will be restored to its default value.")
-				images_path_new = config.get_option_default("images_roms_path")
+			 	message = _("'DsRomsManager' working directory has been selected as 'Images' path, but it can't be used.")
+			 	message += _("\n\nThe 'Images' path will be restored to its default value.")
+				images_path_new = config.get_option_default("images_path")
 				self.show_info_dialog(message)
 			if images_path_new == roms_path_new:
-				message = _("Images path can't be the same as roms path.")
+				message = _("'Images' path can't be the same as 'Roms' path.")
 				message += _("\n\nSelect a different path.")
 				self.show_info_dialog(message)
 				return False
@@ -1153,9 +1153,8 @@ class Gui(threading.Thread):
 				# we need to rescan for games on disk
 				# Stop the archive rebuilding process, if it's running
 				for thread in self.threads:
-					if thread.isAlive() and thread.getName() == "RomsArchivesRebuild":
-						thread.stop()
-						thread.join()
+					if thread.isAlive() and thread.getName() == "RomArchivesRebuild":
+						self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton)
 				message = _("Games list will be reloaded.")
 				self.show_info_dialog(message)
 				self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton, False)
