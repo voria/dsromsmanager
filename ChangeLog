@@ -1,3 +1,7 @@
+DsRomsManager 0.4.8
+	* Resize images to 50% if vertical screen resolution is <= 600, to 75% if vertical screen resolution <= 800.
+	  For bigger resolutions use the native size.
+
 DsRomsManager 0.4.7.1
 	* Fix translations.
 
@@ -13,7 +17,8 @@ DsRomsManager - 0.4.7
 	* Do better sanity checks when changing options.
 	* Add the 'Rescan archives' button, to rescan roms archives and reload games list.
 	* Update images paths in database when "Images" path has been changed in options.
-	* When filters are clear and games list is not dirty, pressing the 'clear' button will unselect current selection(s) in treeview.
+	* When filters are clear and games list is not dirty, pressing the 'clear' button will unselect
+	  current selection(s) in treeview.
 	* Add tooltips in statusicon popup menu.
 	* Add tooltips in treeview popup menu.
 	* Add a quit button.

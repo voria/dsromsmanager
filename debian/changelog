@@ -1,3 +1,11 @@
+drm (0.4.8) jaunty; urgency=low
+
+  * Resize images to 50% if vertical screen resolution is <= 600,
+    to 75% if vertical screen resolution <= 800.
+    For bigger resolutions use the native size. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Jul 2009 16:39:12 +0200
+
 drm (0.4.7.1) jaunty; urgency=low
 
   * Fix translations. 
