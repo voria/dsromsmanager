@@ -393,7 +393,7 @@ class Gui(threading.Thread):
 		""" List 'games' in treeview """
 		"""
 		anyway -  add the game to the list anyway, even if there are filters set
-		rebuild_dict - rebuild dictionary containing games to be fixed
+		rebuild_dict - rebuild dictionary containing games to rebuild
 		"""
 		if self.quitting == True:
 			return
@@ -1354,7 +1354,7 @@ class Gui(threading.Thread):
 			if self.gamesnumber_available > 0:
 				text += _(" - %d available") % self.gamesnumber_available
 			if self.gamesnumber_fixable > 0:
-				text += _(" - %d to be fixed") % self.gamesnumber_fixable
+				text += _(" - %d to rebuild") % self.gamesnumber_fixable
 			if self.gamesnumber_not_available > 0:
 				text += _(" - %d not available") % self.gamesnumber_not_available
 		else:
@@ -1396,7 +1396,7 @@ class Gui(threading.Thread):
 		self.list_treeview_model.set_value(iter, TVC_CHECK, self.checks[CHECKS_YES])
 		if self.games_check_ok_checkbutton.get_active() == False:
 			self.dirty_gameslist = True
-		# remove the current game from the dictionary of games to be fixed
+		# remove the current game from the dictionary of games to rebuild
 		del self.games_to_rebuild[game[GAME_FULLINFO]]
 		# Update counters and label
 		self.gamesnumber_fixable -= 1
@@ -1485,8 +1485,8 @@ class Gui(threading.Thread):
 			self.images_download_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
 			self.images_download_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_MENU))
 			self.old_aidt_tooltip_text = self.images_download_toolbutton.get_tooltip_text()
-			self.images_download_toolbutton.set_tooltip_text(_("Stop download.") + " (Ctrl+D)")
-			self.images_download_menuitem.set_tooltip_text(_("Stop download.") + " (Ctrl+D)")
+			self.images_download_toolbutton.set_tooltip_text(_("Stop the download process.") + " (Ctrl+D)")
+			self.images_download_menuitem.set_tooltip_text(_("Stop the download process.") + " (Ctrl+D)")
 		else:
 			# restore original button
 			self.images_download_toolbutton.set_stock_id(gtk.STOCK_JUMP_TO)
@@ -1506,8 +1506,8 @@ class Gui(threading.Thread):
 			self.rebuild_roms_archives_toolbutton.set_stock_id(gtk.STOCK_CANCEL)
 			self.rebuild_roms_archives_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_CANCEL, gtk.ICON_SIZE_MENU))
 			self.old_rrat_tooltip_text = self.rebuild_roms_archives_toolbutton.get_tooltip_text()
-			self.rebuild_roms_archives_toolbutton.set_tooltip_text(_("Stop rebuild.") + " (Ctrl+F)")
-			self.rebuild_roms_archives_menuitem.set_tooltip_text(_("Stop rebuild.") + " (Ctrl+F)")
+			self.rebuild_roms_archives_toolbutton.set_tooltip_text(_("Stop the rebuild process.") + " (Ctrl+F)")
+			self.rebuild_roms_archives_menuitem.set_tooltip_text(_("Stop the rebuild process.") + " (Ctrl+F)")
 			self.rebuild_roms_archives_toolbutton.set_sensitive(True)
 			self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		else:

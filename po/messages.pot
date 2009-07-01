@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-01 14:58+0200\n"
+"POT-Creation-Date: 2009-07-01 15:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -431,7 +431,7 @@ msgstr ""
 
 #: ../src/gui.py:1357
 #, python-format
-msgid " - %d to be fixed"
+msgid " - %d to rebuild"
 msgstr ""
 
 #: ../src/gui.py:1359
@@ -444,11 +444,11 @@ msgid "No games shown"
 msgstr ""
 
 #: ../src/gui.py:1488 ../src/gui.py:1489
-msgid "Stop download."
+msgid "Stop the download process."
 msgstr ""
 
 #: ../src/gui.py:1509 ../src/gui.py:1510
-msgid "Stop rebuild."
+msgid "Stop the rebuild process."
 msgstr ""
 
 #: ../src/gui.py:1550

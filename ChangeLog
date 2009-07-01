@@ -1,3 +1,6 @@
+DsRomsManager 0.4.7.1
+	* Fix translations.
+
 DsRomsManager - 0.4.7
 	* Disable 'Rebuild' option in treeview popup menu, if another rebuild process is up and running.
 	* Changed icon in games list for rebuildable games from gtk.STOCK_DIALOG_WARNING to gtk.STOCK_CONVERT.

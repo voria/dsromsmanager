@@ -1,3 +1,9 @@
+drm (0.4.7.1) jaunty; urgency=low
+
+  * Fix translations. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Jul 2009 15:17:45 +0200
+
 drm (0.4.7) jaunty; urgency=low
 
   * Disable 'Rebuild' option in treeview popup menu, if another rebuild
