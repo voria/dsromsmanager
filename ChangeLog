@@ -1,3 +1,21 @@
+DsRomsManager - 0.4.7
+	* Disable 'Rebuild' option in treeview popup menu, if another rebuild process is up and running.
+	* Changed icon in games list for rebuildable games from gtk.STOCK_DIALOG_WARNING to gtk.STOCK_CONVERT.
+	* Use smaller icons in games list.
+	* Added multiple selection support in games list, allowing more games to be selected and extracted/rebuilded at once.
+	* When rebuilding roms archives, update on the fly the relative entries in games list.
+	* Redirect program's output in a log file, $HOME/.dsromsmanager/log.
+	* Avoid multiple running instance through the launcher script.
+	* Do better checks when scanning for roms on hard disk.
+	* Do better sanity checks when changing options.
+	* Add the 'Rescan archives' button, to rescan roms archives and reload games list.
+	* Update images paths in database when "Images" path has been changed in options.
+	* When filters are clear and games list is not dirty, pressing the 'clear' button will unselect current selection(s) in treeview.
+	* Add tooltips in statusicon popup menu.
+	* Add tooltips in treeview popup menu.
+	* Add a quit button.
+	* Update translations.
+	
 DsRomsManager - 0.4.6.1
 	* Fix a typo in src/downloaders.py
 
