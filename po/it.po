@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-01 03:19+0200\n"
-"PO-Revision-Date: 2009-07-01 03:20+0200\n"
+"POT-Creation-Date: 2009-07-01 04:35+0200\n"
+"PO-Revision-Date: 2009-07-01 04:35+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -63,7 +63,7 @@ msgstr "Download delle immagini di '%s' in corso..."
 
 #: ../src/downloaders.py:181
 msgid "Download of all images stopped."
-msgstr "Download di tutte le immagini annullato."
+msgstr "Download di tutte le immagini fermato."
 
 #: ../src/downloaders.py:183
 msgid "Download of all images completed."
@@ -152,11 +152,11 @@ msgid "Error while building archive for '%s'!"
 msgstr "Errore durante la ricostruzione dell'archivio di '%s'!"
 
 #: ../src/files.py:225
-msgid "Rebuild stopped."
-msgstr "Ricostruzione annullata."
+msgid "Rebuilding stopped."
+msgstr "Ricostruzione fermata."
 
 #: ../src/files.py:227
-msgid "Rebuild completed."
+msgid "Rebuilding completed."
 msgstr "Ricostruzione completata."
 
 #: ../src/globals.py:62

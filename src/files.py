@@ -222,9 +222,9 @@ class RomArchivesRebuild(threading.Thread):
                 self.gui.update_statusbar("RomArchivesRebuild", _("Error while building archive for '%s'!") % key, True)
         
         if self.stopnow == True:
-            self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild stopped."), True)
+            self.gui.update_statusbar("RomArchivesRebuild", _("Rebuilding stopped."), True)
         else:
-            self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild completed."), True)
+            self.gui.update_statusbar("RomArchivesRebuild", _("Rebuilding completed."), True)
         
         # restore original button
         self.gui.toggle_rebuild_roms_archives_toolbutton(True)

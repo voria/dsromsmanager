@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-01 03:19+0200\n"
+"POT-Creation-Date: 2009-07-01 04:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,11 +142,11 @@ msgid "Error while building archive for '%s'!"
 msgstr ""
 
 #: ../src/files.py:225
-msgid "Rebuild stopped."
+msgid "Rebuilding stopped."
 msgstr ""
 
 #: ../src/files.py:227
-msgid "Rebuild completed."
+msgid "Rebuilding completed."
 msgstr ""
 
 #: ../src/globals.py:62
