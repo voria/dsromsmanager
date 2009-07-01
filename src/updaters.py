@@ -29,6 +29,28 @@ from urllib2 import urlopen
 from globals import *
 from downloaders import *
 from dat import *
+from db import *
+
+class DBImagesUpdater(threading.Thread):
+	""" Update images paths in database """
+	def __init__(self, gui, path):
+		threading.Thread.__init__(self, name="DBImagesUpdater")
+		self.gui = gui
+		self.path = path
+	
+	def run(self):
+		self.gui.deactivate_widgets(True)
+		self.gui.update_statusbar("DBImagesUpdater", _("Updating database with the new 'Images' path..."), True)
+		
+		db = DB(DB_FILE)
+		db.update_images_path(self.path)
+
+		self.gui.update_statusbar("DBImagesUpdater", _("Database updated."), True)
+		self.gui.activate_widgets(True)
+	
+	def stop(self):
+		return
+		
 
 class DatUpdater(threading.Thread):
 	""" Update DAT file if needed """

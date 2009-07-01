@@ -44,7 +44,7 @@ CREATE_GAMES_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS games (
 							img1_local_path TEXT,
 							img1_remote_url TEXT,
 							img2_crc TEXT,
-							img2_local_url TEXT,
+							img2_local_path TEXT,
 							img2_remote_url TEXT,
 							comment TEXT,
 							duplicate_id INT
@@ -115,7 +115,7 @@ class DB():
 		# Count games in database
 		self.cursor.execute("SELECT * FROM games")
 		self.games = len(self.cursor.fetchall())
-		
+	
 	def add_game(self, game_info):
 		"""	Add 'game_info' to database """		
 		self.cursor.execute(INSERT_GAME_QUERY, tuple(game_info))
@@ -155,6 +155,19 @@ class DB():
 	def get_games_number(self):
 		""" Return the number of games in database """
 		return self.games
+	
+	def update_images_path(self, path):
+		""" Update all images path to the new path 'path'. """
+		self.cursor.execute("SELECT release_number, img1_local_path, img2_local_path FROM games")
+		for game in self.cursor.fetchall():
+			relnum = game[0]
+			img1 = os.path.join(path, game[1].rsplit(os.sep, 2)[1], game[1].rsplit(os.sep, 2)[2])
+			img2 = os.path.join(path, game[2].rsplit(os.sep, 2)[1], game[2].rsplit(os.sep, 2)[2])
+			command = "UPDATE games SET img1_local_path = '" + img1
+			command += "', img2_local_path = '" + img2
+			command += "' WHERE release_number = " + str(relnum)
+			self.cursor.execute(command)
+		self.connection.commit()
 			
 	def filter_by(self, string, location, language, size):
 		""" Return games filtered by location, language and size infos """
@@ -174,7 +187,7 @@ class DB():
 			command = command[:len(command)-6]
 		self.cursor.execute(command)
 		return self.cursor.fetchall()
-
+	
 	def save_as(self, filename):
 		""" Save database in memory on disk as 'filename' """
 		if os.path.exists(filename):

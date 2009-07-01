@@ -53,11 +53,6 @@ class Main(threading.Thread):
 				# current db is out of date, remove it
 				os.remove(DB_FILE)
 				db_deleted = True
-			if os.path.exists(DB_FILE_REBUILD):
-				# current db is out of date, remove it
-				os.remove(DB_FILE)
-				os.remove(DB_FILE_REBUILD)
-				db_deleted = True
 				
 		if not os.path.exists(DB_FILE):
 			if db_deleted == True:

@@ -75,11 +75,7 @@ class ImagesDownloader(threading.Thread):
 		
 		self.gui = gui
 	
-	def run(self):
-		if os.path.exists(DB_FILE_REBUILD):
-			self.gui.update_statusbar("ImagesDownloader", _("Unable to show images. Restart 'DsRomsManager'."), True)
-			return
-		
+	def run(self):		
 		if not os.path.exists(self.range_dir):
 			os.mkdir(self.range_dir)
 			
@@ -123,10 +119,6 @@ class AllImagesDownloader(threading.Thread):
 		self.stopnow = False
 	
 	def run(self):
-		if os.path.exists(DB_FILE_REBUILD):
-			self.gui.update_statusbar("AllImagesDownloader", _("Unable to download images. Restart 'DsRomsManager'."), True)
-			return
-		
 		self.gui.toggle_images_download_toolbutton(True)
 		self.gui.update_statusbar("AllImagesDownloader", _("Downloading all images..."), True)
 
