@@ -47,13 +47,13 @@ class DatUpdater(threading.Thread):
 	
 	def run(self):
 		try:
-			self.gui.update_statusbar("DatUpdater", _("Searching for a new DAT file..."))
+			self.gui.update_statusbar("DatUpdater", _("Searching for a new DAT file..."), True)
 			try:
 				new_version_file = urlopen(self.dat_version_url)
 				new_version = new_version_file.read()
 							
-				if int(self.dat_version) <= int(new_version):
-					self.gui.update_statusbar("DatUpdater", _("New DAT file available!"))
+				if int(self.dat_version) < int(new_version):
+					self.gui.update_statusbar("DatUpdater", _("New DAT file available!"), True)
 					# Make sure we are not downloading all images
 					# No need to check if we are rebuilding archives, because we can't be here if it's so.
 					for thread in self.threads:
@@ -62,23 +62,23 @@ class DatUpdater(threading.Thread):
 							thread.join()
 							break
 					# Deactivate all widgets
-					self.gui.deactivate_widgets()
+					self.gui.deactivate_widgets(True)
 					# Download new DAT file
 					datdownloader = DatDownloader(self.gui)
 					datdownloader.start()
 					datdownloader.join()
-					self.gui.update_statusbar("DatUpdater", _("Loading the new DAT file and creating database..."))
+					self.gui.update_statusbar("DatUpdater", _("Loading the new DAT file and creating database..."), True)
 					dat = Dat(DAT_NAME)
-					self.gui.update_statusbar("DatUpdater", _("Database created."))
+					self.gui.update_statusbar("DatUpdater", _("Database created."), True)
 					self.gui.add_games(True)
 				else:
-					self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date to the latest version."))
+					self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date to the latest version."), True)
 			except:
-				self.gui.update_statusbar("DatUpdater", _("Can't download DAT version file!"))
+				self.gui.update_statusbar("DatUpdater", _("Can't download DAT version file!"), True)
 				raise
 		finally:
 			# reactivate widgets
-			self.gui.activate_widgets()
+			self.gui.activate_widgets(True)
 			self.gui.set_previous_treeview_cursor(True)
 		
 	def stop(self):
@@ -94,7 +94,7 @@ class DatDownloader(threading.Thread):
 		self.gui = gui
 	
 	def run(self):
-		self.gui.update_statusbar("DatDownloader", _("Downloading the new DAT file..."))
+		self.gui.update_statusbar("DatDownloader", _("Downloading the new DAT file..."), True)
 		try:
 			input = urlopen(self.dat_url)
 			output = open(self.dat_name_zip, "wb")
@@ -102,10 +102,10 @@ class DatDownloader(threading.Thread):
 				output.write(data)
 			output.close()
 		except:
-			self.gui.update_statusbar("DatDownloader", _("Can't download DAT!"))
+			self.gui.update_statusbar("DatDownloader", _("Can't download DAT!"), True)
 			raise
 		
-		self.gui.update_statusbar("FirstRun", _("Unzipping the new DAT file..."))
+		self.gui.update_statusbar("FirstRun", _("Unzipping the new DAT file..."), True)
 		zip = ZipFile(self.dat_name_zip, "r")
 		zip.extractall()
 		zip.close()
@@ -132,7 +132,7 @@ class ImagesDownloader(threading.Thread):
 	
 	def run(self):
 		if os.path.exists(DB_FILE_REBUILD):
-			self.gui.update_statusbar("ImagesDownloader", _("Unable to show images. Restart 'DsRomsManager'."))
+			self.gui.update_statusbar("ImagesDownloader", _("Unable to show images. Restart 'DsRomsManager'."), True)
 			return
 		
 		if not os.path.exists(self.range_dir):
@@ -147,7 +147,7 @@ class ImagesDownloader(threading.Thread):
 				output.close()
 			except HTTPError:
 				self.gui.update_statusbar("ImageDownloader",
-								_("Error while downloading image 1 for '%s': File not found.") % self.fullinfo)
+								_("Error while downloading image 1 for '%s': File not found.") % self.fullinfo, True)
 			else:
 				self.gui.update_image(self.release_number, 1, self.filename1)
 		
@@ -160,7 +160,7 @@ class ImagesDownloader(threading.Thread):
 				output.close()
 			except HTTPError:
 				self.gui.update_statusbar("ImageDownloader",
-								_("Error while downloading image 2 for '%s': File not found.") % self.fullinfo)
+								_("Error while downloading image 2 for '%s': File not found.") % self.fullinfo, True)
 			else:
 				self.gui.update_image(self.release_number, 2, self.filename2)
 			
@@ -179,11 +179,11 @@ class AllImagesDownloader(threading.Thread):
 	
 	def run(self):
 		if os.path.exists(DB_FILE_REBUILD):
-			self.gui.update_statusbar("AllImagesDownloader", _("Unable to download images. Restart 'DsRomsManager'."))
+			self.gui.update_statusbar("AllImagesDownloader", _("Unable to download images. Restart 'DsRomsManager'."), True)
 			return
 		
 		self.gui.toggle_images_download_toolbutton(True)
-		self.gui.update_statusbar("AllImagesDownloader", _("Downloading all images..."))
+		self.gui.update_statusbar("AllImagesDownloader", _("Downloading all images..."), True)
 
 		for game in self.games:
 			if self.stopnow == True:
@@ -201,7 +201,7 @@ class AllImagesDownloader(threading.Thread):
 			# check images CRC
 			if self.check_images_crc == True:
 				if self.check_images_notified == False:
-				    self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity..."))
+				    self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity..."), True)
 				    self.check_images_notified = True
 				if os.path.exists(img1) and game[GAME_IMG1_CRC] != get_crc32(img1):
 					os.remove(img1)
@@ -209,7 +209,7 @@ class AllImagesDownloader(threading.Thread):
 					os.remove(img2)
 
 			if not os.path.exists(img1) or not os.path.exists(img2):
-				self.gui.update_statusbar("AllImagesDownloader", _("Downloading images for '%s'...") % game[GAME_FULLINFO])
+				self.gui.update_statusbar("AllImagesDownloader", _("Downloading images for '%s'...") % game[GAME_FULLINFO], True)
 				self.check_images_notified = False
 			
 			if not os.path.exists(img1):
@@ -233,9 +233,9 @@ class AllImagesDownloader(threading.Thread):
 					pass
 		
 		if self.stopnow == True:
-			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images stopped."))
+			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images stopped."), True)
 		else:
-			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images completed."))
+			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images completed."), True)
 		# restore original button
 		self.gui.toggle_images_download_toolbutton(True)
 				

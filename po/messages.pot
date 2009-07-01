@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-01 01:22+0200\n"
+"POT-Creation-Date: 2009-07-01 02:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -431,68 +431,69 @@ msgid ""
 "On next start the database will be rebuilt according to new settings."
 msgstr ""
 
-#: ../src/gui.py:1154
+#: ../src/gui.py:1159
 msgid "Games list will be reloaded."
 msgstr ""
 
-#: ../src/gui.py:1309
+#: ../src/gui.py:1314
 #, python-format
 msgid "%d game in list"
 msgstr ""
 
-#: ../src/gui.py:1311
+#: ../src/gui.py:1316
 #, python-format
 msgid "%d games in list"
 msgstr ""
 
-#: ../src/gui.py:1313
+#: ../src/gui.py:1318
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1315
+#: ../src/gui.py:1320
 #, python-format
 msgid " - %d to be fixed"
 msgstr ""
 
-#: ../src/gui.py:1317
+#: ../src/gui.py:1322
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1319 drm.glade.h:21
+#: ../src/gui.py:1324 drm.glade.h:21
 msgid "No games in list"
 msgstr ""
 
-#: ../src/gui.py:1445
+#: ../src/gui.py:1450
 msgid "Stop download."
 msgstr ""
 
-#: ../src/gui.py:1464
+#: ../src/gui.py:1469
 msgid "Stop rebuild."
 msgstr ""
 
-#: ../src/gui.py:1504
-msgid "Checking games on disk..."
+#: ../src/gui.py:1509
+msgid "Scanning roms on disk..."
 msgstr ""
 
-#: ../src/gui.py:1533 ../src/gui.py:1578 ../src/gui.py:1587 ../src/gui.py:1619
-#: ../src/gui.py:1628
+#: ../src/gui.py:1538 ../src/gui.py:1583 ../src/gui.py:1592 ../src/gui.py:1624
+#: ../src/gui.py:1633
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr ""
 
-#: ../src/gui.py:1567 ../src/gui.py:1608
+#: ../src/gui.py:1572 ../src/gui.py:1613
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr ""
 
-#: ../src/gui.py:1631
+#: ../src/gui.py:1636
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1652
-msgid "Games list loaded."
+#: ../src/gui.py:1660
+#, python-format
+msgid "%d games loaded succesfully."
 msgstr ""
 
 #: drm.glade.h:2

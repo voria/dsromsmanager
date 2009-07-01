@@ -302,10 +302,10 @@ class Gui(threading.Thread):
 		
 		self.db = None
 		
-		self.gamesnumber = 0
-		self.gamesnumber_available = 0
-		self.gamesnumber_not_available = 0
-		self.gamesnumber_fixable = 0 # Only fixable games showed in treeview
+		self.gamesnumber_total = 0 # All games showed in treeview
+		self.gamesnumber_available = 0 # Available games showed in treeview
+		self.gamesnumber_not_available = 0 # Not available games showed in treeview
+		self.gamesnumber_fixable = 0 # Fixable games showed in treeview
 		self.games_to_rebuild = {} # Dictionary of all the games to rebuild: { fullinfo : (oldfile, relnum) }
 		
 		self.dirty_gameslist = False
@@ -374,7 +374,7 @@ class Gui(threading.Thread):
 		self.list_treeview_model.append((check, flag, relnum, title))
 		if use_threads == True:
 				gdk.threads_leave()
-		self.gamesnumber += 1
+		self.gamesnumber_total += 1
 		return returnvalue
 	
 	def __update_list(self, games, use_threads = False, anyway = False, rebuild_dict = False):
@@ -393,7 +393,7 @@ class Gui(threading.Thread):
 		self.list_treeview_model.clear()
 		if use_threads == True:
 			gdk.threads_leave()
-		self.gamesnumber = 0
+		self.gamesnumber_total = 0
 		self.gamesnumber_available = 0
 		self.gamesnumber_fixable = 0
 		self.gamesnumber_not_available = 0
@@ -434,7 +434,7 @@ class Gui(threading.Thread):
 					pass
 				else: # games has to be removed
 					model.remove(iter)
-					self.gamesnumber -= 1
+					self.gamesnumber_total -= 1
 					if check == self.checks[CHECKS_YES]:
 						self.gamesnumber_available -= 1
 					elif check == self.checks[CHECKS_NO]:
@@ -913,7 +913,7 @@ class Gui(threading.Thread):
 			return
 		if confirm == True:
 			message = _("Rescan roms archives and rebuild games list?")
-			if self.show_okcancel_question_dialog(message, False) == False:
+			if self.show_okcancel_question_dialog(message) == False:
 				return
 		rar = RomArchivesRescan(self)
 		self.threads.append(rar)
@@ -936,7 +936,7 @@ class Gui(threading.Thread):
 			self.threads.append(rar)
 			rar.start()
 		else: # Stop thread
-			self.update_statusbar("RomArchivesRebuild", _("Waiting while the current job is finished..."), False)
+			self.update_statusbar("RomArchivesRebuild", _("Waiting while the current job is finished..."))
 			self.rebuild_roms_archives_toolbutton.set_sensitive(False)
 			self.rebuild_roms_archives_menuitem.set_sensitive(False)
 			for thread in self.threads:
@@ -1081,31 +1081,31 @@ class Gui(threading.Thread):
 			 	message = _("'DsRomsManager' working directory has been selected as roms path, but it can't be used.")
 			 	message += _("\n\nThe roms path will be restored to its default value.")
 				roms_path_new = config.get_option_default("roms_path")
-				self.show_info_dialog(message, False)
+				self.show_info_dialog(message)
 			if unknown_roms_path_new == WORK_DIR:
 				message = _("'DsRomsManager' working directory has been selected as unknown roms path, but it can't be used.")
 				message += _("\n\nThe unknown roms path will be restored to its default value.")
 				unknown_roms_path_new = config.get_option_default("unknown_roms_path")
-				self.show_info_dialog(message, False)			 	 
+				self.show_info_dialog(message)			 	 
 			if new_roms_path_new == WORK_DIR:
 				message = _("'DsRomsManager' working directory has been selected as new roms path, but it can't be used.")
 				message += _("\n\nThe new roms path will be restored to its default value.")
 				new_roms_path_new = config.get_option_default("new_roms_path")
-				self.show_info_dialog(message, False)
+				self.show_info_dialog(message)
 			if unknown_roms_path_new == roms_path_new or unknown_roms_path_new == new_roms_path_new:
 				message = _("Unknown roms path can't be the same as roms or new roms paths.")
 				message += _("\n\nSelect a different path.")
-				self.show_info_dialog(message, False)
+				self.show_info_dialog(message)
 				return False
 			if images_path_new == WORK_DIR:
 			 	message = _("'DsRomsManager' working directory has been selected as images path, but it can't be used.")
 			 	message += _("\n\nThe images path will be restored to its default value.")
 				images_path_new = config.get_option_default("images_roms_path")
-				self.show_info_dialog(message, False)
+				self.show_info_dialog(message)
 			if images_path_new == roms_path_new:
 				message = _("Images path can't be the same as roms path.")
 				message += _("\n\nSelect a different path.")
-				self.show_info_dialog(message, False)
+				self.show_info_dialog(message)
 				return False
 			# Get old roms paths
 			roms_path_old = config.get_option("roms_path")
@@ -1147,12 +1147,17 @@ class Gui(threading.Thread):
 			if dbrebuild == True:
 				message = _("'Images' path has changed.")
 				message += _("\n\nOn next start the database will be rebuilt according to new settings.")
-				self.show_info_dialog(message, False)
+				self.show_info_dialog(message)
 				open(DB_FILE_REBUILD, "w").close()
 			if romspaths_changed == True:
 				# we need to rescan for games on disk
+				# Stop the archive rebuilding process, if it's running
+				for thread in self.threads:
+					if thread.isAlive() and thread.getName() == "RomsArchivesRebuild":
+						thread.stop()
+						thread.join()
 				message = _("Games list will be reloaded.")
-				self.show_info_dialog(message, False)
+				self.show_info_dialog(message)
 				self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton, False)
 		
 		dialog.hide()
@@ -1174,7 +1179,7 @@ class Gui(threading.Thread):
 		dialog.hide()
 			
 	# General functions
-	def deactivate_widgets(self, use_threads = True):
+	def deactivate_widgets(self, use_threads = False):
 		""" Disable all widgets' sensitiveness """
 		if self.quitting == True:
 			return
@@ -1208,7 +1213,7 @@ class Gui(threading.Thread):
 		if use_threads == True:
 			gdk.threads_leave()
 	
-	def activate_widgets(self, use_threads = True):
+	def activate_widgets(self, use_threads = False):
 		""" Enable all widgets' sensitiveness """
 		if self.quitting == True:
 			return
@@ -1255,7 +1260,7 @@ class Gui(threading.Thread):
 		else:
 			self.images_window.hide()
 	
-	def show_okcancel_question_dialog(self, message, use_threads = True):
+	def show_okcancel_question_dialog(self, message, use_threads = False):
 		""" Show a question dialog with 'OK' and 'Cancel' buttons, showing 'message'.
 		Return True if 'OK' is pressed, else return False. """
 		if self.quitting == True:
@@ -1272,7 +1277,7 @@ class Gui(threading.Thread):
 		else:
 			return False
 	
-	def show_yesno_question_dialog(self, message, use_threads = True):
+	def show_yesno_question_dialog(self, message, use_threads = False):
 		""" Show a question dialog with 'Yes' and 'No' buttons, showing 'message'.
 		Return True if 'YES' is pressed, else return False. """
 		if self.quitting == True:
@@ -1289,7 +1294,7 @@ class Gui(threading.Thread):
 		else:
 			return False
 	
-	def show_info_dialog(self, message, use_threads = True):
+	def show_info_dialog(self, message, use_threads = False):
 		""" Show an info dialog with just an OK button, showing 'message' """
 		if self.quitting == True:
 			return
@@ -1304,11 +1309,11 @@ class Gui(threading.Thread):
 	def update_list_game_label(self):
 		if self.quitting == True:
 			return
-		if self.gamesnumber != 0:
-			if self.gamesnumber == 1:
-				text = _("%d game in list") % self.gamesnumber
+		if self.gamesnumber_total != 0:
+			if self.gamesnumber_total == 1:
+				text = _("%d game in list") % self.gamesnumber_total
 			else:
-				text = _("%d games in list") % self.gamesnumber
+				text = _("%d games in list") % self.gamesnumber_total
 			if self.gamesnumber_available > 0:
 				text += _(" - %d available") % self.gamesnumber_available
 			if self.gamesnumber_fixable > 0:
@@ -1320,7 +1325,7 @@ class Gui(threading.Thread):
 		
 		self.list_game_label.set_text(text)
 		
-	def update_statusbar(self, context, text, use_threads = True):
+	def update_statusbar(self, context, text, use_threads = False):
 		if self.quitting == True:
 			return
 		if use_threads == True:
@@ -1501,7 +1506,7 @@ class Gui(threading.Thread):
 		self.deactivate_widgets(use_threads)
 		
 		## Check the games we have on disk
-		self.update_statusbar("Games", _("Checking games on disk..."), use_threads)
+		self.update_statusbar("Games", _("Scanning roms on disk..."), use_threads)
 		
 		# Check roms on disk
 		unknown_roms_path = config.get_option("unknown_roms_path")
@@ -1637,6 +1642,9 @@ class Gui(threading.Thread):
 			self.open_db()
 			self.__update_list(self.db.get_all_games(), use_threads, True, True)
 		
+		# Get total loaded games
+		games_number = self.gamesnumber_total
+		
 		# Set back the games checks checkbuttons status
 		if use_threads == True:
 			gdk.threads_enter()
@@ -1649,7 +1657,8 @@ class Gui(threading.Thread):
 		if use_threads == True:
 			gdk.threads_leave()
 		
-		self.update_statusbar("Games", _("Games list loaded."), use_threads)
+		text = _("%d games loaded succesfully.") % games_number
+		self.update_statusbar("Games", text, use_threads)
 		
 		self.activate_widgets(use_threads)
 		

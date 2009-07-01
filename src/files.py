@@ -88,7 +88,7 @@ class RomArchiveExtract(threading.Thread):
     def run(self):
         if not os.access(self.target, os.W_OK):
             text = _("Unable to extract archive to '%s'. Check write permissions of target directory.") % self.target
-            self.gui.update_statusbar("RomArchiveExtract", text)
+            self.gui.update_statusbar("RomArchiveExtract", text, True)
             return        
         
         for key in sorted(self.games.iterkeys()):
@@ -101,7 +101,7 @@ class RomArchiveExtract(threading.Thread):
                 text = ""
             text += _("Extracting archive for '%s' ") % game
             text += _("in '%s'...") % self.target
-            self.gui.update_statusbar("RomArchiveExtract", text)
+            self.gui.update_statusbar("RomArchiveExtract", text, True)
         
             try:
                 zip = zipfile.ZipFile(zipf, "r")
@@ -109,21 +109,21 @@ class RomArchiveExtract(threading.Thread):
                     info = zip.infolist()[0]
                     if os.path.exists(os.path.join(self.target, info.filename)):
                         message = _("Target file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
-                        if self.gui.show_yesno_question_dialog(message) == False:
+                        if self.gui.show_yesno_question_dialog(message, True) == False:
                             zip.close()
                             continue
                     zip.extractall(self.target)
                     self.gamesnumber_extracted += 1
                 except:
-                    self.gui.show_info_dialog(_("Unable to extract file from '%s'.") % zipf)
+                    self.gui.show_info_dialog(_("Unable to extract file from '%s'.") % zipf, True)
                 zip.close()
             except:
-                self.gui.show_info_dialog(_("Unable to open '%s'.") % zipf)
+                self.gui.show_info_dialog(_("Unable to open '%s'.") % zipf, True)
         
         if self.gamesnumber_extracted > 0:
-            self.gui.update_statusbar("RomArchiveExtract", _("Extraction completed."))
+            self.gui.update_statusbar("RomArchiveExtract", _("Extraction completed."), True)
         else:
-            self.gui.update_statusbar("RomArchiveExtract", _("Extraction canceled."))
+            self.gui.update_statusbar("RomArchiveExtract", _("Extraction canceled."), True)
         
     def stop(self):
         return
@@ -169,7 +169,7 @@ class RomArchivesRebuild(threading.Thread):
             else:
                 text = ""
             text += _("Rebuilding archive for '%s'...") % key
-            self.gui.update_statusbar("RomArchivesRebuild", text)
+            self.gui.update_statusbar("RomArchivesRebuild", text, True)
             
             oldfile = self.games[key][0]
             if oldfile[len(oldfile)-4:].lower() == ".zip":
@@ -222,17 +222,17 @@ class RomArchivesRebuild(threading.Thread):
                 # Update game in treeview
                 self.gui.update_game(self.games[key][1], newzipfile)
             except:
-                self.gui.update_statusbar("RomArchivesRebuild", _("Error while building archive for '%s'!") % key)
+                self.gui.update_statusbar("RomArchivesRebuild", _("Error while building archive for '%s'!") % key, True)
         
         if self.stopnow == True:
-            self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild stopped."))
+            self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild stopped."), True)
         else:
-            self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild completed."))
+            self.gui.update_statusbar("RomArchivesRebuild", _("Rebuild completed."), True)
         
         # restore original button
         self.gui.toggle_rebuild_roms_archives_toolbutton(True)
         # reactivate all widgets
-        self.gui.activate_widgets()
+        self.gui.activate_widgets(True)
         # Restore previous treeview selection
         self.gui.set_previous_treeview_cursor(True)
                     
