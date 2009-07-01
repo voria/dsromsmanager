@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-01 04:35+0200\n"
-"PO-Revision-Date: 2009-07-01 04:35+0200\n"
+"POT-Creation-Date: 2009-07-01 04:38+0200\n"
+"PO-Revision-Date: 2009-07-01 04:45+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -23,7 +23,7 @@ msgstr "Download del nuovo file DAT in corso..."
 
 #: ../src/downloaders.py:50
 msgid "Can't download DAT!"
-msgstr "Non riesco a scaricare il file DAT!"
+msgstr "Impossibile recuperare il file DAT!"
 
 #: ../src/downloaders.py:53
 msgid "Unzipping the new DAT file..."
@@ -62,12 +62,12 @@ msgid "Downloading images for '%s'..."
 msgstr "Download delle immagini di '%s' in corso..."
 
 #: ../src/downloaders.py:181
-msgid "Download of all images stopped."
-msgstr "Download di tutte le immagini fermato."
+msgid "Download stopped."
+msgstr "Download fermato."
 
 #: ../src/downloaders.py:183
-msgid "Download of all images completed."
-msgstr "Download di tutte le immagini completato."
+msgid "Download completed."
+msgstr "Download completato."
 
 #: ../src/drm.py:64
 msgid ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-01 04:35+0200\n"
+"POT-Creation-Date: 2009-07-01 04:45+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,11 +60,11 @@ msgid "Downloading images for '%s'..."
 msgstr ""
 
 #: ../src/downloaders.py:181
-msgid "Download of all images stopped."
+msgid "Download stopped."
 msgstr ""
 
 #: ../src/downloaders.py:183
-msgid "Download of all images completed."
+msgid "Download completed."
 msgstr ""
 
 #: ../src/drm.py:64
