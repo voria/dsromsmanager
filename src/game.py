@@ -22,8 +22,7 @@ from globals import *
 
 class Game():
 	""" Hold informations about a game """
-	def __init__(self, infos):
-				
+	def __init__(self, infos):				
 		self.image_number = infos.getElementsByTagName("imageNumber")[0].firstChild.data
 		self.release_number = int(infos.getElementsByTagName("releaseNumber")[0].firstChild.data)
 		self.title = infos.getElementsByTagName("title")[0].firstChild.data

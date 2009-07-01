@@ -19,7 +19,7 @@
 import os
 import threading
 
-import locale, gettext
+import gettext
 _ = gettext.gettext
 
 try:
@@ -33,6 +33,7 @@ except:
 from globals import *
 from db import *
 from downloaders import *
+from updaters import *
 from files import *
 
 import glob
@@ -302,10 +303,10 @@ class Gui(threading.Thread):
 		
 		self.db = None
 		
-		self.gamesnumber_total = 0 # All games showed in treeview
-		self.gamesnumber_available = 0 # Available games showed in treeview
-		self.gamesnumber_not_available = 0 # Not available games showed in treeview
-		self.gamesnumber_fixable = 0 # Fixable games showed in treeview
+		self.gamesnumber_total = 0 # All games shown in treeview
+		self.gamesnumber_available = 0 # Available games shown in treeview
+		self.gamesnumber_not_available = 0 # Not available games shown in treeview
+		self.gamesnumber_fixable = 0 # Fixable games shown in treeview
 		self.games_to_rebuild = {} # Dictionary of all the games to rebuild: { fullinfo : (oldfile, relnum) }
 		
 		self.dirty_gameslist = False
@@ -1263,7 +1264,7 @@ class Gui(threading.Thread):
 		""" Show a question dialog with 'OK' and 'Cancel' buttons, showing 'message'.
 		Return True if 'OK' is pressed, else return False. """
 		if self.quitting == True:
-			return
+			return False
 		if use_threads == True:
 			gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK_CANCEL, message)
@@ -1280,7 +1281,7 @@ class Gui(threading.Thread):
 		""" Show a question dialog with 'Yes' and 'No' buttons, showing 'message'.
 		Return True if 'YES' is pressed, else return False. """
 		if self.quitting == True:
-			return
+			return False
 		if use_threads == True:
 			gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, message)
@@ -1310,9 +1311,9 @@ class Gui(threading.Thread):
 			return
 		if self.gamesnumber_total != 0:
 			if self.gamesnumber_total == 1:
-				text = _("%d game in list") % self.gamesnumber_total
+				text = _("%d game shown") % self.gamesnumber_total
 			else:
-				text = _("%d games in list") % self.gamesnumber_total
+				text = _("%d games shown") % self.gamesnumber_total
 			if self.gamesnumber_available > 0:
 				text += _(" - %d available") % self.gamesnumber_available
 			if self.gamesnumber_fixable > 0:
@@ -1320,7 +1321,7 @@ class Gui(threading.Thread):
 			if self.gamesnumber_not_available > 0:
 				text += _(" - %d not available") % self.gamesnumber_not_available
 		else:
-			text = _("No games in list")
+			text = _("No games shown")
 		
 		self.list_game_label.set_text(text)
 		
@@ -1366,7 +1367,7 @@ class Gui(threading.Thread):
 		self.update_list_game_label()
 	
 	def update_image(self, game_release_number, image_index, filename):
-		""" Update showed image if needed """
+		""" Update shown image if needed """
 		if self.quitting == True:
 			return
 		selection = self.list_treeview.get_selection()
@@ -1491,13 +1492,12 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		# Populate checksums dictionary
+		self.checksums = {}
 		try:
 			crcs = self.db.get_all_games_crc()
 		except:
 			self.open_db()
 			crcs = self.db.get_all_games_crc()
-		
-		self.checksums = {}
 		for crc in crcs:
 			self.checksums[crc[0]] = None
 		
@@ -1514,6 +1514,8 @@ class Gui(threading.Thread):
 		images_path = config.get_option("images_path") # Useful to avoid scanning recursively in directories
 		                                               # full of images, when 'images_path' is a subdirectory
 		                                               # of 'roms_path'.		
+		if self.quitting == True: 
+			return
 		if os.path.exists(unknown_roms_path):
 			# check in 'unknown_roms_path' directory for new roms.
 			# If one is found, move it in 'new_roms_path' directory.
@@ -1536,7 +1538,9 @@ class Gui(threading.Thread):
 							os.remove(file)
 							message = _("'%s' was redundant. Deleted.") % file
 							self.show_info_dialog(message, use_threads)
-
+		
+		if self.quitting == True:
+			return
 		if os.path.exists(roms_path):
 			# recursively check games in 'roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
@@ -1591,6 +1595,8 @@ class Gui(threading.Thread):
 									message = _("'%s' was redundant. Deleted.") % file
 									self.show_info_dialog(message, use_threads)
 		
+		if self.quitting == True:
+			return
 		if os.path.exists(new_roms_path) and new_roms_path != roms_path:
 			# check games in 'new_roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
@@ -1662,20 +1668,21 @@ class Gui(threading.Thread):
 		self.activate_widgets(use_threads)
 		
 		# Clear up all filter
-		if self.quitting == False:
-			if use_threads == True:
-				gdk.threads_enter()		
-			self.filter_name_entry.handler_block(self.fne_sid)
-			self.filter_location_combobox.handler_block(self.flocc_sid)
-			self.filter_language_combobox.handler_block(self.flanc_sid)
-			self.filter_size_combobox.handler_block(self.fsc_sid)
-			self.filter_clear_button.clicked()
-			self.filter_name_entry.handler_unblock(self.fne_sid)
-			self.filter_location_combobox.handler_unblock(self.flocc_sid)
-			self.filter_language_combobox.handler_unblock(self.flanc_sid)
-			self.filter_size_combobox.handler_unblock(self.fsc_sid)
-			if use_threads == True:
-				gdk.threads_leave()
+		if self.quitting == True:
+			return
+		if use_threads == True:
+			gdk.threads_enter()		
+		self.filter_name_entry.handler_block(self.fne_sid)
+		self.filter_location_combobox.handler_block(self.flocc_sid)
+		self.filter_language_combobox.handler_block(self.flanc_sid)
+		self.filter_size_combobox.handler_block(self.fsc_sid)
+		self.filter_clear_button.clicked()
+		self.filter_name_entry.handler_unblock(self.fne_sid)
+		self.filter_location_combobox.handler_unblock(self.flocc_sid)
+		self.filter_language_combobox.handler_unblock(self.flanc_sid)
+		self.filter_size_combobox.handler_unblock(self.fsc_sid)
+		if use_threads == True:
+			gdk.threads_leave()
 		
 		# Hide old infos
 		self.previous_selection_release_number = None
@@ -1686,8 +1693,9 @@ class Gui(threading.Thread):
 		self.quitting = True
 		# Save config file
 		config.save()
-		
+		# Stop all threads
 		for thread in self.threads:
 			if thread.isAlive() and thread.getName() != "Gui":
 				thread.stop()
+		# Exit
 		gtk.main_quit()

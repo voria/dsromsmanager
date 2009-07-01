@@ -25,8 +25,7 @@ DATA_IMG_DIR = os.path.join(DATA_DIR, "images")
 APP_NAME = "DsRomsManager"
 APP_VERSION = "0.4.7rc2"
 
-# gettext
-import locale, gettext
+import gettext
 _ = gettext.gettext
 
 WORK_DIR = os.path.expanduser("~") + "/." + APP_NAME.lower()

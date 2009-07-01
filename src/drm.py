@@ -61,43 +61,32 @@ class Main(threading.Thread):
 				
 		if not os.path.exists(DB_FILE):
 			if db_deleted == True:
-				if self.stopnow == False:
-					self.gui.show_info_dialog(_("""Database out of date or corrupt, it has been deleted.\n
+				self.gui.show_info_dialog(_("""Database out of date or corrupt, it has been deleted.\n
 A new DAT file will be automatically downloaded and a new database will be created."""), True)
 			else:
-				if self.stopnow == False:
-					self.gui.show_info_dialog(_("""No database found.\n
+				self.gui.show_info_dialog(_("""No database found.\n
 A new DAT file will be automatically downloaded and a new database will be created."""), True)
 			datdownloader = DatDownloader(self.gui)
 			self.threads.append(datdownloader)
 			datdownloader.start()
 			datdownloader.join()
 			# Now we have the DAT file
+			self.gui.update_statusbar("Dat", _("Loading DAT file and creating database..."), True)
 			if self.stopnow == False:
-				self.gui.update_statusbar("Dat", _("Loading DAT file and creating database..."), True)
 				dat = Dat(DAT_NAME)
-			if self.stopnow == False:
-				self.gui.update_statusbar("Dat", _("Database created."), True)
+			self.gui.update_statusbar("Dat", _("Database created."), True)
 		
-		# Pass control to the gui
-		if self.stopnow == False:
-			self.gui.update_statusbar("DB", _("Loading database..."), True)
-		self.gui.open_db()
-		if self.stopnow == False:
-			self.gui.update_statusbar("DB", _("Database loaded."), True)
+		# Pass control to the Gui
 		self.gui.add_games(True)
 
 	def stop(self):
 		self.stopnow = True
 		
 if __name__ == "__main__":
-	
 	try:
 		locale.setlocale(locale.LC_ALL, '')
 	except:
 		pass
 	gettext.bindtextdomain(APP_NAME, LOCALE_DIR)
 	gettext.textdomain(APP_NAME)
-	
-	m = Main()
-	m.start()
+	Main().start()

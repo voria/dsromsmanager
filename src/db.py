@@ -19,11 +19,11 @@
 try:
 	import sqlite3
 except:
-	print "This application requires at least Python 2.5 to run."
-	from sys import exit
-	exit(1)
+	print "This application requires at least Python 2.6 to run."
+	import sys
+	sys.exit(1)
 
-from globals import *
+import os
 
 CREATE_GAMES_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS games (
 							image_number TEXT,

@@ -23,11 +23,8 @@ import struct
 import binascii
 import zipfile
 
-import locale, gettext
+import gettext
 _ = gettext.gettext
-
-from globals import *
-from db import DB
 
 def get_crc32(filename):
     """ Return CRC32 of 'filename' """
@@ -70,8 +67,8 @@ def get_nds_filename_from_zip(zipf):
                 break
         zip.close()
     except:
-        # zipf doesnt exist anymore, probably the roms archives are getting updated
-        # and old files are deleted
+        # zipf doesnt exist anymore.
+        # Probably the roms archives are getting updated.
         pass
     return result
 
