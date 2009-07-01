@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-01 15:16+0200\n"
-"PO-Revision-Date: 2009-07-01 15:16+0200\n"
+"POT-Creation-Date: 2009-07-01 15:22+0200\n"
+"PO-Revision-Date: 2009-07-01 15:22+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -53,12 +53,12 @@ msgid "Downloading images for '%s'..."
 msgstr "Download delle immagini di '%s' in corso..."
 
 #: ../src/downloaders.py:173
-msgid "Download stopped."
-msgstr "Download fermato."
+msgid "Download of all images stopped."
+msgstr "Download di tutte le immagini fermato."
 
 #: ../src/downloaders.py:175
-msgid "Download completed."
-msgstr "Download completato."
+msgid "Download of all images completed."
+msgstr "Download di tutte le immagini completato."
 
 #: ../src/drm.py:59
 msgid ""
@@ -770,6 +770,12 @@ msgstr "gtk-ok"
 msgid "http://www.voria.org"
 msgstr "http://www.voria.org"
 
+#~ msgid "Download stopped."
+#~ msgstr "Download fermato."
+
+#~ msgid "Download completed."
+#~ msgstr "Download completato."
+
 #~ msgid "Unable to show images. Restart 'DsRomsManager'."
 #~ msgstr "Impossibile mostrare le immagini. Riavviare 'DsRomsManager'."
 
@@ -851,9 +857,6 @@ msgstr "http://www.voria.org"
 #, fuzzy
 #~ msgid "'Images' path."
 #~ msgstr "Percorso delle immagini:"
-
-#~ msgid "Download of images for '%s' completed."
-#~ msgstr "Download delle immagini di '%s' completato."
 
 #~ msgid "Fixable games"
 #~ msgstr "Giochi da sistemare"

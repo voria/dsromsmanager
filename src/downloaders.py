@@ -170,9 +170,9 @@ class AllImagesDownloader(threading.Thread):
 					pass
 		
 		if self.stopnow == True:
-			self.gui.update_statusbar("AllImagesDownloader", _("Download stopped."), True)
+			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images stopped."), True)
 		else:
-			self.gui.update_statusbar("AllImagesDownloader", _("Download completed."), True)
+			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images completed."), True)
 		# restore original button
 		self.gui.toggle_images_download_toolbutton(True)
 				
