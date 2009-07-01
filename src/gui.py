@@ -114,9 +114,15 @@ class Gui(threading.Thread):
 		self.images_hbox = self.builder.get_object("images_hbox")
 		self.info_label_vbox = self.builder.get_object("info_label_vbox")
 		
-		# Get screen's height
+		# Get screen's height and calculate the resize rate
 		self.screen_height = self.main_window.get_screen().get_height()
-		
+		if self.screen_height <= 600:
+			self.images_resize_rate = 0.5 # 50% 
+		elif self.screen_height <= 800:
+			self.images_resize_rate = 0.75 # 75%
+		else:
+			self.images_resize_rate = 1 # 100 %
+			
 		self.main_window.set_title(APP_NAME + " - " + APP_VERSION)
 		self.about_dialog.set_version(APP_VERSION)
 		self.main_window_visible = True
@@ -621,14 +627,18 @@ class Gui(threading.Thread):
 			try:
 				pixbuf1 = gdk.pixbuf_new_from_file(img1)
 				pixbuf2 = gdk.pixbuf_new_from_file(img2)
-				if self.screen_height < 800: # resize images to 50% and enable images_window
+				if self.images_resize_rate != 1: # resize images and enable images_window
 					self.images_eventbox.connect("button-press-event", self.toggle_images_window,
 												 game[GAME_FULLINFO], img1, img2)
 					self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
 					self.images_window_image1.set_from_file(img1)
 					self.images_window_image2.set_from_file(img2)
-					pixbuf1 = pixbuf1.scale_simple(pixbuf1.get_width()/2, pixbuf1.get_height()/2, gdk.INTERP_BILINEAR)
-					pixbuf2 = pixbuf2.scale_simple(pixbuf2.get_width()/2, pixbuf2.get_height()/2, gdk.INTERP_BILINEAR)
+					pixbuf1_new_width = int(pixbuf1.get_width() * self.images_resize_rate)
+					pixbuf1_new_height = int(pixbuf1.get_height() * self.images_resize_rate)
+					pixbuf1 = pixbuf1.scale_simple(pixbuf1_new_width, pixbuf1_new_height, gdk.INTERP_BILINEAR)
+					pixbuf2_new_width = int(pixbuf2.get_width() * self.images_resize_rate)
+					pixbuf2_new_height = int(pixbuf2.get_height() * self.images_resize_rate)
+					pixbuf2 = pixbuf2.scale_simple(pixbuf2_new_width, pixbuf2_new_height, gdk.INTERP_BILINEAR)
 					# resize images frames too
 					self.image1_frame.set_size_request(pixbuf1.get_width(), pixbuf1.get_height())
 					self.image2_frame.set_size_request(pixbuf2.get_width(), pixbuf2.get_height())
@@ -643,7 +653,7 @@ class Gui(threading.Thread):
 		else:
 			self.image1.clear()
 			self.image2.clear()
-			if self.screen_height < 800:
+			if self.images_resize_rate != 1:
 				self.images_window_image1.clear()
 				self.images_window_image2.clear()
 			thread = ImagesDownloader(self, game)
@@ -675,7 +685,7 @@ class Gui(threading.Thread):
 		
 		# Show informations
 		title = game[GAME_FULLINFO].replace("&", "&amp;")
-		if self.screen_height < 800:
+		if self.images_resize_rate != 1:
 			self.info_title_label.set_markup("<span weight=\"bold\">" + title + "</span>")
 		else:
 			self.info_title_label.set_markup("<span size=\"x-large\" weight=\"bold\">" +
@@ -1419,17 +1429,19 @@ class Gui(threading.Thread):
 			iter = model.get_iter(path)
 			if model.get_value(iter, TVC_RELEASE_NUMBER) == game_release_number:
 				pixbuf = gdk.pixbuf_new_from_file(filename)
-				if self.screen_height < 800: #resize images to 50%
-					pixbuf = pixbuf.scale_simple(pixbuf.get_width()/2, pixbuf.get_height()/2, gdk.INTERP_BILINEAR)
+				if self.images_resize_rate != 1: #resize images
+					pixbuf_new_width = int(pixbuf.get_width() * self.images_resize_rate)
+					pixbuf_new_height = int(pixbuf.get_height() * self.images_resize_rate)
+					pixbuf = pixbuf.scale_simple(pixbuf_new_width, pixbuf_new_height, gdk.INTERP_BILINEAR)
 				if image_index == 1:
 					self.image1.set_from_pixbuf(pixbuf)
 					self.image1_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
-					if self.screen_height < 800:
+					if self.images_resize_rate != None:
 						self.images_window_image1.set_from_file(filename)
 				else:
 					self.image2.set_from_pixbuf(pixbuf)
 					self.image2_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
-					if self.screen_height < 800:
+					if self.images_resize_rate != None:
 						self.images_window_image2.set_from_file(filename)
 		except:
 			pass
