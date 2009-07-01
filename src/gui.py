@@ -483,6 +483,7 @@ class Gui(threading.Thread):
 		self.images_hbox.hide()
 		self.info_title_label.hide()
 		self.info_label_vbox.hide()
+		self.images_window.hide()
 		self.show_review_toolbutton.set_sensitive(False)
 		self.show_review_menuitem.set_sensitive(False)
 	
