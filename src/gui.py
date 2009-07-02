@@ -70,6 +70,7 @@ class Gui(threading.Thread):
 		self.games_check_no_checkbutton = self.builder.get_object("games_check_no_checkbutton")
 		self.games_check_convert_checkbutton = self.builder.get_object("games_check_convert_checkbutton")
 		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
+		self.options_autoscan_archives_checkbutton = self.builder.get_object("options_autoscan_archives_checkbutton")
 		self.options_roms_path_filechooserbutton = self.builder.get_object("options_roms_path_filechooserbutton")
 		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
 		self.options_new_roms_path_filechooserbutton = self.builder.get_object("options_new_roms_path_filechooserbutton")
@@ -78,7 +79,6 @@ class Gui(threading.Thread):
 		self.options_ok_button = self.builder.get_object("options_ok_button")
 		self.options_cancel_button = self.builder.get_object("options_cancel_button")
 		self.about_toolbutton = self.builder.get_object("about_toolbutton")
-		self.quit_toolbutton = self.builder.get_object("quit_toolbutton")
 		self.images_window_eventbox = self.builder.get_object("images_window_eventbox")
 		self.images_window_image1 = self.builder.get_object("images_window_image1")
 		self.images_window_image2 = self.builder.get_object("images_window_image2")
@@ -202,7 +202,7 @@ class Gui(threading.Thread):
 		self.quit_menuitem = gtk.ImageMenuItem(_("Quit"))
 		self.quit_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_QUIT, gtk.ICON_SIZE_MENU))
 		self.quit_menuitem.connect('activate', self.on_statusicon_quit_activate)
-		self.quit_menuitem.set_tooltip_text(self.quit_toolbutton.get_tooltip_text())
+		self.quit_menuitem.set_tooltip_text(_("Quit 'DsRomsManager'."))
 		self.popup_menu.append(self.quit_menuitem)
 		# status icon
 		self.statusicon = gtk.StatusIcon()
@@ -298,7 +298,6 @@ class Gui(threading.Thread):
 		self.images_window.connect("delete_event", self.on_window_delete_event)
 		self.about_toolbutton.connect("clicked", self.on_about_toolbutton_clicked)
 		self.about_dialog.connect("response", self.on_about_dialog_response)
-		self.quit_toolbutton.connect("clicked", self.on_quit_toolbutton_clicked)
 		self.list_treeview.get_selection().connect("changed", self.on_list_treeview_selection_changed)
 		self.list_treeview.connect("button-press-event", self.on_list_treeview_button_press_event)
 		self.list_treeview_popup_extract_menuitem.connect("activate", self.on_list_treeview_popup_extract_menuitem_activate)
@@ -331,6 +330,8 @@ class Gui(threading.Thread):
 		
 		self.checksums = {}
 		
+		self.archives_scanned = False
+				
 		self.deactivate_widgets()
 		
 	def run(self):
@@ -508,8 +509,8 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return True
 		#self.on_statusicon_activate(self.statusicon)
-		self.on_quit_toolbutton_clicked(self.quit_toolbutton)
-		return True
+		#return True
+		self.quit()
 	
 	def on_statusicon_activate(self, statusicon):
 		if self.quitting == True:
@@ -571,7 +572,7 @@ class Gui(threading.Thread):
 	def on_statusicon_quit_activate(self, widget, data = None):
 		if self.quitting == True:
 			return
-		self.on_quit_toolbutton_clicked(self.quit_toolbutton)
+		self.quit()
 	
 	def on_statusicon_popup_menu(self, widget, button, time, data = None):
 		if self.quitting == True:
@@ -938,7 +939,7 @@ class Gui(threading.Thread):
 	def on_rescan_roms_archives_toolbutton_clicked(self, button, confirm = True):
 		if self.quitting == True:
 			return
-		if confirm == True:
+		if confirm == True and self.archives_scanned == True:
 			message = _("Rescan roms archives and rebuild games list?")
 			if self.show_okcancel_question_dialog(message) == False:
 				return
@@ -1070,6 +1071,7 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
+		self.options_autoscan_archives_checkbutton.set_active(config.get_option("autoscan_archives"))
 		
 		roms_path = config.get_option("roms_path")
 		if os.path.exists(roms_path):
@@ -1164,8 +1166,9 @@ class Gui(threading.Thread):
 			# Save new images path
 			config.set_option("images_path", images_path_new)
 			
-			### check_images_crc checkbutton
+			### checkbuttons
 			config.set_option("check_images_crc", self.options_check_images_crc_checkbutton.get_active())
+			config.set_option("autoscan_archives", self.options_autoscan_archives_checkbutton.get_active())
 			
 			### review_url
 			text = self.options_review_url_entry.get_text()
@@ -1220,9 +1223,6 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		dialog.hide()
-	
-	def on_quit_toolbutton_clicked(self, button):
-		self.quit()
 	
 	# General functions
 	def deactivate_widgets(self, use_threads = False):
@@ -1542,7 +1542,7 @@ class Gui(threading.Thread):
 			return
 		self.db = DB(DB_FILE)
 	
-	def add_games(self, use_threads = False):
+	def add_games(self, use_threads = False, scan_anyway = False):
 		""" Add games from database to the treeview model. """
 		if self.quitting == True:
 			return
@@ -1571,7 +1571,13 @@ class Gui(threading.Thread):
 		                                               # of 'roms_path'.		
 		if self.quitting == True: 
 			return
-		if os.path.exists(unknown_roms_path):
+		
+		autoscan_archives = config.get_option("autoscan_archives")
+		
+		if scan_anyway == True or autoscan_archives == True:
+			self.archives_scanned = True
+		
+		if (scan_anyway == True or autoscan_archives == True) and os.path.exists(unknown_roms_path):
 			# check in 'unknown_roms_path' directory for new roms.
 			# If one is found, move it in 'new_roms_path' directory.
 			for file in glob.iglob(os.path.join(unknown_roms_path, "*")):
@@ -1596,7 +1602,7 @@ class Gui(threading.Thread):
 		
 		if self.quitting == True:
 			return
-		if os.path.exists(roms_path):
+		if (scan_anyway == True or autoscan_archives == True) and os.path.exists(roms_path):
 			# recursively check games in 'roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
 			paths_to_check = []
@@ -1652,7 +1658,7 @@ class Gui(threading.Thread):
 		
 		if self.quitting == True:
 			return
-		if os.path.exists(new_roms_path) and new_roms_path != roms_path:
+		if (scan_anyway == True or autoscan_archives == True) and os.path.exists(new_roms_path) and new_roms_path != roms_path:
 			# check games in 'new_roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
 			for file in glob.iglob(os.path.join(new_roms_path, "*")):

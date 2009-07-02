@@ -26,6 +26,7 @@ CFG_FILE = os.path.join(WORK_DIR, "config")
 DEFAULT_CFG_SECTION = "Main"
 
 DEFAULT_CHECK_IMAGES_CRC = False
+DEFAULT_AUTOSCAN_ARCHIVES = True
 DEFAULT_REVIEW_URL = "http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
 DEFAULT_ROMS_PATH = ROMS_DIR
 DEFAULT_UNKNOWN_ROMS_PATH = UNKNOWN_ROMS_DIR
@@ -37,6 +38,7 @@ DEFAULT_SHOW_FIXABLE_GAMES = True
 
 DEFAULT_CFG_FILE = "[" + DEFAULT_CFG_SECTION + "]"
 DEFAULT_CFG_FILE += "\ncheck_images_crc = " + str(DEFAULT_CHECK_IMAGES_CRC)
+DEFAULT_CFG_FILE += "\nautoscan_archives = " + str(DEFAULT_AUTOSCAN_ARCHIVES)
 DEFAULT_CFG_FILE += "\nreview_url = " + DEFAULT_REVIEW_URL
 DEFAULT_CFG_FILE += "\nroms_path = " + DEFAULT_ROMS_PATH
 DEFAULT_CFG_FILE += "\nunknown_roms_path = " + DEFAULT_UNKNOWN_ROMS_PATH
@@ -66,6 +68,11 @@ class Config():
         except NoOptionError:
             self.config.set(DEFAULT_CFG_SECTION, "check_images_crc", str(DEFAULT_CHECK_IMAGES_CRC))
             self.check_images_crc = DEFAULT_CHECK_IMAGES_CRC
+        try:
+            self.autoscan_archives = self.config.getboolean(DEFAULT_CFG_SECTION, "autoscan_archives")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "autoscan_archives", str(DEFAULT_AUTOSCAN_ARCHIVES))
+            self.autoscan_archives = DEFAULT_AUTOSCAN_ARCHIVES
         try:
             self.review_url = self.config.get(DEFAULT_CFG_SECTION, "review_url")
         except NoOptionError:
@@ -115,6 +122,8 @@ class Config():
             return self.review_url
         if option == "check_images_crc":
             return self.check_images_crc
+        if option == "autoscan_archives":
+            return self.autoscan_archives
         if option == "roms_path":
             return self.roms_path
         if option == "unknown_roms_path":
@@ -136,6 +145,8 @@ class Config():
             return DEFAULT_REVIEW_URL
         if option == "check_images_crc":
             return DEFAULT_CHECK_IMAGES_CRC
+        if option == "autoscan_archives":
+            return DEFAULT_AUTOSCAN_ARCHIVES
         if option == "roms_path":
             return DEFAULT_ROMS_PATH
         if option == "unknown_roms_path":
@@ -157,6 +168,8 @@ class Config():
             self.review_url = value
         elif option == "check_images_crc":
             self.check_images_crc = value
+        elif option == "autoscan_archives":
+            self.autoscan_archives = value
         elif option == "roms_path":
             self.roms_path = value
         elif option == "unknown_roms_path":
@@ -179,6 +192,8 @@ class Config():
             self.review_url = DEFAULT_REVIEW_URL
         elif option == "check_images_crc":
             self.check_images_crc = DEFAULT_CHECK_IMAGES_CRC
+        elif option == "autoscan_archives":
+            self.autoscan_archives = DEFAULT_AUTOSCAN_ARCHIVES
         elif option == "roms_path":
             self.roms_path = DEFAULT_ROMS_PATH
         elif option == "unknown_roms_path":
@@ -207,6 +222,7 @@ class Config():
         config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", self.unknown_roms_path)
         config.set(DEFAULT_CFG_SECTION, "roms_path", self.roms_path)
         config.set(DEFAULT_CFG_SECTION, "review_url", self.review_url)
+        config.set(DEFAULT_CFG_SECTION, "autoscan_archives", str(self.autoscan_archives))
         config.set(DEFAULT_CFG_SECTION, "check_images_crc", str(self.check_images_crc))
         cfg = open(CFG_FILE, "w")
         config.write(cfg)

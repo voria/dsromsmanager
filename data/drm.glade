@@ -194,28 +194,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="homogeneous">True</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkSeparatorToolItem" id="separatortoolitem5">
-                <property name="visible">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolButton" id="quit_toolbutton">
-                <property name="visible">True</property>
-                <property name="tooltip_text" translatable="yes">Quit 'DsRomsManager'. (Ctrl+Q)</property>
-                <property name="label" translatable="yes">Quit</property>
-                <property name="use_underline">True</property>
-                <property name="stock_id">gtk-quit</property>
-                <accelerator key="q" signal="clicked" modifiers="GDK_CONTROL_MASK"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -974,7 +952,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Check if downloaded images are valid, checking them against the info in DAT file.</property>
+                <property name="tooltip_text" translatable="yes">Check if downloaded images are valid against the info in DAT file.</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
@@ -983,12 +961,25 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </packing>
             </child>
             <child>
+              <object class="GtkCheckButton" id="options_autoscan_archives_checkbutton">
+                <property name="label" translatable="yes">Scan for roms archives automatically</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Scan automatically for roms archives on disk when application starts and when the DAT file got updated.</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkHSeparator" id="options_hseparator1">
                 <property name="visible">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
               </packing>
             </child>
             <child>
@@ -1022,7 +1013,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
             <child>
@@ -1056,7 +1047,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">3</property>
+                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -1090,7 +1081,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">4</property>
+                <property name="position">5</property>
               </packing>
             </child>
             <child>
@@ -1099,7 +1090,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">5</property>
+                <property name="position">6</property>
               </packing>
             </child>
             <child>
@@ -1122,8 +1113,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="show_hidden">True</property>
                     <property name="action">select-folder</property>
+                    <property name="show_hidden">True</property>
                     <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
@@ -1134,7 +1125,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">6</property>
+                <property name="position">7</property>
               </packing>
             </child>
             <child>
@@ -1143,7 +1134,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">7</property>
+                <property name="position">8</property>
               </packing>
             </child>
             <child>
@@ -1180,7 +1171,7 @@ Set an empty string to use the default URL.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">8</property>
+                <property name="position">9</property>
               </packing>
             </child>
             <child>
@@ -1189,7 +1180,7 @@ Set an empty string to use the default URL.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">9</property>
+                <property name="position">10</property>
               </packing>
             </child>
           </object>
