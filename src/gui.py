@@ -70,11 +70,15 @@ class Gui(threading.Thread):
 		self.games_check_no_checkbutton = self.builder.get_object("games_check_no_checkbutton")
 		self.games_check_convert_checkbutton = self.builder.get_object("games_check_convert_checkbutton")
 		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
-		self.options_autoscan_archives_checkbutton = self.builder.get_object("options_autoscan_archives_checkbutton")
+		self.options_autoscan_archives_at_start_checkbutton = self.builder.get_object("options_autoscan_archives_at_start_checkbutton")
+		self.options_autoscan_archives_at_datupdate_checkbutton = self.builder.get_object("options_autoscan_archives_at_datupdate_checkbutton")
 		self.options_roms_path_filechooserbutton = self.builder.get_object("options_roms_path_filechooserbutton")
 		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
 		self.options_new_roms_path_filechooserbutton = self.builder.get_object("options_new_roms_path_filechooserbutton")
 		self.options_images_path_filechooserbutton = self.builder.get_object("options_images_path_filechooserbutton")
+		self.options_extractin_path_label = self.builder.get_object("options_extractin_path_label")
+		self.options_extractin_path_filechooserbutton = self.builder.get_object("options_extractin_path_filechooserbutton")
+		self.options_extractin_path_enable_button = self.builder.get_object("options_extractin_path_enable_button")
 		self.options_review_url_entry = self.builder.get_object("options_review_url_entry")
 		self.options_ok_button = self.builder.get_object("options_ok_button")
 		self.options_cancel_button = self.builder.get_object("options_cancel_button")
@@ -86,6 +90,7 @@ class Gui(threading.Thread):
 		self.list_treeview = self.builder.get_object("list_treeview")
 		self.list_treeview_popup_menu = self.builder.get_object("list_treeview_popup_menu")
 		self.list_treeview_popup_extract_menuitem = self.builder.get_object("list_treeview_popup_extract_menuitem")
+		self.list_treeview_popup_extractin_menuitem = self.builder.get_object("list_treeview_popup_extractin_menuitem")
 		self.list_treeview_popup_rebuildarchive_menuitem = self.builder.get_object("list_treeview_popup_rebuildarchive_menuitem")
 		self.list_game_label = self.builder.get_object("list_games_label")
 		self.images_eventbox = self.builder.get_object("images_eventbox")
@@ -295,12 +300,14 @@ class Gui(threading.Thread):
 		self.options_toolbutton.connect("clicked", self.on_options_toolbutton_clicked)
 		self.options_dialog.connect("response", self.on_options_dialog_response)
 		self.options_dialog.connect("delete_event", self.on_window_delete_event)
+		self.options_extractin_path_enable_button.connect("clicked", self.on_options_extractin_path_enable_button_clicked)
 		self.images_window.connect("delete_event", self.on_window_delete_event)
 		self.about_toolbutton.connect("clicked", self.on_about_toolbutton_clicked)
 		self.about_dialog.connect("response", self.on_about_dialog_response)
 		self.list_treeview.get_selection().connect("changed", self.on_list_treeview_selection_changed)
 		self.list_treeview.connect("button-press-event", self.on_list_treeview_button_press_event)
 		self.list_treeview_popup_extract_menuitem.connect("activate", self.on_list_treeview_popup_extract_menuitem_activate)
+		self.list_treeview_popup_extractin_menuitem.connect("activate", self.on_list_treeview_popup_extractin_menuitem_activate)
 		self.list_treeview_popup_rebuildarchive_menuitem.connect("activate", self.on_list_treeview_popup_rebuildarchive_menuitem_activate)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
 		self.games_check_ok_checkbutton.connect("toggled", self.on_games_check_ok_checkbutton_toggled)
@@ -330,7 +337,11 @@ class Gui(threading.Thread):
 		
 		self.checksums = {}
 		
+		self.autoscan_archives_at_start = config.get_option("autoscan_archives_at_start")
 		self.archives_scanned = False
+		
+		# Options flags
+		self.options_save_extractin_path = True
 				
 		self.deactivate_widgets()
 		
@@ -790,19 +801,32 @@ class Gui(threading.Thread):
 				else: # CHECKS_CONVERT
 					check_convert = True
 			
+			default_extract_directory = config.get_option("default_extract_directory")
+			if os.path.exists(default_extract_directory) and os.access(default_extract_directory, os.W_OK):
+				can_extract_in_default = True
+			else:
+				can_extract_in_default = False
+			
 			# Let's see what options we can enable
 			if check_no == True:
 				self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+				self.list_treeview_popup_extractin_menuitem.set_sensitive(False)
 				self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
 			else:
 				if check_yes == True and check_convert == False:
-					self.list_treeview_popup_extract_menuitem.set_sensitive(True)
+					if can_extract_in_default == True:
+						self.list_treeview_popup_extract_menuitem.set_sensitive(True)
+					else:
+						self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+					self.list_treeview_popup_extractin_menuitem.set_sensitive(True)
 					self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
 				if check_yes == True and check_convert == True:
 					self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+					self.list_treeview_popup_extractin_menuitem.set_sensitive(False)
 					self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
 				if check_yes == False and check_convert == True:
 					self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+					self.list_treeview_popup_extractin_menuitem.set_sensitive(False)
 					self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(True)
 			
 			# If we are rebuilding archives, we can't enable the relative menuitem
@@ -816,6 +840,9 @@ class Gui(threading.Thread):
 			return True
 	
 	def on_list_treeview_popup_extract_menuitem_activate(self, button):
+		self.on_list_treeview_popup_extractin_menuitem_activate(button, config.get_option("default_extract_directory"))
+	
+	def on_list_treeview_popup_extractin_menuitem_activate(self, button, extract_to = None):
 		if self.quitting == True:
 			return
 
@@ -838,20 +865,23 @@ class Gui(threading.Thread):
 			# Add game to games dictionary
 			gamesdict[game[GAME_FULLINFO]] = zipfile
 		
-		# Open a filechooserdialog to select the target directory
-		fcd = gtk.FileChooserDialog(_("Select destination directory"),
-								    self.main_window,
-								    gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
-								    ("gtk-cancel", gtk.RESPONSE_CANCEL, "gtk-ok", gtk.RESPONSE_ACCEPT))
-		fcd.set_current_folder(os.path.expandvars("$HOME"))
-		if fcd.run() == gtk.RESPONSE_ACCEPT:
-			target = fcd.get_current_folder() 
-		else:
-			target = None
-		fcd.destroy()
+		if extract_to == None:
+			# Open a filechooserdialog to select the target directory
+			fcd = gtk.FileChooserDialog(_("Select destination directory"),
+									    self.main_window,
+									    gtk.FILE_CHOOSER_ACTION_SELECT_FOLDER,
+									    ("gtk-cancel", gtk.RESPONSE_CANCEL, "gtk-ok", gtk.RESPONSE_ACCEPT))
+			fcd.set_current_folder(os.path.expandvars("$HOME"))
+			if fcd.run() == gtk.RESPONSE_ACCEPT:
+				target = fcd.get_current_folder() 
+			else:
+				target = None
+			fcd.destroy()
 		
-		if target == None:
-			return
+			if target == None:
+				return
+		else:
+			target = extract_to
 		
 		rae = RomArchiveExtract(self, gamesdict, target)
 		self.threads.append(rae)
@@ -907,7 +937,10 @@ class Gui(threading.Thread):
 		buttons.append(self.dat_update_toolbutton)
 		buttons.append(self.dat_update_menuitem)
 		
-		thread = DatUpdater(self, self.threads, buttons, info[INFO_DAT_VERSION], info[INFO_DAT_VERSION_URL])
+		# Check if we have to rescan roms archives after update
+		rescan = config.get_option("autoscan_archives_at_datupdate")		
+		
+		thread = DatUpdater(self, self.threads, buttons, info[INFO_DAT_VERSION], info[INFO_DAT_VERSION_URL], rescan)
 		self.threads.append(thread)
 		thread.start()
 	
@@ -1071,31 +1104,43 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
-		self.options_autoscan_archives_checkbutton.set_active(config.get_option("autoscan_archives"))
+		self.options_autoscan_archives_at_start_checkbutton.set_active(config.get_option("autoscan_archives_at_start"))
+		self.options_autoscan_archives_at_datupdate_checkbutton.set_active(config.get_option("autoscan_archives_at_datupdate"))
 		
 		roms_path = config.get_option("roms_path")
-		if os.path.exists(roms_path):
-			self.options_roms_path_filechooserbutton.set_current_folder(roms_path)
-		else: # roms_path does not exist, fallback to the default path
-			self.options_roms_path_filechooserbutton.set_current_folder(config.get_option_default("roms_path"))
+		if not os.path.exists(roms_path): # roms_path does not exist, fallback to the default path
+			self.show_info_dialog(_("Current 'Roms' path does not exist.\nThe default path will be used."))
+			roms_path = config.get_option_default("roms_path")
+		self.options_roms_path_filechooserbutton.set_current_folder(roms_path)
 		
 		unknown_roms_path = config.get_option("unknown_roms_path")
-		if os.path.exists(unknown_roms_path):
-			self.options_unknown_roms_path_filechooserbutton.set_current_folder(unknown_roms_path)
-		else: # unknown_roms_path does not exist, fallback to the default path
-			self.options_unknown_roms_path_filechooserbutton.set_current_folder(config.get_option_default("unknown_roms_path"))
+		if not os.path.exists(unknown_roms_path):
+			self.show_info_dialog(_("Current 'Unknown roms' path does not exist.\nThe default path will be used."))
+			unknown_roms_path = config.get_option_default("unknown_roms_path")
+		self.options_unknown_roms_path_filechooserbutton.set_current_folder(unknown_roms_path)
 		
 		new_roms_path = config.get_option("new_roms_path")
-		if os.path.exists(new_roms_path):
-			self.options_new_roms_path_filechooserbutton.set_current_folder(new_roms_path)
-		else: # new_roms_path does not exist, fallback to the default path
-			self.options_new_roms_path_filechooserbutton.set_current_folder(config.get_option_default("new_roms_path"))
+		if not os.path.exists(new_roms_path):
+			self.show_info_dialog(_("Current 'New roms' path does not exist.\nThe default path will be used."))
+			new_roms_path = config.get_option_default("new_roms_path")
+		self.options_new_roms_path_filechooserbutton.set_current_folder(new_roms_path)
 		
 		images_path = config.get_option("images_path")
-		if os.path.exists(images_path):
-			self.options_images_path_filechooserbutton.set_current_folder(images_path)
-		else: # images_path does not exist, fallback to the default path
-			self.options_images_path_filechooserbutton.set_current_folder(config.get_option_default("images_path"))
+		if not os.path.exists(images_path):
+			self.show_info_dialog(_("Current 'Images' path does not exist.\nThe default path will be used."))
+			images_path = config.get_option_default("images_path")
+		self.options_images_path_filechooserbutton.set_current_folder(images_path)
+		
+		extractin_path = config.get_option("default_extract_directory")
+		if os.path.exists(extractin_path) and os.access(extractin_path, os.W_OK):
+			self.options_extractin_path_enable_button.hide()
+			self.options_extractin_path_filechooserbutton.set_sensitive(True)
+		else:
+			self.options_extractin_path_enable_button.show()
+			self.options_extractin_path_label.set_sensitive(False)
+			self.options_extractin_path_filechooserbutton.set_sensitive(False)
+			extractin_path = config.get_option_default("default_extract_directory")
+		self.options_extractin_path_filechooserbutton.set_current_folder(extractin_path)			
 		
 		self.options_review_url_entry.set_text(config.get_option("review_url"))
 		self.options_dialog.set_sensitive(True)
@@ -1110,6 +1155,9 @@ class Gui(threading.Thread):
 			roms_path_new = self.options_roms_path_filechooserbutton.get_current_folder()
 			new_roms_path_new = self.options_new_roms_path_filechooserbutton.get_current_folder()
 			images_path_new = self.options_images_path_filechooserbutton.get_current_folder()
+			extractin_path_new = None
+			if self.options_extractin_path_filechooserbutton.get_property("sensitive") == True:
+				extractin_path_new = self.options_extractin_path_filechooserbutton.get_current_folder()
 			# Check if new paths are ok
 			if roms_path_new == WORK_DIR:
 			 	message = _("'DsRomsManager' working directory has been selected as 'Roms' path, but it can't be used.")
@@ -1141,6 +1189,11 @@ class Gui(threading.Thread):
 				message += _("\n\nSelect a different path.")
 				self.show_info_dialog(message)
 				return False
+			if extractin_path_new != None and not os.access(extractin_path_new, os.W_OK):
+				message = _("Write permissions are not granted for the current 'Extract in' path.")
+				message += _("\n\nSelect a different path.")
+				self.show_info_dialog(message)
+				return False
 			# Get old roms paths
 			roms_path_old = config.get_option("roms_path")
 			unknown_roms_path_old = config.get_option("unknown_roms_path")
@@ -1166,9 +1219,14 @@ class Gui(threading.Thread):
 			# Save new images path
 			config.set_option("images_path", images_path_new)
 			
+			# Save extract in path
+			if extractin_path_new != None:
+				config.set_option("default_extract_directory", extractin_path_new)
+			
 			### checkbuttons
 			config.set_option("check_images_crc", self.options_check_images_crc_checkbutton.get_active())
-			config.set_option("autoscan_archives", self.options_autoscan_archives_checkbutton.get_active())
+			config.set_option("autoscan_archives_at_start", self.options_autoscan_archives_at_start_checkbutton.get_active())
+			config.set_option("autoscan_archives_at_datupdate", self.options_autoscan_archives_at_datupdate_checkbutton.get_active())
 			
 			### review_url
 			text = self.options_review_url_entry.get_text()
@@ -1207,6 +1265,11 @@ class Gui(threading.Thread):
 				self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton, False)
 		
 		dialog.hide()
+	
+	def on_options_extractin_path_enable_button_clicked(self, button):
+		self.options_extractin_path_label.set_sensitive(True)
+		self.options_extractin_path_filechooserbutton.set_sensitive(True)
+		self.options_extractin_path_enable_button.hide()
 	
 	def on_window_delete_event(self, window, event):
 		if self.quitting == True:
@@ -1572,12 +1635,15 @@ class Gui(threading.Thread):
 		if self.quitting == True: 
 			return
 		
-		autoscan_archives = config.get_option("autoscan_archives")
-		
-		if scan_anyway == True or autoscan_archives == True:
-			self.archives_scanned = True
-		
-		if (scan_anyway == True or autoscan_archives == True) and os.path.exists(unknown_roms_path):
+		if scan_anyway == True or self.autoscan_archives_at_start == True:
+			self.autoscan_archives_at_start = False # Do it once only (at start).
+			self.archives_scanned = True # inform 'rescan archives' toolbutton that archives have been already scanned
+			scan_archives = True
+		else:
+			self.archives_scanned = False
+			scan_archives = False
+					
+		if scan_archives and os.path.exists(unknown_roms_path):
 			# check in 'unknown_roms_path' directory for new roms.
 			# If one is found, move it in 'new_roms_path' directory.
 			for file in glob.iglob(os.path.join(unknown_roms_path, "*")):
@@ -1602,7 +1668,7 @@ class Gui(threading.Thread):
 		
 		if self.quitting == True:
 			return
-		if (scan_anyway == True or autoscan_archives == True) and os.path.exists(roms_path):
+		if scan_archives and os.path.exists(roms_path):
 			# recursively check games in 'roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
 			paths_to_check = []
@@ -1658,7 +1724,7 @@ class Gui(threading.Thread):
 		
 		if self.quitting == True:
 			return
-		if (scan_anyway == True or autoscan_archives == True) and os.path.exists(new_roms_path) and new_roms_path != roms_path:
+		if scan_archives and os.path.exists(new_roms_path) and new_roms_path != roms_path:
 			# check games in 'new_roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
 			for file in glob.iglob(os.path.join(new_roms_path, "*")):

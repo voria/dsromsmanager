@@ -84,7 +84,8 @@ class RomArchiveExtract(threading.Thread):
     
     def run(self):
         if not os.access(self.target, os.W_OK):
-            text = _("Unable to extract archive to '%s'. Check write permissions of target directory.") % self.target
+            text = _("Unable to extract archive to '%s'. ") % self.target
+            text += _("Check available space and write permissions of target directory.") 
             self.gui.update_statusbar("RomArchiveExtract", text, True)
             return        
         

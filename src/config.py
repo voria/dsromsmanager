@@ -26,24 +26,28 @@ CFG_FILE = os.path.join(WORK_DIR, "config")
 DEFAULT_CFG_SECTION = "Main"
 
 DEFAULT_CHECK_IMAGES_CRC = False
-DEFAULT_AUTOSCAN_ARCHIVES = True
+DEFAULT_AUTOSCAN_ARCHIVES_AT_START = True
+DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE = True
 DEFAULT_REVIEW_URL = "http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
 DEFAULT_ROMS_PATH = ROMS_DIR
 DEFAULT_UNKNOWN_ROMS_PATH = UNKNOWN_ROMS_DIR
 DEFAULT_NEW_ROMS_PATH = DEFAULT_ROMS_PATH
 DEFAULT_IMAGES_PATH = IMG_DIR
+DEFAULT_DEFAULT_EXTRACT_DIRECTORY = os.path.expandvars("$HOME")
 DEFAULT_SHOW_AVAILABLE_GAMES = True
 DEFAULT_SHOW_NOT_AVAILABLE_GAMES = True
 DEFAULT_SHOW_FIXABLE_GAMES = True
 
 DEFAULT_CFG_FILE = "[" + DEFAULT_CFG_SECTION + "]"
 DEFAULT_CFG_FILE += "\ncheck_images_crc = " + str(DEFAULT_CHECK_IMAGES_CRC)
-DEFAULT_CFG_FILE += "\nautoscan_archives = " + str(DEFAULT_AUTOSCAN_ARCHIVES)
+DEFAULT_CFG_FILE += "\nautoscan_archives_at_start = " + str(DEFAULT_AUTOSCAN_ARCHIVES_AT_START)
+DEFAULT_CFG_FILE += "\nautoscan_archives_at_datupdate = " + str(DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE)
 DEFAULT_CFG_FILE += "\nreview_url = " + DEFAULT_REVIEW_URL
 DEFAULT_CFG_FILE += "\nroms_path = " + DEFAULT_ROMS_PATH
 DEFAULT_CFG_FILE += "\nunknown_roms_path = " + DEFAULT_UNKNOWN_ROMS_PATH
 DEFAULT_CFG_FILE += "\nnew_roms_path = " + DEFAULT_NEW_ROMS_PATH
 DEFAULT_CFG_FILE += "\nimages_path = " + DEFAULT_IMAGES_PATH
+DEFAULT_CFG_FILE += "\ndefault_extract_directory = " + DEFAULT_DEFAULT_EXTRACT_DIRECTORY
 DEFAULT_CFG_FILE += "\nshow_available_games = " + str(DEFAULT_SHOW_AVAILABLE_GAMES)
 DEFAULT_CFG_FILE += "\nshow_not_available_games = " + str(DEFAULT_SHOW_NOT_AVAILABLE_GAMES)
 DEFAULT_CFG_FILE += "\nshow_fixable_games = " + str(DEFAULT_SHOW_FIXABLE_GAMES)
@@ -69,10 +73,15 @@ class Config():
             self.config.set(DEFAULT_CFG_SECTION, "check_images_crc", str(DEFAULT_CHECK_IMAGES_CRC))
             self.check_images_crc = DEFAULT_CHECK_IMAGES_CRC
         try:
-            self.autoscan_archives = self.config.getboolean(DEFAULT_CFG_SECTION, "autoscan_archives")
+            self.autoscan_archives_at_start = self.config.getboolean(DEFAULT_CFG_SECTION, "autoscan_archives_at_start")
         except NoOptionError:
-            self.config.set(DEFAULT_CFG_SECTION, "autoscan_archives", str(DEFAULT_AUTOSCAN_ARCHIVES))
-            self.autoscan_archives = DEFAULT_AUTOSCAN_ARCHIVES
+            self.config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_start", str(DEFAULT_AUTOSCAN_ARCHIVES_AT_START))
+            self.autoscan_archives_at_start = DEFAULT_AUTOSCAN_ARCHIVES_AT_START
+        try:
+            self.autoscan_archives_at_datupdate = self.config.getboolean(DEFAULT_CFG_SECTION, "autoscan_archives_at_datupdate")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_datupdate", str(DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE))
+            self.autoscan_archives_at_datupdate = DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE
         try:
             self.review_url = self.config.get(DEFAULT_CFG_SECTION, "review_url")
         except NoOptionError:
@@ -99,6 +108,11 @@ class Config():
             self.config.set(DEFAULT_CFG_SECTION, "images_path", DEFAULT_IMAGES_PATH)
             self.images_path = DEFAULT_IMAGES_PATH
         try:
+            self.default_extract_directory = self.config.get(DEFAULT_CFG_SECTION, "default_extract_directory")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "default_extract_directory", DEFAULT_DEFAULT_EXTRACT_DIRECTORY)
+            self.default_extract_directory = DEFAULT_DEFAULT_EXTRACT_DIRECTORY
+        try:
             self.show_available_games = self.config.getboolean(DEFAULT_CFG_SECTION, "show_available_games")
         except NoOptionError:
             self.config.set(DEFAULT_CFG_SECTION, "show_available_games", str(DEFAULT_SHOW_AVAILABLE_GAMES))
@@ -122,8 +136,10 @@ class Config():
             return self.review_url
         if option == "check_images_crc":
             return self.check_images_crc
-        if option == "autoscan_archives":
-            return self.autoscan_archives
+        if option == "autoscan_archives_at_start":
+            return self.autoscan_archives_at_start
+        if option == "autoscan_archives_at_datupdate":
+            return self.autoscan_archives_at_datupdate
         if option == "roms_path":
             return self.roms_path
         if option == "unknown_roms_path":
@@ -132,6 +148,8 @@ class Config():
             return self.new_roms_path
         if option == "images_path":
             return self.images_path
+        if option == "default_extract_directory":
+            return self.default_extract_directory
         if option == "show_available_games":
             return self.show_available_games
         if option == "show_not_available_games":
@@ -145,8 +163,10 @@ class Config():
             return DEFAULT_REVIEW_URL
         if option == "check_images_crc":
             return DEFAULT_CHECK_IMAGES_CRC
-        if option == "autoscan_archives":
-            return DEFAULT_AUTOSCAN_ARCHIVES
+        if option == "autoscan_archives_at_start":
+            return DEFAULT_AUTOSCAN_ARCHIVES_AT_START
+        if option == "autoscan_archives_at_datupdate":
+            return DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE
         if option == "roms_path":
             return DEFAULT_ROMS_PATH
         if option == "unknown_roms_path":
@@ -155,6 +175,8 @@ class Config():
             return DEFAULT_NEW_ROMS_PATH
         if option == "images_path":
             return DEFAULT_IMAGES_PATH
+        if option == "default_extract_directory":
+            return DEFAULT_DEFAULT_EXTRACT_DIRECTORY
         if option == "show_available_games":
             return DEFAULT_SHOW_AVAILABLE_GAMES
         if option == "show_not_available_games":
@@ -168,8 +190,10 @@ class Config():
             self.review_url = value
         elif option == "check_images_crc":
             self.check_images_crc = value
-        elif option == "autoscan_archives":
-            self.autoscan_archives = value
+        elif option == "autoscan_archives_at_start":
+            self.autoscan_archives_at_start = value
+        elif option == "autoscan_archives_at_datupdate":
+            self.autoscan_archives_at_datupdate = value
         elif option == "roms_path":
             self.roms_path = value
         elif option == "unknown_roms_path":
@@ -178,6 +202,8 @@ class Config():
             self.new_roms_path = value
         elif option == "images_path":
             self.images_path = value
+        elif option == "default_extract_directory":
+            self.default_extract_directory = value
         elif option == "show_available_games":
             self.show_available_games = value
         elif option == "show_not_available_games":
@@ -192,8 +218,10 @@ class Config():
             self.review_url = DEFAULT_REVIEW_URL
         elif option == "check_images_crc":
             self.check_images_crc = DEFAULT_CHECK_IMAGES_CRC
-        elif option == "autoscan_archives":
-            self.autoscan_archives = DEFAULT_AUTOSCAN_ARCHIVES
+        elif option == "autoscan_archives_at_start":
+            self.autoscan_archives_at_start = DEFAULT_AUTOSCAN_ARCHIVES_AT_START
+        elif option == "autoscan_archives_at_datupdate":
+            self.autoscan_archives_at_datupdate = DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE
         elif option == "roms_path":
             self.roms_path = DEFAULT_ROMS_PATH
         elif option == "unknown_roms_path":
@@ -202,6 +230,8 @@ class Config():
             self.roms_path = DEFAULT_NEW_ROMS_PATH
         elif option == "images_path":
             self.images_path = DEFAULT_IMAGES_PATH
+        elif option == "default_extract_directory":
+            self.default_extract_directory = DEFAULT_DEFAULT_EXTRACT_DIRECTORY
         elif option == "show_available_games":
             self.show_available_games = DEFAULT_SHOW_AVAILABLE_GAMES
         elif option == "show_not_available_games":
@@ -217,12 +247,14 @@ class Config():
         config.set(DEFAULT_CFG_SECTION, "show_fixable_games", str(self.show_fixable_games))
         config.set(DEFAULT_CFG_SECTION, "show_not_available_games", str(self.show_not_available_games))
         config.set(DEFAULT_CFG_SECTION, "show_available_games", str(self.show_available_games))
+        config.set(DEFAULT_CFG_SECTION, "default_extract_directory", self.default_extract_directory)
         config.set(DEFAULT_CFG_SECTION, "images_path", self.images_path)
         config.set(DEFAULT_CFG_SECTION, "new_roms_path", self.new_roms_path)
         config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", self.unknown_roms_path)
         config.set(DEFAULT_CFG_SECTION, "roms_path", self.roms_path)
         config.set(DEFAULT_CFG_SECTION, "review_url", self.review_url)
-        config.set(DEFAULT_CFG_SECTION, "autoscan_archives", str(self.autoscan_archives))
+        config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_datupdate", str(self.autoscan_archives_at_datupdate))
+        config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_start", str(self.autoscan_archives_at_start))
         config.set(DEFAULT_CFG_SECTION, "check_images_crc", str(self.check_images_crc))
         cfg = open(CFG_FILE, "w")
         config.write(cfg)

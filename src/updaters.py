@@ -54,10 +54,11 @@ class DBImagesUpdater(threading.Thread):
 
 class DatUpdater(threading.Thread):
 	""" Update DAT file if needed """
-	def __init__(self, gui, threads, buttons, dat_version, dat_version_url):
+	def __init__(self, gui, threads, buttons, dat_version, dat_version_url, autorescan_archives):
 		threading.Thread.__init__(self, name="DatUpdater")
 		self.dat_version = dat_version
 		self.dat_version_url = dat_version_url
+		self.autorescan_archives = autorescan_archives
 		self.gui = gui
 		self.threads = threads
 		self.buttons = buttons
@@ -72,7 +73,7 @@ class DatUpdater(threading.Thread):
 				new_version_file = urlopen(self.dat_version_url)
 				new_version = new_version_file.read()
 							
-				if int(self.dat_version) <= int(new_version):
+				if int(self.dat_version) < int(new_version):
 					self.gui.update_statusbar("DatUpdater", _("New DAT file available!"), True)
 					# Make sure we are not downloading all images
 					# No need to check if we are rebuilding archives, because we can't be here if it's so.
@@ -90,7 +91,10 @@ class DatUpdater(threading.Thread):
 					self.gui.update_statusbar("DatUpdater", _("Loading the new DAT file and creating database..."), True)
 					dat = Dat(DAT_NAME)
 					self.gui.update_statusbar("DatUpdater", _("Database created."), True)
-					self.gui.add_games(True)
+					if self.autorescan_archives == True:
+						self.gui.add_games(True, True)
+					else:
+						self.gui.add_games(True)
 				else:
 					self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date to the latest version."), True)
 			except:
