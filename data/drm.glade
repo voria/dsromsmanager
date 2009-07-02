@@ -987,12 +987,59 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </packing>
             </child>
             <child>
+              <object class="GtkCheckButton" id="options_trim_roms_checkbutton">
+                <property name="label" translatable="yes">Trim roms during extraction</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Trim roms during extraction automatically.
+
+'trim' command line utility is required to enable this option.</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkHBox" id="options_trim_roms_log_hbox">
+                <property name="visible">True</property>
+                <child>
+                  <object class="GtkFixed" id="options_trim_roms_log_fixed">
+                    <property name="visible">True</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="padding">10</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkCheckButton" id="options_trim_roms_log_checkbutton">
+                    <property name="label" translatable="yes">Show log</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
+                    <property name="tooltip_text" translatable="yes">When 'trim' has finished its work, show its output.</property>
+                    <property name="draw_indicator">True</property>
+                  </object>
+                  <packing>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkHSeparator" id="options_hseparator1">
                 <property name="visible">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">3</property>
+                <property name="position">5</property>
               </packing>
             </child>
             <child>
@@ -1014,9 +1061,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1026,7 +1073,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">4</property>
+                <property name="position">6</property>
               </packing>
             </child>
             <child>
@@ -1048,9 +1095,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1060,7 +1107,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">5</property>
+                <property name="position">7</property>
               </packing>
             </child>
             <child>
@@ -1082,9 +1129,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_new_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1094,7 +1141,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">6</property>
+                <property name="position">8</property>
               </packing>
             </child>
             <child>
@@ -1103,7 +1150,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">7</property>
+                <property name="position">9</property>
               </packing>
             </child>
             <child>
@@ -1125,10 +1172,10 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
-                    <property name="show_hidden">True</property>
                     <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
+                    <property name="show_hidden">True</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1138,7 +1185,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">8</property>
+                <property name="position">10</property>
               </packing>
             </child>
             <child>
@@ -1147,7 +1194,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">9</property>
+                <property name="position">11</property>
               </packing>
             </child>
             <child>
@@ -1169,9 +1216,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_extractin_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1181,7 +1228,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">10</property>
+                <property name="position">12</property>
               </packing>
             </child>
             <child>
@@ -1196,16 +1243,16 @@ Click here to enable the 'Extract in' path to be modified.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">11</property>
+                <property name="position">13</property>
               </packing>
             </child>
             <child>
-              <object class="GtkHSeparator" id="options_hseparator5">
+              <object class="GtkHSeparator" id="options_hseparator4">
                 <property name="visible">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">12</property>
+                <property name="position">14</property>
               </packing>
             </child>
             <child>
@@ -1242,16 +1289,16 @@ Set an empty string to use the default URL.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">13</property>
+                <property name="position">15</property>
               </packing>
             </child>
             <child>
-              <object class="GtkHSeparator" id="options_hseparator4">
+              <object class="GtkHSeparator" id="options_hseparator5">
                 <property name="visible">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">14</property>
+                <property name="position">16</property>
               </packing>
             </child>
           </object>
@@ -1402,6 +1449,30 @@ Set an empty string to use the default URL.</property>
         <property name="tooltip_text" translatable="yes">Rebuild roms archives for selected games.</property>
         <property name="label" translatable="yes">Rebuild</property>
         <property name="use_underline">True</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="trim_log_window">
+    <property name="title" translatable="yes">Trim Log</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="default_width">640</property>
+    <property name="default_height">480</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="transient_for">main_window</property>
+    <child>
+      <object class="GtkScrolledWindow" id="trim_log_scrolledwindow">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="hscrollbar_policy">automatic</property>
+        <property name="vscrollbar_policy">automatic</property>
+        <child>
+          <object class="GtkTextView" id="trim_log_textview">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="editable">False</property>
+            <property name="cursor_visible">False</property>
+          </object>
+        </child>
       </object>
     </child>
   </object>

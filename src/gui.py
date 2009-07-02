@@ -72,6 +72,8 @@ class Gui(threading.Thread):
 		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
 		self.options_autoscan_archives_at_start_checkbutton = self.builder.get_object("options_autoscan_archives_at_start_checkbutton")
 		self.options_autoscan_archives_at_datupdate_checkbutton = self.builder.get_object("options_autoscan_archives_at_datupdate_checkbutton")
+		self.options_trim_roms_checkbutton = self.builder.get_object("options_trim_roms_checkbutton")
+		self.options_trim_roms_log_checkbutton = self.builder.get_object("options_trim_roms_log_checkbutton")
 		self.options_roms_path_filechooserbutton = self.builder.get_object("options_roms_path_filechooserbutton")
 		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
 		self.options_new_roms_path_filechooserbutton = self.builder.get_object("options_new_roms_path_filechooserbutton")
@@ -115,6 +117,9 @@ class Gui(threading.Thread):
 		self.filter_clear_button = self.builder.get_object("filter_clear_button")
 		self.statusbar = self.builder.get_object("statusbar")
 		self.about_dialog = self.builder.get_object("about_dialog")
+		self.trim_log_window = self.builder.get_object("trim_log_window")
+		self.trim_log_textview = self.builder.get_object("trim_log_textview")
+		self.trim_log_textbuffer = self.trim_log_textview.get_buffer()
 		# Widgets needed for hiding informations
 		self.images_hbox = self.builder.get_object("images_hbox")
 		self.info_label_vbox = self.builder.get_object("info_label_vbox")
@@ -291,6 +296,19 @@ class Gui(threading.Thread):
 		self.games_check_no_checkbutton.set_active(config.get_option("show_not_available_games"))
 		self.games_check_convert_checkbutton.set_active(config.get_option("show_fixable_games"))
 		
+		# Check if 'trim' in installed
+		self.trim = None
+		for path in os.path.expandvars("$PATH").split(":"):
+			temp = os.path.join(path, "trim")
+			if os.path.exists(os.path.join(path, "trim")):
+				self.trim = temp
+				break
+		if self.trim == None: # 'trim' not available
+			self.options_trim_roms_checkbutton.set_sensitive(False)
+			config.set_option("trim_roms", False)
+			self.options_trim_roms_log_checkbutton.set_sensitive(False)
+			config.set_option("show_trim_log", False)
+		
 		# Connect signals
 		self.main_window.connect("delete_event", self.on_main_window_delete_event)
 		self.statusbar.connect("text-pushed", self.on_statusbar_text_pushed)
@@ -299,9 +317,9 @@ class Gui(threading.Thread):
 		self.filter_clear_button.connect("clicked", self.on_filter_clear_button_clicked)
 		self.options_toolbutton.connect("clicked", self.on_options_toolbutton_clicked)
 		self.options_dialog.connect("response", self.on_options_dialog_response)
-		self.options_dialog.connect("delete_event", self.on_window_delete_event)
+		self.options_dialog.connect("delete_event", self.on_options_dialog_delete_event)
 		self.options_extractin_path_enable_button.connect("clicked", self.on_options_extractin_path_enable_button_clicked)
-		self.images_window.connect("delete_event", self.on_window_delete_event)
+		self.images_window.connect("delete_event", self.on_images_window_delete_event)
 		self.about_toolbutton.connect("clicked", self.on_about_toolbutton_clicked)
 		self.about_dialog.connect("response", self.on_about_dialog_response)
 		self.list_treeview.get_selection().connect("changed", self.on_list_treeview_selection_changed)
@@ -313,6 +331,8 @@ class Gui(threading.Thread):
 		self.games_check_ok_checkbutton.connect("toggled", self.on_games_check_ok_checkbutton_toggled)
 		self.games_check_no_checkbutton.connect("toggled", self.on_games_check_no_checkbutton_toggled)
 		self.games_check_convert_checkbutton.connect("toggled", self.on_games_check_convert_checkbutton_toggled)
+		self.options_trim_roms_checkbutton.connect("toggled", self.on_options_trim_roms_checkbutton_toggled)
+		self.trim_log_window.connect("delete_event", self.on_trim_log_window_delete_event)
 		# We need signal id for the following signals
 		self.fne_sid = self.filter_name_entry.connect("changed",self.on_filter_triggered)
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
@@ -883,7 +903,10 @@ class Gui(threading.Thread):
 		else:
 			target = extract_to
 		
-		rae = RomArchiveExtract(self, gamesdict, target)
+		if self.trim != None and self.options_trim_roms_checkbutton.get_active():
+			rae = RomArchiveExtract(self, gamesdict, target, self.trim, config.get_option("show_trim_log"))
+		else:
+			rae = RomArchiveExtract(self, gamesdict, target, None)
 		self.threads.append(rae)
 		rae.start()
 	
@@ -1100,12 +1123,29 @@ class Gui(threading.Thread):
 		config.set_option("show_fixable_games", widget.get_active())
 		self.__filter()
 	
+	def on_options_trim_roms_checkbutton_toggled(self, widget):
+		if self.options_trim_roms_checkbutton.get_active():
+			self.options_trim_roms_log_checkbutton.set_sensitive(True)
+		else:
+			self.options_trim_roms_log_checkbutton.set_sensitive(False)
+	
+	def on_trim_log_window_delete_event(self, window, event):
+		if self.quitting == True:
+		  return True
+		self.trim_log_window.hide()
+		return True
+	
 	def on_options_toolbutton_clicked(self, menuitem):
 		if self.quitting == True:
 			return
 		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
 		self.options_autoscan_archives_at_start_checkbutton.set_active(config.get_option("autoscan_archives_at_start"))
 		self.options_autoscan_archives_at_datupdate_checkbutton.set_active(config.get_option("autoscan_archives_at_datupdate"))
+		self.options_trim_roms_checkbutton.set_active(config.get_option("trim_roms"))
+		self.options_trim_roms_log_checkbutton.set_active(config.get_option("show_trim_log"))
+		
+		if self.options_trim_roms_checkbutton.get_active() == False:
+			self.options_trim_roms_log_checkbutton.set_sensitive(False) 
 		
 		roms_path = config.get_option("roms_path")
 		if not os.path.exists(roms_path): # roms_path does not exist, fallback to the default path
@@ -1226,6 +1266,8 @@ class Gui(threading.Thread):
 			config.set_option("check_images_crc", self.options_check_images_crc_checkbutton.get_active())
 			config.set_option("autoscan_archives_at_start", self.options_autoscan_archives_at_start_checkbutton.get_active())
 			config.set_option("autoscan_archives_at_datupdate", self.options_autoscan_archives_at_datupdate_checkbutton.get_active())
+			config.set_option("trim_roms", self.options_trim_roms_checkbutton.get_active())
+			config.set_option("show_trim_log", self.options_trim_roms_log_checkbutton.get_active())
 			
 			### review_url
 			text = self.options_review_url_entry.get_text()
@@ -1269,7 +1311,13 @@ class Gui(threading.Thread):
 		self.options_extractin_path_hbox.show()
 		self.options_extractin_path_enable_button.hide()
 	
-	def on_window_delete_event(self, window, event):
+	def on_images_window_delete_event(self, window, event):
+		if self.quitting == True:
+			return True
+		window.hide()
+		return True
+	
+	def on_options_dialog_delete_event(self, window, event):
 		if self.quitting == True:
 			return True
 		window.hide()
@@ -1412,6 +1460,17 @@ class Gui(threading.Thread):
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_INFO, gtk.BUTTONS_OK, message)
 		dialog.run()
 		dialog.destroy()
+		if use_threads == True:
+			gdk.threads_leave()
+	
+	def show_trim_log_window(self, text, use_threads = False):
+		if self.quitting == True:
+			return
+		if use_threads == True:
+			gdk.threads_enter()
+		self.trim_log_textbuffer.set_text("")
+		self.trim_log_window.show()
+		self.trim_log_textbuffer.insert_at_cursor(text)
 		if use_threads == True:
 			gdk.threads_leave()
 	

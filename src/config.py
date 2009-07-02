@@ -28,6 +28,8 @@ DEFAULT_CFG_SECTION = "Main"
 DEFAULT_CHECK_IMAGES_CRC = False
 DEFAULT_AUTOSCAN_ARCHIVES_AT_START = True
 DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE = True
+DEFAULT_TRIM_ROMS = False
+DEFAULT_SHOW_TRIM_LOG = False
 DEFAULT_REVIEW_URL = "http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
 DEFAULT_ROMS_PATH = ROMS_DIR
 DEFAULT_UNKNOWN_ROMS_PATH = UNKNOWN_ROMS_DIR
@@ -42,6 +44,8 @@ DEFAULT_CFG_FILE = "[" + DEFAULT_CFG_SECTION + "]"
 DEFAULT_CFG_FILE += "\ncheck_images_crc = " + str(DEFAULT_CHECK_IMAGES_CRC)
 DEFAULT_CFG_FILE += "\nautoscan_archives_at_start = " + str(DEFAULT_AUTOSCAN_ARCHIVES_AT_START)
 DEFAULT_CFG_FILE += "\nautoscan_archives_at_datupdate = " + str(DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE)
+DEFAULT_CFG_FILE += "\ntrim_roms = " + str(DEFAULT_TRIM_ROMS)
+DEFAULT_CFG_FILE += "\nshow_trim_log = " + str(DEFAULT_SHOW_TRIM_LOG)
 DEFAULT_CFG_FILE += "\nreview_url = " + DEFAULT_REVIEW_URL
 DEFAULT_CFG_FILE += "\nroms_path = " + DEFAULT_ROMS_PATH
 DEFAULT_CFG_FILE += "\nunknown_roms_path = " + DEFAULT_UNKNOWN_ROMS_PATH
@@ -82,6 +86,16 @@ class Config():
         except NoOptionError:
             self.config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_datupdate", str(DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE))
             self.autoscan_archives_at_datupdate = DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE
+        try:
+            self.trim_roms = self.config.getboolean(DEFAULT_CFG_SECTION, "trim_roms")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "trim_roms", str(DEFAULT_TRIM_ROMS))
+            self.trim_roms = DEFAULT_TRIM_ROMS
+        try:
+            self.show_trim_log = self.config.getboolean(DEFAULT_CFG_SECTION, "show_trim_log")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "show_trim_log", str(DEFAULT_SHOW_TRIM_LOG))
+            self.show_trim_log = DEFAULT_SHOW_TRIM_LOG
         try:
             self.review_url = self.config.get(DEFAULT_CFG_SECTION, "review_url")
         except NoOptionError:
@@ -140,6 +154,10 @@ class Config():
             return self.autoscan_archives_at_start
         if option == "autoscan_archives_at_datupdate":
             return self.autoscan_archives_at_datupdate
+        if option == "trim_roms":
+            return self.trim_roms
+        if option == "show_trim_log":
+            return self.show_trim_log
         if option == "roms_path":
             return self.roms_path
         if option == "unknown_roms_path":
@@ -167,6 +185,10 @@ class Config():
             return DEFAULT_AUTOSCAN_ARCHIVES_AT_START
         if option == "autoscan_archives_at_datupdate":
             return DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE
+        if option == "trim_roms":
+            return DEFAULT_TRIM_ROMS
+        if option == "show_trim_log":
+            return DEFAULT_SHOW_TRIM_LOG
         if option == "roms_path":
             return DEFAULT_ROMS_PATH
         if option == "unknown_roms_path":
@@ -194,6 +216,10 @@ class Config():
             self.autoscan_archives_at_start = value
         elif option == "autoscan_archives_at_datupdate":
             self.autoscan_archives_at_datupdate = value
+        elif option == "trim_roms":
+            self.trim_roms = value
+        elif option =="show_trim_log":
+            self.show_trim_log = value
         elif option == "roms_path":
             self.roms_path = value
         elif option == "unknown_roms_path":
@@ -222,6 +248,10 @@ class Config():
             self.autoscan_archives_at_start = DEFAULT_AUTOSCAN_ARCHIVES_AT_START
         elif option == "autoscan_archives_at_datupdate":
             self.autoscan_archives_at_datupdate = DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE
+        elif option == "trim_roms":
+            self.trim_roms = DEFAULT_TRIM_ROMS
+        elif option =="show_trim_log":
+            self.show_trim_log = DEFAULT_SHOW_TRIM_LOG
         elif option == "roms_path":
             self.roms_path = DEFAULT_ROMS_PATH
         elif option == "unknown_roms_path":
@@ -253,6 +283,8 @@ class Config():
         config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", self.unknown_roms_path)
         config.set(DEFAULT_CFG_SECTION, "roms_path", self.roms_path)
         config.set(DEFAULT_CFG_SECTION, "review_url", self.review_url)
+        config.set(DEFAULT_CFG_SECTION, "show_trim_log", str(self.show_trim_log))
+        config.set(DEFAULT_CFG_SECTION, "trim_roms", str(self.trim_roms))
         config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_datupdate", str(self.autoscan_archives_at_datupdate))
         config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_start", str(self.autoscan_archives_at_start))
         config.set(DEFAULT_CFG_SECTION, "check_images_crc", str(self.check_images_crc))

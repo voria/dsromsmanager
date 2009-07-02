@@ -22,6 +22,7 @@ import threading
 import struct
 import binascii
 import zipfile
+import commands
 
 import gettext
 _ = gettext.gettext
@@ -74,13 +75,16 @@ def get_nds_filename_from_zip(zipf):
 
 class RomArchiveExtract(threading.Thread):
     """ Extract the archives for games in 'games' dictionary { game_fullinfo : zipfile } """
-    def __init__(self, gui, games, target):
+    def __init__(self, gui, games, target, trim, show_trim_log = False):
         threading.Thread.__init__(self, name="RomArchiveExtract")
         self.gui = gui
         self.games = games
         self.gamesnumber_to_extract = len(games)
         self.gamesnumber_extracted = 0
         self.target = target
+        self.trim = trim
+        self.show_trim_log = show_trim_log
+        self.trimroms = [] # When trim == True, this list contains of extracted untrimmed roms to be trimmed
     
     def run(self):
         if not os.access(self.target, os.W_OK):
@@ -97,8 +101,7 @@ class RomArchiveExtract(threading.Thread):
                 text = " (%d/%d) : " % (self.gamesnumber_extracted + 1, self.gamesnumber_to_extract)
             else:
                 text = ""
-            text += _("Extracting archive for '%s' ") % game
-            text += _("in '%s'...") % self.target
+            text += _("Extracting archive for '%s'...") % game
             self.gui.update_statusbar("RomArchiveExtract", text, True)
         
             try:
@@ -110,13 +113,29 @@ class RomArchiveExtract(threading.Thread):
                         if self.gui.show_yesno_question_dialog(message, True) == False:
                             zip.close()
                             continue
-                    zip.extractall(self.target)
+                    if self.trim != None:
+                        # Extract in current working directory and then trim it using 'target' as trim output directory
+                        zip.extractall()
+                        self.trimroms.append(info.filename)
+                    else:
+                        zip.extractall(self.target)
                     self.gamesnumber_extracted += 1
                 except:
                     self.gui.show_info_dialog(_("Unable to extract file from '%s'.") % zipf, True)
                 zip.close()
             except:
                 self.gui.show_info_dialog(_("Unable to open '%s'.") % zipf, True)
+        
+        if self.trim != None:
+            cmd = 'trim -d "' + self.target + '" -b'
+            for rom in self.trimroms:
+                cmd += ' "' + rom + '"'
+            self.gui.update_statusbar("RomArchiveExtract", _("Trimming..."), True)
+            output = commands.getoutput(cmd)
+            if self.show_trim_log == True:
+                self.gui.show_trim_log_window(output, True)
+            for rom in self.trimroms:
+                os.remove(rom)
         
         if self.gamesnumber_extracted > 0:
             self.gui.update_statusbar("RomArchiveExtract", _("Extraction completed."), True)
