@@ -1,3 +1,11 @@
+drm (0.5) jaunty; urgency=low
+
+  * Hide 'Extract in' filechooserdialog when the current path is invalid.
+  * Add trim support (it requires 'trim' command line utility).
+  * Update translations. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 02 Jul 2009 18:38:53 +0200
+
 drm (0.4.9) jaunty; urgency=low
 
   * Remove 'Quit' button (it was redundant).

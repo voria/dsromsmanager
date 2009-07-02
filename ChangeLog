@@ -1,3 +1,8 @@
+DsRomsManager 0.5
+	* Hide 'Extract in' filechooserdialog when the current path is invalid.
+	* Add trim support (it requires 'trim' command line utility).
+	* Update translations.
+
 DsRomsManager 0.4.9
 	* Remove 'Quit' button (it was redundant).
 	* Add new options to toggle automatic scan for roms archives at startup and when DAT file got updated.
