@@ -76,7 +76,7 @@ class Gui(threading.Thread):
 		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
 		self.options_new_roms_path_filechooserbutton = self.builder.get_object("options_new_roms_path_filechooserbutton")
 		self.options_images_path_filechooserbutton = self.builder.get_object("options_images_path_filechooserbutton")
-		self.options_extractin_path_label = self.builder.get_object("options_extractin_path_label")
+		self.options_extractin_path_hbox = self.builder.get_object("options_extractin_path_hbox")
 		self.options_extractin_path_filechooserbutton = self.builder.get_object("options_extractin_path_filechooserbutton")
 		self.options_extractin_path_enable_button = self.builder.get_object("options_extractin_path_enable_button")
 		self.options_review_url_entry = self.builder.get_object("options_review_url_entry")
@@ -1134,11 +1134,10 @@ class Gui(threading.Thread):
 		extractin_path = config.get_option("default_extract_directory")
 		if os.path.exists(extractin_path) and os.access(extractin_path, os.W_OK):
 			self.options_extractin_path_enable_button.hide()
-			self.options_extractin_path_filechooserbutton.set_sensitive(True)
+			self.options_extractin_path_hbox.show()
 		else:
 			self.options_extractin_path_enable_button.show()
-			self.options_extractin_path_label.set_sensitive(False)
-			self.options_extractin_path_filechooserbutton.set_sensitive(False)
+			self.options_extractin_path_hbox.hide()
 			extractin_path = config.get_option_default("default_extract_directory")
 		self.options_extractin_path_filechooserbutton.set_current_folder(extractin_path)			
 		
@@ -1156,7 +1155,7 @@ class Gui(threading.Thread):
 			new_roms_path_new = self.options_new_roms_path_filechooserbutton.get_current_folder()
 			images_path_new = self.options_images_path_filechooserbutton.get_current_folder()
 			extractin_path_new = None
-			if self.options_extractin_path_filechooserbutton.get_property("sensitive") == True:
+			if self.options_extractin_path_hbox.get_property("visible") == True:
 				extractin_path_new = self.options_extractin_path_filechooserbutton.get_current_folder()
 			# Check if new paths are ok
 			if roms_path_new == WORK_DIR:
@@ -1267,8 +1266,7 @@ class Gui(threading.Thread):
 		dialog.hide()
 	
 	def on_options_extractin_path_enable_button_clicked(self, button):
-		self.options_extractin_path_label.set_sensitive(True)
-		self.options_extractin_path_filechooserbutton.set_sensitive(True)
+		self.options_extractin_path_hbox.show()
 		self.options_extractin_path_enable_button.hide()
 	
 	def on_window_delete_event(self, window, event):

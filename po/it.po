@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-02 14:57+0200\n"
-"PO-Revision-Date: 2009-07-02 14:58+0200\n"
+"POT-Creation-Date: 2009-07-02 15:52+0200\n"
+"PO-Revision-Date: 2009-07-02 15:53+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -260,7 +260,7 @@ msgstr "Nascondi"
 msgid "Hide main window."
 msgstr "Nasconde la finestra principale."
 
-#: ../src/gui.py:162 drm.glade.h:66
+#: ../src/gui.py:162 drm.glade.h:67
 msgid "Update DAT"
 msgstr "Aggiorna DAT"
 
@@ -284,7 +284,7 @@ msgstr "Recensioni"
 msgid "Options"
 msgstr "Opzioni"
 
-#: ../src/gui.py:200 drm.glade.h:1
+#: ../src/gui.py:200 drm.glade.h:2
 msgid "About"
 msgstr "Informazioni"
 
@@ -373,13 +373,13 @@ msgstr ""
 "Il percorso 'Immagini' corrente non esiste.\n"
 "Verrà utilizzato il percorso di default."
 
-#: ../src/gui.py:1163
+#: ../src/gui.py:1162
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Roms' path, but it "
 "can't be used."
 msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Roms', ma non può essere usata."
 
-#: ../src/gui.py:1164
+#: ../src/gui.py:1163
 msgid ""
 "\n"
 "\n"
@@ -389,13 +389,13 @@ msgstr ""
 "\n"
 "Il percorso 'Roms' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1168
+#: ../src/gui.py:1167
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Unknown roms' path, "
 "but it can't be used."
 msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Roms sconosciute', ma non può essere usata."
 
-#: ../src/gui.py:1169
+#: ../src/gui.py:1168
 msgid ""
 "\n"
 "\n"
@@ -405,13 +405,13 @@ msgstr ""
 "\n"
 "Il percorso 'Roms sconosciute' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1173
+#: ../src/gui.py:1172
 msgid ""
 "'DsRomsManager' working directory has been selected as 'New roms' path, but "
 "it can't be used."
 msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Nuove roms', ma non può essere usata."
 
-#: ../src/gui.py:1174
+#: ../src/gui.py:1173
 msgid ""
 "\n"
 "\n"
@@ -421,11 +421,11 @@ msgstr ""
 "\n"
 "Il percorso 'Nuove roms' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1178
+#: ../src/gui.py:1177
 msgid "'Unknown roms' path can't be the same as 'Roms' or 'New roms' paths."
 msgstr "Il percorso 'Roms sconosciute' non può essere uguale ai percorsi 'Roms' o 'Nuove roms'."
 
-#: ../src/gui.py:1179 ../src/gui.py:1189 ../src/gui.py:1194
+#: ../src/gui.py:1178 ../src/gui.py:1188 ../src/gui.py:1193
 msgid ""
 "\n"
 "\n"
@@ -435,13 +435,13 @@ msgstr ""
 "\n"
 "Selezionare un percorso diverso."
 
-#: ../src/gui.py:1183
+#: ../src/gui.py:1182
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Images' path, but it "
 "can't be used."
 msgstr "E' stata selezionata la directory di lavoro 'DsRomsManager' come percorso 'Immagini', ma non può essere usata."
 
-#: ../src/gui.py:1184
+#: ../src/gui.py:1183
 msgid ""
 "\n"
 "\n"
@@ -451,20 +451,20 @@ msgstr ""
 "\n"
 "Il percorso 'Immagini' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1188
+#: ../src/gui.py:1187
 msgid "'Images' path can't be the same as 'Roms' path."
 msgstr "Il percorso 'Immagini' non può essere uguale al percorso 'Roms'."
 
-#: ../src/gui.py:1193
+#: ../src/gui.py:1192
 msgid "Write permissions are not granted for the current 'Extract in' path."
 msgstr ""
 "Non si hanno i permessi di scrittura per il percorso 'Estrai in' corrente."
 
-#: ../src/gui.py:1247
+#: ../src/gui.py:1246
 msgid "'Images' path has changed."
 msgstr "Il percorso delle immagini è stato cambiato."
 
-#: ../src/gui.py:1248
+#: ../src/gui.py:1247
 msgid ""
 "\n"
 "\n"
@@ -474,11 +474,11 @@ msgstr ""
 "\n"
 "Il database verrà aggiornato con il nuovo percorso."
 
-#: ../src/gui.py:1261
+#: ../src/gui.py:1260
 msgid "Roms paths have changed."
 msgstr "Il percorso delle roms è stato cambiato."
 
-#: ../src/gui.py:1262
+#: ../src/gui.py:1261
 msgid ""
 "\n"
 "\n"
@@ -488,63 +488,63 @@ msgstr ""
 "\n"
 "La lista dei giochi verrà ricaricata."
 
-#: ../src/gui.py:1425
+#: ../src/gui.py:1423
 #, python-format
 msgid "%d game shown"
 msgstr "%d gioco visualizzato"
 
-#: ../src/gui.py:1427
+#: ../src/gui.py:1425
 #, python-format
 msgid "%d games shown"
 msgstr "%d giochi visualizzati"
 
-#: ../src/gui.py:1429
+#: ../src/gui.py:1427
 #, python-format
 msgid " - %d available"
 msgstr " - %d disponibili"
 
-#: ../src/gui.py:1431
+#: ../src/gui.py:1429
 #, python-format
 msgid " - %d to rebuild"
 msgstr " - %d da ricostruire"
 
-#: ../src/gui.py:1433
+#: ../src/gui.py:1431
 #, python-format
 msgid " - %d not available"
 msgstr " - %d non disponibili"
 
-#: ../src/gui.py:1435
+#: ../src/gui.py:1433
 msgid "No games shown"
 msgstr "Nessun gioco visualizzato"
 
-#: ../src/gui.py:1564 ../src/gui.py:1565
+#: ../src/gui.py:1562 ../src/gui.py:1563
 msgid "Stop the download process."
 msgstr "Ferma il processo di download."
 
-#: ../src/gui.py:1585 ../src/gui.py:1586
+#: ../src/gui.py:1583 ../src/gui.py:1584
 msgid "Stop the rebuild process."
 msgstr "Ferma il processo di ricostruzione."
 
-#: ../src/gui.py:1626
+#: ../src/gui.py:1624
 msgid "Scanning roms on disk..."
 msgstr "Scansione delle roms su disco in corso..."
 
-#: ../src/gui.py:1666 ../src/gui.py:1713 ../src/gui.py:1722 ../src/gui.py:1756
-#: ../src/gui.py:1765
+#: ../src/gui.py:1664 ../src/gui.py:1711 ../src/gui.py:1720 ../src/gui.py:1754
+#: ../src/gui.py:1763
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr "'%s' era ridondante. Eliminato."
 
-#: ../src/gui.py:1702 ../src/gui.py:1745
+#: ../src/gui.py:1700 ../src/gui.py:1743
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr "Il file '%s' è un duplicato. Eliminare?"
 
-#: ../src/gui.py:1768
+#: ../src/gui.py:1766
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:1792
+#: ../src/gui.py:1790
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr "%d giochi caricati correttamente."
@@ -578,17 +578,17 @@ msgstr "Il file DAT è già aggiornato all'ultima versione."
 msgid "Can't download DAT version file!"
 msgstr "Non riesco a scaricare il file di controllo versione del DAT!"
 
-#: drm.glade.h:2
+#: drm.glade.h:1
+msgid "'Extract in' path not found!"
+msgstr "Percorso 'Estrai in' non trovato!"
+
+#: drm.glade.h:3
 msgid "Available games"
 msgstr "Giochi disponibili"
 
-#: drm.glade.h:3
+#: drm.glade.h:4
 msgid "CRC:"
 msgstr "CRC:"
-
-#: drm.glade.h:4
-msgid "Change"
-msgstr "Cambia"
 
 #: drm.glade.h:5
 msgid "Check if a new DAT file is available. (Ctrl+U)"
@@ -806,18 +806,20 @@ msgstr "Sorgente:"
 #: drm.glade.h:63
 msgid ""
 "The previously selected 'Extract in' path does not exist anymore, or write "
-"permissions are not granted on it. Probably it pointed to a removable device "
-"(like an USB stick or an SD) and it's just temporary not available.\n"
-"Click this button to enable the 'Extract in' path to be modified."
+"permissions are not granted on it.\n"
+"Probably it pointed to a removable device (like an USB stick or an SD) and "
+"it's just temporary not available.\n"
+"Click here to enable the 'Extract in' path to be modified."
 msgstr ""
-"Il percorso 'Estrai in' precedentemente selezionato non esiste più, oppure non si hanno i permessi di scrittura. Probabilmente puntava ad un supporto rimovibile (come una chiavetta USB o una SD) ed è solo temporaneamente non disponibile.\n"
+"Il percorso 'Estrai in' precedentemente selezionato non esiste più, oppure non si hanno i permessi di scrittura.\n"
+"Probabilmente puntava ad un supporto rimovibile (come una chiavetta USB o una SD) ed è temporaneamente non disponibile.\n"
 "Clicca qui per abilitare la modifica del percorso 'Estrai in'."
 
-#: drm.glade.h:65
+#: drm.glade.h:66
 msgid "Unknown roms:"
 msgstr "Roms sconosciute:"
 
-#: drm.glade.h:67
+#: drm.glade.h:68
 msgid ""
 "Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
 "search URL.\n"
@@ -835,7 +837,7 @@ msgstr ""
 "\n"
 "Imposta una stringa vuota per usare l'URL di default."
 
-#: drm.glade.h:73
+#: drm.glade.h:74
 msgid ""
 "When the DAT file is updated, sometime previously unknown roms became known. "
 "Set here the directory where to move them."
@@ -843,17 +845,20 @@ msgstr ""
 "Quando il file DAT viene aggiornato, a volte le roms precedentemente "
 "sconosciute diventano conosciute. Imposta qui la directory in cui spostarle."
 
-#: drm.glade.h:74
+#: drm.glade.h:75
 msgid "gtk-cancel"
 msgstr "gtk-cancel"
 
-#: drm.glade.h:75
+#: drm.glade.h:76
 msgid "gtk-ok"
 msgstr "gtk-ok"
 
-#: drm.glade.h:76
+#: drm.glade.h:77
 msgid "http://www.voria.org"
 msgstr "http://www.voria.org"
+
+#~ msgid "Change"
+#~ msgstr "Cambia"
 
 #~ msgid "Enable"
 #~ msgstr "Abilita"

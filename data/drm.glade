@@ -1178,20 +1178,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                     <property name="position">1</property>
                   </packing>
                 </child>
-                <child>
-                  <object class="GtkButton" id="options_extractin_path_enable_button">
-                    <property name="label" translatable="yes">Change</property>
-                    <property name="can_focus">True</property>
-                    <property name="receives_default">True</property>
-                    <property name="tooltip_text" translatable="yes">The previously selected 'Extract in' path does not exist anymore, or write permissions are not granted on it. Probably it pointed to a removable device (like an USB stick or an SD) and it's just temporary not available.
-Click this button to enable the 'Extract in' path to be modified.</property>
-                    <property name="focus_on_click">False</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">2</property>
-                  </packing>
-                </child>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -1199,12 +1185,27 @@ Click this button to enable the 'Extract in' path to be modified.</property>
               </packing>
             </child>
             <child>
-              <object class="GtkHSeparator" id="options_hseparator4">
-                <property name="visible">True</property>
+              <object class="GtkButton" id="options_extractin_path_enable_button">
+                <property name="label" translatable="yes">'Extract in' path not found!</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">The previously selected 'Extract in' path does not exist anymore, or write permissions are not granted on it.
+Probably it pointed to a removable device (like an USB stick or an SD) and it's just temporary not available.
+Click here to enable the 'Extract in' path to be modified.</property>
+                <property name="focus_on_click">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
                 <property name="position">11</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkHSeparator" id="options_hseparator5">
+                <property name="visible">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">12</property>
               </packing>
             </child>
             <child>
@@ -1241,16 +1242,16 @@ Set an empty string to use the default URL.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">12</property>
+                <property name="position">13</property>
               </packing>
             </child>
             <child>
-              <object class="GtkHSeparator" id="options_hseparator5">
+              <object class="GtkHSeparator" id="options_hseparator4">
                 <property name="visible">True</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">13</property>
+                <property name="position">14</property>
               </packing>
             </child>
           </object>
