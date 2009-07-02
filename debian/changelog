@@ -1,3 +1,16 @@
+drm (0.4.9) jaunty; urgency=low
+
+  * Remove 'Quit' button (it was redundant).
+  * Add new options to toggle automatic scan for roms archives at
+    startup and when DAT file got updated.
+  * Add an 'Extract in' option to select a default extract directory
+    for archives.
+  * Add a new item in list treeview popup menu, to extract archives
+    in the default directory.
+  * Update translations.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 02 Jul 2009 15:02:27 +0200
+
 drm (0.4.8) jaunty; urgency=low
 
   * Resize images to 50% if vertical screen resolution is <= 600,
