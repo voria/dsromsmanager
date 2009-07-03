@@ -1149,6 +1149,7 @@ class Gui(threading.Thread):
 	def on_trim_log_window_delete_event(self, window, event):
 		if self.quitting == True:
 		  return True
+		self.trim_log_textbuffer.set_text("")
 		self.trim_log_window.hide()
 		return True
 	
@@ -1485,8 +1486,8 @@ class Gui(threading.Thread):
 			return
 		if use_threads == True:
 			gdk.threads_enter()
-		self.trim_log_textbuffer.set_text("")
 		self.trim_log_window.show()
+		self.trim_log_textbuffer.insert_at_cursor("\n\n")
 		self.trim_log_textbuffer.insert_at_cursor(text)
 		if use_threads == True:
 			gdk.threads_leave()

@@ -84,7 +84,6 @@ class RomArchiveExtract(threading.Thread):
         self.target = target
         self.trim = trim
         self.show_trim_log = show_trim_log
-        self.trimroms = [] # When trim == True, this list contains of extracted untrimmed roms to be trimmed
     
     def run(self):
         if not os.access(self.target, os.W_OK):
@@ -116,7 +115,12 @@ class RomArchiveExtract(threading.Thread):
                     if self.trim != None:
                         # Extract in current working directory and then trim it using 'target' as trim output directory
                         zip.extractall()
-                        self.trimroms.append(info.filename)
+                        cmd = 'trim -d "' + self.target + '" -b "' + info.filename + '"'
+                        self.gui.update_statusbar("RomArchiveExtract", _("Trimming '%s'..."), True)
+                        output = commands.getoutput(cmd)
+                        if self.show_trim_log == True:
+                            self.gui.show_trim_log_window(output, True)
+                        os.remove(info.filename)                        
                     else:
                         zip.extractall(self.target)
                     self.gamesnumber_extracted += 1
@@ -125,17 +129,6 @@ class RomArchiveExtract(threading.Thread):
                 zip.close()
             except:
                 self.gui.show_info_dialog(_("Unable to open '%s'.") % zipf, True)
-        
-        if self.trim != None:
-            cmd = 'trim -d "' + self.target + '" -b'
-            for rom in self.trimroms:
-                cmd += ' "' + rom + '"'
-            self.gui.update_statusbar("RomArchiveExtract", _("Trimming..."), True)
-            output = commands.getoutput(cmd)
-            if self.show_trim_log == True:
-                self.gui.show_trim_log_window(output, True)
-            for rom in self.trimroms:
-                os.remove(rom)
         
         if self.gamesnumber_extracted > 0:
             self.gui.update_statusbar("RomArchiveExtract", _("Extraction completed."), True)
