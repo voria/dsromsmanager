@@ -1473,6 +1473,18 @@ class Gui(threading.Thread):
 		if use_threads == True:
 			gdk.threads_leave()
 	
+	def show_error_dialog(self, message, use_threads = False):
+		""" Show an error dialog with just an OK button, showing 'message' """
+		if self.quitting == True:
+			return
+		if use_threads == True:
+			gdk.threads_enter()
+		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, message)
+		dialog.run()
+		dialog.destroy()
+		if use_threads == True:
+			gdk.threads_leave()
+	
 	def show_trim_log_window(self, text, use_threads = False):
 		if self.quitting == True:
 			return
@@ -1480,7 +1492,7 @@ class Gui(threading.Thread):
 			gdk.threads_enter()
 		self.trim_log_window.show()
 		end_iter = self.trim_log_textbuffer.get_end_iter()
-		self.trim_log_textbuffer.insert(end_iter, "\n\n" + text)
+		self.trim_log_textbuffer.insert(end_iter, text)
 		self.trim_log_textview.scroll_to_mark(self.trim_log_textbuffer.get_insert(), 0)
 		if use_threads == True:
 			gdk.threads_leave()

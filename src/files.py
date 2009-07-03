@@ -84,6 +84,7 @@ class RomArchiveExtract(threading.Thread):
         self.target = target
         self.trim = trim
         self.show_trim_log = show_trim_log
+        self.total_saved_space = 0 # total saved space by trimming
     
     def run(self):
         if not os.access(self.target, os.W_OK):
@@ -117,27 +118,54 @@ class RomArchiveExtract(threading.Thread):
                         # Extract in current working directory and then trim it using 'target' as trim output directory
                         zip.extractall()
                         cmd = 'trim -d "' + self.target + '" -b "' + info.filename + '"'
-                        self.gui.update_statusbar("RomArchiveExtract", _("Trimming '%s'...") % game, True)
+                        if self.gamesnumber_to_extract > 1:
+                            message = text = " (%d/%d) : " % (self.gamesnumber_extracted + 1, self.gamesnumber_to_extract)
+                        else:
+                            message = ""
+                        message += _("Trimming '%s'...") % game
+                        self.gui.update_statusbar("RomArchiveExtract", message, True)
                         output = commands.getoutput(cmd)
+                        try:
+                            original_size = output.split("\n")[1].split("\t")[2]
+                            trimmed_size = output.split("\n")[2].split("\t")[2]
+                            saved_space = output.split("\n")[3].split("\t")[2]
+                            self.total_saved_space += int(saved_space.split()[0])
+                        except:
+                            self.gui.show_error_dialog(_("Unable to get trimming informations.\nLog disabled."), True)
+                            self.show_trim_log = False
                         if self.show_trim_log == True:
+                            if self.gamesnumber_to_extract > 1:
+                                output = " (%d/%d)" % (self.gamesnumber_extracted + 1, self.gamesnumber_to_extract)
+                            else:
+                                output = ""
+                            output += " *** " + info.filename + "\n\t"
+                            output += _("Original size:") + "\t" + original_size + "\n\t"
+                            output += _("Trimmed size:") + "\t" + trimmed_size + "\n\t"
+                            output += _("Saved space:") + "\t" + saved_space + "\n"
                             self.gui.show_trim_log_window(output, True)
                         os.remove(info.filename)                        
                     else:
                         zip.extractall(self.target)
                     self.gamesnumber_extracted += 1
                 except:
-                    self.gui.show_info_dialog(_("Unable to extract file from '%s'.") % zipf, True)
+                    self.gui.show_error_dialog(_("Unable to extract file from '%s'.") % zipf, True)
                 zip.close()
             except:
-                self.gui.show_info_dialog(_("Unable to open '%s'.") % zipf, True)
+                self.gui.show_error_dialog(_("Unable to open '%s'.") % zipf, True)
         
         if self.trim != None and self.show_trim_log == True:
-            self.gui.show_trim_log_window("Done.", True)
+            message = _("\nDone. Total saved space:")
+            message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space/1024) + " MB)"
+            self.gui.show_trim_log_window(message, True)
         
         if self.gamesnumber_extracted > 0:
-            self.gui.update_statusbar("RomArchiveExtract", _("Extraction completed."), True)
+            message = _("Extraction completed.")
+            if self.total_saved_space > 0: # we have trimmed roms
+                message += _(" Total saved space by trimming:")
+                message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space/1024) + " MB)"
         else:
-            self.gui.update_statusbar("RomArchiveExtract", _("Extraction canceled."), True)
+            message = _("Extraction canceled.")
+        self.gui.update_statusbar("RomArchiveExtract", message, True)
         
     def stop(self):
         return
