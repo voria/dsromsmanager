@@ -1708,9 +1708,7 @@ class Gui(threading.Thread):
 		images_path = config.get_option("images_path") # Useful to avoid scanning recursively in directories
 		                                               # full of images, when 'images_path' is a subdirectory
 		                                               # of 'roms_path'.		
-		if self.quitting == True: 
-			return
-		
+
 		if scan_anyway == True or self.autoscan_archives_at_start == True:
 			self.autoscan_archives_at_start = False # Do it once only (at start).
 			self.archives_scanned = True # inform 'rescan archives' toolbutton that archives have been already scanned
@@ -1723,6 +1721,8 @@ class Gui(threading.Thread):
 			# check in 'unknown_roms_path' directory for new roms.
 			# If one is found, move it in 'new_roms_path' directory.
 			for file in glob.iglob(os.path.join(unknown_roms_path, "*")):
+				if self.quitting == True: 
+					return
 				if os.path.isdir(file): # no recursive directory scan in 'unknown_roms_path'
 					continue
 				crc = None
@@ -1742,8 +1742,6 @@ class Gui(threading.Thread):
 							message = _("'%s' was redundant. Deleted.") % file
 							self.show_info_dialog(message, use_threads)
 		
-		if self.quitting == True:
-			return
 		if scan_archives and os.path.exists(roms_path):
 			# recursively check games in 'roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
@@ -1753,6 +1751,8 @@ class Gui(threading.Thread):
 				next_path = paths_to_check[0]
 				paths_to_check[0:1] = []
 				for file in glob.iglob(os.path.join(next_path, "*")):
+					if self.quitting == True:
+						return
 					if os.path.isdir(file):
 						if file != unknown_roms_path and file != new_roms_path and file != images_path:
 							addpath = True
@@ -1798,12 +1798,12 @@ class Gui(threading.Thread):
 									message = _("'%s' was redundant. Deleted.") % file
 									self.show_info_dialog(message, use_threads)
 		
-		if self.quitting == True:
-			return
 		if scan_archives and os.path.exists(new_roms_path) and new_roms_path != roms_path:
 			# check games in 'new_roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory, duplicate roms are deleted.
 			for file in glob.iglob(os.path.join(new_roms_path, "*")):
+				if self.quitting == True:
+					return
 				if os.path.isdir(file): # no recursive directory scan in 'new_roms_path'
 					continue
 				crc = None
