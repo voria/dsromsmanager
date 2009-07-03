@@ -44,14 +44,14 @@ TVC_FLAG = 1
 TVC_RELEASE_NUMBER = 2
 TVC_TITLE = 3
 
-gdk.threads_init()
-
 class Gui(threading.Thread):
 	""" Graphical User Interface """
 	def __init__(self, threads):
 		threading.Thread.__init__(self, name="Gui")
 		
 		self.threads = threads
+		
+		gdk.threads_init()
 		
 		self.builder = gtk.Builder()
 		self.builder.set_translation_domain(APP_NAME)
@@ -372,7 +372,7 @@ class Gui(threading.Thread):
 	def stop(self):
 		self.quit()
 	
-	def __add_game_to_list(self, game, use_threads = False, anyway = False):
+	def __add_game_to_list(self, game, anyway = False):
 		""" Add 'game' in treeview and return it's archive state (CHECKS_OK, CHECKS_NO, CHECKS_CONVERT) """
 		returnvalue = CHECKS_ERROR
 		if self.quitting == True:
@@ -385,14 +385,10 @@ class Gui(threading.Thread):
 		flag = self.flags[countries_short.keys().index(region)]
 
 		# Get the games_checks checkbuttons status
-		if use_threads == True:
-				gdk.threads_enter()
 		check_ok_active = self.games_check_ok_checkbutton.get_active()
 		check_no_active = self.games_check_no_checkbutton.get_active()
 		check_convert_active = self.games_check_convert_checkbutton.get_active()
-		if use_threads == True:
-				gdk.threads_leave()
-
+		
 		if self.checksums[crc] == None: # we dont have the game
 			returnvalue = CHECKS_NO
 			if anyway or check_no_active:
@@ -420,15 +416,11 @@ class Gui(threading.Thread):
 				else:
 					return returnvalue
 			
-		if use_threads == True:
-				gdk.threads_enter()
 		self.list_treeview_model.append((check, flag, relnum, title))
-		if use_threads == True:
-				gdk.threads_leave()
 		self.gamesnumber_total += 1
 		return returnvalue
 	
-	def __update_list(self, games, use_threads = False, anyway = False, rebuild_dict = False):
+	def __update_list(self, games, anyway = False, rebuild_dict = False):
 		""" List 'games' in treeview """
 		"""
 		anyway -  add the game to the list anyway, even if there are filters set
@@ -439,27 +431,21 @@ class Gui(threading.Thread):
 		if rebuild_dict == True:
 			# delete old dictionary
 			self.games_to_rebuild = {}
-		if use_threads == True:
-			gdk.threads_enter()
 		self.list_treeview_model.clear()
-		if use_threads == True:
-			gdk.threads_leave()
 		self.gamesnumber_total = 0
 		self.gamesnumber_available = 0
 		self.gamesnumber_fixable = 0
 		self.gamesnumber_not_available = 0
 		for game in reversed(games):
-			if self.__add_game_to_list(game, use_threads, anyway) == CHECKS_CONVERT and rebuild_dict == True:
+			if self.quitting == True:
+				return
+			if self.__add_game_to_list(game, anyway) == CHECKS_CONVERT and rebuild_dict == True:
 				# add game to dictionary
 				fullinfo = game[GAME_FULLINFO]
 				crc = game[GAME_ROM_CRC]
 				relnum = game[GAME_RELEASE_NUMBER]
 				self.games_to_rebuild[fullinfo] = (self.checksums[crc], relnum)
-		if use_threads == True:
-			gdk.threads_enter()
 		self.update_list_game_label()
-		if use_threads == True:
-			gdk.threads_leave()
 	
 	def __filter(self, dirty_list = False):
 		""" Filter list by all criteria """
@@ -1845,25 +1831,23 @@ class Gui(threading.Thread):
 		
 		# Populate games list and rebuild dictionary of games to rebuild.
 		try:
-			self.__update_list(self.db.get_all_games(), use_threads, True, True)
+			self.__update_list(self.db.get_all_games(), True, True)
 		except:
 			self.open_db()
-			self.__update_list(self.db.get_all_games(), use_threads, True, True)
+			self.__update_list(self.db.get_all_games(), True, True)
 		
 		# Get total loaded games
 		games_number = self.gamesnumber_total
 		
 		# Set back the games checks checkbuttons status
-		if use_threads == True:
-			gdk.threads_enter()
+		if self.quitting == True:
+			return
 		if self.games_check_ok_checkbutton.get_active() == False:
 			self.on_games_check_ok_checkbutton_toggled(self.games_check_ok_checkbutton)
 		if self.games_check_no_checkbutton.get_active() == False:
 			self.on_games_check_no_checkbutton_toggled(self.games_check_no_checkbutton)
 		if self.games_check_convert_checkbutton.get_active() == False:
 			self.on_games_check_convert_checkbutton_toggled(self.games_check_convert_checkbutton)
-		if use_threads == True:
-			gdk.threads_leave()
 		
 		text = _("%d games loaded succesfully.") % games_number
 		self.update_statusbar("Games", text, use_threads)
@@ -1871,8 +1855,6 @@ class Gui(threading.Thread):
 		# Clear up all filter
 		if self.quitting == True:
 			return
-		if use_threads == True:
-			gdk.threads_enter()		
 		self.filter_name_entry.handler_block(self.fne_sid)
 		self.filter_location_combobox.handler_block(self.flocc_sid)
 		self.filter_language_combobox.handler_block(self.flanc_sid)
@@ -1882,8 +1864,6 @@ class Gui(threading.Thread):
 		self.filter_location_combobox.handler_unblock(self.flocc_sid)
 		self.filter_language_combobox.handler_unblock(self.flanc_sid)
 		self.filter_size_combobox.handler_unblock(self.fsc_sid)
-		if use_threads == True:
-			gdk.threads_leave()
 		
 		# Hide old infos
 		self.previous_selection_release_number = None
