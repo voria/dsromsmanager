@@ -1477,7 +1477,7 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return 0
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_NONE, message)
-		button = gtk.Button(_("_No for all"))
+		button = gtk.Button(_("_No to all"))
 		button.set_image(gtk.image_new_from_stock(gtk.STOCK_NO, gtk.ICON_SIZE_BUTTON))
 		button.set_flags(gtk.CAN_DEFAULT)
 		button.show()
@@ -1487,7 +1487,7 @@ class Gui(threading.Thread):
 		dialog.set_default(button)
 		button.show()
 		dialog.add_action_widget(button, 0)
-		button = gtk.Button(_("_Yes for all"))
+		button = gtk.Button(_("_Yes to all"))
 		button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES, gtk.ICON_SIZE_BUTTON))
 		button.set_flags(gtk.CAN_DEFAULT)
 		button.show()
