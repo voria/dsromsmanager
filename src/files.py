@@ -131,7 +131,7 @@ class RomArchiveExtract(threading.Thread):
                             saved_space = output.split("\n")[3].split("\t")[2]
                             self.total_saved_space += int(saved_space.split()[0])
                         except:
-                            self.gui.show_error_dialog(_("Unable to get trimming informations.\nLog disabled."), True)
+                            self.gui.show_error_dialog(_("Unable to get detailed informations for trimming."), True)
                             self.show_trim_log = False
                         if self.show_trim_log == True:
                             if self.gamesnumber_to_extract > 1:
@@ -155,7 +155,7 @@ class RomArchiveExtract(threading.Thread):
         
         if self.trim != None and self.show_trim_log == True:
             message = _("\nDone. Total saved space:")
-            message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space/1024) + " MB)"
+            message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space/1024) + " MB)\n"
             self.gui.show_trim_log_window(message, True)
         
         if self.gamesnumber_extracted > 0:

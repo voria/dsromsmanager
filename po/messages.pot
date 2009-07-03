@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-03 16:22+0200\n"
+"POT-Creation-Date: 2009-07-03 16:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,72 +102,70 @@ msgstr ""
 msgid "Target file '%s' already exists. Overwrite?"
 msgstr ""
 
-#: ../src/files.py:121
+#: ../src/files.py:125
 #, python-format
 msgid "Trimming '%s'..."
 msgstr ""
 
 #: ../src/files.py:134
+msgid "Unable to get detailed informations for trimming."
+msgstr ""
+
+#: ../src/files.py:142
 msgid "Original size:"
 msgstr ""
 
-#: ../src/files.py:135
+#: ../src/files.py:143
 msgid "Trimmed size:"
 msgstr ""
 
-#: ../src/files.py:136
+#: ../src/files.py:144
 msgid "Saved space:"
 msgstr ""
 
-#: ../src/files.py:139
-msgid ""
-"Unable to get trimming informations.\n"
-"Log disabled."
-msgstr ""
-
-#: ../src/files.py:146
+#: ../src/files.py:151
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr ""
 
-#: ../src/files.py:149
+#: ../src/files.py:154
 #, python-format
 msgid "Unable to open '%s'."
 msgstr ""
 
-#: ../src/files.py:152
+#: ../src/files.py:157
 msgid ""
 "\n"
 "Done. Total saved space:"
 msgstr ""
 
-#: ../src/files.py:157
+#: ../src/files.py:162
 msgid "Extraction completed."
 msgstr ""
 
-#: ../src/files.py:159
+#: ../src/files.py:164
 msgid " Total saved space by trimming:"
 msgstr ""
 
-#: ../src/files.py:162
+#: ../src/files.py:167
 msgid "Extraction canceled."
 msgstr ""
 
-#: ../src/files.py:208
+#: ../src/files.py:213
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:262
+#: ../src/files.py:267
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr ""
 
-#: ../src/files.py:265
+#: ../src/files.py:270
 msgid "Rebuilding stopped."
 msgstr ""
 
-#: ../src/files.py:267
+#: ../src/files.py:272
 msgid "Rebuilding completed."
 msgstr ""
 
@@ -279,7 +277,7 @@ msgstr ""
 msgid "Hide main window."
 msgstr ""
 
-#: ../src/gui.py:167 drm.glade.h:73
+#: ../src/gui.py:167 drm.glade.h:74
 msgid "Update DAT"
 msgstr ""
 
@@ -761,22 +759,26 @@ msgid "Set here the directory where to move unknown roms."
 msgstr ""
 
 #: drm.glade.h:60
-msgid "Show informations about 'DsRomsManager'. (Ctrl+A)"
+msgid "Show detailed informations"
 msgstr ""
 
 #: drm.glade.h:61
-msgid "Show log"
+msgid "Show detailed informations for every rom while trimming."
 msgstr ""
 
 #: drm.glade.h:62
-msgid "Size:"
+msgid "Show informations about 'DsRomsManager'. (Ctrl+A)"
 msgstr ""
 
 #: drm.glade.h:63
-msgid "Source:"
+msgid "Size:"
 msgstr ""
 
 #: drm.glade.h:64
+msgid "Source:"
+msgstr ""
+
+#: drm.glade.h:65
 msgid ""
 "The previously selected 'Extract in' path does not exist anymore, or write "
 "permissions are not granted on it.\n"
@@ -785,26 +787,26 @@ msgid ""
 "Click here to enable the 'Extract in' path to be modified."
 msgstr ""
 
-#: drm.glade.h:67
-msgid "Trim Log"
-msgstr ""
-
 #: drm.glade.h:68
-msgid "Trim roms during extraction"
+msgid "Trim Detailed Informations"
 msgstr ""
 
 #: drm.glade.h:69
+msgid "Trim roms during extraction"
+msgstr ""
+
+#: drm.glade.h:70
 msgid ""
 "Trim roms during extraction automatically.\n"
 "\n"
 "'trim' command line utility is required to enable this option."
 msgstr ""
 
-#: drm.glade.h:72
+#: drm.glade.h:73
 msgid "Unknown roms:"
 msgstr ""
 
-#: drm.glade.h:74
+#: drm.glade.h:75
 msgid ""
 "Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
 "search URL.\n"
@@ -813,10 +815,6 @@ msgid ""
 "http://www.google.it/search?q={FOOBAR}\n"
 "\n"
 "Set an empty string to use the default URL."
-msgstr ""
-
-#: drm.glade.h:80
-msgid "When 'trim' has finished its work, show its output."
 msgstr ""
 
 #: drm.glade.h:81

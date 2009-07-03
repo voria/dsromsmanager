@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-03 16:18+0200\n"
-"PO-Revision-Date: 2009-07-03 16:23+0200\n"
+"POT-Creation-Date: 2009-07-03 16:53+0200\n"
+"PO-Revision-Date: 2009-07-03 16:53+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -111,42 +111,40 @@ msgstr "Estrazione dell'archivio di '%s' in corso..."
 msgid "Target file '%s' already exists. Overwrite?"
 msgstr "File destinazione '%s' già esistente. Sovrascrivere?"
 
-#: ../src/files.py:121
+#: ../src/files.py:125
 #, python-format
 msgid "Trimming '%s'..."
 msgstr "Trim di '%s' in corso..."
 
 #: ../src/files.py:134
+msgid "Unable to get detailed informations for trimming."
+msgstr ""
+"Impossibile recuperare le informazioni dettagliate riguardanti il processo "
+"di trimming."
+
+#: ../src/files.py:142
 msgid "Original size:"
 msgstr "Dimensione originale:"
 
-#: ../src/files.py:135
+#: ../src/files.py:143
 msgid "Trimmed size:"
 msgstr "Dimensione trimmata:"
 
-#: ../src/files.py:136
+#: ../src/files.py:144
 msgid "Saved space:"
 msgstr "Spazio recuperato:\t"
 
-#: ../src/files.py:139
-msgid ""
-"Unable to get trimming informations.\n"
-"Log disabled."
-msgstr ""
-"Impossibile recuperare le informazioni di trim.\n"
-"Log disabilitato."
-
-#: ../src/files.py:146
+#: ../src/files.py:151
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr "Impossibile estrarre il file da '%s'."
 
-#: ../src/files.py:149
+#: ../src/files.py:154
 #, python-format
 msgid "Unable to open '%s'."
 msgstr "Impossibile aprire '%s'."
 
-#: ../src/files.py:152
+#: ../src/files.py:157
 msgid ""
 "\n"
 "Done. Total saved space:"
@@ -154,33 +152,33 @@ msgstr ""
 "\n"
 "Finito. Spazio totale recuperato:"
 
-#: ../src/files.py:157
+#: ../src/files.py:162
 msgid "Extraction completed."
 msgstr "Estrazione completata."
 
-#: ../src/files.py:159
+#: ../src/files.py:164
 msgid " Total saved space by trimming:"
 msgstr " Spazio totale recuperato con il trim:"
 
-#: ../src/files.py:162
+#: ../src/files.py:167
 msgid "Extraction canceled."
 msgstr "Estrazione annullata."
 
-#: ../src/files.py:208
+#: ../src/files.py:213
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr "Ricostruzione dell'archivio di '%s' in corso..."
 
-#: ../src/files.py:262
+#: ../src/files.py:267
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr "Errore durante la ricostruzione dell'archivio di '%s'!"
 
-#: ../src/files.py:265
+#: ../src/files.py:270
 msgid "Rebuilding stopped."
 msgstr "Ricostruzione fermata."
 
-#: ../src/files.py:267
+#: ../src/files.py:272
 msgid "Rebuilding completed."
 msgstr "Ricostruzione completata."
 
@@ -292,7 +290,7 @@ msgstr "Nascondi"
 msgid "Hide main window."
 msgstr "Nasconde la finestra principale."
 
-#: ../src/gui.py:167 drm.glade.h:73
+#: ../src/gui.py:167 drm.glade.h:74
 msgid "Update DAT"
 msgstr "Aggiorna DAT"
 
@@ -824,22 +822,26 @@ msgid "Set here the directory where to move unknown roms."
 msgstr "Imposta qui la directory in cui spostare le roms sconosciute."
 
 #: drm.glade.h:60
+msgid "Show detailed informations"
+msgstr "Mostra informazioni dettagliate"
+
+#: drm.glade.h:61
+msgid "Show detailed informations for every rom while trimming."
+msgstr "Mostra informazioni dettagliate per ogni rom durante il trim."
+
+#: drm.glade.h:62
 msgid "Show informations about 'DsRomsManager'. (Ctrl+A)"
 msgstr "Mostra informazioni su 'DsRomsManager'. (Ctrl+A)"
 
-#: drm.glade.h:61
-msgid "Show log"
-msgstr "Mostra log"
-
-#: drm.glade.h:62
+#: drm.glade.h:63
 msgid "Size:"
 msgstr "Dimensione:"
 
-#: drm.glade.h:63
+#: drm.glade.h:64
 msgid "Source:"
 msgstr "Sorgente:"
 
-#: drm.glade.h:64
+#: drm.glade.h:65
 msgid ""
 "The previously selected 'Extract in' path does not exist anymore, or write "
 "permissions are not granted on it.\n"
@@ -851,30 +853,29 @@ msgstr ""
 "Probabilmente puntava ad un supporto rimovibile (come una chiavetta USB o una SD) ed è temporaneamente non disponibile.\n"
 "Clicca qui per abilitare la modifica del percorso 'Estrai in'."
 
-#: drm.glade.h:67
-msgid "Trim Log"
-msgstr "Trim Log"
-
 #: drm.glade.h:68
+msgid "Trim Detailed Informations"
+msgstr "Informazioni Dettagliate Trim"
+
+#: drm.glade.h:69
 msgid "Trim roms during extraction"
 msgstr "Esegui il trim delle roms durante l'estrazione"
 
-#: drm.glade.h:69
+#: drm.glade.h:70
 msgid ""
 "Trim roms during extraction automatically.\n"
 "\n"
 "'trim' command line utility is required to enable this option."
 msgstr ""
-"Esegue automaticamente il trim delle roms durante il processo di "
-"estrazione.\n"
+"Esegue automaticamente il trim delle roms durante l'estrazione.\n"
 "\n"
 "L'utility da linea di comando 'trim' è richiesta per abilitare questa opzione."
 
-#: drm.glade.h:72
+#: drm.glade.h:73
 msgid "Unknown roms:"
 msgstr "Roms sconosciute:"
 
-#: drm.glade.h:74
+#: drm.glade.h:75
 msgid ""
 "Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
 "search URL.\n"
@@ -891,10 +892,6 @@ msgstr ""
 "http://www.google.it/search?q={FOOBAR}\n"
 "\n"
 "Imposta una stringa vuota per usare l'URL di default."
-
-#: drm.glade.h:80
-msgid "When 'trim' has finished its work, show its output."
-msgstr "Quando 'trim' ha finito il suo lavoro, mostra il suo output."
 
 #: drm.glade.h:81
 msgid ""
@@ -915,6 +912,22 @@ msgstr "gtk-ok"
 #: drm.glade.h:84
 msgid "http://www.voria.org"
 msgstr "http://www.voria.org"
+
+#~ msgid "Trim Log"
+#~ msgstr "Trim Log"
+
+#~ msgid ""
+#~ "Unable to get trimming informations.\n"
+#~ "Log disabled."
+#~ msgstr ""
+#~ "Impossibile recuperare le informazioni di trim.\n"
+#~ "Log disabilitato."
+
+#~ msgid "Show log"
+#~ msgstr "Mostra log"
+
+#~ msgid "When 'trim' has finished its work, show its output."
+#~ msgstr "Quando 'trim' ha finito il suo lavoro, mostra il suo output."
 
 #~ msgid "in '%s'..."
 #~ msgstr "in '%s' in corso..."
