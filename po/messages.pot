@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-03 16:53+0200\n"
+"POT-Creation-Date: 2009-07-03 18:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -83,89 +83,87 @@ msgstr ""
 msgid "Database created."
 msgstr ""
 
-#: ../src/files.py:91
+#: ../src/files.py:94
 #, python-format
 msgid "Unable to extract archive to '%s'. "
 msgstr ""
 
-#: ../src/files.py:92
+#: ../src/files.py:95
 msgid "Check available space and write permissions of target directory."
 msgstr ""
 
-#: ../src/files.py:104
+#: ../src/files.py:107
 #, python-format
 msgid "Extracting archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:112
+#: ../src/files.py:116
 #, python-format
 msgid "Target file '%s' already exists. Overwrite?"
 msgstr ""
 
-#: ../src/files.py:125
+#: ../src/files.py:139
 #, python-format
 msgid "Trimming '%s'..."
 msgstr ""
 
-#: ../src/files.py:134
+#: ../src/files.py:148
 msgid "Unable to get detailed informations for trimming."
 msgstr ""
 
-#: ../src/files.py:142
+#: ../src/files.py:156
 msgid "Original size:"
 msgstr ""
 
-#: ../src/files.py:143
+#: ../src/files.py:157
 msgid "Trimmed size:"
 msgstr ""
 
-#: ../src/files.py:144
+#: ../src/files.py:158
 msgid "Saved space:"
 msgstr ""
 
-#: ../src/files.py:151
+#: ../src/files.py:165
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr ""
 
-#: ../src/files.py:154
+#: ../src/files.py:169
 #, python-format
 msgid "Unable to open '%s'."
 msgstr ""
 
-#: ../src/files.py:157
-msgid ""
-"\n"
-"Done. Total saved space:"
+#: ../src/files.py:173
+msgid "Done. Total saved space:"
 msgstr ""
 
-#: ../src/files.py:162
+#: ../src/files.py:178
 msgid "Extraction completed."
 msgstr ""
 
-#: ../src/files.py:164
+#: ../src/files.py:180
 msgid " Total saved space by trimming:"
 msgstr ""
 
-#: ../src/files.py:167
+#: ../src/files.py:183
 msgid "Extraction canceled."
 msgstr ""
 
-#: ../src/files.py:213
+#: ../src/files.py:229
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:267
+#: ../src/files.py:283
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr ""
 
-#: ../src/files.py:270
+#: ../src/files.py:286
 msgid "Rebuilding stopped."
 msgstr ""
 
-#: ../src/files.py:272
+#: ../src/files.py:288
 msgid "Rebuilding completed."
 msgstr ""
 
@@ -474,63 +472,71 @@ msgid ""
 "Games list will be reloaded."
 msgstr ""
 
-#: ../src/gui.py:1505
+#: ../src/gui.py:1470
+msgid "_No for all"
+msgstr ""
+
+#: ../src/gui.py:1480
+msgid "_Yes for all"
+msgstr ""
+
+#: ../src/gui.py:1536
 #, python-format
 msgid "%d game shown"
 msgstr ""
 
-#: ../src/gui.py:1507
+#: ../src/gui.py:1538
 #, python-format
 msgid "%d games shown"
 msgstr ""
 
-#: ../src/gui.py:1509
+#: ../src/gui.py:1540
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1511
+#: ../src/gui.py:1542
 #, python-format
 msgid " - %d to rebuild"
 msgstr ""
 
-#: ../src/gui.py:1513
+#: ../src/gui.py:1544
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1515
+#: ../src/gui.py:1546
 msgid "No games shown"
 msgstr ""
 
-#: ../src/gui.py:1644 ../src/gui.py:1645
+#: ../src/gui.py:1675 ../src/gui.py:1676
 msgid "Stop the download process."
 msgstr ""
 
-#: ../src/gui.py:1665 ../src/gui.py:1666
+#: ../src/gui.py:1696 ../src/gui.py:1697
 msgid "Stop the rebuild process."
 msgstr ""
 
-#: ../src/gui.py:1706
+#: ../src/gui.py:1737
 msgid "Scanning roms on disk..."
 msgstr ""
 
-#: ../src/gui.py:1746 ../src/gui.py:1793 ../src/gui.py:1802 ../src/gui.py:1836
-#: ../src/gui.py:1845
+#: ../src/gui.py:1777 ../src/gui.py:1824 ../src/gui.py:1833 ../src/gui.py:1867
+#: ../src/gui.py:1876
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr ""
 
-#: ../src/gui.py:1782 ../src/gui.py:1825
+#: ../src/gui.py:1813 ../src/gui.py:1856
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr ""
 
-#: ../src/gui.py:1848
+#: ../src/gui.py:1879
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1870
+#: ../src/gui.py:1901
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr ""

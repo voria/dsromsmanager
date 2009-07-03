@@ -1461,6 +1461,36 @@ class Gui(threading.Thread):
 		else:
 			return False
 	
+	def show_yesnoalwaysnever_question_dialog(self, message, use_threads = False):
+		""" Show a question dialog with 'Yes', 'Yes for all', 'No', 'No for all' buttons, showing 'message'.
+		Return 1 if 'Yes', 2 if 'Yes for all', 0 if 'No', -1 if 'No for all'. """
+		if self.quitting == True:
+			return 0
+		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_NONE, message)
+		button = gtk.Button(_("_No for all"))
+		button.set_image(gtk.image_new_from_stock(gtk.STOCK_NO, gtk.ICON_SIZE_BUTTON))
+		button.show()
+		dialog.add_action_widget(button, -1)
+		button = gtk.Button(None, gtk.STOCK_NO)
+		button.show()
+		dialog.add_action_widget(button, 0)
+		button = gtk.Button(None, gtk.STOCK_YES)
+		button.show()
+		dialog.add_action_widget(button, 1)
+		button = gtk.Button(_("_Yes for all"))
+		button.set_image(gtk.image_new_from_stock(gtk.STOCK_YES, gtk.ICON_SIZE_BUTTON))
+		button.show()
+		dialog.add_action_widget(button, 2)
+		if use_threads == True:
+			gdk.threads_enter()
+		response = dialog.run()
+		dialog.destroy()
+		if use_threads == True:
+			gdk.threads_leave()
+		if response == gtk.RESPONSE_DELETE_EVENT: # user has closed the dialog: return 'No'
+			response = 0
+		return response
+	
 	def show_info_dialog(self, message, use_threads = False):
 		""" Show an info dialog with just an OK button, showing 'message' """
 		if self.quitting == True:

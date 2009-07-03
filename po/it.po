@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-03 16:53+0200\n"
-"PO-Revision-Date: 2009-07-03 16:53+0200\n"
+"POT-Creation-Date: 2009-07-03 18:25+0200\n"
+"PO-Revision-Date: 2009-07-03 18:25+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -90,95 +90,91 @@ msgstr "Caricamento del file DAT e creazione del database in corso..."
 msgid "Database created."
 msgstr "Database creato."
 
-#: ../src/files.py:91
+#: ../src/files.py:94
 #, python-format
 msgid "Unable to extract archive to '%s'. "
 msgstr "Impossibile estrarre il file in '%s'. "
 
-#: ../src/files.py:92
+#: ../src/files.py:95
 msgid "Check available space and write permissions of target directory."
 msgstr ""
 "Controllare lo spazio disponibile e i permessi di scrittura della directory "
 "di destinazione."
 
-#: ../src/files.py:104
+#: ../src/files.py:107
 #, python-format
 msgid "Extracting archive for '%s'..."
 msgstr "Estrazione dell'archivio di '%s' in corso..."
 
-#: ../src/files.py:112
+#: ../src/files.py:116
 #, python-format
 msgid "Target file '%s' already exists. Overwrite?"
 msgstr "File destinazione '%s' già esistente. Sovrascrivere?"
 
-#: ../src/files.py:125
+#: ../src/files.py:139
 #, python-format
 msgid "Trimming '%s'..."
 msgstr "Trim di '%s' in corso..."
 
-#: ../src/files.py:134
+#: ../src/files.py:148
 msgid "Unable to get detailed informations for trimming."
 msgstr ""
 "Impossibile recuperare le informazioni dettagliate riguardanti il processo "
 "di trimming."
 
-#: ../src/files.py:142
+#: ../src/files.py:156
 msgid "Original size:"
 msgstr "Dimensione originale:"
 
-#: ../src/files.py:143
+#: ../src/files.py:157
 msgid "Trimmed size:"
 msgstr "Dimensione trimmata:"
 
-#: ../src/files.py:144
+#: ../src/files.py:158
 msgid "Saved space:"
 msgstr "Spazio recuperato:\t"
 
-#: ../src/files.py:151
+#: ../src/files.py:165
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr "Impossibile estrarre il file da '%s'."
 
-#: ../src/files.py:154
+#: ../src/files.py:169
 #, python-format
 msgid "Unable to open '%s'."
 msgstr "Impossibile aprire '%s'."
 
-#: ../src/files.py:157
-msgid ""
-"\n"
-"Done. Total saved space:"
-msgstr ""
-"\n"
-"Finito. Spazio totale recuperato:"
+#: ../src/files.py:173
+msgid "Done. Total saved space:"
+msgstr "Finito. Spazio totale recuperato:"
 
-#: ../src/files.py:162
+#: ../src/files.py:178
 msgid "Extraction completed."
 msgstr "Estrazione completata."
 
-#: ../src/files.py:164
+#: ../src/files.py:180
 msgid " Total saved space by trimming:"
 msgstr " Spazio totale recuperato con il trim:"
 
-#: ../src/files.py:167
+#: ../src/files.py:183
 msgid "Extraction canceled."
 msgstr "Estrazione annullata."
 
-#: ../src/files.py:213
+#: ../src/files.py:229
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr "Ricostruzione dell'archivio di '%s' in corso..."
 
-#: ../src/files.py:267
+#: ../src/files.py:283
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr "Errore durante la ricostruzione dell'archivio di '%s'!"
 
-#: ../src/files.py:270
+#: ../src/files.py:286
 msgid "Rebuilding stopped."
 msgstr "Ricostruzione fermata."
 
-#: ../src/files.py:272
+#: ../src/files.py:288
 msgid "Rebuilding completed."
 msgstr "Ricostruzione completata."
 
@@ -518,63 +514,71 @@ msgstr ""
 "\n"
 "La lista dei giochi verrà ricaricata."
 
-#: ../src/gui.py:1505
+#: ../src/gui.py:1470
+msgid "_No for all"
+msgstr "_No per tutti"
+
+#: ../src/gui.py:1480
+msgid "_Yes for all"
+msgstr "_Sì per tutti"
+
+#: ../src/gui.py:1536
 #, python-format
 msgid "%d game shown"
 msgstr "%d gioco visualizzato"
 
-#: ../src/gui.py:1507
+#: ../src/gui.py:1538
 #, python-format
 msgid "%d games shown"
 msgstr "%d giochi visualizzati"
 
-#: ../src/gui.py:1509
+#: ../src/gui.py:1540
 #, python-format
 msgid " - %d available"
 msgstr " - %d disponibili"
 
-#: ../src/gui.py:1511
+#: ../src/gui.py:1542
 #, python-format
 msgid " - %d to rebuild"
 msgstr " - %d da ricostruire"
 
-#: ../src/gui.py:1513
+#: ../src/gui.py:1544
 #, python-format
 msgid " - %d not available"
 msgstr " - %d non disponibili"
 
-#: ../src/gui.py:1515
+#: ../src/gui.py:1546
 msgid "No games shown"
 msgstr "Nessun gioco visualizzato"
 
-#: ../src/gui.py:1644 ../src/gui.py:1645
+#: ../src/gui.py:1675 ../src/gui.py:1676
 msgid "Stop the download process."
 msgstr "Ferma il processo di download."
 
-#: ../src/gui.py:1665 ../src/gui.py:1666
+#: ../src/gui.py:1696 ../src/gui.py:1697
 msgid "Stop the rebuild process."
 msgstr "Ferma il processo di ricostruzione."
 
-#: ../src/gui.py:1706
+#: ../src/gui.py:1737
 msgid "Scanning roms on disk..."
 msgstr "Scansione delle roms su disco in corso..."
 
-#: ../src/gui.py:1746 ../src/gui.py:1793 ../src/gui.py:1802 ../src/gui.py:1836
-#: ../src/gui.py:1845
+#: ../src/gui.py:1777 ../src/gui.py:1824 ../src/gui.py:1833 ../src/gui.py:1867
+#: ../src/gui.py:1876
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr "'%s' era ridondante. Eliminato."
 
-#: ../src/gui.py:1782 ../src/gui.py:1825
+#: ../src/gui.py:1813 ../src/gui.py:1856
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr "Il file '%s' è un duplicato. Eliminare?"
 
-#: ../src/gui.py:1848
+#: ../src/gui.py:1879
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:1870
+#: ../src/gui.py:1901
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr "%d giochi caricati correttamente."

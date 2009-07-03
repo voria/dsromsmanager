@@ -81,10 +81,13 @@ class RomArchiveExtract(threading.Thread):
         self.games = games
         self.gamesnumber_to_extract = len(games)
         self.gamesnumber_extracted = 0
+        self.gamesnumber_processed = 0
         self.target = target
         self.trim = trim
         self.show_trim_log = show_trim_log
         self.total_saved_space = 0 # total saved space by trimming
+        self.overwrite = False
+        self.ask_for_overwrite = True
     
     def run(self):
         if not os.access(self.target, os.W_OK):
@@ -96,9 +99,9 @@ class RomArchiveExtract(threading.Thread):
         for key in sorted(self.games.iterkeys()):
             game = key
             zipf = self.games[key]
-            
+            self.gamesnumber_processed += 1
             if self.gamesnumber_to_extract > 1:
-                text = " (%d/%d) : " % (self.gamesnumber_extracted + 1, self.gamesnumber_to_extract)
+                text = " (%d/%d) : " % (self.gamesnumber_processed, self.gamesnumber_to_extract)
             else:
                 text = ""
             text += _("Extracting archive for '%s'...") % game
@@ -109,17 +112,28 @@ class RomArchiveExtract(threading.Thread):
                 try:
                     info = zip.infolist()[0]
                     if os.path.exists(os.path.join(self.target, info.filename)):
-                        message = _("Target file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
-                        if self.gui.show_yesno_question_dialog(message, True) == False:
+                        if self.ask_for_overwrite == True:
+                            message = _("Target file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
+                            response = self.gui.show_yesnoalwaysnever_question_dialog(message, True)
+                            if response == 0: # No 
+                                self.overwrite = False
+                            elif response == 1: # Yes
+                                self.overwrite = True
+                            elif response == -1: # No for all
+                                self.overwrite = False
+                                self.ask_for_overwrite = False
+                            else: # Yes for all
+                                self.overwrite = True
+                                self.ask_for_overwrite = False
+                        if self.overwrite == False:
                             zip.close()
-                            self.gamesnumber_extracted += 1
                             continue
                     if self.trim != None:
                         # Extract in current working directory and then trim it using 'target' as trim output directory
                         zip.extractall()
                         cmd = 'trim -d "' + self.target + '" -b "' + info.filename + '"'
                         if self.gamesnumber_to_extract > 1:
-                            message = text = " (%d/%d) : " % (self.gamesnumber_extracted + 1, self.gamesnumber_to_extract)
+                            message = text = " (%d/%d) : " % (self.gamesnumber_processed, self.gamesnumber_to_extract)
                         else:
                             message = ""
                         message += _("Trimming '%s'...") % game
@@ -135,7 +149,7 @@ class RomArchiveExtract(threading.Thread):
                             self.show_trim_log = False
                         if self.show_trim_log == True:
                             if self.gamesnumber_to_extract > 1:
-                                output = " (%d/%d)" % (self.gamesnumber_extracted + 1, self.gamesnumber_to_extract)
+                                output = " (%d/%d)" % (self.gamesnumber_processed, self.gamesnumber_to_extract)
                             else:
                                 output = ""
                             output += " *** " + info.filename + "\n\t"
@@ -144,17 +158,19 @@ class RomArchiveExtract(threading.Thread):
                             output += _("Saved space:") + "\t" + saved_space + "\n"
                             self.gui.show_trim_log_window(output, True)
                         os.remove(info.filename)                        
-                    else:
+                    else: # No trim
                         zip.extractall(self.target)
                     self.gamesnumber_extracted += 1
                 except:
                     self.gui.show_error_dialog(_("Unable to extract file from '%s'.") % zipf, True)
+                    raise
                 zip.close()
             except:
                 self.gui.show_error_dialog(_("Unable to open '%s'.") % zipf, True)
+                raise
         
-        if self.trim != None and self.show_trim_log == True:
-            message = _("\nDone. Total saved space:")
+        if self.trim != None and self.show_trim_log == True and self.gamesnumber_extracted > 0:
+            message = "\n" + _("Done. Total saved space:")
             message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space/1024) + " MB)\n"
             self.gui.show_trim_log_window(message, True)
         
