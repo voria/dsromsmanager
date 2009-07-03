@@ -296,19 +296,20 @@ class Gui(threading.Thread):
 		self.games_check_no_checkbutton.set_active(config.get_option("show_not_available_games"))
 		self.games_check_convert_checkbutton.set_active(config.get_option("show_fixable_games"))
 		
-		# Check if 'trim' in installed
-		self.trim = None
+		# Check if 'trim' in installed and disable(enable options as needed 
+		trim = None
 		for path in os.path.expandvars("$PATH").split(":"):
 			temp = os.path.join(path, "trim")
-			if os.path.exists(os.path.join(path, "trim")):
-				self.trim = temp
+			if os.path.exists(temp):
+				trim = temp
 				break
-		if self.trim == None: # 'trim' not available
+		if trim == None: # 'trim' not available
 			self.options_trim_roms_checkbutton.set_sensitive(False)
-			config.set_option("trim_roms", False)
 			self.options_trim_roms_log_checkbutton.set_sensitive(False)
-			config.set_option("show_trim_log", False)
-		
+		else: # 'trim' available
+			self.options_trim_roms_checkbutton.set_sensitive(True)
+			self.options_trim_roms_log_checkbutton.set_sensitive(True)
+				
 		# Connect signals
 		self.main_window.connect("delete_event", self.on_main_window_delete_event)
 		self.statusbar.connect("text-pushed", self.on_statusbar_text_pushed)
@@ -866,7 +867,7 @@ class Gui(threading.Thread):
 		if self.quitting == True:
 			return
 
-		gamesdict = {} # games to extract, in format { game_fullinfo : zipfile }
+		gamesdict = {} # games to extract, in format { fullinfo : zipfile }
 		
 		selection = self.list_treeview.get_selection()
 		model, paths = selection.get_selected_rows()
@@ -903,10 +904,24 @@ class Gui(threading.Thread):
 		else:
 			target = extract_to
 		
-		if self.trim != None and self.options_trim_roms_checkbutton.get_active():
-			rae = RomArchiveExtract(self, gamesdict, target, self.trim, config.get_option("show_trim_log"))
-		else:
-			rae = RomArchiveExtract(self, gamesdict, target, None)
+		# Check if 'trim' in installed
+		trim = None
+		for path in os.path.expandvars("$PATH").split(":"):
+			temp = os.path.join(path, "trim")
+			if os.path.exists(temp):
+				trim = temp
+				break
+		if trim == None: # 'trim' not available
+			self.options_trim_roms_checkbutton.set_sensitive(False)
+			self.options_trim_roms_log_checkbutton.set_sensitive(False)
+		else: # 'trim' available
+			self.options_trim_roms_checkbutton.set_sensitive(True)
+			self.options_trim_roms_log_checkbutton.set_sensitive(True)
+		
+		if config.get_option("trim_roms") == False: # user don't want to trim roms
+			trim = None
+		
+		rae = RomArchiveExtract(self, gamesdict, target, trim, config.get_option("show_trim_log"))
 		self.threads.append(rae)
 		rae.start()
 	
@@ -1124,6 +1139,8 @@ class Gui(threading.Thread):
 		self.__filter()
 	
 	def on_options_trim_roms_checkbutton_toggled(self, widget):
+		if self.options_trim_roms_checkbutton.get_property("sensitive") == False:
+			return
 		if self.options_trim_roms_checkbutton.get_active():
 			self.options_trim_roms_log_checkbutton.set_sensitive(True)
 		else:
