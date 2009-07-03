@@ -415,7 +415,7 @@ class Gui(threading.Thread):
 					self.gamesnumber_fixable += 1
 				else:
 					return returnvalue
-			
+				
 		self.list_treeview_model.append((check, flag, relnum, title))
 		self.gamesnumber_total += 1
 		return returnvalue
@@ -459,6 +459,8 @@ class Gui(threading.Thread):
 			check_convert = self.games_check_convert_checkbutton.get_active()
 			# Check the list
 			model = self.list_treeview_model
+			# Remove list from treeview for updating
+			self.list_treeview.set_model(None)
 			iter = model.get_iter_first()
 			while iter != None:
 				iter_next = model.iter_next(iter)
@@ -482,6 +484,8 @@ class Gui(threading.Thread):
 				iter = iter_next
 			# Games list is no more dirty
 			self.dirty_gameslist = False
+			# Set the model back to treeview
+			self.list_treeview.set_model(self.list_treeview_model)
 		else: # dirty_list == False
 			# Rebuild the list
 			string = self.filter_name_entry.get_text()
@@ -491,6 +495,8 @@ class Gui(threading.Thread):
 			language = self.filter_language_model.get_value(language_iter, 1)
 			size_iter = self.filter_size_combobox.get_active_iter()
 			size = self.filter_size_model.get_value(size_iter, 1)
+			# Remove list from treeview for updating
+			self.list_treeview.set_model(None)
 			try:
 				self.__update_list(self.db.filter_by(string, location, language, size))
 			except:
@@ -499,6 +505,9 @@ class Gui(threading.Thread):
 				self.__update_list(self.db.filter_by(string, location, language, size))
 		self.show_review_toolbutton.set_sensitive(False)
 		self.show_review_menuitem.set_sensitive(False)
+		# Set the model back to treeview
+		self.list_treeview.set_model(self.list_treeview_model)
+		# Restore previous selection
 		self.set_previous_treeview_cursor()
 	
 	def __hide_infos(self):
@@ -907,7 +916,9 @@ class Gui(threading.Thread):
 		if config.get_option("trim_roms") == False: # user don't want to trim roms
 			trim = None
 		
-		rae = RomArchiveExtract(self, gamesdict, target, trim, config.get_option("show_trim_log"))
+		trim_temp_path = config.get_option("trim_temp_path")
+		show_trim_log = config.get_option("show_trim_log")
+		rae = RomArchiveExtract(self, gamesdict, target, trim, trim_temp_path, show_trim_log)
 		self.threads.append(rae)
 		rae.start()
 	
@@ -1000,7 +1011,6 @@ class Gui(threading.Thread):
 			message = _("Rescan roms archives and rebuild games list?")
 			if self.show_okcancel_question_dialog(message) == False:
 				return
-		self.list_treeview.get_selection().unselect_all()
 		self.previous_selection_release_number = None
 		rar = RomArchivesRescan(self)
 		self.threads.append(rar)
@@ -1152,7 +1162,7 @@ class Gui(threading.Thread):
 			self.options_trim_roms_log_checkbutton.set_sensitive(False) 
 		
 		roms_path = config.get_option("roms_path")
-		if not os.path.exists(roms_path): # roms_path does not exist, fallback to the default path
+		if not os.path.exists(roms_path):
 			self.show_info_dialog(_("Current 'Roms' path does not exist.\nThe default path will be used."))
 			roms_path = config.get_option_default("roms_path")
 		self.options_roms_path_filechooserbutton.set_current_folder(roms_path)
@@ -1572,19 +1582,28 @@ class Gui(threading.Thread):
 			game = self.db.get_game(game_release_number)	
 		
 		self.checksums[game[GAME_ROM_CRC]] = new_zip_file
-				
+		
+		# Remove model from treeview
+		self.list_treeview.set_model(None)
+		
 		# Search for the game in current treeview and update it
 		iter = self.list_treeview_model.get_iter_first()
 		if iter == None: # Treeview is empty, nothing to do.
+			# Set the model back to treeview
+			self.list_treeview.set_model(self.list_treeview_model)
 			return
 		while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != game_release_number:
 			iter = self.list_treeview_model.iter_next(iter)
 			if iter == None: # Not found in current treeview. Nothing to do.
+				# Set the model back to treeview
+				self.list_treeview.set_model(self.list_treeview_model)
 				return
 		
 		self.list_treeview_model.set_value(iter, TVC_CHECK, self.checks[CHECKS_YES])
 		if self.games_check_ok_checkbutton.get_active() == False:
 			self.dirty_gameslist = True
+		# Set the model back to treeview
+		self.list_treeview.set_model(self.list_treeview_model)
 		# remove the current game from the dictionary of games to rebuild
 		del self.games_to_rebuild[game[GAME_FULLINFO]]
 		# Update counters and label
@@ -1716,8 +1735,6 @@ class Gui(threading.Thread):
 	
 	def open_db(self):
 		""" Open database """
-		if self.quitting == True:
-			return
 		self.db = DB(DB_FILE)
 	
 	def add_games(self, use_threads = False, scan_anyway = False):
@@ -1882,12 +1899,18 @@ class Gui(threading.Thread):
 		
 		self.update_statusbar("Games", _("Loading games list..."), use_threads)
 		
-		# Populate games list and rebuild dictionary of games to rebuild.
+		# Remove model from treeview for update
+		self.list_treeview.set_model(None)
+		
+		# Add games to model and rebuild dictionary of games to rebuild.
 		try:
 			self.__update_list(self.db.get_all_games(), True, True)
 		except:
 			self.open_db()
 			self.__update_list(self.db.get_all_games(), True, True)
+		
+		# Set updated model back to treeview
+		self.list_treeview.set_model(self.list_treeview_model)
 		
 		# Get total loaded games
 		games_number = self.gamesnumber_total

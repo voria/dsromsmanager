@@ -75,7 +75,7 @@ def get_nds_filename_from_zip(zipf):
 
 class RomArchiveExtract(threading.Thread):
     """ Extract the archives for games in 'games' dictionary { game_fullinfo : zipfile } """
-    def __init__(self, gui, games, target, trim, show_trim_log = False):
+    def __init__(self, gui, games, target, trim, temp, show_trim_log = False):
         threading.Thread.__init__(self, name="RomArchiveExtract")
         self.gui = gui
         self.games = games
@@ -83,6 +83,7 @@ class RomArchiveExtract(threading.Thread):
         self.gamesnumber_extracted = 0
         self.gamesnumber_processed = 0
         self.target = target
+        self.temp = temp
         self.trim = trim
         self.show_trim_log = show_trim_log
         self.total_saved_space = 0 # total saved space by trimming
@@ -129,9 +130,9 @@ class RomArchiveExtract(threading.Thread):
                             zip.close()
                             continue
                     if self.trim != None:
-                        # Extract in current working directory and then trim it using 'target' as trim output directory
-                        zip.extractall()
-                        cmd = 'trim -d "' + self.target + '" -b "' + info.filename + '"'
+                        # Extract in 'temp' directory and then trim it using 'target' as trim output directory
+                        zip.extractall(self.temp)
+                        cmd = 'trim -d "' + self.target + '" -b "' + os.path.join(self.temp, info.filename) + '"'
                         if self.gamesnumber_to_extract > 1:
                             message = text = " (%d/%d) : " % (self.gamesnumber_processed, self.gamesnumber_to_extract)
                         else:
@@ -157,7 +158,7 @@ class RomArchiveExtract(threading.Thread):
                             output += _("Trimmed size:") + "\t" + trimmed_size + "\n\t"
                             output += _("Saved space:") + "\t" + saved_space + "\n"
                             self.gui.show_trim_log_window(output, True)
-                        os.remove(info.filename)                        
+                        os.remove(os.path.join(self.temp, info.filename))
                     else: # No trim
                         zip.extractall(self.target)
                     self.gamesnumber_extracted += 1
@@ -291,8 +292,6 @@ class RomArchivesRebuild(threading.Thread):
         self.gui.toggle_rebuild_roms_archives_toolbutton(True)
         # reactivate all widgets
         self.gui.activate_widgets(True)
-        # Restore previous treeview selection
-        self.gui.set_previous_treeview_cursor(True)
                     
     def stop(self):
         """ Stop the thread """

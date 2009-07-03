@@ -103,7 +103,6 @@ class DatUpdater(threading.Thread):
 		finally:
 			# reactivate widgets
 			self.gui.activate_widgets(True)
-			self.gui.set_previous_treeview_cursor(True)
 		
 	def stop(self):
 		return
