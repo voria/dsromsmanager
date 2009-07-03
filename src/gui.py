@@ -1487,8 +1487,9 @@ class Gui(threading.Thread):
 		if use_threads == True:
 			gdk.threads_enter()
 		self.trim_log_window.show()
-		self.trim_log_textbuffer.insert_at_cursor("\n\n")
-		self.trim_log_textbuffer.insert_at_cursor(text)
+		end_iter = self.trim_log_textbuffer.get_end_iter()
+		self.trim_log_textbuffer.insert(end_iter, "\n\n" + text)
+		self.trim_log_textview.scroll_to_mark(self.trim_log_textbuffer.get_insert(), 0)
 		if use_threads == True:
 			gdk.threads_leave()
 	

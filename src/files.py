@@ -111,12 +111,13 @@ class RomArchiveExtract(threading.Thread):
                         message = _("Target file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
                         if self.gui.show_yesno_question_dialog(message, True) == False:
                             zip.close()
+                            self.gamesnumber_extracted += 1
                             continue
                     if self.trim != None:
                         # Extract in current working directory and then trim it using 'target' as trim output directory
                         zip.extractall()
                         cmd = 'trim -d "' + self.target + '" -b "' + info.filename + '"'
-                        self.gui.update_statusbar("RomArchiveExtract", _("Trimming '%s'..."), True)
+                        self.gui.update_statusbar("RomArchiveExtract", _("Trimming '%s'...") % game, True)
                         output = commands.getoutput(cmd)
                         if self.show_trim_log == True:
                             self.gui.show_trim_log_window(output, True)
@@ -129,6 +130,9 @@ class RomArchiveExtract(threading.Thread):
                 zip.close()
             except:
                 self.gui.show_info_dialog(_("Unable to open '%s'.") % zipf, True)
+        
+        if self.trim != None and self.show_trim_log == True:
+            self.gui.show_trim_log_window("Done.", True)
         
         if self.gamesnumber_extracted > 0:
             self.gui.update_statusbar("RomArchiveExtract", _("Extraction completed."), True)
