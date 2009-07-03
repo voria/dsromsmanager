@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-03 18:25+0200\n"
+"POT-Creation-Date: 2009-07-03 19:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -134,7 +134,9 @@ msgid "Unable to open '%s'."
 msgstr ""
 
 #: ../src/files.py:173
-msgid "Done. Total saved space:"
+msgid ""
+"Done.\n"
+"Total saved space:"
 msgstr ""
 
 #: ../src/files.py:178
@@ -480,63 +482,63 @@ msgstr ""
 msgid "_Yes for all"
 msgstr ""
 
-#: ../src/gui.py:1536
+#: ../src/gui.py:1540
 #, python-format
 msgid "%d game shown"
 msgstr ""
 
-#: ../src/gui.py:1538
+#: ../src/gui.py:1542
 #, python-format
 msgid "%d games shown"
 msgstr ""
 
-#: ../src/gui.py:1540
+#: ../src/gui.py:1544
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1542
+#: ../src/gui.py:1546
 #, python-format
 msgid " - %d to rebuild"
 msgstr ""
 
-#: ../src/gui.py:1544
+#: ../src/gui.py:1548
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1546
+#: ../src/gui.py:1550
 msgid "No games shown"
 msgstr ""
 
-#: ../src/gui.py:1675 ../src/gui.py:1676
+#: ../src/gui.py:1679 ../src/gui.py:1680
 msgid "Stop the download process."
 msgstr ""
 
-#: ../src/gui.py:1696 ../src/gui.py:1697
+#: ../src/gui.py:1700 ../src/gui.py:1701
 msgid "Stop the rebuild process."
 msgstr ""
 
-#: ../src/gui.py:1737
+#: ../src/gui.py:1741
 msgid "Scanning roms on disk..."
 msgstr ""
 
-#: ../src/gui.py:1777 ../src/gui.py:1824 ../src/gui.py:1833 ../src/gui.py:1867
-#: ../src/gui.py:1876
+#: ../src/gui.py:1781 ../src/gui.py:1828 ../src/gui.py:1837 ../src/gui.py:1871
+#: ../src/gui.py:1880
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr ""
 
-#: ../src/gui.py:1813 ../src/gui.py:1856
+#: ../src/gui.py:1817 ../src/gui.py:1860
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr ""
 
-#: ../src/gui.py:1879
+#: ../src/gui.py:1883
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1901
+#: ../src/gui.py:1905
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr ""
