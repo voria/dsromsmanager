@@ -1,3 +1,37 @@
+drm (0.6) jaunty; urgency=low
+
+  * In launcher script, create "$HOME/.dsromsmanager" directory at
+    first start if it does not exist.
+  * Fix trim options logic.
+  * When more roms are extracted at once and trim is enabled,
+    launch 'trim' command for every roms instead of launching it
+    once only at the end for all the roms.
+  * Fix count of extracted games.
+  * Autoscroll trim log textbuffer if needed when new output is added.
+  * When user quits while scanning for roms archives, stop scanning
+    as soon as possible.
+  * Set options_toolbutton and options_menuitem insensitive when options
+    dialog is shown, restore them when options dialog is hidden.
+  * Make the window for trim info smaller.
+  * Localize trim output in trim info window.
+  * Total saved space by trimming is shown in statusbar when trimming
+    is enabled and 'show detailed info' is disabled.
+  * Add a new type of question dialog containing 4 buttons,
+    'Yes', 'No', 'No at all', 'Yes at all'.
+  * Use the new 4 buttons question dialog when asking for overwriting
+    while extracting archives. This way the user can overwrite everything
+    or nothing with just one click.
+  * Add 'trim_temp_path' option to config file.
+  * When trim option is enabled, use 'trim_temp_path' as intermediate
+    directory for extracting archives, then tell 'trim' to save the
+    trimmed rom in the target directory. When done, delete original rom
+    from intermediate directory.
+  * When treeview_model has to be updated, remove it from treeview and
+    when it's updated, set it back.
+  * Update translations. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 03 Jul 2009 21:28:25 +0200
+
 drm (0.5) jaunty; urgency=low
 
   * Hide 'Extract in' filechooserdialog when the current path is invalid.
