@@ -30,6 +30,7 @@ DEFAULT_AUTOSCAN_ARCHIVES_AT_START = True
 DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE = True
 DEFAULT_TRIM_ROMS = False
 DEFAULT_SHOW_TRIM_LOG = False
+DEFAULT_TRIM_TEMP_PATH = "/tmp"
 DEFAULT_REVIEW_URL = "http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
 DEFAULT_ROMS_PATH = ROMS_DIR
 DEFAULT_UNKNOWN_ROMS_PATH = UNKNOWN_ROMS_DIR
@@ -46,6 +47,7 @@ DEFAULT_CFG_FILE += "\nautoscan_archives_at_start = " + str(DEFAULT_AUTOSCAN_ARC
 DEFAULT_CFG_FILE += "\nautoscan_archives_at_datupdate = " + str(DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE)
 DEFAULT_CFG_FILE += "\ntrim_roms = " + str(DEFAULT_TRIM_ROMS)
 DEFAULT_CFG_FILE += "\nshow_trim_log = " + str(DEFAULT_SHOW_TRIM_LOG)
+DEFAULT_CFG_FILE += "\ntrim_temp_path = " + DEFAULT_TRIM_TEMP_PATH
 DEFAULT_CFG_FILE += "\nreview_url = " + DEFAULT_REVIEW_URL
 DEFAULT_CFG_FILE += "\nroms_path = " + DEFAULT_ROMS_PATH
 DEFAULT_CFG_FILE += "\nunknown_roms_path = " + DEFAULT_UNKNOWN_ROMS_PATH
@@ -96,6 +98,11 @@ class Config():
         except NoOptionError:
             self.config.set(DEFAULT_CFG_SECTION, "show_trim_log", str(DEFAULT_SHOW_TRIM_LOG))
             self.show_trim_log = DEFAULT_SHOW_TRIM_LOG
+        try:
+            self.trim_temp_path = self.config.get(DEFAULT_CFG_SECTION, "trim_temp_path")
+        except NoOptionError:
+            self.config.set(DEFAULT_CFG_SECTION, "trim_temp_path", DEFAULT_TRIM_TEMP_PATH)
+            self.trim_temp_path = DEFAULT_TRIM_TEMP_PATH
         try:
             self.review_url = self.config.get(DEFAULT_CFG_SECTION, "review_url")
         except NoOptionError:
@@ -158,6 +165,8 @@ class Config():
             return self.trim_roms
         if option == "show_trim_log":
             return self.show_trim_log
+        if option == "trim_temp_path":
+            return self.trim_temp_path
         if option == "roms_path":
             return self.roms_path
         if option == "unknown_roms_path":
@@ -189,6 +198,8 @@ class Config():
             return DEFAULT_TRIM_ROMS
         if option == "show_trim_log":
             return DEFAULT_SHOW_TRIM_LOG
+        if option == "trim_temp_path":
+            return DEFAULT_TRIM_TEMP_PATH
         if option == "roms_path":
             return DEFAULT_ROMS_PATH
         if option == "unknown_roms_path":
@@ -218,8 +229,10 @@ class Config():
             self.autoscan_archives_at_datupdate = value
         elif option == "trim_roms":
             self.trim_roms = value
-        elif option =="show_trim_log":
+        elif option == "show_trim_log":
             self.show_trim_log = value
+        elif option == "trim_temp_path":
+            self.trim_temp_path = value
         elif option == "roms_path":
             self.roms_path = value
         elif option == "unknown_roms_path":
@@ -250,8 +263,10 @@ class Config():
             self.autoscan_archives_at_datupdate = DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE
         elif option == "trim_roms":
             self.trim_roms = DEFAULT_TRIM_ROMS
-        elif option =="show_trim_log":
+        elif option == "show_trim_log":
             self.show_trim_log = DEFAULT_SHOW_TRIM_LOG
+        elif option == "trim_temp_path":
+            self.trim_temp_path = DEFAULT_TRIM_TEMP_PATH
         elif option == "roms_path":
             self.roms_path = DEFAULT_ROMS_PATH
         elif option == "unknown_roms_path":
@@ -283,6 +298,7 @@ class Config():
         config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", self.unknown_roms_path)
         config.set(DEFAULT_CFG_SECTION, "roms_path", self.roms_path)
         config.set(DEFAULT_CFG_SECTION, "review_url", self.review_url)
+        config.set(DEFAULT_CFG_SECTION, "trim_temp_path", self.trim_temp_path)
         config.set(DEFAULT_CFG_SECTION, "show_trim_log", str(self.show_trim_log))
         config.set(DEFAULT_CFG_SECTION, "trim_roms", str(self.trim_roms))
         config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_datupdate", str(self.autoscan_archives_at_datupdate))
