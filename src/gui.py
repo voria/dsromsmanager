@@ -1187,6 +1187,9 @@ class Gui(threading.Thread):
 		
 		self.options_review_url_entry.set_text(config.get_option("review_url"))
 		self.options_dialog.set_sensitive(True)
+		
+		self.options_toolbutton.set_sensitive(False)
+		self.options_menuitem.set_sensitive(False)
 		self.options_dialog.show()
 	
 	def on_options_dialog_response(self, dialog, response_id):
@@ -1309,6 +1312,8 @@ class Gui(threading.Thread):
 				# Rescan archives
 				self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton, False)
 		
+		self.options_toolbutton.set_sensitive(True)
+		self.options_menuitem.set_sensitive(True)
 		dialog.hide()
 	
 	def on_options_extractin_path_enable_button_clicked(self, button):
@@ -1392,8 +1397,9 @@ class Gui(threading.Thread):
 		else:
 			self.rebuild_roms_archives_toolbutton.set_sensitive(False)
 			self.rebuild_roms_archives_menuitem.set_sensitive(False)
-		self.options_toolbutton.set_sensitive(True)
-		self.options_menuitem.set_sensitive(True)
+		if self.options_dialog.get_property("visible") == False:
+			self.options_toolbutton.set_sensitive(True)
+			self.options_menuitem.set_sensitive(True)
 		self.games_check_ok_checkbutton.set_sensitive(True)
 		self.games_check_no_checkbutton.set_sensitive(True)
 		self.games_check_convert_checkbutton.set_sensitive(True)
