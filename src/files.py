@@ -213,17 +213,16 @@ class RomArchivesRebuild(threading.Thread):
     def __init__(self, gui, widgets, games):
         threading.Thread.__init__(self, name="RomArchivesRebuild")
         self.gui = gui
-        self.widgets = widgets
         self.games = games
         self.gamesnumber_to_fix = len(games)
         self.gamesnumber_fixed = 0
         self.is_zip = True # Are we working on zip or nds?
         self.stopnow = False
+        # Deactivate widgets
+        for widget in widgets:
+            widget.set_sensitive(False)
     
     def run(self):
-        # Deactivate widgets
-        for widget in self.widgets:
-            widget.set_sensitive(False)
             
         self.gui.toggle_rebuild_roms_archives_toolbutton(True)
         
@@ -250,8 +249,7 @@ class RomArchivesRebuild(threading.Thread):
             try:
                 if self.is_zip == True:
                     zip = zipfile.ZipFile(oldfile, "r")
-                    if len(zip.infolist()) != 1:
-                        # We can't handle zip with multiple files in it for now
+                    if len(zip.infolist()) != 1: # We don't handle zip with multiple files in it
                         zip.close()
                         continue
                     info = zip.infolist()[0]
@@ -280,7 +278,7 @@ class RomArchivesRebuild(threading.Thread):
                 
                 # Now we can work with oldfile
                 
-                # Open the new zip file andrite in it the 'oldfile' as 'newndsname'
+                # Open the new zip file and write in it the 'oldfile' as 'newndsname'
                 zip = zipfile.ZipFile(newzipfile, "w", zipfile.ZIP_DEFLATED)
                 zip.write(oldfile, newndsname)
                 zip.close()
