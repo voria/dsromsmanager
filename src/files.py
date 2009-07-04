@@ -164,11 +164,9 @@ class RomArchiveExtract(threading.Thread):
                     self.gamesnumber_extracted += 1
                 except:
                     self.gui.show_error_dialog(_("Unable to extract file from '%s'.") % zipf, True)
-                    raise
                 zip.close()
             except:
                 self.gui.show_error_dialog(_("Unable to open '%s'.") % zipf, True)
-                raise
         
         if self.trim != None and self.show_trim_log == True and self.gamesnumber_extracted > 0:
             message = "\n" + _("Done.\nTotal saved space:")
