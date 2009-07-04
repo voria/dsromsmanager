@@ -19,7 +19,7 @@
 try:
 	import sqlite3
 except:
-	print "This application requires at least Python 2.6 to run."
+	print "This application requires at least Python 2.5 to run."
 	import sys
 	sys.exit(1)
 
@@ -207,4 +207,3 @@ class DB():
 		self.cursor.execute(INSERT_INFO_QUERY.replace("info", "extern.info", 1), self.cursor.fetchone())
 		
 		self.connection.commit()
-		
