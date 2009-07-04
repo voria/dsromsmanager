@@ -34,7 +34,6 @@ class Main(threading.Thread):
 		threading.Thread.__init__(self, name="Main")
 		self.threads = [] # Keep track of all threads
 		self.threads.append(self)
-		self.stopnow = False
 		
 	def run(self):
 		
@@ -55,7 +54,7 @@ class Main(threading.Thread):
 				db_deleted = True
 				
 		if not os.path.exists(DB_FILE):
-			if db_deleted == True:
+			if db_deleted:
 				self.gui.show_info_dialog(_("""Database out of date or corrupt, it has been deleted.\n
 A new DAT file will be automatically downloaded and a new database will be created."""), True)
 			else:
@@ -65,17 +64,26 @@ A new DAT file will be automatically downloaded and a new database will be creat
 			self.threads.append(datdownloader)
 			datdownloader.start()
 			datdownloader.join()
+			# Check if we really have the DAT file
+			while not os.path.exists(DAT_NAME):
+				message = _("Unable to download DAT file. Retry?")
+				if self.gui.show_okcancel_question_dialog(message, True) == True: 
+					datdownloader = DatDownloader(self.gui)
+					self.threads.append(datdownloader)
+					datdownloader.start()
+					datdownloader.join()
+				else: # Exit
+					self.gui.stop()
+					return
 			# Now we have the DAT file
 			self.gui.update_statusbar("Dat", _("Loading DAT file and creating database..."), True)
-			if self.stopnow == False:
-				dat = Dat(DAT_NAME)
+			dat = Dat(DAT_NAME)
 			self.gui.update_statusbar("Dat", _("Database created."), True)
-		
 		# Pass control to the Gui
-		self.gui.add_games(True)
+		self.gui.add_games(scan_anyway=False, use_threads=True)
 
 	def stop(self):
-		self.stopnow = True
+		return
 		
 if __name__ == "__main__":
 	try:

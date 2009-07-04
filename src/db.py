@@ -105,13 +105,10 @@ class DB():
 	def __init__(self, filename=":memory:"):
 		self.connection = sqlite3.connect(filename)
 		self.cursor = self.connection.cursor()
-		
 		# Create 'games' table
 		self.cursor.execute(CREATE_GAMES_TABLE_QUERY)
-		
 		# Create 'datinfo' table
 		self.cursor.execute(CREATE_INFO_TABLE_QUERY)
-		
 		# Count games in database
 		self.cursor.execute("SELECT * FROM games")
 		self.games = len(self.cursor.fetchall())
@@ -190,20 +187,19 @@ class DB():
 	
 	def save_as(self, filename):
 		""" Save database in memory on disk as 'filename' """
+		# Remove old database, if any
 		if os.path.exists(filename):
 			os.remove(filename)
-		
+		# Attach external file
 		self.cursor.execute("ATTACH '%s' AS extern" % filename)
-		
 		# Create tables on external file
 		self.cursor.execute(CREATE_GAMES_TABLE_QUERY.replace("games", "extern.games", 1))
 		self.cursor.execute(CREATE_INFO_TABLE_QUERY.replace("info", "extern.info", 1))
-		
 		# Copy data from memory database to extern database
 		self.cursor.execute("SELECT * FROM games")
 		for game in self.cursor.fetchall():
 			self.cursor.execute(INSERT_GAME_QUERY.replace("games", "extern.games", 1), game)
 		self.cursor.execute("SELECT * FROM info")
 		self.cursor.execute(INSERT_INFO_QUERY.replace("info", "extern.info", 1), self.cursor.fetchone())
-		
+		# Commit
 		self.connection.commit()

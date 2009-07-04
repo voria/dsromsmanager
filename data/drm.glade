@@ -1002,10 +1002,10 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </packing>
             </child>
             <child>
-              <object class="GtkHBox" id="options_trim_roms_log_hbox">
+              <object class="GtkHBox" id="options_trim_roms_details_hbox">
                 <property name="visible">True</property>
                 <child>
-                  <object class="GtkFixed" id="options_trim_roms_log_fixed">
+                  <object class="GtkFixed" id="options_trim_roms_details_fixed">
                     <property name="visible">True</property>
                   </object>
                   <packing>
@@ -1016,7 +1016,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkCheckButton" id="options_trim_roms_log_checkbutton">
+                  <object class="GtkCheckButton" id="options_trim_roms_details_checkbutton">
                     <property name="label" translatable="yes">Show detailed informations</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -1172,8 +1172,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="show_hidden">True</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
@@ -1233,11 +1233,11 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             </child>
             <child>
               <object class="GtkButton" id="options_extractin_path_enable_button">
-                <property name="label" translatable="yes">'Extract in' path not found!</property>
+                <property name="label" translatable="yes">'Extract in' path currently not available</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">The previously selected 'Extract in' path does not exist anymore, or write permissions are not granted on it.
-Probably it pointed to a removable device (like an USB stick or an SD) and it's just temporary not available.
+Probably it pointed to a removable device (like an USB stick or an SD) which is just temporary not available.
 Click here to enable the 'Extract in' path to be modified.</property>
                 <property name="focus_on_click">False</property>
               </object>
@@ -1452,7 +1452,7 @@ Set an empty string to use the default URL.</property>
       </object>
     </child>
   </object>
-  <object class="GtkWindow" id="trim_log_window">
+  <object class="GtkWindow" id="trim_details_window">
     <property name="title" translatable="yes">Trim Detailed Informations</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_width">600</property>
@@ -1460,13 +1460,13 @@ Set an empty string to use the default URL.</property>
     <property name="destroy_with_parent">True</property>
     <property name="transient_for">main_window</property>
     <child>
-      <object class="GtkScrolledWindow" id="trim_log_scrolledwindow">
+      <object class="GtkScrolledWindow" id="trim_details_scrolledwindow">
         <property name="visible">True</property>
         <property name="can_focus">True</property>
         <property name="hscrollbar_policy">automatic</property>
         <property name="vscrollbar_policy">automatic</property>
         <child>
-          <object class="GtkTextView" id="trim_log_textview">
+          <object class="GtkTextView" id="trim_details_textview">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
             <property name="editable">False</property>

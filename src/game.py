@@ -22,7 +22,7 @@ from globals import *
 
 class Game():
 	""" Hold informations about a game """
-	def __init__(self, infos):				
+	def __init__(self, infos):
 		self.image_number = infos.getElementsByTagName("imageNumber")[0].firstChild.data
 		self.release_number = int(infos.getElementsByTagName("releaseNumber")[0].firstChild.data)
 		self.title = infos.getElementsByTagName("title")[0].firstChild.data
@@ -52,8 +52,7 @@ class Game():
 		return s
 		
 	def __dec2bin(self, n):
-		""" Convert an integer 'n' to a string
-		representing its binary representation """
+		""" Convert an integer 'n' to a string representing its binary representation """
 		s = ""
 		if n == 0:
 			return "0"
@@ -63,8 +62,10 @@ class Game():
 		return s
 	
 	def __get_range(self):
-		""" Return a string with the name of the directory in which
-		the image is stored, following the offlinelist convention """
+		"""
+		Return a string with the name of the directory in which
+		the image is stored, following the offlinelist convention
+		"""
 		imgCoc = (int(self.image_number) - 1) / 500
 		imgRangeStart = (imgCoc * 500) + 1
 		imgRange = str(imgRangeStart) + "-" + str(imgRangeStart + 499)
@@ -157,4 +158,3 @@ class Game():
 	def get_duplicate_id(self):
 		""" Return game's duplicate ID """
 		return self.duplicate_id
-	

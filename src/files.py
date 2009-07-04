@@ -28,7 +28,7 @@ import gettext
 _ = gettext.gettext
 
 def get_crc32(filename):
-    """ Return CRC32 of 'filename' """
+    """ Return CRC32 of 'filename' or None on error. """
     result = None
     try:
         crc = binascii.crc32(file(filename, 'r').read())
@@ -39,8 +39,11 @@ def get_crc32(filename):
     return result
 
 def get_crc32_zip(zipf):
-    """ Return CRC32 of .nds file contained in 'zipf'.
-    Return 'None' if no .nds file is found, or if .zip contains more files """
+    """
+    Return CRC32 of .nds file contained in 'zipf'.
+    Return 'None' if no .nds file is found, or if .zip contains more files.
+    Try to remove invalid zip files.
+    """
     result = None
     try:
         zip = zipfile.ZipFile(zipf, "r")
@@ -60,8 +63,10 @@ def get_crc32_zip(zipf):
     return result
 
 def get_nds_filename_from_zip(zipf):
-    """ Return the filename of .nds file contained in 'zipf'.
-    Return 'None' if no .nds file is found, or if .zip contains more files """
+    """
+    Return the filename of .nds file contained in 'zipf'.
+    Return 'None' if no .nds file is found, or if .zip contains more files.
+    """
     result = None
     try:
         zip = zipfile.ZipFile(zipf, "r")
@@ -78,8 +83,12 @@ def get_nds_filename_from_zip(zipf):
     return result
 
 class RomArchiveExtract(threading.Thread):
-    """ Extract the archives for games in 'games' dictionary { game_fullinfo : zipfile } """
-    def __init__(self, gui, games, target, trim, temp, show_trim_log = False):
+    """
+    Extract the archives for games in 'games' dictionary.
+    'games' dictionary must be in this format: { game_fullinfo : zipfile }
+    """
+    def __init__(self, gui, games, target, trim, temp, show_trim_details):
+        """ Prepare thread """
         threading.Thread.__init__(self, name="RomArchiveExtract")
         self.gui = gui
         self.games = games
@@ -89,13 +98,14 @@ class RomArchiveExtract(threading.Thread):
         self.target = target
         self.temp = temp
         self.trim = trim
-        self.show_trim_log = show_trim_log
-        self.skip_rom_log = False # set to true when a trim fail, so it's not shown in window log
+        self.show_trim_details = show_trim_details
+        self.skip_rom_details = False # set to true when a trim fail, so it's not shown in trim details window
         self.total_saved_space = 0 # total saved space by trimming
         self.overwrite = False
         self.ask_for_overwrite = True
     
     def run(self):
+        """ Start thread """
         if not os.access(self.target, os.W_OK):
             text = _("Unable to extract archive to '%s'. ") % self.target
             text += _("Check available space and write permissions for target directory.") 
@@ -118,7 +128,7 @@ class RomArchiveExtract(threading.Thread):
                 try:
                     info = zip.infolist()[0]
                     if os.path.exists(os.path.join(self.target, info.filename)):
-                        if self.ask_for_overwrite == True:
+                        if self.ask_for_overwrite:
                             message = _("Target file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
                             response = self.gui.show_yesnoalwaysnever_question_dialog(message, True)
                             if response == 0: # No 
@@ -131,11 +141,11 @@ class RomArchiveExtract(threading.Thread):
                             else: # Yes for all
                                 self.overwrite = True
                                 self.ask_for_overwrite = False
-                        if self.overwrite == False:
+                        if not self.overwrite:
                             zip.close()
                             continue
                     if self.trim != None:
-                        # Extract in 'temp' directory and then trim it using 'target' as trim output directory
+                        # Extract in 'temp' directory and then trim using 'target' as trim output directory
                         zip.extract(info, self.temp)
                         cmd = 'trim -d "' + self.target + '" -b "' + os.path.join(self.temp, info.filename) + '"'
                         if self.gamesnumber_to_extract > 1:
@@ -152,24 +162,24 @@ class RomArchiveExtract(threading.Thread):
                             self.total_saved_space += int(saved_space.split()[0])
                         except:
                             self.gui.show_error_dialog(_("Error while trimming '%s'!") % game, True)
-                            self.skip_rom_log = True
-                        if self.show_trim_log == True:
+                            self.skip_rom_details = True
+                        if self.show_trim_details:
                             if self.gamesnumber_to_extract > 1:
                                 output = " (%d/%d)" % (self.gamesnumber_processed, self.gamesnumber_to_extract)
                             else:
                                 output = ""
                             output += " *** " + info.filename + "\n\t"
-                            if self.skip_rom_log == False:
+                            if not self.skip_rom_details:
                                 output += _("Original size:") + "\t" + original_size + "\n\t"
                                 output += _("Trimmed size:") + "\t" + trimmed_size + "\n\t"
                                 output += _("Saved space:") + "\t" + saved_space + "\n"
                             else:
                                 # just print an error and re-enable detailed info for next roms
                                 output += _("ERROR!")
-                                self.skip_rom_log = False
-                            self.gui.show_trim_log_window(output, True)
+                                self.skip_rom_details = False
+                            self.gui.show_trim_details_window(output, True)
                         os.remove(os.path.join(self.temp, info.filename))
-                    else: # No trim
+                    else: # No trim, extract in 'target' directory directly
                         zip.extract(info, self.target)
                     self.gamesnumber_extracted += 1
                 except:
@@ -178,14 +188,14 @@ class RomArchiveExtract(threading.Thread):
             except:
                 self.gui.show_error_dialog(_("Unable to open '%s'.") % zipf, True)
         
-        if self.trim != None and self.show_trim_log == True and self.gamesnumber_extracted > 0:
+        if self.trim != None and self.show_trim_details and self.gamesnumber_extracted > 0:
             message = "\n" + _("Done.\nTotal saved space:")
             message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space/1024) + " MB)\n"
-            self.gui.show_trim_log_window(message, True)
+            self.gui.show_trim_details_window(message, True)
         
         if self.gamesnumber_extracted > 0:
             message = _("Extraction completed.")
-            if self.total_saved_space > 0 and self.show_trim_log == False: # we trimmed roms but details info was not shown
+            if self.total_saved_space > 0 and not self.show_trim_details: # add info about trimming on statusbar 
                 message += _(" Total saved space by trimming:")
                 message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space/1024) + " MB)"
         else:
@@ -193,24 +203,31 @@ class RomArchiveExtract(threading.Thread):
         self.gui.update_statusbar("RomArchiveExtract", message, True)
         
     def stop(self):
+        """ Stop thread """
         return
 
 class RomArchivesRescan(threading.Thread):
     """ Rescan roms archives on disk and rebuild games list """
     def __init__(self, gui):
+        """ Prepare thread """
         threading.Thread.__init__(self, name="RomArchivesRescan")
         self.gui = gui
     
     def run(self):
-        self.gui.add_games(True, True)
+        """ Start thread """
+        self.gui.add_games(scan_anyway=True, use_threads=True)
         
     def stop(self):
+        """ Stop thread """
         return
 
 class RomArchivesRebuild(threading.Thread):
-    """ Rebuild zip archive for games listed in 'games' dictionary.
-    games = { fullinfo : (oldfile, relnum) } """
+    """
+    Rebuild zip archive for games listed in 'games' dictionary.
+    'games' dictionary must be in this format: { fullinfo : (oldfile, relnum) }
+    """
     def __init__(self, gui, widgets, games):
+        """ Prepare thread """
         threading.Thread.__init__(self, name="RomArchivesRebuild")
         self.gui = gui
         self.games = games
@@ -223,11 +240,11 @@ class RomArchivesRebuild(threading.Thread):
             widget.set_sensitive(False)
     
     def run(self):
-            
+        """ Start thread """
         self.gui.toggle_rebuild_roms_archives_toolbutton(True)
         
         for key in sorted(self.games.iterkeys()):
-            if self.stopnow == True:
+            if self.stopnow:
                 break
             self.gamesnumber_fixed += 1
             if self.gamesnumber_to_fix > 1:
@@ -247,9 +264,9 @@ class RomArchivesRebuild(threading.Thread):
             newndsname = key + ".nds"
             
             try:
-                if self.is_zip == True:
+                if self.is_zip:
                     zip = zipfile.ZipFile(oldfile, "r")
-                    if len(zip.infolist()) != 1: # We don't handle zip with multiple files in it
+                    if len(zip.infolist()) != 1: # Don't handle zip with multiple files in it
                         zip.close()
                         continue
                     info = zip.infolist()[0]
@@ -261,14 +278,14 @@ class RomArchivesRebuild(threading.Thread):
                             # Nothing to do
                             zip.close()
                             # Update game in treeview
-                            self.gui.update_game(self.games[key][1], newzipfile)
+                            self.gui.update_game(self.games[key][1], newzipfile, True)
                             continue
                         else:
                             # Just rename the zip file, its content is ok
                             zip.close()
                             shutil.move(oldfile, newzipfile)
                             # Update game in treeview
-                            self.gui.update_game(self.games[key][1], newzipfile)
+                            self.gui.update_game(self.games[key][1], newzipfile, True)
                             continue
                     # Extract the nds file and delete the old zip file
                     zip.extract(info, dir)
@@ -285,11 +302,11 @@ class RomArchivesRebuild(threading.Thread):
                 # Remove old nds file
                 os.remove(oldfile)
                 # Update game in treeview
-                self.gui.update_game(self.games[key][1], newzipfile)
+                self.gui.update_game(self.games[key][1], newzipfile, True)
             except:
                 self.gui.update_statusbar("RomArchivesRebuild", _("Error while building archive for '%s'!") % key, True)
         
-        if self.stopnow == True:
+        if self.stopnow:
             self.gui.update_statusbar("RomArchivesRebuild", _("Rebuilding stopped."), True)
         else:
             self.gui.update_statusbar("RomArchivesRebuild", _("Rebuilding completed."), True)

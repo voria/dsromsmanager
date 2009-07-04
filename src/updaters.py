@@ -32,11 +32,13 @@ from db import *
 class DBImagesUpdater(threading.Thread):
 	""" Update images paths in database """
 	def __init__(self, gui, path):
+		""" Prepare thread """
 		threading.Thread.__init__(self, name="DBImagesUpdater")
 		self.gui = gui
 		self.path = path
 	
 	def run(self):
+		""" Start thread """
 		self.gui.deactivate_widgets(True)
 		self.gui.update_statusbar("DBImagesUpdater", _("Updating database with the new 'Images' path..."), True)
 		
@@ -47,12 +49,14 @@ class DBImagesUpdater(threading.Thread):
 		self.gui.activate_widgets(True)
 	
 	def stop(self):
+		""" Stop thread """
 		return
 		
 
 class DatUpdater(threading.Thread):
 	""" Update DAT file if needed """
 	def __init__(self, gui, threads, buttons, dat_version, dat_version_url, autorescan_archives):
+		""" Prepare thread """
 		threading.Thread.__init__(self, name="DatUpdater")
 		self.dat_version = dat_version
 		self.dat_version_url = dat_version_url
@@ -65,6 +69,7 @@ class DatUpdater(threading.Thread):
 			button.set_sensitive(False)
 	
 	def run(self):
+		""" Start thread """
 		try:
 			self.gui.update_statusbar("DatUpdater", _("Searching for a new DAT file..."), True)
 			try:
@@ -86,13 +91,23 @@ class DatUpdater(threading.Thread):
 					datdownloader = DatDownloader(self.gui)
 					datdownloader.start()
 					datdownloader.join()
+					# Check if we really have the DAT file
+					while not os.path.exists(DAT_NAME):
+						message = _("Unable to download DAT file. Retry?")
+						if self.gui.show_okcancel_question_dialog(message, True) == True:
+							datdownloader = DatDownloader(self.gui)
+							datdownloader.start()
+							datdownloader.join()
+						else:
+							return
+					# Now we have the DAT file
 					self.gui.update_statusbar("DatUpdater", _("Loading the new DAT file and creating database..."), True)
 					dat = Dat(DAT_NAME)
 					self.gui.update_statusbar("DatUpdater", _("Database created."), True)
 					if self.autorescan_archives == True:
-						self.gui.add_games(True, True)
+						self.gui.add_games(scan_anyway=True, use_threads=True)
 					else:
-						self.gui.add_games(True)
+						self.gui.add_games(scan_anyway=False, use_threads=True)
 				else:
 					self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date to the latest version."), True)
 			except:
@@ -102,4 +117,5 @@ class DatUpdater(threading.Thread):
 			self.gui.activate_widgets(True)
 		
 	def stop(self):
+		""" Stop thread """
 		return

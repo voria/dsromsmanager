@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-04 11:10+0200\n"
+"POT-Creation-Date: 2009-07-04 17:36+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,50 +16,50 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/downloaders.py:42
+#: ../src/downloaders.py:44
 msgid "Downloading the new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:50
+#: ../src/downloaders.py:52
 msgid "Can't download DAT!"
 msgstr ""
 
-#: ../src/downloaders.py:53
+#: ../src/downloaders.py:55
 msgid "Unzipping the new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:91
+#: ../src/downloaders.py:96
 #, python-format
 msgid "Error while downloading image 1 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:104
+#: ../src/downloaders.py:109
 #, python-format
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:123
+#: ../src/downloaders.py:131
 msgid "Downloading all images..."
 msgstr ""
 
-#: ../src/downloaders.py:141
+#: ../src/downloaders.py:149
 msgid "Checking images integrity..."
 msgstr ""
 
-#: ../src/downloaders.py:149
+#: ../src/downloaders.py:157
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr ""
 
-#: ../src/downloaders.py:173
+#: ../src/downloaders.py:181
 msgid "Download of all images stopped."
 msgstr ""
 
-#: ../src/downloaders.py:175
+#: ../src/downloaders.py:183
 msgid "Download of all images completed."
 msgstr ""
 
-#: ../src/drm.py:59
+#: ../src/drm.py:58
 msgid ""
 "Database out of date or corrupt, it has been deleted.\n"
 "\n"
@@ -67,7 +67,7 @@ msgid ""
 "created."
 msgstr ""
 
-#: ../src/drm.py:62
+#: ../src/drm.py:61
 msgid ""
 "No database found.\n"
 "\n"
@@ -75,97 +75,106 @@ msgid ""
 "created."
 msgstr ""
 
-#: ../src/drm.py:69
+#: ../src/drm.py:69 ../src/updaters.py:96
+msgid "Unable to download DAT file. Retry?"
+msgstr ""
+
+#: ../src/drm.py:79
 msgid "Loading DAT file and creating database..."
 msgstr ""
 
-#: ../src/drm.py:72 ../src/updaters.py:93
+#: ../src/drm.py:81 ../src/updaters.py:106
 msgid "Database created."
 msgstr ""
 
-#: ../src/files.py:95
+#: ../src/files.py:110
 #, python-format
 msgid "Unable to extract archive to '%s'. "
 msgstr ""
 
-#: ../src/files.py:96
-msgid "Check available space and write permissions of target directory."
+#: ../src/files.py:111
+msgid "Check available space and write permissions for target directory."
 msgstr ""
 
-#: ../src/files.py:108
+#: ../src/files.py:123
 #, python-format
 msgid "Extracting archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:117
+#: ../src/files.py:132
 #, python-format
 msgid "Target file '%s' already exists. Overwrite?"
 msgstr ""
 
-#: ../src/files.py:140
+#: ../src/files.py:155
 #, python-format
 msgid "Trimming '%s'..."
 msgstr ""
 
-#: ../src/files.py:149
-msgid "Unable to get detailed informations for trimming."
+#: ../src/files.py:164
+#, python-format
+msgid "Error while trimming '%s'!"
 msgstr ""
 
-#: ../src/files.py:157
+#: ../src/files.py:173
 msgid "Original size:"
 msgstr ""
 
-#: ../src/files.py:158
+#: ../src/files.py:174
 msgid "Trimmed size:"
 msgstr ""
 
-#: ../src/files.py:159
+#: ../src/files.py:175
 msgid "Saved space:"
 msgstr ""
 
-#: ../src/files.py:166
+#: ../src/files.py:178
+msgid "ERROR!"
+msgstr ""
+
+#: ../src/files.py:186
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr ""
 
-#: ../src/files.py:169
+#: ../src/files.py:189
 #, python-format
 msgid "Unable to open '%s'."
 msgstr ""
 
-#: ../src/files.py:172
+#: ../src/files.py:192
 msgid ""
 "Done.\n"
 "Total saved space:"
 msgstr ""
 
-#: ../src/files.py:177
+#: ../src/files.py:197
 msgid "Extraction completed."
 msgstr ""
 
-#: ../src/files.py:179
+#: ../src/files.py:199
 msgid " Total saved space by trimming:"
 msgstr ""
 
-#: ../src/files.py:182
+#: ../src/files.py:202
 msgid "Extraction canceled."
 msgstr ""
 
-#: ../src/files.py:228
+#: ../src/files.py:254
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:282
+#: ../src/files.py:307
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr ""
 
-#: ../src/files.py:285
+#: ../src/files.py:310
 msgid "Rebuilding stopped."
 msgstr ""
 
-#: ../src/files.py:287
+#: ../src/files.py:312
 msgid "Rebuilding completed."
 msgstr ""
 
@@ -269,276 +278,276 @@ msgstr ""
 msgid "South Korea"
 msgstr ""
 
-#: ../src/gui.py:161 ../src/gui.py:573
+#: ../src/gui.py:158 ../src/gui.py:580
 msgid "Hide"
 msgstr ""
 
-#: ../src/gui.py:164 ../src/gui.py:574
+#: ../src/gui.py:161 ../src/gui.py:581
 msgid "Hide main window."
 msgstr ""
 
-#: ../src/gui.py:168 drm.glade.h:74
+#: ../src/gui.py:165 drm.glade.h:74
 msgid "Update DAT"
 msgstr ""
 
-#: ../src/gui.py:173 drm.glade.h:11
+#: ../src/gui.py:170 drm.glade.h:11
 msgid "Download images"
 msgstr ""
 
-#: ../src/gui.py:180 drm.glade.h:44
+#: ../src/gui.py:177 drm.glade.h:44
 msgid "Rescan archives"
 msgstr ""
 
-#: ../src/gui.py:185 drm.glade.h:32
+#: ../src/gui.py:182 drm.glade.h:32
 msgid "Rebuild archives"
 msgstr ""
 
-#: ../src/gui.py:192 drm.glade.h:47
+#: ../src/gui.py:189 drm.glade.h:47
 msgid "Reviews"
 msgstr ""
 
-#: ../src/gui.py:199 drm.glade.h:29
+#: ../src/gui.py:196 drm.glade.h:29
 msgid "Options"
 msgstr ""
 
-#: ../src/gui.py:206 drm.glade.h:2
+#: ../src/gui.py:203 drm.glade.h:2
 msgid "About"
 msgstr ""
 
-#: ../src/gui.py:213
+#: ../src/gui.py:210
 msgid "Quit"
 msgstr ""
 
-#: ../src/gui.py:216
+#: ../src/gui.py:213
 msgid "Quit 'DsRomsManager'."
 msgstr ""
 
-#: ../src/gui.py:250
+#: ../src/gui.py:248
 msgid "Found"
 msgstr ""
 
-#: ../src/gui.py:252
+#: ../src/gui.py:250
 msgid "Region"
 msgstr ""
 
-#: ../src/gui.py:257
+#: ../src/gui.py:255
 msgid "Name"
 msgstr ""
 
-#: ../src/gui.py:267 ../src/gui.py:278 ../src/gui.py:290
+#: ../src/gui.py:265 ../src/gui.py:276 ../src/gui.py:288
 msgid "All"
 msgstr ""
 
-#: ../src/gui.py:567
+#: ../src/gui.py:574
 msgid "Show"
 msgstr ""
 
-#: ../src/gui.py:568
+#: ../src/gui.py:575
 msgid "Show main window."
 msgstr ""
 
-#: ../src/gui.py:722
+#: ../src/gui.py:721
 msgid "Duplicates:"
 msgstr ""
 
-#: ../src/gui.py:727
+#: ../src/gui.py:726
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:904
+#: ../src/gui.py:916
 msgid "Select destination directory"
 msgstr ""
 
-#: ../src/gui.py:1029
+#: ../src/gui.py:1041
 msgid "Rescan roms archives and rebuild games list?"
 msgstr ""
 
-#: ../src/gui.py:1054
+#: ../src/gui.py:1071
 msgid "Waiting while the current archive rebuild is completed..."
 msgstr ""
 
-#: ../src/gui.py:1184
+#: ../src/gui.py:1219
 msgid ""
 "Current 'Roms' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1190
+#: ../src/gui.py:1225
 msgid ""
 "Current 'Unknown roms' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1196
+#: ../src/gui.py:1231
 msgid ""
 "Current 'New roms' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1202
+#: ../src/gui.py:1237
 msgid ""
 "Current 'Images' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1237
+#: ../src/gui.py:1272
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Roms' path, but it "
 "can't be used."
 msgstr ""
 
-#: ../src/gui.py:1238
+#: ../src/gui.py:1273
 msgid ""
 "\n"
 "\n"
 "The 'Roms' path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1242
+#: ../src/gui.py:1277
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Unknown roms' path, "
 "but it can't be used."
 msgstr ""
 
-#: ../src/gui.py:1243
+#: ../src/gui.py:1278
 msgid ""
 "\n"
 "\n"
 "The 'Unknown roms' path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1247
+#: ../src/gui.py:1282
 msgid ""
 "'DsRomsManager' working directory has been selected as 'New roms' path, but "
 "it can't be used."
 msgstr ""
 
-#: ../src/gui.py:1248
+#: ../src/gui.py:1283
 msgid ""
 "\n"
 "\n"
 "The 'New roms' path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1252
+#: ../src/gui.py:1287
 msgid "'Unknown roms' path can't be the same as 'Roms' or 'New roms' paths."
 msgstr ""
 
-#: ../src/gui.py:1253 ../src/gui.py:1263 ../src/gui.py:1268
+#: ../src/gui.py:1288 ../src/gui.py:1298 ../src/gui.py:1303
 msgid ""
 "\n"
 "\n"
 "Select a different path."
 msgstr ""
 
-#: ../src/gui.py:1257
+#: ../src/gui.py:1292
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Images' path, but it "
 "can't be used."
 msgstr ""
 
-#: ../src/gui.py:1258
+#: ../src/gui.py:1293
 msgid ""
 "\n"
 "\n"
 "The 'Images' path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1262
+#: ../src/gui.py:1297
 msgid "'Images' path can't be the same as 'Roms' path."
 msgstr ""
 
-#: ../src/gui.py:1267
+#: ../src/gui.py:1302
 msgid "Write permissions are not granted for the current 'Extract in' path."
 msgstr ""
 
-#: ../src/gui.py:1323
+#: ../src/gui.py:1353
 msgid "'Images' path has changed."
 msgstr ""
 
-#: ../src/gui.py:1324
+#: ../src/gui.py:1354
 msgid ""
 "\n"
 "\n"
 "Database will be updated with the new path."
 msgstr ""
 
-#: ../src/gui.py:1337
+#: ../src/gui.py:1367
 msgid "Roms paths have changed."
 msgstr ""
 
-#: ../src/gui.py:1338
+#: ../src/gui.py:1368
 msgid ""
 "\n"
 "\n"
 "Games list will be reloaded."
 msgstr ""
 
-#: ../src/gui.py:1500
+#: ../src/gui.py:1541
 msgid "_No to all"
 msgstr ""
 
-#: ../src/gui.py:1510
+#: ../src/gui.py:1551
 msgid "_Yes to all"
 msgstr ""
 
-#: ../src/gui.py:1568
+#: ../src/gui.py:1611
 #, python-format
 msgid "%d game shown"
 msgstr ""
 
-#: ../src/gui.py:1570
+#: ../src/gui.py:1613
 #, python-format
 msgid "%d games shown"
 msgstr ""
 
-#: ../src/gui.py:1572
+#: ../src/gui.py:1615
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1574
+#: ../src/gui.py:1617
 #, python-format
 msgid " - %d to rebuild"
 msgstr ""
 
-#: ../src/gui.py:1576
+#: ../src/gui.py:1619
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1578
+#: ../src/gui.py:1621
 msgid "No games shown"
 msgstr ""
 
-#: ../src/gui.py:1716 ../src/gui.py:1717
+#: ../src/gui.py:1776 ../src/gui.py:1777
 msgid "Stop the download process."
 msgstr ""
 
-#: ../src/gui.py:1737 ../src/gui.py:1738
+#: ../src/gui.py:1798 ../src/gui.py:1799
 msgid "Stop the rebuild process."
 msgstr ""
 
-#: ../src/gui.py:1776
+#: ../src/gui.py:1840
 msgid "Scanning roms on disk..."
 msgstr ""
 
-#: ../src/gui.py:1816 ../src/gui.py:1863 ../src/gui.py:1872 ../src/gui.py:1906
-#: ../src/gui.py:1915
+#: ../src/gui.py:1883 ../src/gui.py:1931 ../src/gui.py:1940 ../src/gui.py:1975
+#: ../src/gui.py:1984
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr ""
 
-#: ../src/gui.py:1852 ../src/gui.py:1895
+#: ../src/gui.py:1920 ../src/gui.py:1964
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr ""
 
-#: ../src/gui.py:1918
+#: ../src/gui.py:1987
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:1964
+#: ../src/gui.py:2033
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr ""
@@ -551,28 +560,28 @@ msgstr ""
 msgid "Database updated."
 msgstr ""
 
-#: ../src/updaters.py:71
+#: ../src/updaters.py:74
 msgid "Searching for a new DAT file..."
 msgstr ""
 
-#: ../src/updaters.py:77
+#: ../src/updaters.py:80
 msgid "New DAT file available!"
 msgstr ""
 
-#: ../src/updaters.py:91
+#: ../src/updaters.py:104
 msgid "Loading the new DAT file and creating database..."
 msgstr ""
 
-#: ../src/updaters.py:99
+#: ../src/updaters.py:112
 msgid "DAT file is already up to date to the latest version."
 msgstr ""
 
-#: ../src/updaters.py:101
+#: ../src/updaters.py:114
 msgid "Can't download DAT version file!"
 msgstr ""
 
 #: drm.glade.h:1
-msgid "'Extract in' path not found!"
+msgid "'Extract in' path currently not available"
 msgstr ""
 
 #: drm.glade.h:3
@@ -790,8 +799,8 @@ msgstr ""
 msgid ""
 "The previously selected 'Extract in' path does not exist anymore, or write "
 "permissions are not granted on it.\n"
-"Probably it pointed to a removable device (like an USB stick or an SD) and "
-"it's just temporary not available.\n"
+"Probably it pointed to a removable device (like an USB stick or an SD) which "
+"is just temporary not available.\n"
 "Click here to enable the 'Extract in' path to be modified."
 msgstr ""
 

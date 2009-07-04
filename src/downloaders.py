@@ -32,6 +32,7 @@ from files import *
 class DatDownloader(threading.Thread):
 	""" Download and unzip DAT file """
 	def __init__(self, gui):
+		""" Prepare thread """
 		threading.Thread.__init__(self, name="DatDownloader")
 		self.dat_url = DAT_URL
 		self.dat_name_zip = DAT_NAME_ZIP
@@ -39,6 +40,7 @@ class DatDownloader(threading.Thread):
 		self.gui = gui
 	
 	def run(self):
+		""" Start thread """
 		self.gui.update_statusbar("DatDownloader", _("Downloading the new DAT file..."), True)
 		try:
 			input = urlopen(self.dat_url)
@@ -48,8 +50,8 @@ class DatDownloader(threading.Thread):
 			output.close()
 		except:
 			self.gui.update_statusbar("DatDownloader", _("Can't download DAT!"), True)
-			raise
-		
+			return
+				
 		self.gui.update_statusbar("FirstRun", _("Unzipping the new DAT file..."), True)
 		zip = ZipFile(self.dat_name_zip, "r")
 		zip.extractall()
@@ -57,14 +59,17 @@ class DatDownloader(threading.Thread):
 		os.remove(self.dat_name_zip)
 	
 	def stop(self):
+		""" Stop thread """
 		return 
 
 class ImagesDownloader(threading.Thread):
-	""" Download 'game' images and show them (if possible).
-	Take care of local path's creation when needed """
+	"""
+	Download 'game' images and show them (if possible).
+	Take care of local path's creation when needed.
+	"""
 	def __init__(self, gui, game):
+		""" Prepare thread """
 		threading.Thread.__init__(self,  name="ImagesDownloader")
-
 		self.fullinfo = game[GAME_FULLINFO]
 		self.release_number = game[GAME_RELEASE_NUMBER]
 		self.filename1 = game[GAME_IMG1_LOCAL_PATH]
@@ -72,10 +77,10 @@ class ImagesDownloader(threading.Thread):
 		self.filename2 = game[GAME_IMG2_LOCAL_PATH]
 		self.url2 = game[GAME_IMG2_REMOTE_URL]
 		self.range_dir = os.path.join(config.get_option("images_path"), game[GAME_RANGE_DIR])
-		
 		self.gui = gui
 	
-	def run(self):		
+	def run(self):
+		""" Start thread """		
 		if not os.path.exists(self.range_dir):
 			os.mkdir(self.range_dir)
 			
@@ -90,7 +95,7 @@ class ImagesDownloader(threading.Thread):
 				self.gui.update_statusbar("ImageDownloader",
 								_("Error while downloading image 1 for '%s': File not found.") % self.fullinfo, True)
 			else:
-				self.gui.update_image(self.release_number, 1, self.filename1)
+				self.gui.update_image(self.release_number, 1, self.filename1, True)
 		
 		if not os.path.exists(self.filename2):
 			try:
@@ -103,14 +108,16 @@ class ImagesDownloader(threading.Thread):
 				self.gui.update_statusbar("ImageDownloader",
 								_("Error while downloading image 2 for '%s': File not found.") % self.fullinfo, True)
 			else:
-				self.gui.update_image(self.release_number, 2, self.filename2)
+				self.gui.update_image(self.release_number, 2, self.filename2, True)
 			
 	def stop(self):
+		""" Stop thread """
 		return
 		
 class AllImagesDownloader(threading.Thread):
-	""" Update the gui button and download all missing images """
+	""" Download all missing images """
 	def __init__(self, gui, games):
+		""" Prepare thread """
 		threading.Thread.__init__(self, name="AllImagesDownloader")
 		self.games = games
 		self.gui = gui
@@ -119,11 +126,12 @@ class AllImagesDownloader(threading.Thread):
 		self.stopnow = False
 	
 	def run(self):
+		""" Start thread """
 		self.gui.toggle_images_download_toolbutton(True)
 		self.gui.update_statusbar("AllImagesDownloader", _("Downloading all images..."), True)
 
 		for game in self.games:
-			if self.stopnow == True:
+			if self.stopnow:
 				break
 			
 			range_dir = os.path.join(config.get_option("images_path"), game[GAME_RANGE_DIR])
@@ -136,8 +144,8 @@ class AllImagesDownloader(threading.Thread):
 				os.mkdir(range_dir)
 			
 			# check images CRC
-			if self.check_images_crc == True:
-				if self.check_images_notified == False:
+			if self.check_images_crc:
+				if not self.check_images_notified:
 				    self.gui.update_statusbar("AllImagesDownloader", _("Checking images integrity..."), True)
 				    self.check_images_notified = True
 				if os.path.exists(img1) and game[GAME_IMG1_CRC] != get_crc32(img1):
@@ -169,7 +177,7 @@ class AllImagesDownloader(threading.Thread):
 				except:
 					pass
 		
-		if self.stopnow == True:
+		if self.stopnow:
 			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images stopped."), True)
 		else:
 			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images completed."), True)
@@ -177,5 +185,5 @@ class AllImagesDownloader(threading.Thread):
 		self.gui.toggle_images_download_toolbutton(True)
 				
 	def stop(self):
-		""" Stop the thread """
+		""" Stop thread """
 		self.stopnow = True
