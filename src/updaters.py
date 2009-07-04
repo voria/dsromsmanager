@@ -34,7 +34,7 @@ class DBImagesUpdater(threading.Thread):
 	""" Update images paths in database """
 	def __init__(self, gui, path):
 		""" Prepare thread """
-		threading.Thread.__init__(self, name="DBImagesUpdater")
+		threading.Thread.__init__(self, name = "DBImagesUpdater")
 		self.gui = gui
 		self.path = path
 	
@@ -52,13 +52,12 @@ class DBImagesUpdater(threading.Thread):
 	def stop(self):
 		""" Stop thread """
 		return
-		
 
 class DatUpdater(threading.Thread):
 	""" Update DAT file if needed """
 	def __init__(self, gui, threads, buttons, dat_version, dat_version_url, autorescan_archives):
 		""" Prepare thread """
-		threading.Thread.__init__(self, name="DatUpdater")
+		threading.Thread.__init__(self, name = "DatUpdater")
 		self.dat_version = dat_version
 		self.dat_version_url = dat_version_url
 		self.autorescan_archives = autorescan_archives
@@ -129,9 +128,9 @@ class DatUpdater(threading.Thread):
 							
 					self.gui.update_statusbar("DatUpdater", _("Database created."), True)
 					if self.autorescan_archives:
-						self.gui.add_games(scan_anyway=True, use_threads=True)
+						self.gui.add_games(scan_anyway = True, use_threads = True)
 					else:
-						self.gui.add_games(scan_anyway=False, use_threads=True)
+						self.gui.add_games(scan_anyway = False, use_threads = True)
 				else:
 					self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date to the latest version."), True)
 			except:

@@ -1,3 +1,23 @@
+drm (0.7) jaunty; urgency=low
+
+  * Big code reorganization and optimization.
+  * Now all threads update the gui using gdk.threads_enter()
+    and gdk.threads_leave() all the time, so there should be no more
+    race conditions or random crashes.
+  * Use a lower case domain for gettext.
+  * Do not remove DAT file when db has been created.
+  * Better check for .zip files.
+    Only .zip file containing 1 file only (a .nds file) are accepted.
+  * Do more checks when updating DAT file.
+  * Check if DatDownloader has really downloaded DAT file and then
+    try to load it.
+  * Update translations.
+  * Update debian scripts, changelogs, makefile, etc,
+    and remove no more needed files.
+  * Install copyright, readme and changelog in /usr/share/doc/drm/.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 05 Jul 2009 01:11:36 +0200
+
 drm (0.6) jaunty; urgency=low
 
   * In launcher script, create "$HOME/.dsromsmanager" directory at

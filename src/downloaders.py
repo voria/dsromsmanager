@@ -33,7 +33,7 @@ class DatDownloader(threading.Thread):
 	""" Download and unzip DAT file """
 	def __init__(self, gui):
 		""" Prepare thread """
-		threading.Thread.__init__(self, name="DatDownloader")
+		threading.Thread.__init__(self, name = "DatDownloader")
 		self.dat_url = DAT_URL
 		self.dat_name_zip = DAT_NAME_ZIP
 		self.dat_name = DAT_NAME
@@ -69,7 +69,7 @@ class ImagesDownloader(threading.Thread):
 	"""
 	def __init__(self, gui, game):
 		""" Prepare thread """
-		threading.Thread.__init__(self,  name="ImagesDownloader")
+		threading.Thread.__init__(self, name = "ImagesDownloader")
 		self.fullinfo = game[GAME_FULLINFO]
 		self.release_number = game[GAME_RELEASE_NUMBER]
 		self.filename1 = game[GAME_IMG1_LOCAL_PATH]
@@ -118,7 +118,7 @@ class AllImagesDownloader(threading.Thread):
 	""" Download all missing images """
 	def __init__(self, gui, games):
 		""" Prepare thread """
-		threading.Thread.__init__(self, name="AllImagesDownloader")
+		threading.Thread.__init__(self, name = "AllImagesDownloader")
 		self.games = games
 		self.gui = gui
 		self.check_images_crc = config.get_option("check_images_crc")

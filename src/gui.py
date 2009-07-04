@@ -49,7 +49,7 @@ class Gui(threading.Thread):
 	"""	Graphical User Interface """
 	def __init__(self, threads):
 		""" Init Gui """
-		threading.Thread.__init__(self, name="Gui")
+		threading.Thread.__init__(self, name = "Gui")
 		
 		self.threads = threads
 		
@@ -245,14 +245,14 @@ class Gui(threading.Thread):
 		self.list_treeview.set_model(self.list_treeview_model)
 		self.list_treeview_crt = gtk.CellRendererText()
 		self.list_treeview_crt_img = gtk.CellRendererPixbuf()
-		self.list_treeview_tvc_found = gtk.TreeViewColumn(_("Found"), self.list_treeview_crt_img, pixbuf=TVC_CHECK)
+		self.list_treeview_tvc_found = gtk.TreeViewColumn(_("Found"), self.list_treeview_crt_img, pixbuf = TVC_CHECK)
 		self.list_treeview.append_column(self.list_treeview_tvc_found)
-		self.list_treeview_tvc_region = gtk.TreeViewColumn(_("Region"), self.list_treeview_crt_img, pixbuf=TVC_FLAG)
+		self.list_treeview_tvc_region = gtk.TreeViewColumn(_("Region"), self.list_treeview_crt_img, pixbuf = TVC_FLAG)
 		self.list_treeview.append_column(self.list_treeview_tvc_region)
-		self.list_treeview_tvc_relnum = gtk.TreeViewColumn("#", self.list_treeview_crt, text=TVC_RELEASE_NUMBER)
+		self.list_treeview_tvc_relnum = gtk.TreeViewColumn("#", self.list_treeview_crt, text = TVC_RELEASE_NUMBER)
 		self.list_treeview_tvc_relnum.set_sort_column_id(TVC_RELEASE_NUMBER)
 		self.list_treeview.append_column(self.list_treeview_tvc_relnum)
-		self.list_treeview_tvc_name = gtk.TreeViewColumn(_("Name"), self.list_treeview_crt, text=TVC_TITLE)
+		self.list_treeview_tvc_name = gtk.TreeViewColumn(_("Name"), self.list_treeview_crt, text = TVC_TITLE)
 		self.list_treeview_tvc_name.set_sort_column_id(TVC_TITLE)
 		self.list_treeview.append_column(self.list_treeview_tvc_name)
 		
@@ -320,7 +320,7 @@ class Gui(threading.Thread):
 		self.options_trim_roms_checkbutton.connect("toggled", self.on_options_trim_roms_checkbutton_toggled)
 		self.trim_details_window.connect("delete_event", self.on_trim_details_window_delete_event)
 		# We need signal id for the following signals, to block them when needed
-		self.fne_sid = self.filter_name_entry.connect("changed",self.on_filter_triggered)
+		self.fne_sid = self.filter_name_entry.connect("changed", self.on_filter_triggered)
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
 		self.flanc_sid = self.filter_language_combobox.connect("changed", self.on_filter_triggered)
 		self.fsc_sid = self.filter_size_combobox.connect("changed", self.on_filter_triggered)
@@ -399,7 +399,7 @@ class Gui(threading.Thread):
 				return returnvalue
 		else: # we have the game
 			disk_zip_filename = self.checksums[crc].split(os.sep)
-			disk_zip_filename = disk_zip_filename[len(disk_zip_filename)-1]
+			disk_zip_filename = disk_zip_filename[len(disk_zip_filename) - 1]
 			db_zip_filename = game[GAME_FULLINFO] + ".zip"
 			nds_filename = game[GAME_FULLINFO] + ".nds"
 			if disk_zip_filename == db_zip_filename and get_nds_filename_from_zip(self.checksums[crc]) == nds_filename:
@@ -453,7 +453,7 @@ class Gui(threading.Thread):
 		for game in reversed(games):
 			if self.quitting:
 				return
-			check = self.__add_game_to_list(game, anyway=anyway, use_threads=use_threads)
+			check = self.__add_game_to_list(game, anyway = anyway, use_threads = use_threads)
 			if check == CHECKS_CONVERT and rebuild_dict:
 				# add game to dictionary
 				fullinfo = game[GAME_FULLINFO]
@@ -737,7 +737,7 @@ class Gui(threading.Thread):
 		else:
 			self.info_title_label.set_markup("<span size=\"x-large\" weight=\"bold\">" + title + "</span>")
 		self.info_save_label.set_text(game[GAME_SAVE_TYPE])
-		size = game[GAME_ROM_SIZE]/1048576
+		size = game[GAME_ROM_SIZE] / 1048576
 		self.info_size_label.set_text(str(size) + " MB")
 		self.info_publisher_label.set_text(game[GAME_PUBLISHER])
 		self.info_location_label.set_text(_(game[GAME_LOCATION]))
@@ -793,7 +793,7 @@ class Gui(threading.Thread):
 				# Remove the model from the treeview
 				self.list_treeview.set_model(None)
 				# Insert game into the model, the next cycle will find the iter we are searching for
-				self.__add_game_to_list(game, insert_before_iter=next_iter, anyway=True)
+				self.__add_game_to_list(game, insert_before_iter = next_iter, anyway = True)
 				# Re-add model to the treeview
 				self.list_treeview.set_model(self.list_treeview_model)
 				# Update statistic labels
@@ -879,7 +879,7 @@ class Gui(threading.Thread):
 	def on_list_treeview_popup_extract_menuitem_activate(self, button):
 		""" Extract selected games in the default extract directory """
 		target = config.get_option("default_extract_directory")
-		self.on_list_treeview_popup_extractin_menuitem_activate(button, target=target)
+		self.on_list_treeview_popup_extractin_menuitem_activate(button, target = target)
 	
 	def on_list_treeview_popup_extractin_menuitem_activate(self, button, target = None):
 		"""
@@ -962,7 +962,7 @@ class Gui(threading.Thread):
 				game = self.db.get_game(relnum)
 			dict[game[GAME_FULLINFO]] = (self.checksums[game[GAME_ROM_CRC]], relnum)
 		
-		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton, dict=dict)
+		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton, dict = dict)
 			
 	def on_show_review_toolbutton_clicked(self, button):
 		"""
@@ -1105,7 +1105,7 @@ class Gui(threading.Thread):
 			filter = 4
 			
 		if self.dirty_gameslist:
-			self.__filter(dirty_list=True)
+			self.__filter(dirty_list = True)
 			return
 		
 		if filter == 0:
@@ -1368,7 +1368,7 @@ class Gui(threading.Thread):
 				message += _("\n\nGames list will be reloaded.")
 				self.show_info_dialog(message)
 				# Rescan archives
-				self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton, confirm=False)
+				self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton, confirm = False)
 		# Re-enable options buttons and close dialog
 		self.options_toolbutton.set_sensitive(True)
 		self.options_menuitem.set_sensitive(True)
@@ -1476,7 +1476,7 @@ class Gui(threading.Thread):
 		self.filter_size_combobox.set_sensitive(True)
 		if use_threads:
 			gdk.threads_leave()
-		self.set_previous_treeview_cursor(use_threads=use_threads)
+		self.set_previous_treeview_cursor(use_threads = use_threads)
 	
 	def toggle_images_window(self, widget, event, title = None, img1 = None, img2 = None):
 		""" When mouse button 1 is clicked, toggle images_window """
@@ -1867,9 +1867,9 @@ class Gui(threading.Thread):
 				if os.path.isdir(file):
 					continue # no recursive directory scan in 'unknown_roms_path'
 				crc = None
-				if file[len(file)-4:].lower() == ".zip":
+				if file[len(file) - 4:].lower() == ".zip":
 					crc = get_crc32_zip(file)
-				elif file[len(file)-4:].lower() == ".nds":
+				elif file[len(file) - 4:].lower() == ".nds":
 					crc = get_crc32(file)
 				else: # Not a .zip or .nds file, leave it untouched and skip to next one.
 					continue
@@ -1906,9 +1906,9 @@ class Gui(threading.Thread):
 								paths_to_check.append(file)
 					else: # 'file' is not a directory
 						crc = None
-						if file[len(file)-4:].lower() == ".zip":
+						if file[len(file) - 4:].lower() == ".zip":
 							crc = get_crc32_zip(file)
-						elif file[len(file)-4:].lower() == ".nds":
+						elif file[len(file) - 4:].lower() == ".nds":
 							crc = get_crc32(file)
 						else: # Not a .zip or .nds file, leave it untouched and skip to next one.
 							continue
@@ -1950,9 +1950,9 @@ class Gui(threading.Thread):
 				if os.path.isdir(file):
 					continue # no recursive directory scan in 'new_roms_path'
 				crc = None
-				if file[len(file)-4:].lower() == ".zip":
+				if file[len(file) - 4:].lower() == ".zip":
 					crc = get_crc32_zip(file)
-				elif file[len(file)-4:].lower() == ".nds":
+				elif file[len(file) - 4:].lower() == ".nds":
 					crc = get_crc32(file)
 				else: # Not a .zip or .nds file, leave it untouched and skip to next one.
 					continue
@@ -1998,10 +1998,10 @@ class Gui(threading.Thread):
 		
 		# Add games to model and rebuild dictionary of games to rebuild.
 		try:
-			self.__update_list(self.db.get_all_games(), anyway=True, rebuild_dict=True, use_threads=use_threads)
+			self.__update_list(self.db.get_all_games(), anyway = True, rebuild_dict = True, use_threads = use_threads)
 		except:
 			self.open_db()
-			self.__update_list(self.db.get_all_games(), anyway=True, rebuild_dict=True, use_threads=use_threads)
+			self.__update_list(self.db.get_all_games(), anyway = True, rebuild_dict = True, use_threads = use_threads)
 		
 		# Now we can exit
 		self.canexitnow = True

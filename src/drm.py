@@ -31,7 +31,7 @@ from db import *
 
 class Main(threading.Thread):
 	def __init__(self):
-		threading.Thread.__init__(self, name="Main")
+		threading.Thread.__init__(self, name = "Main")
 		self.threads = [] # Keep track of all threads
 		self.threads.append(self)
 		
@@ -80,7 +80,7 @@ A new DAT file will be automatically downloaded and a new database will be creat
 			dat = Dat(DAT_NAME)
 			self.gui.update_statusbar("Dat", _("Database created."), True)
 		# Pass control to the Gui
-		self.gui.add_games(scan_anyway=False, use_threads=True)
+		self.gui.add_games(scan_anyway = False, use_threads = True)
 
 	def stop(self):
 		return

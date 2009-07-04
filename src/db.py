@@ -25,7 +25,7 @@ except:
 
 import os
 
-CREATE_GAMES_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS games (
+CREATE_GAMES_TABLE_QUERY = """CREATE TABLE IF NOT EXISTS games (
 							image_number TEXT,
 							release_number INT,
 							title TEXT,
@@ -74,7 +74,7 @@ GAME_IMG2_REMOTE_URL = 19
 GAME_COMMENT = 20
 GAME_DUPLICATE_ID = 21
 
-CREATE_INFO_TABLE_QUERY="""CREATE TABLE IF NOT EXISTS info (
+CREATE_INFO_TABLE_QUERY = """CREATE TABLE IF NOT EXISTS info (
 							db_version TEXT,
 							dat_name TEXT,
 							img_dir TEXT,
@@ -98,11 +98,11 @@ INFO_DAT_VERSION_URL = 7
 INFO_DAT_URL = 8
 INFO_IMG_URL = 9
 
-INSERT_GAME_QUERY="INSERT INTO games VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
-INSERT_INFO_QUERY="INSERT INTO info VALUES (?,?,?,?,?,?,?,?,?,?)"
+INSERT_GAME_QUERY = "INSERT INTO games VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)"
+INSERT_INFO_QUERY = "INSERT INTO info VALUES (?,?,?,?,?,?,?,?,?,?)"
 
 class DB():
-	def __init__(self, filename=":memory:"):
+	def __init__(self, filename = ":memory:"):
 		self.connection = sqlite3.connect(filename)
 		self.cursor = self.connection.cursor()
 		# Create 'games' table
@@ -177,11 +177,11 @@ class DB():
 		if language != "All":
 			command += " language LIKE '%" + language + "%' AND"
 		if size != "All":
-			command += " rom_size = '" + str(int(size.split()[0])/8*1048576) + "'"
-		if command[len(command)-3:] == "AND":
-			command = command[:len(command)-4]
-		if command[len(command)-5:] == "WHERE":
-			command = command[:len(command)-6]
+			command += " rom_size = '" + str(int(size.split()[0]) / 8 * 1048576) + "'"
+		if command[len(command) - 3:] == "AND":
+			command = command[:len(command) - 4]
+		if command[len(command) - 5:] == "WHERE":
+			command = command[:len(command) - 6]
 		self.cursor.execute(command)
 		return self.cursor.fetchall()
 	

@@ -50,7 +50,7 @@ def get_crc32_zip(zipf):
         if len(zip.infolist()) > 1:
             return result
         info = zip.infolist()[0]
-        if info.filename[len(info.filename)-4:].lower() == ".nds":
+        if info.filename[len(info.filename) - 4:].lower() == ".nds":
             crc = struct.pack('>L', info.CRC)
             result = binascii.hexlify(crc)[:8].upper()
         zip.close()
@@ -73,7 +73,7 @@ def get_nds_filename_from_zip(zipf):
         if len(zip.infolist()) > 1:
             return result
         info = zip.infolist()[0]
-        if info.filename[len(info.filename)-4:].lower() == ".nds":
+        if info.filename[len(info.filename) - 4:].lower() == ".nds":
             result = info.filename
         zip.close()
     except:
@@ -89,7 +89,7 @@ class RomArchiveExtract(threading.Thread):
     """
     def __init__(self, gui, games, target, trim, temp, show_trim_details):
         """ Prepare thread """
-        threading.Thread.__init__(self, name="RomArchiveExtract")
+        threading.Thread.__init__(self, name = "RomArchiveExtract")
         self.gui = gui
         self.games = games
         self.gamesnumber_to_extract = len(games)
@@ -190,14 +190,14 @@ class RomArchiveExtract(threading.Thread):
         
         if self.trim != None and self.show_trim_details and self.gamesnumber_extracted > 0:
             message = "\n" + _("Done.\nTotal saved space:")
-            message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space/1024) + " MB)\n"
+            message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space / 1024) + " MB)\n"
             self.gui.show_trim_details_window(message, True)
         
         if self.gamesnumber_extracted > 0:
             message = _("Extraction completed.")
             if self.total_saved_space > 0 and not self.show_trim_details: # add info about trimming on statusbar 
                 message += _(" Total saved space by trimming:")
-                message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space/1024) + " MB)"
+                message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space / 1024) + " MB)"
         else:
             message = _("Extraction canceled.")
         self.gui.update_statusbar("RomArchiveExtract", message, True)
@@ -210,12 +210,12 @@ class RomArchivesRescan(threading.Thread):
     """ Rescan roms archives on disk and rebuild games list """
     def __init__(self, gui):
         """ Prepare thread """
-        threading.Thread.__init__(self, name="RomArchivesRescan")
+        threading.Thread.__init__(self, name = "RomArchivesRescan")
         self.gui = gui
     
     def run(self):
         """ Start thread """
-        self.gui.add_games(scan_anyway=True, use_threads=True)
+        self.gui.add_games(scan_anyway = True, use_threads = True)
         
     def stop(self):
         """ Stop thread """
@@ -228,7 +228,7 @@ class RomArchivesRebuild(threading.Thread):
     """
     def __init__(self, gui, widgets, games):
         """ Prepare thread """
-        threading.Thread.__init__(self, name="RomArchivesRebuild")
+        threading.Thread.__init__(self, name = "RomArchivesRebuild")
         self.gui = gui
         self.games = games
         self.gamesnumber_to_fix = len(games)
@@ -255,7 +255,7 @@ class RomArchivesRebuild(threading.Thread):
             self.gui.update_statusbar("RomArchivesRebuild", text, True)
             
             oldfile = self.games[key][0]
-            if oldfile[len(oldfile)-4:].lower() == ".zip":
+            if oldfile[len(oldfile) - 4:].lower() == ".zip":
                 self.is_zip = True
             else: # '.nds' file
                 self.is_zip = False
