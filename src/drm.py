@@ -82,6 +82,6 @@ if __name__ == "__main__":
 		locale.setlocale(locale.LC_ALL, '')
 	except:
 		pass
-	gettext.bindtextdomain(APP_NAME, LOCALE_DIR)
-	gettext.textdomain(APP_NAME)
+	gettext.bindtextdomain(APP_NAME.lower(), LOCALE_DIR)
+	gettext.textdomain(APP_NAME.lower())
 	Main().start()

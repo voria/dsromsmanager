@@ -5,7 +5,7 @@ for file in *.po; do
 	LANG=`echo $file | sed s/.po//`
 	DIR=locale/$LANG/LC_MESSAGES/
 	mkdir -p $DIR
-	msgfmt "$file" -o $DIR/DsRomsManager.mo
+	msgfmt "$file" -o $DIR/dsromsmanager.mo
 done
 
 echo "Done."
