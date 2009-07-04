@@ -22,8 +22,6 @@ import threading
 import gettext
 _ = gettext.gettext
 
-import gtk
-
 from urllib2 import urlopen
 
 from globals import *
@@ -99,7 +97,6 @@ class DatUpdater(threading.Thread):
 					self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date to the latest version."), True)
 			except:
 				self.gui.update_statusbar("DatUpdater", _("Can't download DAT version file!"), True)
-				raise
 		finally:
 			# reactivate widgets
 			self.gui.activate_widgets(True)
