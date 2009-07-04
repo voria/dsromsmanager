@@ -40,32 +40,36 @@ def get_crc32(filename):
 
 def get_crc32_zip(zipf):
     """ Return CRC32 of .nds file contained in 'zipf'.
-    Return None if no .nds file is found """
+    Return 'None' if no .nds file is found, or if .zip contains more files """
     result = None
     try:
         zip = zipfile.ZipFile(zipf, "r")
-        for info in zip.infolist():
-            if info.filename[len(info.filename)-4:].lower() == ".nds":
-                crc = struct.pack('>L', info.CRC)
-                result = binascii.hexlify(crc)[:8].upper()
-                break
+        if len(zip.infolist()) > 1:
+            return result
+        info = zip.infolist()[0]
+        if info.filename[len(info.filename)-4:].lower() == ".nds":
+            crc = struct.pack('>L', info.CRC)
+            result = binascii.hexlify(crc)[:8].upper()
         zip.close()
     except:
         # Not a valid zip or it does not exist. Remove it if possible
-        if os.path.exists(zipf):
+        try:
             os.remove(zipf)
+        except:
+            pass
     return result
 
 def get_nds_filename_from_zip(zipf):
-    """ Return the filename of .nds file contained in 'zipf',
-    or None if no .nds file is found """
+    """ Return the filename of .nds file contained in 'zipf'.
+    Return 'None' if no .nds file is found, or if .zip contains more files """
     result = None
     try:
         zip = zipfile.ZipFile(zipf, "r")
-        for info in zip.infolist():
-            if info.filename[len(info.filename)-4:].lower() == ".nds":
-                result = info.filename
-                break
+        if len(zip.infolist()) > 1:
+            return result
+        info = zip.infolist()[0]
+        if info.filename[len(info.filename)-4:].lower() == ".nds":
+            result = info.filename
         zip.close()
     except:
         # zipf doesnt exist anymore.
@@ -86,6 +90,7 @@ class RomArchiveExtract(threading.Thread):
         self.temp = temp
         self.trim = trim
         self.show_trim_log = show_trim_log
+        self.skip_rom_log = False # set to true when a trim fail, so it's not shown in window log
         self.total_saved_space = 0 # total saved space by trimming
         self.overwrite = False
         self.ask_for_overwrite = True
@@ -93,9 +98,9 @@ class RomArchiveExtract(threading.Thread):
     def run(self):
         if not os.access(self.target, os.W_OK):
             text = _("Unable to extract archive to '%s'. ") % self.target
-            text += _("Check available space and write permissions of target directory.") 
+            text += _("Check available space and write permissions for target directory.") 
             self.gui.update_statusbar("RomArchiveExtract", text, True)
-            return        
+            return
         
         for key in sorted(self.games.iterkeys()):
             game = key
@@ -131,7 +136,7 @@ class RomArchiveExtract(threading.Thread):
                             continue
                     if self.trim != None:
                         # Extract in 'temp' directory and then trim it using 'target' as trim output directory
-                        zip.extractall(self.temp)
+                        zip.extract(info, self.temp)
                         cmd = 'trim -d "' + self.target + '" -b "' + os.path.join(self.temp, info.filename) + '"'
                         if self.gamesnumber_to_extract > 1:
                             message = text = " (%d/%d) : " % (self.gamesnumber_processed, self.gamesnumber_to_extract)
@@ -146,21 +151,26 @@ class RomArchiveExtract(threading.Thread):
                             saved_space = output.split("\n")[3].split("\t")[2]
                             self.total_saved_space += int(saved_space.split()[0])
                         except:
-                            self.gui.show_error_dialog(_("Unable to get detailed informations for trimming."), True)
-                            self.show_trim_log = False
+                            self.gui.show_error_dialog(_("Error while trimming '%s'!") % game, True)
+                            self.skip_rom_log = True
                         if self.show_trim_log == True:
                             if self.gamesnumber_to_extract > 1:
                                 output = " (%d/%d)" % (self.gamesnumber_processed, self.gamesnumber_to_extract)
                             else:
                                 output = ""
                             output += " *** " + info.filename + "\n\t"
-                            output += _("Original size:") + "\t" + original_size + "\n\t"
-                            output += _("Trimmed size:") + "\t" + trimmed_size + "\n\t"
-                            output += _("Saved space:") + "\t" + saved_space + "\n"
+                            if self.skip_rom_log == False:
+                                output += _("Original size:") + "\t" + original_size + "\n\t"
+                                output += _("Trimmed size:") + "\t" + trimmed_size + "\n\t"
+                                output += _("Saved space:") + "\t" + saved_space + "\n"
+                            else:
+                                # just print an error and re-enable detailed info for next roms
+                                output += _("ERROR!")
+                                self.skip_rom_log = False
                             self.gui.show_trim_log_window(output, True)
                         os.remove(os.path.join(self.temp, info.filename))
                     else: # No trim
-                        zip.extractall(self.target)
+                        zip.extract(info, self.target)
                     self.gamesnumber_extracted += 1
                 except:
                     self.gui.show_error_dialog(_("Unable to extract file from '%s'.") % zipf, True)
