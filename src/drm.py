@@ -2,7 +2,7 @@
 #
 # DRM - DsRomsManager
 #
-# Copyright (C) 2008 by
+# Copyright (C) 2008-2009 by
 # Fortunato Ventre (voRia) - <vorione@gmail.com> - <http://www.voria.org>
 #
 # 'DRM' is free software; you can redistribute it and/or modify
