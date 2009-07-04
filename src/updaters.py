@@ -18,6 +18,7 @@
 
 import os
 import threading
+import shutil
 
 import gettext
 _ = gettext.gettext
@@ -87,11 +88,17 @@ class DatUpdater(threading.Thread):
 							break
 					# Deactivate all widgets
 					self.gui.deactivate_widgets(True)
+					# Rename old DAT file, if it exists yet
+					backup = DAT_NAME + ".old"
+					try:
+						shutil.move(DAT_NAME, backup)
+					except:
+						pass
 					# Download new DAT file
 					datdownloader = DatDownloader(self.gui)
 					datdownloader.start()
 					datdownloader.join()
-					# Check if we really have the DAT file
+					# Check if we really have the new DAT file
 					while not os.path.exists(DAT_NAME):
 						message = _("Unable to download DAT file. Retry?")
 						if self.gui.show_okcancel_question_dialog(message, True) == True:
@@ -99,12 +106,29 @@ class DatUpdater(threading.Thread):
 							datdownloader.start()
 							datdownloader.join()
 						else:
+							shutil.move(backup, DAT_NAME)
+							message = _("Previous DAT file has been restored.")
+							self.gui.show_info_dialog(message, True)
 							return
 					# Now we have the DAT file
 					self.gui.update_statusbar("DatUpdater", _("Loading the new DAT file and creating database..."), True)
-					dat = Dat(DAT_NAME)
+					try:
+						dat = Dat(DAT_NAME)
+					except: # something goes wrong while loading the new DAT file
+						# remove the problematic DAT file
+						os.remove(DAT_NAME)
+						if os.path.exists(backup): # restore backup if we have it
+							message = _("Error while loading the new DAT file. The old one will be restored.")
+							self.gui.show_error_dialog(message, True)
+							shutil.move(backup, DAT_NAME)
+							self.gui.update_statusbar("DatUpdater", _("Reloading the old DAT file and creating database..."), True)
+							dat = Dat(DAT_NAME)
+						else:
+							message = _("Error while loading the new DAT file!")
+							self.gui.show_error_dialog(message, True)
+							
 					self.gui.update_statusbar("DatUpdater", _("Database created."), True)
-					if self.autorescan_archives == True:
+					if self.autorescan_archives:
 						self.gui.add_games(scan_anyway=True, use_threads=True)
 					else:
 						self.gui.add_games(scan_anyway=False, use_threads=True)

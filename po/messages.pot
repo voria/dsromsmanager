@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-04 17:36+0200\n"
+"POT-Creation-Date: 2009-07-04 20:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -75,7 +75,7 @@ msgid ""
 "created."
 msgstr ""
 
-#: ../src/drm.py:69 ../src/updaters.py:96
+#: ../src/drm.py:69 ../src/updaters.py:103
 msgid "Unable to download DAT file. Retry?"
 msgstr ""
 
@@ -83,7 +83,7 @@ msgstr ""
 msgid "Loading DAT file and creating database..."
 msgstr ""
 
-#: ../src/drm.py:81 ../src/updaters.py:106
+#: ../src/drm.py:81 ../src/updaters.py:130
 msgid "Database created."
 msgstr ""
 
@@ -552,31 +552,47 @@ msgstr ""
 msgid "%d games loaded succesfully."
 msgstr ""
 
-#: ../src/updaters.py:43
+#: ../src/updaters.py:44
 msgid "Updating database with the new 'Images' path..."
 msgstr ""
 
-#: ../src/updaters.py:48
+#: ../src/updaters.py:49
 msgid "Database updated."
 msgstr ""
 
-#: ../src/updaters.py:74
+#: ../src/updaters.py:75
 msgid "Searching for a new DAT file..."
 msgstr ""
 
-#: ../src/updaters.py:80
+#: ../src/updaters.py:81
 msgid "New DAT file available!"
 msgstr ""
 
-#: ../src/updaters.py:104
-msgid "Loading the new DAT file and creating database..."
-msgstr ""
-
-#: ../src/updaters.py:112
-msgid "DAT file is already up to date to the latest version."
+#: ../src/updaters.py:110
+msgid "Previous DAT file has been restored."
 msgstr ""
 
 #: ../src/updaters.py:114
+msgid "Loading the new DAT file and creating database..."
+msgstr ""
+
+#: ../src/updaters.py:121
+msgid "Error while loading the new DAT file. The old one will be restored."
+msgstr ""
+
+#: ../src/updaters.py:124
+msgid "Reloading the old DAT file and creating database..."
+msgstr ""
+
+#: ../src/updaters.py:127
+msgid "Error while loading the new DAT file!"
+msgstr ""
+
+#: ../src/updaters.py:136
+msgid "DAT file is already up to date to the latest version."
+msgstr ""
+
+#: ../src/updaters.py:138
 msgid "Can't download DAT version file!"
 msgstr ""
 
