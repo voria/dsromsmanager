@@ -1,6 +1,16 @@
-drm for Debian
---------------
+DRM - DsRomsManager
+Released under GPL3 terms - See 'copyright' for more details
 
-<possible notes regarding this package - if none, delete this file>
+Copyleft by
+Fortunato Ventre (voRia) - vorione@gmail.com - http://www.voria.org
 
- -- voRia <vorione@gmail.com>  Sun, 05 Oct 2008 20:55:41 +0200
+If you have something to say about this software or you have found a bug (I bet on this :P), visit:
+<http://www.voria.org/dsromsmanager/>
+
+Bug reports and comments (yes, the bad ones too!) are welcome!
+Thanks! ;)
+
+*************
+
+You need at least Python 2.5 to run this application ('sqlite3' module is used).
+Also, you have to install pygtk.

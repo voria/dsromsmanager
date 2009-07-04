@@ -2,20 +2,23 @@ Source: drm
 Section: games
 Priority: extra
 Maintainer: Fortunato Ventre (voRia) <vorione@gmail.com>
-Build-Depends: debhelper (>= 6)
-Standards-Version: 3.7.3
-Homepage: <http://www.voria.org>
+Build-Depends: debhelper (>= 7)
+Standards-Version: 3.8.0
+Homepage: <http://www.voria.org/dsromsmanager/>
 
 Package: drm
 Architecture: all
-Depends: python-gtk2, python-glade2
-Description: DS Roms Manager
- DRM is an utility to manage Nintendo DS Roms.
- It's written in python and gtk.
+Depends: python-gtk2
+Description: DSRomsManager
+ DsRomsManager is an utility to manage Nintendo DS Roms.
+ It's written in python and gtk and released under GPLv3.
  .
+ This is a short summary of what it can do:
  * Handle all games informations like region, title, language, etc.
+ * Search for duplicates.
+ * Manager roms archives on hard disk.
+ * Extract roms from archive.
+ * Trim roms while extracting automatically. 
  * Download games images automatically.
  * Update gameslist with just one click.
  * Search over the web for games reviews.
- .
- More to come ;-)

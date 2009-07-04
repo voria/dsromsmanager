@@ -14,9 +14,5 @@ install:
 uninstall:
 	rm -rf $(DESTDIR)/usr/bin/drm
 	rm -rf $(DESTDIR)/usr/share/applications/dsromsmanager.desktop
-	rm -rf $(DESTDIR)/usr/share/locale/it/LC_MESSAGES/DsRomsManager.po 
+	rm -rf $(DESTDIR)/usr/share/locale/it/LC_MESSAGES/dsromsmanager.po 
 	rm -rf $(DESTDIR)/usr/share/dsromsmanager/
-
-
-
-

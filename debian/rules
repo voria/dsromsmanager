@@ -2,6 +2,7 @@
 # -*- makefile -*-
 
 configure: configure-stamp
+
 configure-stamp:
 	dh_testdir
 	# Add here commands to configure the package.
@@ -21,32 +22,22 @@ clean:
 	# Delete unneeded stuff
 	rm -rf .bzr .pydevproject .project src/*.pyc
 	# Add here commands to clean up after the build process.
-	dh_clean 
+	dh_clean
 
-install: build
+install:
 	dh_testdir
 	dh_testroot
-	dh_clean -k 
-	dh_installdirs
+	dh_clean -k
 	dh_installchangelogs
-	# Add here commands to install the package into debian/drm.
+	dh_installdocs
+	# Install DsRomsManager.
 	$(MAKE) DESTDIR=$(CURDIR)/debian/drm install
 
-
 # Build architecture-independent files here.
-binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs
-	dh_installdeb
-	dh_shlibdeps
+binary-indep: install
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
 
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install configure
+binary: binary-indep
+.PHONY: clean binary binary-indep install configure build
