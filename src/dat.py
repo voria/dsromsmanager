@@ -75,6 +75,3 @@ class Dat():
 		db.save_as(DB_FILE)
 		# Close connection
 		del db
-		# Remove DAT file
-		os.remove(filename)
-		
