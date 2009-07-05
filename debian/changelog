@@ -1,3 +1,13 @@
+drm (0.8) jaunty; urgency=low
+
+  * Do not remove/re-add the model from/to treeview when it's not needed.
+    It slows down a lot and it resets the cursor on the top of the list everytime.
+  * Change the URL in about dialog to 'http://www.voria.org'.
+  * Disable accelerator key for about dialog.
+  * Update strings and translations.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 05 Jul 2009 12:58:55 +0200
+
 drm (0.7) jaunty; urgency=low
 
   * Big code reorganization and optimization.
