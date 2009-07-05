@@ -175,7 +175,7 @@ class RomArchiveExtract(threading.Thread):
                                 output += _("Saved space:") + "\t" + saved_space + "\n"
                             else:
                                 # just print an error and re-enable detailed info for next roms
-                                output += _("ERROR!")
+                                output += _("ERROR!") + "\n"
                                 self.skip_rom_details = False
                             self.gui.show_trim_details_window(output, True)
                         os.remove(os.path.join(self.temp, info.filename))

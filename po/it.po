@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-04 20:31+0200\n"
-"PO-Revision-Date: 2009-07-04 20:32+0200\n"
+"POT-Creation-Date: 2009-07-05 12:47+0200\n"
+"PO-Revision-Date: 2009-07-05 12:47+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -82,15 +82,15 @@ msgstr ""
 "\n"
 "Verrà scaricato un nuovo file DAT, e il database verrà ricreato."
 
-#: ../src/drm.py:69 ../src/updaters.py:103
+#: ../src/drm.py:69 ../src/updaters.py:102
 msgid "Unable to download DAT file. Retry?"
-msgstr "Impossibile eseguire il download del file DAT. Riprovare?"
+msgstr "Impossibile scaricare il file DAT. Riprovare?"
 
 #: ../src/drm.py:79
 msgid "Loading DAT file and creating database..."
 msgstr "Caricamento del file DAT e creazione del database in corso..."
 
-#: ../src/drm.py:81 ../src/updaters.py:130
+#: ../src/drm.py:81 ../src/updaters.py:129
 msgid "Database created."
 msgstr "Database creato."
 
@@ -165,7 +165,7 @@ msgstr "Estrazione completata."
 
 #: ../src/files.py:199
 msgid " Total saved space by trimming:"
-msgstr " Spazio totale recuperato con il trim:"
+msgstr " Spazio totale recuperato dal trim:"
 
 #: ../src/files.py:202
 msgid "Extraction canceled."
@@ -289,11 +289,11 @@ msgstr "Australia"
 msgid "South Korea"
 msgstr "Corea del sud"
 
-#: ../src/gui.py:158 ../src/gui.py:580
+#: ../src/gui.py:158 ../src/gui.py:576
 msgid "Hide"
 msgstr "Nascondi"
 
-#: ../src/gui.py:161 ../src/gui.py:581
+#: ../src/gui.py:161 ../src/gui.py:577
 msgid "Hide main window."
 msgstr "Nasconde la finestra principale."
 
@@ -333,52 +333,44 @@ msgstr "Esci"
 msgid "Quit 'DsRomsManager'."
 msgstr "Esce da 'DsRomsManager'."
 
-#: ../src/gui.py:248
-msgid "Found"
-msgstr "Disponibile"
-
-#: ../src/gui.py:250
-msgid "Region"
-msgstr "Regione"
-
 #: ../src/gui.py:255
-msgid "Name"
-msgstr "Nome"
+msgid "Title"
+msgstr "Titolo"
 
 #: ../src/gui.py:265 ../src/gui.py:276 ../src/gui.py:288
 msgid "All"
 msgstr "Tutte"
 
-#: ../src/gui.py:574
+#: ../src/gui.py:570
 msgid "Show"
 msgstr "Mostra"
 
-#: ../src/gui.py:575
+#: ../src/gui.py:571
 msgid "Show main window."
 msgstr "Mostra la finestra principale."
 
-#: ../src/gui.py:721
+#: ../src/gui.py:717
 msgid "Duplicates:"
 msgstr "Duplicati:"
 
-#: ../src/gui.py:726
+#: ../src/gui.py:722
 msgid "No duplicates"
 msgstr "Nessun duplicato"
 
-#: ../src/gui.py:916
+#: ../src/gui.py:908
 msgid "Select destination directory"
 msgstr "Seleziona la directory di destinazione"
 
-#: ../src/gui.py:1041
+#: ../src/gui.py:1033
 msgid "Rescan roms archives and rebuild games list?"
 msgstr "Riscansionare gli archivi delle roms e ricaricare la lista dei giochi?"
 
-#: ../src/gui.py:1071
+#: ../src/gui.py:1063
 msgid "Waiting while the current archive rebuild is completed..."
 msgstr ""
 "In attesa che la ricostruzione dell'archivio corrente sia completata..."
 
-#: ../src/gui.py:1219
+#: ../src/gui.py:1211
 msgid ""
 "Current 'Roms' path does not exist.\n"
 "The default path will be used."
@@ -386,7 +378,7 @@ msgstr ""
 "Il percorso 'Roms' corrente non esiste.\n"
 "Verrà utilizzato il percorso di default."
 
-#: ../src/gui.py:1225
+#: ../src/gui.py:1217
 msgid ""
 "Current 'Unknown roms' path does not exist.\n"
 "The default path will be used."
@@ -394,7 +386,7 @@ msgstr ""
 "Il percorso 'Roms sconosciute' corrente non esiste.\n"
 "Verrà utilizzato il percorso di default."
 
-#: ../src/gui.py:1231
+#: ../src/gui.py:1223
 msgid ""
 "Current 'New roms' path does not exist.\n"
 "The default path will be used."
@@ -402,7 +394,7 @@ msgstr ""
 "Il percorso 'Nuove roms' corrente non esiste.\n"
 "Verrà utilizzato il percorso di default."
 
-#: ../src/gui.py:1237
+#: ../src/gui.py:1229
 msgid ""
 "Current 'Images' path does not exist.\n"
 "The default path will be used."
@@ -410,13 +402,13 @@ msgstr ""
 "Il percorso 'Immagini' corrente non esiste.\n"
 "Verrà utilizzato il percorso di default."
 
-#: ../src/gui.py:1272
+#: ../src/gui.py:1264
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Roms' path, but it "
 "can't be used."
-msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Roms', ma non può essere usata."
+msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Roms', ma non può essere utilizzata."
 
-#: ../src/gui.py:1273
+#: ../src/gui.py:1265
 msgid ""
 "\n"
 "\n"
@@ -426,13 +418,13 @@ msgstr ""
 "\n"
 "Il percorso 'Roms' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1277
+#: ../src/gui.py:1269
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Unknown roms' path, "
 "but it can't be used."
-msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Roms sconosciute', ma non può essere usata."
+msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Roms sconosciute', ma non può essere utilizzata."
 
-#: ../src/gui.py:1278
+#: ../src/gui.py:1270
 msgid ""
 "\n"
 "\n"
@@ -442,13 +434,13 @@ msgstr ""
 "\n"
 "Il percorso 'Roms sconosciute' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1282
+#: ../src/gui.py:1274
 msgid ""
 "'DsRomsManager' working directory has been selected as 'New roms' path, but "
 "it can't be used."
-msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Nuove roms', ma non può essere usata."
+msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Nuove roms', ma non può essere utilizzata."
 
-#: ../src/gui.py:1283
+#: ../src/gui.py:1275
 msgid ""
 "\n"
 "\n"
@@ -458,11 +450,11 @@ msgstr ""
 "\n"
 "Il percorso 'Nuove roms' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1287
+#: ../src/gui.py:1279
 msgid "'Unknown roms' path can't be the same as 'Roms' or 'New roms' paths."
 msgstr "Il percorso 'Roms sconosciute' non può essere uguale ai percorsi 'Roms' o 'Nuove roms'."
 
-#: ../src/gui.py:1288 ../src/gui.py:1298 ../src/gui.py:1303
+#: ../src/gui.py:1280 ../src/gui.py:1290 ../src/gui.py:1295
 msgid ""
 "\n"
 "\n"
@@ -472,13 +464,13 @@ msgstr ""
 "\n"
 "Selezionare un percorso diverso."
 
-#: ../src/gui.py:1292
+#: ../src/gui.py:1284
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Images' path, but it "
 "can't be used."
-msgstr "E' stata selezionata la directory di lavoro 'DsRomsManager' come percorso 'Immagini', ma non può essere usata."
+msgstr "E' stata selezionata la directory di lavoro 'DsRomsManager' come percorso 'Immagini', ma non può essere utilizzata."
 
-#: ../src/gui.py:1293
+#: ../src/gui.py:1285
 msgid ""
 "\n"
 "\n"
@@ -488,20 +480,20 @@ msgstr ""
 "\n"
 "Il percorso 'Immagini' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1297
+#: ../src/gui.py:1289
 msgid "'Images' path can't be the same as 'Roms' path."
 msgstr "Il percorso 'Immagini' non può essere uguale al percorso 'Roms'."
 
-#: ../src/gui.py:1302
+#: ../src/gui.py:1294
 msgid "Write permissions are not granted for the current 'Extract in' path."
 msgstr ""
 "Non si hanno i permessi di scrittura per il percorso 'Estrai in' corrente."
 
-#: ../src/gui.py:1353
+#: ../src/gui.py:1345
 msgid "'Images' path has changed."
 msgstr "Il percorso delle immagini è stato cambiato."
 
-#: ../src/gui.py:1354
+#: ../src/gui.py:1346
 msgid ""
 "\n"
 "\n"
@@ -511,11 +503,11 @@ msgstr ""
 "\n"
 "Il database verrà aggiornato con il nuovo percorso."
 
-#: ../src/gui.py:1367
+#: ../src/gui.py:1359
 msgid "Roms paths have changed."
 msgstr "Il percorso delle roms è stato cambiato."
 
-#: ../src/gui.py:1368
+#: ../src/gui.py:1360
 msgid ""
 "\n"
 "\n"
@@ -525,71 +517,71 @@ msgstr ""
 "\n"
 "La lista dei giochi verrà ricaricata."
 
-#: ../src/gui.py:1541
+#: ../src/gui.py:1533
 msgid "_No to all"
 msgstr "_No a tutti"
 
-#: ../src/gui.py:1551
+#: ../src/gui.py:1543
 msgid "_Yes to all"
 msgstr "_Sì a tutti"
 
-#: ../src/gui.py:1611
+#: ../src/gui.py:1603
 #, python-format
 msgid "%d game shown"
 msgstr "%d gioco visualizzato"
 
-#: ../src/gui.py:1613
+#: ../src/gui.py:1605
 #, python-format
 msgid "%d games shown"
 msgstr "%d giochi visualizzati"
 
-#: ../src/gui.py:1615
+#: ../src/gui.py:1607
 #, python-format
 msgid " - %d available"
 msgstr " - %d disponibili"
 
-#: ../src/gui.py:1617
+#: ../src/gui.py:1609
 #, python-format
 msgid " - %d to rebuild"
 msgstr " - %d da ricostruire"
 
-#: ../src/gui.py:1619
+#: ../src/gui.py:1611
 #, python-format
 msgid " - %d not available"
 msgstr " - %d non disponibili"
 
-#: ../src/gui.py:1621
+#: ../src/gui.py:1613
 msgid "No games shown"
 msgstr "Nessun gioco visualizzato"
 
-#: ../src/gui.py:1776 ../src/gui.py:1777
+#: ../src/gui.py:1758 ../src/gui.py:1759
 msgid "Stop the download process."
 msgstr "Ferma il processo di download."
 
-#: ../src/gui.py:1798 ../src/gui.py:1799
+#: ../src/gui.py:1780 ../src/gui.py:1781
 msgid "Stop the rebuild process."
 msgstr "Ferma il processo di ricostruzione."
 
-#: ../src/gui.py:1840
+#: ../src/gui.py:1822
 msgid "Scanning roms on disk..."
 msgstr "Scansione delle roms su disco in corso..."
 
-#: ../src/gui.py:1883 ../src/gui.py:1931 ../src/gui.py:1940 ../src/gui.py:1975
-#: ../src/gui.py:1984
+#: ../src/gui.py:1865 ../src/gui.py:1913 ../src/gui.py:1922 ../src/gui.py:1957
+#: ../src/gui.py:1966
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr "'%s' era ridondante. Eliminato."
 
-#: ../src/gui.py:1920 ../src/gui.py:1964
+#: ../src/gui.py:1902 ../src/gui.py:1946
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr "Il file '%s' è un duplicato. Eliminare?"
 
-#: ../src/gui.py:1987
+#: ../src/gui.py:1969
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:2033
+#: ../src/gui.py:2015
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr "%d giochi caricati correttamente."
@@ -603,40 +595,40 @@ msgstr ""
 msgid "Database updated."
 msgstr "Database aggiornato."
 
-#: ../src/updaters.py:75
+#: ../src/updaters.py:74
 msgid "Searching for a new DAT file..."
 msgstr "Ricerca di un nuovo file DAT in corso..."
 
-#: ../src/updaters.py:81
+#: ../src/updaters.py:80
 msgid "New DAT file available!"
 msgstr "Nuovo file DAT disponibile!"
 
-#: ../src/updaters.py:110
+#: ../src/updaters.py:109
 msgid "Previous DAT file has been restored."
 msgstr "Il file DAT precedente è stato ripristinato."
 
-#: ../src/updaters.py:114
+#: ../src/updaters.py:113
 msgid "Loading the new DAT file and creating database..."
 msgstr "Caricamento del nuovo file DAT e creazione del database in corso..."
 
-#: ../src/updaters.py:121
+#: ../src/updaters.py:120
 msgid "Error while loading the new DAT file. The old one will be restored."
 msgstr "Errore durante il caricamento del nuovo file DAT. Il vecchio file verrà ripristinato."
 
-#: ../src/updaters.py:124
+#: ../src/updaters.py:123
 msgid "Reloading the old DAT file and creating database..."
 msgstr ""
 "Ricaricamento del vecchio file DAT e creazione del database in corso..."
 
-#: ../src/updaters.py:127
+#: ../src/updaters.py:126
 msgid "Error while loading the new DAT file!"
 msgstr "Errore durante il caricamento del nuovo file DAT!"
 
-#: ../src/updaters.py:136
+#: ../src/updaters.py:135
 msgid "DAT file is already up to date to the latest version."
 msgstr "Il file DAT è già aggiornato all'ultima versione."
 
-#: ../src/updaters.py:138
+#: ../src/updaters.py:137
 msgid "Can't download DAT version file!"
 msgstr "Non riesco a scaricare il file di controllo versione del DAT!"
 
@@ -743,7 +735,7 @@ msgid "Not available games"
 msgstr "Giochi non disponibili"
 
 #: drm.glade.h:28
-msgid "Open the option window. (Ctrl+O)"
+msgid "Open the options window. (Ctrl+O)"
 msgstr "Apre la finestra delle opzioni. (Ctrl+O)"
 
 #: drm.glade.h:30
@@ -823,7 +815,7 @@ msgstr ""
 
 #: drm.glade.h:52
 msgid "Scan for roms archives at DAT file update"
-msgstr "Scansiona gli archivi delle roms con l'aggiornamento del file DAT"
+msgstr "Scansiona gli archivi delle roms dopo l'aggiornamento del file DAT"
 
 #: drm.glade.h:53
 msgid "Scan for roms archives at startup"
@@ -862,8 +854,8 @@ msgid "Show detailed informations for every rom while trimming."
 msgstr "Mostra informazioni dettagliate per ogni rom durante il trim."
 
 #: drm.glade.h:62
-msgid "Show informations about 'DsRomsManager'. (Ctrl+A)"
-msgstr "Mostra informazioni su 'DsRomsManager'. (Ctrl+A)"
+msgid "Show informations about 'DsRomsManager'."
+msgstr "Mostra informazioni su 'DsRomsManager'."
 
 #: drm.glade.h:63
 msgid "Size:"
@@ -944,6 +936,15 @@ msgstr "gtk-ok"
 #: drm.glade.h:84
 msgid "http://www.voria.org"
 msgstr "http://www.voria.org"
+
+#~ msgid "Found"
+#~ msgstr "Disponibile"
+
+#~ msgid "Region"
+#~ msgstr "Regione"
+
+#~ msgid "Name"
+#~ msgstr "Nome"
 
 #~ msgid "Unable to get detailed informations for trimming."
 #~ msgstr ""
