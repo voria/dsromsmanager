@@ -190,14 +190,14 @@ class RomArchiveExtract(threading.Thread):
         
         if self.trim != None and self.show_trim_details and self.gamesnumber_extracted > 0:
             message = "\n" + _("Done.\nTotal saved space:")
-            message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space / 1024) + " MB)\n"
+            message += " " + str(self.total_saved_space) + " kB (~" + str(self.total_saved_space / 1024) + " MB)\n"
             self.gui.show_trim_details_window(message, True)
         
         if self.gamesnumber_extracted > 0:
             message = _("Extraction completed.")
             if self.total_saved_space > 0 and not self.show_trim_details: # add info about trimming on statusbar 
                 message += _(" Total saved space by trimming:")
-                message += " " + str(self.total_saved_space) + " kB (" + str(self.total_saved_space / 1024) + " MB)"
+                message += " " + str(self.total_saved_space) + " kB (~" + str(self.total_saved_space / 1024) + " MB)"
         else:
             message = _("Extraction canceled.")
         self.gui.update_statusbar("RomArchiveExtract", message, True)
