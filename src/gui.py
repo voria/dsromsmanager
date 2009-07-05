@@ -1644,39 +1644,29 @@ class Gui(threading.Thread):
 		
 		self.checksums[game[GAME_ROM_CRC]] = new_zip_file
 		
-		if use_threads:
-			gdk.threads_enter()
-		# Remove model from treeview
-		self.list_treeview.set_model(None)
-		# Search for the game in current treeview and update it
-		iter = self.list_treeview_model.get_iter_first()
-		if iter == None: # Treeview is empty, nothing to do.
-			# Set the model back to treeview and exit
-			self.list_treeview.set_model(self.list_treeview_model)
+		try:
+			if use_threads:
+				gdk.threads_enter()
+			# Search for the game in current treeview and update it
+			iter = self.list_treeview_model.get_iter_first()
+			if iter == None: # Treeview is empty, nothing to do.
+				return
+			while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != game_release_number:
+				iter = self.list_treeview_model.iter_next(iter)
+				if iter == None: # Not found in current treeview. Nothing to do.
+					return
+			self.list_treeview_model.set_value(iter, TVC_CHECK, self.checks[CHECKS_YES])
+			if not self.games_check_ok_checkbutton.get_active(): # Check if games list is dirty now
+				self.dirty_gameslist = True
+			# remove the current game from the dictionary of games to rebuild
+			del self.games_to_rebuild[game[GAME_FULLINFO]]
+			# Update counters and label
+			self.gamesnumber_fixable -= 1
+			self.gamesnumber_available += 1
+			self.update_list_game_label()
+		finally:
 			if use_threads:
 				gdk.threads_leave()
-			return
-		while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != game_release_number:
-			iter = self.list_treeview_model.iter_next(iter)
-			if iter == None: # Not found in current treeview. Nothing to do.
-				# Set the model back to treeview and exit
-				self.list_treeview.set_model(self.list_treeview_model)
-				if use_threads:
-					gdk.threads_leave()
-				return
-		self.list_treeview_model.set_value(iter, TVC_CHECK, self.checks[CHECKS_YES])
-		if not self.games_check_ok_checkbutton.get_active(): # Check if games list is dirty now
-			self.dirty_gameslist = True
-		# Set the model back to treeview
-		self.list_treeview.set_model(self.list_treeview_model)
-		# remove the current game from the dictionary of games to rebuild
-		del self.games_to_rebuild[game[GAME_FULLINFO]]
-		# Update counters and label
-		self.gamesnumber_fixable -= 1
-		self.gamesnumber_available += 1
-		self.update_list_game_label()
-		if use_threads:
-			gdk.threads_leave()
 	
 	def update_image(self, game_release_number, image_index, filename, use_threads = False):
 		""" Update shown image if needed """
