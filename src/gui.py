@@ -482,8 +482,6 @@ class Gui(threading.Thread):
 			check_convert = self.games_check_convert_checkbutton.get_active()
 			# Get the list
 			model = self.list_treeview_model
-			# Remove list from treeview for updating
-			self.list_treeview.set_model(None)
 			iter = model.get_iter_first()
 			while iter != None:
 				iter_next = model.iter_next(iter)
@@ -507,8 +505,6 @@ class Gui(threading.Thread):
 				iter = iter_next
 			# Games list is no more dirty
 			self.dirty_gameslist = False
-			# Set the model back to treeview
-			self.list_treeview.set_model(self.list_treeview_model)
 		else: # Games list is not dirty
 			# Rebuild the list
 			string = self.filter_name_entry.get_text()
@@ -790,12 +786,8 @@ class Gui(threading.Thread):
 				except:
 					self.open_db()
 					game = self.db.get_game(next)
-				# Remove the model from the treeview
-				self.list_treeview.set_model(None)
 				# Insert game into the model, the next cycle will find the iter we are searching for
 				self.__add_game_to_list(game, insert_before_iter = next_iter, anyway = True)
-				# Re-add model to the treeview
-				self.list_treeview.set_model(self.list_treeview_model)
 				# Update statistic labels
 				self.update_list_game_label()
 			else: # Not found yet
