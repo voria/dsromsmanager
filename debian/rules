@@ -27,7 +27,7 @@ clean:
 install:
 	dh_testdir
 	dh_testroot
-	dh_clean -k
+	dh_prep
 	dh_installchangelogs
 	dh_installdocs
 	# Install DsRomsManager.
@@ -40,4 +40,5 @@ binary-indep: install
 	dh_builddeb
 
 binary: binary-indep
-.PHONY: clean binary binary-indep install configure build
+binary-arch: binary-indep
+.PHONY: clean binary binary-indep binary-arch install configure build

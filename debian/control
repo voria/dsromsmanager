@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Fortunato Ventre (voRia) <vorione@gmail.com>
 Build-Depends: debhelper (>= 7)
 Standards-Version: 3.8.0
-Homepage: <http://www.voria.org/dsromsmanager/>
+Homepage: http://www.voria.org
 
 Package: drm
 Architecture: all

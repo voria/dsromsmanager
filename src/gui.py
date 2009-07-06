@@ -2044,12 +2044,12 @@ class Gui(threading.Thread):
 		self.activate_widgets(use_threads)
 	
 	def quit(self):
-		# Prepare for quitting
-		self.quitting = True
 		# Check if we can exit now
 		if not self.canexitnow:
 			gobject.timeout_add(100, self.quit) # retry in 100 milliseconds
 			return True
+		# Prepare for quitting
+		self.quitting = True
 		# Save config file
 		config.save()
 		# Stop all threads

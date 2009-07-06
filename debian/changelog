@@ -1,3 +1,13 @@
+drm (0.9) jaunty; urgency=low
+
+  * Disable extract options in treeview popup menu when an
+    extract process is already running.
+  * Check if there is enough free space on target directory
+    when extracting archives.
+  * Update strings and translations.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 06 Jul 2009 20:06:51 +0200
+
 drm (0.8) jaunty; urgency=low
 
   * Do not remove/re-add the model from/to treeview when it's not needed.
