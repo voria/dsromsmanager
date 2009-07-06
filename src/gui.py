@@ -864,6 +864,13 @@ class Gui(threading.Thread):
 					self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
 					break
 			
+			# If we are already extracting archives, it's better if we avoid to start a new extract process
+			for thread in self.threads:
+				if thread.isAlive() and thread.getName() == "RomArchiveExtract":
+					self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+					self.list_treeview_popup_extractin_menuitem.set_sensitive(False)
+					break
+			
 			# Finally show the popup menu
 			self.list_treeview_popup_menu.popup(None, None, None, event.button, event.time)			
 			return True
