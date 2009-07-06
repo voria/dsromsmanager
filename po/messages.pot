@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-05 12:51+0200\n"
+"POT-Creation-Date: 2009-07-06 16:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,94 +87,98 @@ msgstr ""
 msgid "Database created."
 msgstr ""
 
-#: ../src/files.py:110
+#: ../src/files.py:111
 #, python-format
 msgid "Unable to extract archive to '%s'. "
 msgstr ""
 
-#: ../src/files.py:111
+#: ../src/files.py:112
 msgid "Check available space and write permissions for target directory."
 msgstr ""
 
-#: ../src/files.py:123
+#: ../src/files.py:118 ../src/files.py:242
+msgid "Extraction canceled."
+msgstr ""
+
+#: ../src/files.py:128
 #, python-format
 msgid "Extracting archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:132
+#: ../src/files.py:141
 #, python-format
 msgid "Target file '%s' already exists. Overwrite?"
 msgstr ""
 
-#: ../src/files.py:155
+#: ../src/files.py:171
+#, python-format
+msgid "Unable to trim %s!"
+msgstr ""
+
+#: ../src/files.py:177
+msgid " Leave it untrimmed?"
+msgstr ""
+
+#: ../src/files.py:186 ../src/files.py:218
+#, python-format
+msgid ""
+"Not enough free space on target directory for '%s'. Extraction canceled."
+msgstr ""
+
+#: ../src/files.py:196
 #, python-format
 msgid "Trimming '%s'..."
 msgstr ""
 
-#: ../src/files.py:164
-#, python-format
-msgid "Error while trimming '%s'!"
-msgstr ""
-
-#: ../src/files.py:173
+#: ../src/files.py:211
 msgid "Original size:"
 msgstr ""
 
-#: ../src/files.py:174
+#: ../src/files.py:212
 msgid "Trimmed size:"
 msgstr ""
 
-#: ../src/files.py:175
+#: ../src/files.py:213
 msgid "Saved space:"
 msgstr ""
 
-#: ../src/files.py:178
-msgid "ERROR!"
-msgstr ""
-
-#: ../src/files.py:186
+#: ../src/files.py:226
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr ""
 
-#: ../src/files.py:189
+#: ../src/files.py:229
 #, python-format
 msgid "Unable to open '%s'."
 msgstr ""
 
-#: ../src/files.py:192
-msgid ""
-"Done.\n"
-"Total saved space:"
+#: ../src/files.py:232
+msgid "Done. Total saved space:"
 msgstr ""
 
-#: ../src/files.py:197
+#: ../src/files.py:237
 msgid "Extraction completed."
 msgstr ""
 
-#: ../src/files.py:199
+#: ../src/files.py:239
 msgid " Total saved space by trimming:"
 msgstr ""
 
-#: ../src/files.py:202
-msgid "Extraction canceled."
-msgstr ""
-
-#: ../src/files.py:254
+#: ../src/files.py:294
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:307
+#: ../src/files.py:347
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr ""
 
-#: ../src/files.py:310
+#: ../src/files.py:350
 msgid "Rebuilding stopped."
 msgstr ""
 
-#: ../src/files.py:312
+#: ../src/files.py:352
 msgid "Rebuilding completed."
 msgstr ""
 
@@ -346,200 +350,200 @@ msgstr ""
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:908
+#: ../src/gui.py:915
 msgid "Select destination directory"
 msgstr ""
 
-#: ../src/gui.py:1033
+#: ../src/gui.py:1040
 msgid "Rescan roms archives and rebuild games list?"
 msgstr ""
 
-#: ../src/gui.py:1063
+#: ../src/gui.py:1070
 msgid "Waiting while the current archive rebuild is completed..."
 msgstr ""
 
-#: ../src/gui.py:1211
+#: ../src/gui.py:1218
 msgid ""
 "Current 'Roms' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1217
+#: ../src/gui.py:1224
 msgid ""
 "Current 'Unknown roms' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1223
+#: ../src/gui.py:1230
 msgid ""
 "Current 'New roms' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1229
+#: ../src/gui.py:1236
 msgid ""
 "Current 'Images' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1264
+#: ../src/gui.py:1271
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Roms' path, but it "
 "can't be used."
 msgstr ""
 
-#: ../src/gui.py:1265
+#: ../src/gui.py:1272
 msgid ""
 "\n"
 "\n"
 "The 'Roms' path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1269
+#: ../src/gui.py:1276
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Unknown roms' path, "
 "but it can't be used."
 msgstr ""
 
-#: ../src/gui.py:1270
+#: ../src/gui.py:1277
 msgid ""
 "\n"
 "\n"
 "The 'Unknown roms' path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1274
+#: ../src/gui.py:1281
 msgid ""
 "'DsRomsManager' working directory has been selected as 'New roms' path, but "
 "it can't be used."
 msgstr ""
 
-#: ../src/gui.py:1275
+#: ../src/gui.py:1282
 msgid ""
 "\n"
 "\n"
 "The 'New roms' path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1279
+#: ../src/gui.py:1286
 msgid "'Unknown roms' path can't be the same as 'Roms' or 'New roms' paths."
 msgstr ""
 
-#: ../src/gui.py:1280 ../src/gui.py:1290 ../src/gui.py:1295
+#: ../src/gui.py:1287 ../src/gui.py:1297 ../src/gui.py:1302
 msgid ""
 "\n"
 "\n"
 "Select a different path."
 msgstr ""
 
-#: ../src/gui.py:1284
+#: ../src/gui.py:1291
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Images' path, but it "
 "can't be used."
 msgstr ""
 
-#: ../src/gui.py:1285
+#: ../src/gui.py:1292
 msgid ""
 "\n"
 "\n"
 "The 'Images' path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1289
+#: ../src/gui.py:1296
 msgid "'Images' path can't be the same as 'Roms' path."
 msgstr ""
 
-#: ../src/gui.py:1294
+#: ../src/gui.py:1301
 msgid "Write permissions are not granted for the current 'Extract in' path."
 msgstr ""
 
-#: ../src/gui.py:1345
+#: ../src/gui.py:1352
 msgid "'Images' path has changed."
 msgstr ""
 
-#: ../src/gui.py:1346
+#: ../src/gui.py:1353
 msgid ""
 "\n"
 "\n"
 "Database will be updated with the new path."
 msgstr ""
 
-#: ../src/gui.py:1359
+#: ../src/gui.py:1366
 msgid "Roms paths have changed."
 msgstr ""
 
-#: ../src/gui.py:1360
+#: ../src/gui.py:1367
 msgid ""
 "\n"
 "\n"
 "Games list will be reloaded."
 msgstr ""
 
-#: ../src/gui.py:1533
+#: ../src/gui.py:1540
 msgid "_No to all"
 msgstr ""
 
-#: ../src/gui.py:1543
+#: ../src/gui.py:1550
 msgid "_Yes to all"
 msgstr ""
 
-#: ../src/gui.py:1603
+#: ../src/gui.py:1610
 #, python-format
 msgid "%d game shown"
 msgstr ""
 
-#: ../src/gui.py:1605
+#: ../src/gui.py:1612
 #, python-format
 msgid "%d games shown"
 msgstr ""
 
-#: ../src/gui.py:1607
+#: ../src/gui.py:1614
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1609
+#: ../src/gui.py:1616
 #, python-format
 msgid " - %d to rebuild"
 msgstr ""
 
-#: ../src/gui.py:1611
+#: ../src/gui.py:1618
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1613
+#: ../src/gui.py:1620
 msgid "No games shown"
 msgstr ""
 
-#: ../src/gui.py:1758 ../src/gui.py:1759
+#: ../src/gui.py:1765 ../src/gui.py:1766
 msgid "Stop the download process."
 msgstr ""
 
-#: ../src/gui.py:1780 ../src/gui.py:1781
+#: ../src/gui.py:1787 ../src/gui.py:1788
 msgid "Stop the rebuild process."
 msgstr ""
 
-#: ../src/gui.py:1822
+#: ../src/gui.py:1829
 msgid "Scanning roms on disk..."
 msgstr ""
 
-#: ../src/gui.py:1865 ../src/gui.py:1913 ../src/gui.py:1922 ../src/gui.py:1957
-#: ../src/gui.py:1966
+#: ../src/gui.py:1872 ../src/gui.py:1920 ../src/gui.py:1929 ../src/gui.py:1964
+#: ../src/gui.py:1973
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr ""
 
-#: ../src/gui.py:1902 ../src/gui.py:1946
+#: ../src/gui.py:1909 ../src/gui.py:1953
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr ""
 
-#: ../src/gui.py:1969
+#: ../src/gui.py:1976
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:2015
+#: ../src/gui.py:2022
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr ""

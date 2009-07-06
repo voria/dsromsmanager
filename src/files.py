@@ -17,6 +17,7 @@
 # <http://www.gnu.org/licenses/gpl.txt>
 
 import os
+import statvfs
 import shutil
 import threading
 import struct
@@ -99,10 +100,10 @@ class RomArchiveExtract(threading.Thread):
         self.temp = temp
         self.trim = trim
         self.show_trim_details = show_trim_details
-        self.skip_rom_details = False # set to true when a trim fail, so it's not shown in trim details window
         self.total_saved_space = 0 # total saved space by trimming
         self.overwrite = False
         self.ask_for_overwrite = True
+        self.stopnow = False
     
     def run(self):
         """ Start thread """
@@ -113,6 +114,10 @@ class RomArchiveExtract(threading.Thread):
             return
         
         for key in sorted(self.games.iterkeys()):
+            if self.stopnow:
+                message = _("Extraction canceled.")
+                self.gui.update_statusbar("RomArchiveExtract", message, True)
+                return
             game = key
             zipf = self.games[key]
             self.gamesnumber_processed += 1
@@ -123,6 +128,10 @@ class RomArchiveExtract(threading.Thread):
             text += _("Extracting archive for '%s'...") % game
             self.gui.update_statusbar("RomArchiveExtract", text, True)
         
+            # Get free space on target directory (in KB)
+            stats = os.statvfs(self.target)
+            free_space = stats[statvfs.F_BSIZE] * stats[statvfs.F_BAVAIL] / 1024
+        
             try:
                 zip = zipfile.ZipFile(zipf, "r")
                 try:
@@ -131,7 +140,7 @@ class RomArchiveExtract(threading.Thread):
                         if self.ask_for_overwrite:
                             message = _("Target file '%s' already exists. Overwrite?") % os.path.join(self.target, info.filename)
                             response = self.gui.show_yesnoalwaysnever_question_dialog(message, True)
-                            if response == 0: # No 
+                            if response == 0: # No
                                 self.overwrite = False
                             elif response == 1: # Yes
                                 self.overwrite = True
@@ -141,46 +150,77 @@ class RomArchiveExtract(threading.Thread):
                             else: # Yes for all
                                 self.overwrite = True
                                 self.ask_for_overwrite = False
-                        if not self.overwrite:
+                        if self.overwrite:
+                            # the file already exists in target directory and we can overwrite it. So, we have more free space.
+                            free_space += os.path.getsize(os.path.join(self.target, info.filename)) / 1024
+                        else:
                             zip.close()
                             continue
+
                     if self.trim != None:
-                        # Extract in 'temp' directory and then trim using 'target' as trim output directory
+                        # Extract in 'temp' directory               
                         zip.extract(info, self.temp)
-                        cmd = 'trim -d "' + self.target + '" -b "' + os.path.join(self.temp, info.filename) + '"'
+                        # Get file stats
+                        cmd = self.trim + ' -s "' + os.path.join(self.temp, info.filename) + '"'
+                        output = commands.getoutput(cmd)
+                        try:
+                            original_size = int(output.split("\n")[1].split("\t")[2].split()[0])
+                            trimmed_size = int(output.split("\n")[2].split("\t")[2].split()[0])
+                            saved_space = int(output.split("\n")[3].split("\t")[2].split()[0])
+                        except: # rom can't be trimmed
+                            message = _("Unable to trim %s!") % game
+                            # check if we have enough free space to leave it untrimmed
+                            if info.file_size / 1024 > free_space: # We don't
+                                self.gui.show_error_dialog(message, True)
+                                os.remove(os.path.join(self.temp, info.filename))
+                            else:
+                                message += _(" Leave it untrimmed?")
+                                if self.gui.show_yesno_question_dialog(message, True) == True: # Yes
+                                    shutil.move(os.path.join(self.temp, info.filename), self.target)
+                                else: # No
+                                    os.remove(os.path.join(self.temp, info.filename))
+                            zip.close()
+                            continue
+                        # Check if we have enough free space on 'target'
+                        if trimmed_size > free_space: # We don't
+                            message = _("Not enough free space on target directory for '%s'. Extraction canceled.") % game
+                            self.gui.update_statusbar("RomArchiveExtract", message, True)
+                            os.remove(os.path.join(self.temp, info.filename))
+                            zip.close()
+                            return
+                        # Enough free space, let's continue
                         if self.gamesnumber_to_extract > 1:
-                            message = text = " (%d/%d) : " % (self.gamesnumber_processed, self.gamesnumber_to_extract)
+                            message = " (%d/%d) : " % (self.gamesnumber_processed, self.gamesnumber_to_extract)
                         else:
                             message = ""
                         message += _("Trimming '%s'...") % game
                         self.gui.update_statusbar("RomArchiveExtract", message, True)
-                        output = commands.getoutput(cmd)
-                        try:
-                            original_size = output.split("\n")[1].split("\t")[2]
-                            trimmed_size = output.split("\n")[2].split("\t")[2]
-                            saved_space = output.split("\n")[3].split("\t")[2]
-                            self.total_saved_space += int(saved_space.split()[0])
-                        except:
-                            self.gui.show_error_dialog(_("Error while trimming '%s'!") % game, True)
-                            self.skip_rom_details = True
+                        # Trim using 'target' as trim output directory
+                        cmd = self.trim + ' -d "' + self.target + '" -b "' + os.path.join(self.temp, info.filename) + '"'
+                        commands.getoutput(cmd)
+                        # Remove temp file
+                        os.remove(os.path.join(self.temp, info.filename))
+                        # Update total saved space
+                        self.total_saved_space += saved_space
                         if self.show_trim_details:
                             if self.gamesnumber_to_extract > 1:
                                 output = " (%d/%d)" % (self.gamesnumber_processed, self.gamesnumber_to_extract)
                             else:
                                 output = ""
                             output += " *** " + info.filename + "\n\t"
-                            if not self.skip_rom_details:
-                                output += _("Original size:") + "\t" + original_size + "\n\t"
-                                output += _("Trimmed size:") + "\t" + trimmed_size + "\n\t"
-                                output += _("Saved space:") + "\t" + saved_space + "\n"
-                            else:
-                                # just print an error and re-enable detailed info for next roms
-                                output += _("ERROR!") + "\n"
-                                self.skip_rom_details = False
+                            output += _("Original size:") + "\t" + str(original_size) + " KB\n\t"
+                            output += _("Trimmed size:") + "\t" + str(trimmed_size) + " KB\n\t"
+                            output += _("Saved space:") + "\t" + str(saved_space) + " KB\n"
                             self.gui.show_trim_details_window(output, True)
-                        os.remove(os.path.join(self.temp, info.filename))
+                    
                     else: # No trim, extract in 'target' directory directly
-                        zip.extract(info, self.target)
+                        if info.file_size / 1024 > free_space:
+                            message = _("Not enough free space on target directory for '%s'. Extraction canceled.") % game
+                            self.gui.update_statusbar("RomArchiveExtract", message, True)
+                            zip.close()
+                            return
+                        else:
+                            zip.extract(info, self.target)
                     self.gamesnumber_extracted += 1
                 except:
                     self.gui.show_error_dialog(_("Unable to extract file from '%s'.") % zipf, True)
@@ -189,22 +229,22 @@ class RomArchiveExtract(threading.Thread):
                 self.gui.show_error_dialog(_("Unable to open '%s'.") % zipf, True)
         
         if self.trim != None and self.show_trim_details and self.gamesnumber_extracted > 0:
-            message = "\n" + _("Done.\nTotal saved space:")
-            message += " " + str(self.total_saved_space) + " kB (~" + str(self.total_saved_space / 1024) + " MB)\n"
+            message = "\n" + _("Done. Total saved space:")
+            message += " " + str(self.total_saved_space) + " KB (~" + str(self.total_saved_space / 1024) + " MB)\n"
             self.gui.show_trim_details_window(message, True)
         
         if self.gamesnumber_extracted > 0:
             message = _("Extraction completed.")
             if self.total_saved_space > 0 and not self.show_trim_details: # add info about trimming on statusbar 
                 message += _(" Total saved space by trimming:")
-                message += " " + str(self.total_saved_space) + " kB (~" + str(self.total_saved_space / 1024) + " MB)"
+                message += " " + str(self.total_saved_space) + " KB (~" + str(self.total_saved_space / 1024) + " MB)"
         else:
             message = _("Extraction canceled.")
         self.gui.update_statusbar("RomArchiveExtract", message, True)
         
     def stop(self):
         """ Stop thread """
-        return
+        self.stopnow = True
 
 class RomArchivesRescan(threading.Thread):
     """ Rescan roms archives on disk and rebuild games list """
