@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-06 16:47+0200\n"
+"POT-Creation-Date: 2009-07-06 16:54+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,8 +96,8 @@ msgstr ""
 msgid "Check available space and write permissions for target directory."
 msgstr ""
 
-#: ../src/files.py:118 ../src/files.py:242
-msgid "Extraction canceled."
+#: ../src/files.py:118
+msgid "Extraction stopped."
 msgstr ""
 
 #: ../src/files.py:128
@@ -162,6 +162,10 @@ msgstr ""
 
 #: ../src/files.py:239
 msgid " Total saved space by trimming:"
+msgstr ""
+
+#: ../src/files.py:242
+msgid "Extraction canceled."
 msgstr ""
 
 #: ../src/files.py:294

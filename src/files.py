@@ -115,7 +115,7 @@ class RomArchiveExtract(threading.Thread):
         
         for key in sorted(self.games.iterkeys()):
             if self.stopnow:
-                message = _("Extraction canceled.")
+                message = _("Extraction stopped.")
                 self.gui.update_statusbar("RomArchiveExtract", message, True)
                 return
             game = key
