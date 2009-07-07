@@ -270,14 +270,55 @@
        y1="451.82651"
        x2="281.32239"
        y2="451.82651" />
-    <filter
+    <linearGradient
        inkscape:collect="always"
-       id="filter3219">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="2.195897"
-         id="feGaussianBlur3221" />
-    </filter>
+       xlink:href="#linearGradient3996"
+       id="linearGradient2447"
+       gradientUnits="userSpaceOnUse"
+       x1="129.57678"
+       y1="558.2757"
+       x2="249.82021"
+       y2="382.50916" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4008"
+       id="linearGradient2449"
+       gradientUnits="userSpaceOnUse"
+       x1="227.56158"
+       y1="488.57516"
+       x2="23.546036"
+       y2="667.37219" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4034"
+       id="radialGradient2451"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,1.4194908,0,-189.53705)"
+       cx="265.6701"
+       cy="451.82651"
+       fx="265.6701"
+       fy="451.82651"
+       r="15.652288" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4034"
+       id="radialGradient2453"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,1.4194908,0,-189.53705)"
+       cx="265.6701"
+       cy="451.82651"
+       fx="265.6701"
+       fy="451.82651"
+       r="15.652288" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6866"
+       id="linearGradient2455"
+       gradientUnits="userSpaceOnUse"
+       x1="250.01782"
+       y1="451.82651"
+       x2="281.32239"
+       y2="451.82651" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -286,9 +327,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9899495"
-     inkscape:cx="37.435919"
-     inkscape:cy="184.65006"
+     inkscape:zoom="2.8"
+     inkscape:cx="40.011583"
+     inkscape:cy="143.90672"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -318,7 +359,7 @@
      style="display:inline">
     <path
        sodipodi:type="star"
-       style="opacity:1;fill:url(#linearGradient2552);fill-opacity:1.0;stroke:url(#linearGradient2554);stroke-width:5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter6838)"
+       style="opacity:1;fill:url(#linearGradient2447);fill-opacity:1;stroke:url(#linearGradient2449);stroke-width:5;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter6838)"
        id="path3994"
        sodipodi:sides="5"
        sodipodi:cx="217.68787"
@@ -331,33 +372,33 @@
        inkscape:rounded="0"
        inkscape:randomized="0"
        d="M 359.6143,694.26311 L 213.94177,612.05756 L 63.638843,685.45553 L 96.805681,521.50982 L -19.446096,401.24446 L 146.72466,382.12598 L 225.18004,234.39993 L 294.71238,386.52978 L 459.45225,415.49542 L 336.25484,528.63531 L 359.6143,694.26311 z"
-       transform="matrix(0.5285695,-1.6585596e-2,1.5782738e-2,0.5554575,5.3342414,-125.2282)"
+       transform="matrix(0.4519269,-1.4180684e-2,1.3494241e-2,0.4749161,23.130397,-88.532298)"
        inkscape:export-filename="/home/daneel/Scrivania/flowRoot4072.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
        sodipodi:type="arc"
-       style="opacity:1;fill:url(#radialGradient2556);fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter6934)"
+       style="opacity:1;fill:url(#radialGradient2451);fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter6934)"
        id="path4006"
        sodipodi:cx="265.6701"
        sodipodi:cy="451.82651"
        sodipodi:rx="15.152288"
        sodipodi:ry="21.718279"
        d="M 280.82239,451.82651 A 15.152288,21.718279 0 1 1 250.51782,451.82651 A 15.152288,21.718279 0 1 1 280.82239,451.82651 z"
-       transform="matrix(0.7831582,0,0,0.7604642,-54.396608,-219.32451)"
+       transform="matrix(0.6696003,0,0,0.6501969,-24.227658,-169.50282)"
        inkscape:export-filename="/home/daneel/Scrivania/flowRoot4072.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
        sodipodi:type="arc"
-       style="opacity:1;fill:url(#radialGradient2558);fill-opacity:1;stroke:url(#linearGradient2560);stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter6922)"
+       style="opacity:1;fill:url(#radialGradient2453);fill-opacity:1;stroke:url(#linearGradient2455);stroke-width:1;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;filter:url(#filter6922)"
        id="path4066"
        sodipodi:cx="265.6701"
        sodipodi:cy="451.82651"
        sodipodi:rx="15.152288"
        sodipodi:ry="21.718279"
        d="M 280.82239,451.82651 A 15.152288,21.718279 0 1 1 250.51782,451.82651 A 15.152288,21.718279 0 1 1 280.82239,451.82651 z"
-       transform="matrix(0.7584753,0,0,0.7697822,-91.253308,-223.83238)"
+       transform="matrix(0.6484964,0,0,0.6581638,-62.035198,-173.40022)"
        inkscape:export-filename="/home/daneel/Scrivania/flowRoot4072.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
