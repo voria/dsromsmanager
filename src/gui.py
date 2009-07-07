@@ -339,7 +339,7 @@ class Gui(threading.Thread):
 		self.gamesnumber_available = 0 # Number of available games shown in treeview
 		self.gamesnumber_not_available = 0 # Number of not available games shown in treeview
 		self.gamesnumber_fixable = 0 # Number of fixable games shown in treeview
-		self.games_to_rebuild = {} # Dictionary of all the games to rebuild in the format { fullinfo : (oldfile, relnum) }
+		self.games_to_rebuild = {} # Dictionary of all the games to rebuild in the format { fullinfo : (filename, oldfile, relnum) }
 		
 		# Does the current games list contain games that should be filter by games_checks checkbuttons?
 		self.dirty_gameslist = False
@@ -402,8 +402,8 @@ class Gui(threading.Thread):
 		else: # we have the game
 			disk_zip_filename = self.checksums[crc].split(os.sep)
 			disk_zip_filename = disk_zip_filename[len(disk_zip_filename) - 1]
-			db_zip_filename = game[GAME_FULLINFO] + ".zip"
-			nds_filename = game[GAME_FULLINFO] + ".nds"
+			db_zip_filename = game[GAME_FILENAME] + ".zip"
+			nds_filename = game[GAME_FILENAME] + ".nds"
 			if disk_zip_filename == db_zip_filename and get_nds_filename_from_zip(self.checksums[crc]) == nds_filename:
 				# game archive is good
 				returnvalue = CHECKS_YES
@@ -459,9 +459,10 @@ class Gui(threading.Thread):
 			if check == CHECKS_CONVERT and rebuild_dict:
 				# add game to dictionary
 				fullinfo = game[GAME_FULLINFO]
+				filename = game[GAME_FILENAME]
 				crc = game[GAME_ROM_CRC]
 				relnum = game[GAME_RELEASE_NUMBER]
-				self.games_to_rebuild[fullinfo] = (self.checksums[crc], relnum)
+				self.games_to_rebuild[fullinfo] = (filename, self.checksums[crc], relnum)
 				
 		if use_threads:
 			gdk.threads_enter()
@@ -947,7 +948,7 @@ class Gui(threading.Thread):
 		if self.quitting:
 			return
 		
-		dict = {} # games to extract, in format { fullinfo : (fileondisk, relnum) }
+		dict = {} # games to extract, in format { fullinfo : (filename, fileondisk, relnum) }
 		
 		selection = self.list_treeview.get_selection()
 		model, paths = selection.get_selected_rows()
@@ -963,7 +964,7 @@ class Gui(threading.Thread):
 			except:
 				self.open_db()
 				game = self.db.get_game(relnum)
-			dict[game[GAME_FULLINFO]] = (self.checksums[game[GAME_ROM_CRC]], relnum)
+			dict[game[GAME_FULLINFO]] = (game[GAME_FILENAME], self.checksums[game[GAME_ROM_CRC]], relnum)
 		
 		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton, dict = dict)
 			
@@ -1669,7 +1670,7 @@ class Gui(threading.Thread):
 			if not self.games_check_ok_checkbutton.get_active(): # Check if games list is dirty now
 				self.dirty_gameslist = True
 			# remove the current game from the dictionary of games to rebuild
-			del self.games_to_rebuild[game[GAME_FULLINFO]]
+			del self.games_to_rebuild[game[GAME_FILENAME]]
 			# Update counters and label
 			self.gamesnumber_fixable -= 1
 			self.gamesnumber_available += 1

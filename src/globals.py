@@ -41,7 +41,7 @@ UNKNOWN_ROMS_DIR = os.path.join(ROMS_DIR, "unknown")
 if not os.path.exists(UNKNOWN_ROMS_DIR):
 	os.mkdir(UNKNOWN_ROMS_DIR)
 DB_FILE = os.path.join(WORK_DIR, "db")
-DB_VERSION = "5"
+DB_VERSION = "6"
 
 from config import Config
 config = Config()

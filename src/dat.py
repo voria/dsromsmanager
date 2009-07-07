@@ -50,8 +50,10 @@ class Dat():
 			info = []
 			info.append(g.get_image_number())
 			info.append(g.get_release_number())
+			info.append(g.get_release_number_text())
 			info.append(g.get_title())
-			info.append(str(g))
+			info.append(g.get_fullinfo())
+			info.append(g.get_filename())
 			info.append(g.get_save_type())
 			info.append(g.get_rom_size())
 			info.append(g.get_publisher())

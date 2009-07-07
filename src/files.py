@@ -86,7 +86,7 @@ def get_nds_filename_from_zip(zipf):
 class RomArchiveExtract(threading.Thread):
     """
     Extract the archives for games in 'games' dictionary.
-    'games' dictionary must be in this format: { game_fullinfo : zipfile }
+    'games' dictionary must be in this format: { fullinfo : zipfile }
     """
     def __init__(self, gui, games, target, trim, temp, show_trim_details):
         """ Prepare thread """
@@ -264,7 +264,7 @@ class RomArchivesRescan(threading.Thread):
 class RomArchivesRebuild(threading.Thread):
     """
     Rebuild zip archive for games listed in 'games' dictionary.
-    'games' dictionary must be in this format: { fullinfo : (oldfile, relnum) }
+    'games' dictionary must be in this format: { fullinfo : (filename, oldfile, relnum) }
     """
     def __init__(self, gui, widgets, games):
         """ Prepare thread """
@@ -294,14 +294,14 @@ class RomArchivesRebuild(threading.Thread):
             text += _("Rebuilding archive for '%s'...") % key
             self.gui.update_statusbar("RomArchivesRebuild", text, True)
             
-            oldfile = self.games[key][0]
+            oldfile = self.games[key][1]
             if oldfile[len(oldfile) - 4:].lower() == ".zip":
                 self.is_zip = True
             else: # '.nds' file
                 self.is_zip = False
             dir = oldfile.rsplit(os.sep, 1)[0]
-            newzipfile = os.path.join(dir, key + ".zip")
-            newndsname = key + ".nds"
+            newzipfile = os.path.join(dir, self.games[key][0] + ".zip")
+            newndsname = self.games[key][0] + ".nds"
             
             try:
                 if self.is_zip:
@@ -318,14 +318,14 @@ class RomArchivesRebuild(threading.Thread):
                             # Nothing to do
                             zip.close()
                             # Update game in treeview
-                            self.gui.update_game(self.games[key][1], newzipfile, True)
+                            self.gui.update_game(self.games[key][2], newzipfile, True)
                             continue
                         else:
                             # Just rename the zip file, its content is ok
                             zip.close()
                             shutil.move(oldfile, newzipfile)
                             # Update game in treeview
-                            self.gui.update_game(self.games[key][1], newzipfile, True)
+                            self.gui.update_game(self.games[key][2], newzipfile, True)
                             continue
                     # Extract the nds file and delete the old zip file
                     zip.extract(info, dir)
@@ -342,7 +342,7 @@ class RomArchivesRebuild(threading.Thread):
                 # Remove old nds file
                 os.remove(oldfile)
                 # Update game in treeview
-                self.gui.update_game(self.games[key][1], newzipfile, True)
+                self.gui.update_game(self.games[key][2], newzipfile, True)
             except:
                 self.gui.update_statusbar("RomArchivesRebuild", _("Error while building archive for '%s'!") % key, True)
         

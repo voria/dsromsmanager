@@ -24,7 +24,10 @@ class Game():
 	""" Hold informations about a game """
 	def __init__(self, infos):
 		self.image_number = infos.getElementsByTagName("imageNumber")[0].firstChild.data
-		self.release_number = int(infos.getElementsByTagName("releaseNumber")[0].firstChild.data)
+		self.release_number = infos.getElementsByTagName("releaseNumber")[0].firstChild.data
+		# Make sure the release number is 4-digit
+		while len(self.release_number) < 4:
+			self.release_number = "0" + self.release_number 
 		self.title = infos.getElementsByTagName("title")[0].firstChild.data
 		self.save_type = infos.getElementsByTagName("saveType")[0].firstChild.data
 		self.rom_size = int(infos.getElementsByTagName("romSize")[0].firstChild.data)
@@ -43,14 +46,6 @@ class Game():
 			self.comment = "---"
 		self.duplicate_id = int(infos.getElementsByTagName("duplicateID")[0].firstChild.data)
 	
-	def __str__(self):
-		""" Return game's main informations in a printable form """
-		s = str(self.release_number) + " - " + self.title + " (" + self.get_location_short() + ")"
-		temp = self.get_language().split(" - ")
-		if len(temp) != 1:
-			s += "(M" + str(len(temp)) + ")"
-		return s
-		
 	def __dec2bin(self, n):
 		""" Convert an integer 'n' to a string representing its binary representation """
 		s = ""
@@ -70,6 +65,22 @@ class Game():
 		imgRangeStart = (imgCoc * 500) + 1
 		imgRange = str(imgRangeStart) + "-" + str(imgRangeStart + 499)
 		return imgRange
+	
+	def get_fullinfo(self):
+		""" Return game's main informations in a printable form """
+		s = str(int(self.release_number)) + " - " + self.title + " (" + self.get_location_short() + ")"
+		temp = self.get_language().split(" - ")
+		if len(temp) != 1:
+			s += "(M" + str(len(temp)) + ")"
+		return s
+	
+	def get_filename(self):
+		""" Return the correct filename for the game (without extension) """
+		s = self.release_number + " - " + self.title + " (" + self.get_location_short() + ")"
+		temp = self.get_language().split(" - ")
+		if len(temp) != 1:
+			s += "(M" + str(len(temp)) + ")"
+		return s
 	
 	def get_image_number(self):
 		""" Return game's image number """
@@ -96,7 +107,11 @@ class Game():
 		return os.path.join(url, self.__get_range(), self.image_number + "b.png")
 	
 	def get_release_number(self):
-		""" Return game's release number """
+		""" Return game's release number as int """
+		return int(self.release_number)
+	
+	def get_release_number_text(self):
+		""" Return game's release number as text (with leading zeroes, if any) """
 		return self.release_number
 	
 	def get_title(self):
