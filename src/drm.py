@@ -42,6 +42,8 @@ class Main(threading.Thread):
 		self.gui = Gui(self.threads)
 		self.gui.start()
 		
+		self.gui.show_splash_screen(3000, True)
+		
 		db_deleted = False
 		
 		if os.path.exists(DB_FILE):

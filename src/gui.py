@@ -1524,6 +1524,18 @@ class Gui(threading.Thread):
 				self.images_window_image2.clear()
 			self.images_window.show()
 	
+	def show_splash_screen(self, timeout = 3000, use_threads = False):
+		""" Show a splash screen for 'timeout' milliseconds """
+		if use_threads:
+			gdk.threads_enter()
+		splash_window = self.builder.get_object("splash_window")
+		splash_window_image = self.builder.get_object("splash_window_image")
+		splash_window_image.set_from_file(os.path.join(DATA_IMG_DIR, "splash.png"))
+		splash_window.show()
+		gobject.timeout_add(timeout, splash_window.hide)
+		if use_threads:
+			gdk.threads_leave()
+	
 	def show_okcancel_question_dialog(self, message, use_threads = False):
 		"""
 		Show a question dialog with 'OK' and 'Cancel' buttons, showing 'message'.
