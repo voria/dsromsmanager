@@ -1,3 +1,9 @@
+drm (0.9.5) jaunty; urgency=low
+
+  * Add a splash screen at application startup (thanks to Daneel_87). 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 08 Jul 2009 01:40:58 +0200
+
 drm (0.9.4) jaunty; urgency=low
 
   * New svg icon (thanks to Daneel_87).
