@@ -1,3 +1,13 @@
+drm (0.9.2) jaunty; urgency=low
+
+  * Make sure release number is always 4-digit long when handling archives.
+  * Add in database a new value, containing the correct filename for archives.
+  * Bump DB version.
+  * Add a new item to treeview popup menu to stop current extraction process.
+  * Update strings and translations.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 07 Jul 2009 16:33:58 +0200
+
 drm (0.9.1) jaunty; urgency=low
 
   * Fix images_window behaviour.
