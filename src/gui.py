@@ -145,15 +145,24 @@ class Gui(threading.Thread):
 			pass
 		gtk.about_dialog_set_url_hook(about_dialog_url_clicked, None)
 		
-		# Set icon and logo
+		# Load icon and create different sizes
+		icon = gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.svg"))
+		icon16 = icon.scale_simple(16, 16, gdk.INTERP_BILINEAR)
+		icon24 = icon.scale_simple(24, 24, gdk.INTERP_BILINEAR)
+		icon48 = icon.scale_simple(48, 48, gdk.INTERP_BILINEAR)
+		
+		# Set icon and logo for main_window and about_dialog
 		try:
-			icon = gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.svg"))
-			icon48 = icon.scale_simple(48, 48, gdk.INTERP_BILINEAR)
 			self.main_window.set_icon(icon)
 			self.about_dialog.set_icon(icon)
 			self.about_dialog.set_logo(icon48)
 		except:
 			pass
+		
+		# Set icon for about_toolbutton
+		img = gtk.image_new_from_pixbuf(icon24)
+		img.show()
+		self.about_toolbutton.set_icon_widget(img)
 		
 		## StatusIcon stuff
 		# popup menu
@@ -204,7 +213,7 @@ class Gui(threading.Thread):
 		menuitem = gtk.SeparatorMenuItem()
 		self.popup_menu.append(menuitem)
 		self.about_menuitem = gtk.ImageMenuItem(_("About"))
-		self.about_menuitem.set_image(gtk.image_new_from_stock(gtk.STOCK_ABOUT, gtk.ICON_SIZE_MENU))
+		self.about_menuitem.set_image(gtk.image_new_from_pixbuf(icon16))
 		self.about_menuitem.connect('activate', self.on_statusicon_about_activate)
 		self.about_menuitem.set_tooltip_text(self.about_toolbutton.get_tooltip_text())
 		self.popup_menu.append(self.about_menuitem)
@@ -217,7 +226,6 @@ class Gui(threading.Thread):
 		self.popup_menu.append(self.quit_menuitem)
 		# status icon
 		self.statusicon = gtk.StatusIcon()
-		icon24 = icon.scale_simple(24, 24, gdk.INTERP_BILINEAR)
 		self.statusicon.set_from_pixbuf(icon24)
 		self.statusicon.set_tooltip(self.main_window.get_title())
 		self.statusicon.connect('activate', self.on_statusicon_activate)
