@@ -145,11 +145,13 @@ class Gui(threading.Thread):
 			pass
 		gtk.about_dialog_set_url_hook(about_dialog_url_clicked, None)
 		
-		# Set icon and logo in main_window and about_dialog
+		# Set icon and logo
 		try:
-			self.main_window.set_icon_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
-			self.about_dialog.set_icon_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
-			self.about_dialog.set_logo(gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.png")))
+			icon = gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.svg"))
+			icon48 = icon.scale_simple(48, 48, gdk.INTERP_BILINEAR)
+			self.main_window.set_icon(icon)
+			self.about_dialog.set_icon(icon)
+			self.about_dialog.set_logo(icon48)
 		except:
 			pass
 		
@@ -215,7 +217,8 @@ class Gui(threading.Thread):
 		self.popup_menu.append(self.quit_menuitem)
 		# status icon
 		self.statusicon = gtk.StatusIcon()
-		self.statusicon.set_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
+		icon24 = icon.scale_simple(24, 24, gdk.INTERP_BILINEAR)
+		self.statusicon.set_from_pixbuf(icon24)
 		self.statusicon.set_tooltip(self.main_window.get_title())
 		self.statusicon.connect('activate', self.on_statusicon_activate)
 		self.statusicon.connect('popup-menu', self.on_statusicon_popup_menu, self.popup_menu)
