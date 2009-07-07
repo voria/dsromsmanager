@@ -1,3 +1,12 @@
+drm (0.9.4) jaunty; urgency=low
+
+  * New svg icon (thanks to Daneel_87).
+  * Use new icon for about_toolbutton and about_menuitem.
+  * When main window is hidden and any job is finished , make the statusicon
+    blinking to inform the user.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 08 Jul 2009 01:14:43 +0200
+
 drm (0.9.3) jaunty; urgency=low
 
   * Fix typo in gui.py, causing rebuilt game to not be removed from
