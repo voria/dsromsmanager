@@ -95,6 +95,7 @@ class Gui(threading.Thread):
 		self.list_treeview_popup_menu = self.builder.get_object("list_treeview_popup_menu")
 		self.list_treeview_popup_extract_menuitem = self.builder.get_object("list_treeview_popup_extract_menuitem")
 		self.list_treeview_popup_extractin_menuitem = self.builder.get_object("list_treeview_popup_extractin_menuitem")
+		self.list_treeview_popup_extract_stop_menuitem = self.builder.get_object("list_treeview_popup_extract_stop_menuitem")
 		self.list_treeview_popup_rebuildarchive_menuitem = self.builder.get_object("list_treeview_popup_rebuildarchive_menuitem")
 		self.list_game_label = self.builder.get_object("list_games_label")
 		self.images_eventbox = self.builder.get_object("images_eventbox")
@@ -312,6 +313,7 @@ class Gui(threading.Thread):
 		self.list_treeview.connect("button-press-event", self.on_list_treeview_button_press_event)
 		self.list_treeview_popup_extract_menuitem.connect("activate", self.on_list_treeview_popup_extract_menuitem_activate)
 		self.list_treeview_popup_extractin_menuitem.connect("activate", self.on_list_treeview_popup_extractin_menuitem_activate)
+		self.list_treeview_popup_extract_stop_menuitem.connect("activate", self.on_list_treeview_popup_extract_stop_menuitem_activate)
 		self.list_treeview_popup_rebuildarchive_menuitem.connect("activate", self.on_list_treeview_popup_rebuildarchive_menuitem_activate)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
 		self.games_check_ok_checkbutton.connect("toggled", self.on_games_check_ok_checkbutton_toggled)
@@ -871,7 +873,7 @@ class Gui(threading.Thread):
 			
 			# If we are already extracting archives, it's better if we avoid to start a new extract process
 			for thread in self.threads:
-				if thread.isAlive() and thread.getName() == "RomArchiveExtract":
+				if thread.isAlive() and thread.getName() == "RomArchivesExtract":
 					self.list_treeview_popup_extract_menuitem.set_sensitive(False)
 					self.list_treeview_popup_extractin_menuitem.set_sensitive(False)
 					break
@@ -939,9 +941,18 @@ class Gui(threading.Thread):
 		# if here trim is None, we don't want or we can't trim.
 		trim_temp_path = config.get_option("trim_temp_path")
 		show_trim_details = config.get_option("show_trim_details")
-		rae = RomArchiveExtract(self, dict, target, trim, trim_temp_path, show_trim_details)
+		rae = RomArchivesExtract(self, dict, target, trim, trim_temp_path, show_trim_details)
 		self.threads.append(rae)
 		rae.start()
+
+	def on_list_treeview_popup_extract_stop_menuitem_activate(self, button):
+		""" Stop the currenct extraction process """
+		self.update_statusbar("RomArchivesExtract", _("Waiting while the current extraction is completed..."))
+		for thread in self.threads:
+			if thread.isAlive() and thread.getName() == "RomArchivesExtract":
+				thread.stop()
+				break
+		self.list_treeview_popup_extract_stop_menuitem.set_sensitive(False)
 	
 	def on_list_treeview_popup_rebuildarchive_menuitem_activate(self, button):
 		""" Rebuild archives for selected games. """
@@ -1811,7 +1822,26 @@ class Gui(threading.Thread):
 				self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		if use_threads:
 			gdk.threads_leave()
-		
+	
+	def toggle_extract_options_in_treeview_popupmenu(self, use_threads = False):
+		""" Toggle extract, extractin and stop options in treeview popup menu"""
+		if self.quitting:
+			return
+		if use_threads:
+			gdk.threads_enter()
+		if self.list_treeview_popup_extract_stop_menuitem.get_property("visible"):
+			self.list_treeview_popup_extract_stop_menuitem.hide()
+			self.list_treeview_popup_extract_menuitem.show()
+			self.list_treeview_popup_extractin_menuitem.show()
+		else:
+			self.list_treeview_popup_extract_stop_menuitem.set_sensitive(True)
+			self.list_treeview_popup_extract_menuitem.set_sensitive(False)
+			self.list_treeview_popup_extractin_menuitem.set_sensitive(False)
+			self.list_treeview_popup_extract_stop_menuitem.show()
+			self.list_treeview_popup_extract_menuitem.hide()
+			self.list_treeview_popup_extractin_menuitem.hide()
+		if use_threads:
+			gdk.threads_leave()
 	
 	def open_db(self):
 		""" Open database """

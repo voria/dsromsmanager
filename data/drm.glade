@@ -1060,9 +1060,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1094,9 +1094,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1128,9 +1128,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_new_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1171,10 +1171,10 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
-                    <property name="show_hidden">True</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
+                    <property name="show_hidden">True</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1215,9 +1215,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_extractin_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="use_preview_label">False</property>
                     <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1434,6 +1434,13 @@ Set an empty string to use the default URL.</property>
         <property name="visible">True</property>
         <property name="tooltip_text" translatable="yes">Extract selected games in a user selected directory.</property>
         <property name="label" translatable="yes">Extract in...</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="list_treeview_popup_extract_stop_menuitem">
+        <property name="tooltip_text" translatable="yes">Stop the current extraction process.</property>
+        <property name="label" translatable="yes">Stop extraction</property>
         <property name="use_underline">True</property>
       </object>
     </child>
