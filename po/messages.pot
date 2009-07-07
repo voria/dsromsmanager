@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-06 16:54+0200\n"
+"POT-Creation-Date: 2009-07-07 12:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -286,11 +286,11 @@ msgstr ""
 msgid "South Korea"
 msgstr ""
 
-#: ../src/gui.py:158 ../src/gui.py:576
+#: ../src/gui.py:158 ../src/gui.py:578
 msgid "Hide"
 msgstr ""
 
-#: ../src/gui.py:161 ../src/gui.py:577
+#: ../src/gui.py:161 ../src/gui.py:579
 msgid "Hide main window."
 msgstr ""
 
@@ -338,216 +338,220 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: ../src/gui.py:570
+#: ../src/gui.py:572
 msgid "Show"
 msgstr ""
 
-#: ../src/gui.py:571
+#: ../src/gui.py:573
 msgid "Show main window."
 msgstr ""
 
-#: ../src/gui.py:717
+#: ../src/gui.py:721
 msgid "Duplicates:"
 msgstr ""
 
-#: ../src/gui.py:722
+#: ../src/gui.py:726
 msgid "No duplicates"
 msgstr ""
 
-#: ../src/gui.py:915
+#: ../src/gui.py:919
 msgid "Select destination directory"
 msgstr ""
 
-#: ../src/gui.py:1040
+#: ../src/gui.py:1045
 msgid "Rescan roms archives and rebuild games list?"
 msgstr ""
 
-#: ../src/gui.py:1070
+#: ../src/gui.py:1075
 msgid "Waiting while the current archive rebuild is completed..."
 msgstr ""
 
-#: ../src/gui.py:1218
+#: ../src/gui.py:1223
 msgid ""
 "Current 'Roms' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1224
+#: ../src/gui.py:1229
 msgid ""
 "Current 'Unknown roms' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1230
+#: ../src/gui.py:1235
 msgid ""
 "Current 'New roms' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1236
+#: ../src/gui.py:1241
 msgid ""
 "Current 'Images' path does not exist.\n"
 "The default path will be used."
 msgstr ""
 
-#: ../src/gui.py:1271
+#: ../src/gui.py:1276
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Roms' path, but it "
 "can't be used."
-msgstr ""
-
-#: ../src/gui.py:1272
-msgid ""
-"\n"
-"\n"
-"The 'Roms' path will be restored to its default value."
-msgstr ""
-
-#: ../src/gui.py:1276
-msgid ""
-"'DsRomsManager' working directory has been selected as 'Unknown roms' path, "
-"but it can't be used."
 msgstr ""
 
 #: ../src/gui.py:1277
 msgid ""
 "\n"
 "\n"
-"The 'Unknown roms' path will be restored to its default value."
+"The 'Roms' path will be restored to its default value."
 msgstr ""
 
 #: ../src/gui.py:1281
 msgid ""
-"'DsRomsManager' working directory has been selected as 'New roms' path, but "
-"it can't be used."
+"'DsRomsManager' working directory has been selected as 'Unknown roms' path, "
+"but it can't be used."
 msgstr ""
 
 #: ../src/gui.py:1282
 msgid ""
 "\n"
 "\n"
-"The 'New roms' path will be restored to its default value."
+"The 'Unknown roms' path will be restored to its default value."
 msgstr ""
 
 #: ../src/gui.py:1286
+msgid ""
+"'DsRomsManager' working directory has been selected as 'New roms' path, but "
+"it can't be used."
+msgstr ""
+
+#: ../src/gui.py:1287
+msgid ""
+"\n"
+"\n"
+"The 'New roms' path will be restored to its default value."
+msgstr ""
+
+#: ../src/gui.py:1291
 msgid "'Unknown roms' path can't be the same as 'Roms' or 'New roms' paths."
 msgstr ""
 
-#: ../src/gui.py:1287 ../src/gui.py:1297 ../src/gui.py:1302
+#: ../src/gui.py:1292 ../src/gui.py:1302 ../src/gui.py:1307
 msgid ""
 "\n"
 "\n"
 "Select a different path."
 msgstr ""
 
-#: ../src/gui.py:1291
+#: ../src/gui.py:1296
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Images' path, but it "
 "can't be used."
 msgstr ""
 
-#: ../src/gui.py:1292
+#: ../src/gui.py:1297
 msgid ""
 "\n"
 "\n"
 "The 'Images' path will be restored to its default value."
 msgstr ""
 
-#: ../src/gui.py:1296
+#: ../src/gui.py:1301
 msgid "'Images' path can't be the same as 'Roms' path."
 msgstr ""
 
-#: ../src/gui.py:1301
+#: ../src/gui.py:1306
 msgid "Write permissions are not granted for the current 'Extract in' path."
 msgstr ""
 
-#: ../src/gui.py:1352
+#: ../src/gui.py:1357
 msgid "'Images' path has changed."
 msgstr ""
 
-#: ../src/gui.py:1353
+#: ../src/gui.py:1358
 msgid ""
 "\n"
 "\n"
 "Database will be updated with the new path."
 msgstr ""
 
-#: ../src/gui.py:1366
+#: ../src/gui.py:1371
 msgid "Roms paths have changed."
 msgstr ""
 
-#: ../src/gui.py:1367
+#: ../src/gui.py:1372
 msgid ""
 "\n"
 "\n"
 "Games list will be reloaded."
 msgstr ""
 
-#: ../src/gui.py:1540
+#: ../src/gui.py:1492 drm.glade.h:20
+msgid "Images"
+msgstr ""
+
+#: ../src/gui.py:1551
 msgid "_No to all"
 msgstr ""
 
-#: ../src/gui.py:1550
+#: ../src/gui.py:1561
 msgid "_Yes to all"
 msgstr ""
 
-#: ../src/gui.py:1610
+#: ../src/gui.py:1621
 #, python-format
 msgid "%d game shown"
 msgstr ""
 
-#: ../src/gui.py:1612
+#: ../src/gui.py:1623
 #, python-format
 msgid "%d games shown"
 msgstr ""
 
-#: ../src/gui.py:1614
+#: ../src/gui.py:1625
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1616
+#: ../src/gui.py:1627
 #, python-format
 msgid " - %d to rebuild"
 msgstr ""
 
-#: ../src/gui.py:1618
+#: ../src/gui.py:1629
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1620
+#: ../src/gui.py:1631
 msgid "No games shown"
 msgstr ""
 
-#: ../src/gui.py:1765 ../src/gui.py:1766
+#: ../src/gui.py:1776 ../src/gui.py:1777
 msgid "Stop the download process."
 msgstr ""
 
-#: ../src/gui.py:1787 ../src/gui.py:1788
+#: ../src/gui.py:1798 ../src/gui.py:1799
 msgid "Stop the rebuild process."
 msgstr ""
 
-#: ../src/gui.py:1829
+#: ../src/gui.py:1840
 msgid "Scanning roms on disk..."
 msgstr ""
 
-#: ../src/gui.py:1872 ../src/gui.py:1920 ../src/gui.py:1929 ../src/gui.py:1964
-#: ../src/gui.py:1973
+#: ../src/gui.py:1883 ../src/gui.py:1931 ../src/gui.py:1940 ../src/gui.py:1975
+#: ../src/gui.py:1984
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr ""
 
-#: ../src/gui.py:1909 ../src/gui.py:1953
+#: ../src/gui.py:1920 ../src/gui.py:1964
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr ""
 
-#: ../src/gui.py:1976
+#: ../src/gui.py:1987
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:2022
+#: ../src/gui.py:2033
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr ""
@@ -662,10 +666,6 @@ msgstr ""
 
 #: drm.glade.h:19
 msgid "Filter by:"
-msgstr ""
-
-#: drm.glade.h:20
-msgid "Images"
 msgstr ""
 
 #: drm.glade.h:21
@@ -841,11 +841,11 @@ msgstr ""
 
 #: drm.glade.h:75
 msgid ""
-"Use '{FOOBAR}' (without quotes) as substitute of the game title in the "
-"search URL.\n"
+"Use '{TITLE}' and '{RELNUM}' (without quotes) in the search URL as "
+"substitutes of the game title and the game release number, respectively.\n"
 "\n"
 "Example:\n"
-"http://www.google.it/search?q={FOOBAR}\n"
+"http://www.google.it/search?q={TITLE}\n"
 "\n"
 "Set an empty string to use the default URL."
 msgstr ""

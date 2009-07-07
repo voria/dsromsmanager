@@ -31,7 +31,7 @@ DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE = True
 DEFAULT_TRIM_ROMS = False
 DEFAULT_SHOW_TRIM_DETAILS = False
 DEFAULT_TRIM_TEMP_PATH = "/tmp"
-DEFAULT_REVIEW_URL = "http://www.google.com/search?hl=en&q={FOOBAR} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
+DEFAULT_REVIEW_URL = "http://www.google.com/search?hl=en&q={TITLE} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
 DEFAULT_ROMS_PATH = ROMS_DIR
 DEFAULT_UNKNOWN_ROMS_PATH = UNKNOWN_ROMS_DIR
 DEFAULT_NEW_ROMS_PATH = DEFAULT_ROMS_PATH

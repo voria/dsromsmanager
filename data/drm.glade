@@ -1061,8 +1061,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1095,8 +1095,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1129,8 +1129,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkFileChooserButton" id="options_new_roms_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1171,10 +1171,10 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="show_hidden">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="action">select-folder</property>
+                    <property name="show_hidden">True</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1216,8 +1216,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkFileChooserButton" id="options_extractin_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1261,10 +1261,10 @@ Click here to enable the 'Extract in' path to be modified.</property>
                 <child>
                   <object class="GtkLabel" id="options_review_url_label">
                     <property name="visible">True</property>
-                    <property name="tooltip_text" translatable="yes">Use '{FOOBAR}' (without quotes) as substitute of the game title in the search URL.
+                    <property name="tooltip_text" translatable="yes">Use '{TITLE}' and '{RELNUM}' (without quotes) in the search URL as substitutes of the game title and the game release number, respectively.
 
 Example:
-http://www.google.it/search?q={FOOBAR}
+http://www.google.it/search?q={TITLE}
 
 Set an empty string to use the default URL.</property>
                     <property name="label" translatable="yes">Review URL:</property>

@@ -979,10 +979,11 @@ class Gui(threading.Thread):
 			return
 		model, paths = selection.get_selected_rows()
 		iter = model.get_iter(paths[0])
+		relnum = str(model.get_value(iter, TVC_RELEASE_NUMBER))
 		title = model.get_value(iter, TVC_TITLE)
 		title = title.replace("&", " ")
 		title = title.replace("-", " ")
-		url = config.get_option("review_url").replace("{FOOBAR}", title)
+		url = config.get_option("review_url").replace("{TITLE}", title).replace("{RELNUM}", relnum)
 		import webbrowser
 		webbrowser.open(url)
 	
