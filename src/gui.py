@@ -1681,7 +1681,7 @@ class Gui(threading.Thread):
 			if not self.games_check_ok_checkbutton.get_active(): # Check if games list is dirty now
 				self.dirty_gameslist = True
 			# remove the current game from the dictionary of games to rebuild
-			del self.games_to_rebuild[game[GAME_FILENAME]]
+			del self.games_to_rebuild[game[GAME_FULLINFO]]
 			# Update counters and label
 			self.gamesnumber_fixable -= 1
 			self.gamesnumber_available += 1

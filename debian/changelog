@@ -1,3 +1,10 @@
+drm (0.9.3) jaunty; urgency=low
+
+  * Fix typo in gui.py, causing rebuilt game to not be removed from
+    'self.games_to_rebuild' dictionary.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 07 Jul 2009 17:08:11 +0200
+
 drm (0.9.2) jaunty; urgency=low
 
   * Make sure release number is always 4-digit long when handling archives.
