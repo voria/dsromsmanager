@@ -183,6 +183,8 @@ class AllImagesDownloader(threading.Thread):
 			self.gui.update_statusbar("AllImagesDownloader", _("Download of all images completed."), True)
 		# restore original button
 		self.gui.toggle_images_download_toolbutton(True)
+		# inform the user we have done
+		self.gui.statusicon_start_blinking(True)
 				
 	def stop(self):
 		""" Stop thread """

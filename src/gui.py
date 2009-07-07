@@ -592,6 +592,7 @@ class Gui(threading.Thread):
 			self.toggle_main_window_menuitem.get_children()[0].set_label(_("Hide"))
 			self.toggle_main_window_menuitem.set_tooltip_text(_("Hide main window."))
 			self.main_window_visible = True
+			self.statusicon.set_blinking(False)
 	
 	def on_statusicon_toggle_main_window_activate(self, widget):
 		""" Hide/Restore the application in/from systray """
@@ -1701,6 +1702,16 @@ class Gui(threading.Thread):
 			if use_threads:
 				gdk.threads_leave()
 	
+	def statusicon_start_blinking(self, use_threads = False):
+		""" If window is hidden, make the statusicon blinking """
+		if self.quitting or self.main_window_visible:
+			return
+		if use_threads:
+			gdk.threads_enter()
+		self.statusicon.set_blinking(True)
+		if use_threads:
+			gdk.threads_leave()
+	
 	def update_image(self, game_release_number, image_index, filename, use_threads = False):
 		""" Update shown image if needed """
 		if self.quitting:
@@ -2091,6 +2102,9 @@ class Gui(threading.Thread):
 		self.filter_size_combobox.handler_unblock(self.fsc_sid)
 		if use_threads:
 			gdk.threads_leave()
+		
+		# Inform the user we have done
+		self.statusicon_start_blinking(use_threads)
 		
 		# Hide old infos
 		self.previous_selection_release_number = None

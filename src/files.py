@@ -247,6 +247,8 @@ class RomArchivesExtract(threading.Thread):
         self.gui.update_statusbar("RomArchivesExtract", message, True)
         # Restore extract options in treeview popup menu
         self.gui.toggle_extract_options_in_treeview_popupmenu(True)
+        # Inform the user we have done
+        self.gui.statusicon_start_blinking(True)
         
     def stop(self):
         """ Stop thread """
@@ -361,6 +363,8 @@ class RomArchivesRebuild(threading.Thread):
         self.gui.toggle_rebuild_roms_archives_toolbutton(True)
         # reactivate all widgets
         self.gui.activate_widgets(True)
+        # Inform the user we have done
+        self.gui.statusicon_start_blinking(True)
                     
     def stop(self):
         """ Stop the thread """
