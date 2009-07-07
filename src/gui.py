@@ -319,6 +319,8 @@ class Gui(threading.Thread):
 		self.games_check_convert_checkbutton.connect("toggled", self.on_games_check_convert_checkbutton_toggled)
 		self.options_trim_roms_checkbutton.connect("toggled", self.on_options_trim_roms_checkbutton_toggled)
 		self.trim_details_window.connect("delete_event", self.on_trim_details_window_delete_event)
+		if self.images_resize_rate != 1:
+			self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
 		# We need signal id for the following signals, to block them when needed
 		self.fne_sid = self.filter_name_entry.connect("changed", self.on_filter_triggered)
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
@@ -631,6 +633,7 @@ class Gui(threading.Thread):
 		""" Show game info for the current selected game """
 		if self.quitting:
 			return
+
 		# Disable previous info_title_eventbox signal
 		if self.ite_sid != None:
 			self.info_title_eventbox.disconnect(self.ite_sid)
@@ -669,9 +672,6 @@ class Gui(threading.Thread):
 				pixbuf1 = gdk.pixbuf_new_from_file(img1)
 				pixbuf2 = gdk.pixbuf_new_from_file(img2)
 				if self.images_resize_rate != 1: # resize images and enable images_window
-					self.images_eventbox.connect("button-press-event", self.toggle_images_window,
-												 game[GAME_FULLINFO], img1, img2)
-					self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
 					self.images_window_image1.set_from_file(img1)
 					self.images_window_image2.set_from_file(img2)
 					pixbuf1_new_width = int(pixbuf1.get_width() * self.images_resize_rate)
@@ -700,6 +700,10 @@ class Gui(threading.Thread):
 			self.threads.append(thread)
 			thread.start()
 		
+		# Connect signal on images_eventbox in needed
+		if self.images_resize_rate != 1:
+			self.images_eventbox.connect("button-press-event", self.toggle_images_window, img1, img2)
+			
 		# Search for duplicates
 		duplicates_fullinfo = []
 		duplicates_relnum = []
@@ -1477,17 +1481,23 @@ class Gui(threading.Thread):
 			gdk.threads_leave()
 		self.set_previous_treeview_cursor(use_threads = use_threads)
 	
-	def toggle_images_window(self, widget, event, title = None, img1 = None, img2 = None):
+	def toggle_images_window(self, widget, event, img1 = None, img2 = None):
 		""" When mouse button 1 is clicked, toggle images_window """
 		if self.quitting or event.button != 1:
 			return
-		if title != None and img1 != None and img2 != None:
-			self.images_window.set_title(title)
-			self.images_window_image1.set_from_file(img1)
-			self.images_window_image2.set_from_file(img2)
-			self.images_window.show()
-		else:
+		if img1 == None and img2 == None:
 			self.images_window.hide()
+		else:
+			self.images_window.set_title(_("Images"))
+			if img1 != None and os.path.exists(img1):
+				self.images_window_image1.set_from_file(img1)
+			else:
+				self.images_window_image1.clear()
+			if img2 != None and os.path.exists(img2):
+				self.images_window_image2.set_from_file(img2)
+			else:
+				self.images_window_image2.clear()
+			self.images_window.show()
 	
 	def show_okcancel_question_dialog(self, message, use_threads = False):
 		"""
