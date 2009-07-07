@@ -1,3 +1,15 @@
+drm (0.9.1) jaunty; urgency=low
+
+  * Fix images_window behaviour.
+  * Change {FOOBAR} to {TITLE} in review URL.
+  * Add {RELNUM} to review URL as substitute of the release number
+    (thanks to Daneel_87).
+  * Fix default review URL in src/config.py.
+  * Update tooltip for review URL in options_dialog.
+  * Update translations.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 07 Jul 2009 12:22:35 +0200
+
 drm (0.9) jaunty; urgency=low
 
   * Disable extract options in treeview popup menu when an
