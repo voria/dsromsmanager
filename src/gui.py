@@ -356,8 +356,8 @@ class Gui(threading.Thread):
 		self.gamesnumber_fixable = 0 # Number of fixable games shown in treeview
 		self.games_to_rebuild = {} # Dictionary of all the games to rebuild in the format { fullinfo : (filename, oldfile, relnum) }
 		
-		# Does the current games list contain games that should be filter by games_checks checkbuttons?
-		self.dirty_gameslist = False
+		# A list of games that should be filtered
+		self.dirty_games = []
 		
 		self.previous_selection_release_number = None
 		
@@ -385,7 +385,7 @@ class Gui(threading.Thread):
 		"""
 		Add 'game' in treeview and return it's archive state (CHECKS_OK, CHECKS_NO, CHECKS_CONVERT).
 		If 'anyway' is True, add the game to treeview model even if it should be filtered.
-		If 'insert_before_iter' is a valid iter, add the game before the passed iter.
+		If 'insert_before_iter' is a valid iter, add the game before the given iter.
 		Return CHECKS_ERROR on error.
 		"""
 		returnvalue = CHECKS_ERROR
@@ -485,33 +485,26 @@ class Gui(threading.Thread):
 		if use_threads:
 			gdk.threads_leave()
 	
-	def __filter(self, dirty_list = False):
+	def __filter(self):
 		"""
-		If 'dirty_list' is False, rebuild list according to filters.
-		If 'dirty_list is True, just filter the list by removing the games that should be already filtered. 
+		If 'self.dirty_games' is empty, rebuild list according to filters.
+		If 'self.dirty_games' is not empty, just filter the list by removing the dirty games. 
 		"""
 		if self.quitting:
 			return
-		if dirty_list:
-			## Remove alien games (according to games_checks checkbuttons) from the games list
-			# Get checkbuttons status
-			check_ok = self.games_check_ok_checkbutton.get_active()
-			check_no = self.games_check_no_checkbutton.get_active()
-			check_convert = self.games_check_convert_checkbutton.get_active()
-			# Get the list
+		if len(self.dirty_games) != 0: # There are dirty games in the games list
+			# Get the games list
 			model = self.list_treeview_model
 			iter = model.get_iter_first()
-			while iter != None:
+			while iter != None and len(self.dirty_games) != 0:
 				iter_next = model.iter_next(iter)
 				check = model.get_value(iter, TVC_CHECK)
-				if check == self.checks[CHECKS_YES] and check_ok == True:
-					pass
-				elif check == self.checks[CHECKS_NO] and check_no == True:
-					pass
-				elif check == self.checks[CHECKS_CONVERT] and check_convert == True:
-					pass
-				else: # games has to be removed
-					model.remove(iter)
+				relnum = model.get_value(iter, TVC_RELEASE_NUMBER)
+				if relnum in self.dirty_games:
+					# Remove the games from the model and from the dirty games list
+					model.remove(iter) 
+					self.dirty_games.remove(relnum)
+					# Update counters
 					self.gamesnumber_total -= 1
 					if check == self.checks[CHECKS_YES]:
 						self.gamesnumber_available -= 1
@@ -519,10 +512,9 @@ class Gui(threading.Thread):
 						self.gamesnumber_not_available -= 1
 					else: # CHECKS_CONVERT
 						self.gamesnumber_fixable -= 1
+					# Update statistic labels
 					self.update_list_game_label()
 				iter = iter_next
-			# Games list is no more dirty
-			self.dirty_gameslist = False
 		else: # Games list is not dirty
 			# Rebuild the list
 			string = self.filter_name_entry.get_text()
@@ -775,7 +767,7 @@ class Gui(threading.Thread):
 		# This game now is the previous selected game
 		self.previous_selection_release_number = game[GAME_RELEASE_NUMBER]
 		self.__show_infos()
-	
+
 	def on_info_title_eventbox_button_press_event(self, widget, event, current, duplicates):
 		""" Select in treeview the next game duplicate """
 		if self.quitting or event.button != 1 or len(duplicates) == 0:
@@ -1110,17 +1102,14 @@ class Gui(threading.Thread):
 		""" Filter list """
 		if self.quitting:
 			return
-		self.dirty_gameslist = False
+		self.dirty_games = []
 		self.__filter()
 	
 	def on_filter_clear_button_clicked(self, button):
 		"""
-		If global variable 'self.dirty_gameslist' is False and filters are not cleared,
-		clear all filters.
-		If global variable 'self.dirty_gamelist' is False and filters are already cleared,
-		just unselect the current selected games.
-		If 'self.dirty_gamelist' is True, just remove games that should be already filter
-		from the games list.
+		If global variable 'self.dirty_games' is empty and filters are not cleared, clear all filters.
+		If global variable 'self.dirty_games' is empty and filters are already cleared, just unselect the current selected games.
+		If 'global variable self.dirty_games' is not empty, just remove games that should be already filter from the games list.
 		"""
 		if self.quitting:
 			return
@@ -1134,8 +1123,8 @@ class Gui(threading.Thread):
 		if self.filter_size_combobox.get_active() != 0:
 			filter = 4
 			
-		if self.dirty_gameslist:
-			self.__filter(dirty_list = True)
+		if len(self.dirty_games) != 0:
+			self.__filter()
 			return
 		
 		if filter == 0:
@@ -1714,7 +1703,7 @@ class Gui(threading.Thread):
 					return
 			self.list_treeview_model.set_value(iter, TVC_CHECK, self.checks[CHECKS_YES])
 			if not self.games_check_ok_checkbutton.get_active(): # Check if games list is dirty now
-				self.dirty_gameslist = True
+				self.dirty_games.append(game_release_number)
 			# remove the current game from the dictionary of games to rebuild
 			del self.games_to_rebuild[game[GAME_FULLINFO]]
 			# Update counters and label
