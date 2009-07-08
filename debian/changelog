@@ -1,3 +1,19 @@
+drm (0.9.8) jaunty; urgency=low
+
+  * When roms paths are changed in options dialog, autoscan new
+    paths only if 'autoscan_archives_at_start' option is active.
+  * If roms paths changed and 'autoscan_archives_at_start' is
+    False, set 'self.archives_already_scanned' to False.
+  * Add a new 'clear_filters' option. When it's enabled, all the
+    filters are cleared when the game list is reloaded.
+  * Check if games list is dirty against all filters (previously
+    it was checked only against games checks checkbuttons).
+  * Fix a bug when a new game has to be manually added on the top
+    of the list.
+  * Update strings and translations.  
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 09 Jul 2009 01:18:19 +0200
+
 drm (0.9.7) jaunty; urgency=low
 
   * Make the splash screen disable by default.
