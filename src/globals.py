@@ -23,7 +23,7 @@ LOCALE_DIR = "/usr/share/locale/"
 DATA_IMG_DIR = os.path.join(DATA_DIR, "images")
 
 APP_NAME = "DsRomsManager"
-APP_VERSION = "0.9.6"
+APP_VERSION = "0.9.7"
 
 import gettext
 _ = gettext.gettext

@@ -1,3 +1,11 @@
+drm (0.9.7) jaunty; urgency=low
+
+  * Make the splash screen disable by default.
+  * Rename 'disable_splash' config option in 'enable_splash'.
+  * Update strings and translations.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 08 Jul 2009 17:17:21 +0200
+
 drm (0.9.6) jaunty; urgency=low
 
   * Add an option to disable splash screen at startup.
