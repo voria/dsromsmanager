@@ -789,22 +789,34 @@ class Gui(threading.Thread):
 			return
 		
 		iter = self.list_treeview_model.get_iter_first()
-		while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != next:
-			next_iter = self.list_treeview_model.iter_next(iter)
-			if next_iter == None or self.list_treeview_model.get_value(next_iter, TVC_RELEASE_NUMBER) < next:
-				# Not found in current treeview.
-				# Then, add the game we need to the treeview
-				try:
-					game = self.db.get_game(next)
-				except:
-					self.open_db()
-					game = self.db.get_game(next)
-				# Insert game into the model, the next cycle will find the iter we are searching for
-				self.__add_game_to_list(game, insert_before_iter = next_iter, anyway = True)
-				# Update statistic labels
-				self.update_list_game_label()
-			else: # Not found yet
-				iter = next_iter
+		if self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) < next:
+			# Game not found in current treeview, it must be added on the top of the list
+			try:
+				game = self.db.get_game(next)
+			except:
+				self.open_db()
+				game = self.db.get_game(next)
+			# Insert game into the model, the next cycle will find the iter we are searching for
+			self.__add_game_to_list(game, insert_before_iter = iter, anyway = True)
+			self.update_list_game_label()
+			self.dirty_games.append(next)
+			iter = self.list_treeview_model.get_iter_first()
+		else:
+			while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != next:
+				next_iter = self.list_treeview_model.iter_next(iter)
+				if next_iter == None or self.list_treeview_model.get_value(next_iter, TVC_RELEASE_NUMBER) < next:
+					# Not found in current treeview. Then, add the game we need to the treeview
+					try:
+						game = self.db.get_game(next)
+					except:
+						self.open_db()
+						game = self.db.get_game(next)
+					# Insert game into the model, the next cycle will find the iter we are searching for
+					self.__add_game_to_list(game, insert_before_iter = next_iter, anyway = True)
+					self.update_list_game_label()
+					self.dirty_games.append(next)
+				else: # Not found yet
+					iter = next_iter
 		
 		# Finally, select the next game in the treeview
 		path = self.list_treeview_model.get_path(iter)
