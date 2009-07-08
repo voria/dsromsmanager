@@ -1,3 +1,10 @@
+drm (0.9.6) jaunty; urgency=low
+
+  * Add an option to disable splash screen at startup.
+  * Update translations.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 08 Jul 2009 12:27:24 +0200
+
 drm (0.9.5) jaunty; urgency=low
 
   * Add a splash screen at application startup (thanks to Daneel_87). 
