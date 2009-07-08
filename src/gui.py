@@ -1388,7 +1388,7 @@ class Gui(threading.Thread):
 				diu = DBImagesUpdater(self, images_path_new)
 				self.threads.append(diu)
 				diu.start()
-			if romspaths_changed:
+			if romspaths_changed and config.get_option("autoscan_archives_at_start"):
 				# we need to rescan for games on disk.
 				# Stop the archive rebuilding thread, if it's running.
 				for thread in self.threads:
