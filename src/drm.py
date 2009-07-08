@@ -42,7 +42,7 @@ class Main(threading.Thread):
 		self.gui = Gui(self.threads)
 		self.gui.start()
 		
-		if not config.get_option("disable_splash"):
+		if config.get_option("enable_splash"):
 			self.gui.show_splash_screen(3000, True)
 		
 		db_deleted = False

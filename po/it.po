@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-08 12:09+0200\n"
-"PO-Revision-Date: 2009-07-08 12:09+0200\n"
+"POT-Creation-Date: 2009-07-08 17:13+0200\n"
+"PO-Revision-Date: 2009-07-08 17:13+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -305,23 +305,23 @@ msgstr "Nasconde la finestra principale."
 msgid "Update DAT"
 msgstr "Aggiorna DAT"
 
-#: ../src/gui.py:183 drm.glade.h:13
+#: ../src/gui.py:183 drm.glade.h:11
 msgid "Download images"
 msgstr "Scarica immagini"
 
-#: ../src/gui.py:190 drm.glade.h:46
+#: ../src/gui.py:190 drm.glade.h:45
 msgid "Rescan archives"
 msgstr "Riscansiona archivi"
 
-#: ../src/gui.py:195 drm.glade.h:34
+#: ../src/gui.py:195 drm.glade.h:33
 msgid "Rebuild archives"
 msgstr "Ricostruisci archivi"
 
-#: ../src/gui.py:202 drm.glade.h:49
+#: ../src/gui.py:202 drm.glade.h:48
 msgid "Reviews"
 msgstr "Recensioni"
 
-#: ../src/gui.py:209 drm.glade.h:31
+#: ../src/gui.py:209 drm.glade.h:30
 msgid "Options"
 msgstr "Opzioni"
 
@@ -525,7 +525,7 @@ msgstr ""
 "\n"
 "La lista dei giochi verrà ricaricata."
 
-#: ../src/gui.py:1519 drm.glade.h:22
+#: ../src/gui.py:1519 drm.glade.h:21
 msgid "Images"
 msgstr "Immagini"
 
@@ -682,91 +682,87 @@ msgstr "Pulisce tutti i filtri e ripristina la lista dei giochi. (Ctrl+C)"
 msgid "Comment:"
 msgstr "Commento:"
 
-#: drm.glade.h:11
-msgid "Disable splash screen at startup"
-msgstr "Disabilita lo splash screen all'avvio"
-
 #: drm.glade.h:12
-msgid "Disable the splash screen at startup."
-msgstr "Disabilita lo splash screen all'avvio."
-
-#: drm.glade.h:14
 msgid "Download missing images for all the games. (Ctrl+D)"
 msgstr "Scarica le immagini mancanti di tutti i giochi. (Ctrl+D)"
 
-#: drm.glade.h:15
+#: drm.glade.h:13
 msgid "DsRomsManager"
 msgstr "DsRomsManager"
 
-#: drm.glade.h:16
+#: drm.glade.h:14
+msgid "Enable splash screen at startup"
+msgstr "Abilita lo splash screen all'avvio"
+
+#: drm.glade.h:15
 msgid "Extract"
 msgstr "Estrai"
 
-#: drm.glade.h:17
+#: drm.glade.h:16
 msgid "Extract in..."
 msgstr "Estrai in..."
 
-#: drm.glade.h:18
+#: drm.glade.h:17
 msgid "Extract in:"
 msgstr "Estrai in:"
 
-#: drm.glade.h:19
+#: drm.glade.h:18
 msgid "Extract selected games in a user selected directory."
 msgstr "Estrae i giochi selezionati in una directory a scelta dell'utente."
 
-#: drm.glade.h:20
+#: drm.glade.h:19
 msgid "Extract selected games in the default directory."
 msgstr "Estrae i giochi selezionati nella directory predefinita."
 
-#: drm.glade.h:21
+#: drm.glade.h:20
 msgid "Filter by:"
 msgstr "Filtra:"
 
-#: drm.glade.h:23
+#: drm.glade.h:22
 msgid "Images:"
 msgstr "Immagini:"
 
-#: drm.glade.h:24
+#: drm.glade.h:23
 msgid "Informations"
 msgstr "Informazioni"
 
-#: drm.glade.h:25
+#: drm.glade.h:24
 msgid "Language:"
 msgstr "Lingua:"
 
-#: drm.glade.h:26
+#: drm.glade.h:25
 msgid "Location:"
 msgstr "Regione:"
 
-#: drm.glade.h:27
+#: drm.glade.h:26
 msgid "New roms:"
 msgstr "Nuove roms:"
 
-#: drm.glade.h:28
+#: drm.glade.h:27
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: drm.glade.h:29
+#: drm.glade.h:28
 msgid "Not available games"
 msgstr "Giochi non disponibili"
 
-#: drm.glade.h:30
+#: drm.glade.h:29
 msgid "Open the options window. (Ctrl+O)"
 msgstr "Apre la finestra delle opzioni. (Ctrl+O)"
 
-#: drm.glade.h:32
+#: drm.glade.h:31
 msgid "Publisher:"
 msgstr "Publisher:"
 
-#: drm.glade.h:33
+#: drm.glade.h:32
 msgid "Rebuild"
 msgstr "Ricostruisci"
 
-#: drm.glade.h:35
+#: drm.glade.h:34
 msgid "Rebuild roms archives for selected games."
 msgstr "Ricostruisce gli archivi delle roms dei giochi selezionati."
 
-#: drm.glade.h:36
+#: drm.glade.h:35
 msgid ""
 "Rebuild wrong roms archives, according to informations from DAT file. (Ctrl"
 "+F)\n"
@@ -783,11 +779,11 @@ msgstr ""
 "ricostruzione degli archivi, la GUI potrebbe non essere molto reattiva "
 "durante il processo."
 
-#: drm.glade.h:40
+#: drm.glade.h:39
 msgid "Rebuildable archives"
 msgstr "Archivi ricostruibili"
 
-#: drm.glade.h:41
+#: drm.glade.h:40
 msgid ""
 "Released under GPL3 terms\n"
 "\n"
@@ -801,77 +797,81 @@ msgstr ""
 "Fortunato Ventre (voRia)\n"
 "vorione@gmail.com"
 
-#: drm.glade.h:47
+#: drm.glade.h:46
 msgid "Rescan roms archives on disk and reload the games list. (Ctrl+L)"
 msgstr ""
 "Riscansiona gli archivi delle roms su disco e ricarica la lista dei giochi. "
 "(Ctrl+L)"
 
-#: drm.glade.h:48
+#: drm.glade.h:47
 msgid "Review URL:"
 msgstr "URL recensioni:"
 
-#: drm.glade.h:50
+#: drm.glade.h:49
 msgid "Roms:"
 msgstr "Roms:"
 
-#: drm.glade.h:51
+#: drm.glade.h:50
 msgid "Save:"
 msgstr "Salvataggio:"
 
-#: drm.glade.h:52
+#: drm.glade.h:51
 msgid "Scan automatically for roms archives on disk at startup."
 msgstr "Scansiona automaticamente gli archivi delle roms su disco all'avvio."
 
-#: drm.glade.h:53
+#: drm.glade.h:52
 msgid "Scan automatically for roms archives on disk when DAT file got updated."
 msgstr ""
 "Scansiona automaticamente gli archivi delle roms su disco quando il file DAT "
 "viene aggiornato."
 
-#: drm.glade.h:54
+#: drm.glade.h:53
 msgid "Scan for roms archives at DAT file update"
 msgstr "Scansiona gli archivi delle roms dopo l'aggiornamento del file DAT"
 
-#: drm.glade.h:55
+#: drm.glade.h:54
 msgid "Scan for roms archives at startup"
 msgstr "Scansiona gli archivi delle roms all'avvio"
 
-#: drm.glade.h:56
+#: drm.glade.h:55
 msgid "Search reviews for the selected game. (Ctrl+R)"
 msgstr "Cerca recensioni per il gioco selezionato. (Ctrl+R)"
 
-#: drm.glade.h:57
+#: drm.glade.h:56
 msgid "Select a directory"
 msgstr "Seleziona una directory"
 
-#: drm.glade.h:58
+#: drm.glade.h:57
 msgid "Set here the default directory where to extract archives."
 msgstr "Imposta qui la directory predefinita in cui estrarre gli archivi."
 
-#: drm.glade.h:59
+#: drm.glade.h:58
 msgid "Set here the directory where the downloaded images will be stored."
 msgstr "Imposta qui la directory in cui salvare le immagini scaricate."
 
-#: drm.glade.h:60
+#: drm.glade.h:59
 msgid "Set here the directory where the roms are stored."
 msgstr "Imposta qui la directory contenente le roms."
 
-#: drm.glade.h:61
+#: drm.glade.h:60
 msgid "Set here the directory where to move unknown roms."
 msgstr "Imposta qui la directory in cui spostare le roms sconosciute."
 
-#: drm.glade.h:62
+#: drm.glade.h:61
 msgid "Show detailed informations"
 msgstr "Mostra informazioni dettagliate"
 
-#: drm.glade.h:63
+#: drm.glade.h:62
 msgid "Show detailed informations for every rom while trimming."
 msgstr "Mostra informazioni dettagliate per ogni rom durante il trim."
 
-#: drm.glade.h:64
+#: drm.glade.h:63
 msgid "Show informations about 'DsRomsManager'."
 msgstr "Mostra informazioni su 'DsRomsManager'."
+
+#: drm.glade.h:64
+msgid "Show the splash screen at startup."
+msgstr "Mostra lo splash screen all'avvio."
 
 #: drm.glade.h:65
 msgid "Size:"

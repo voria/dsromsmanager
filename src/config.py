@@ -31,7 +31,7 @@ DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE = True
 DEFAULT_TRIM_ROMS = False
 DEFAULT_SHOW_TRIM_DETAILS = False
 DEFAULT_TRIM_TEMP_PATH = "/tmp"
-DEFAULT_DISABLE_SPLASH = False
+DEFAULT_ENABLE_SPLASH = False
 DEFAULT_REVIEW_URL = "http://www.google.com/search?hl=en&q={TITLE} DS review site:metacritic.com&btnI=I'm+Feeling+Lucky"
 DEFAULT_ROMS_PATH = ROMS_DIR
 DEFAULT_UNKNOWN_ROMS_PATH = UNKNOWN_ROMS_DIR
@@ -49,7 +49,7 @@ DEFAULT_CFG_FILE += "\nautoscan_archives_at_datupdate = " + str(DEFAULT_AUTOSCAN
 DEFAULT_CFG_FILE += "\ntrim_roms = " + str(DEFAULT_TRIM_ROMS)
 DEFAULT_CFG_FILE += "\nshow_trim_details = " + str(DEFAULT_SHOW_TRIM_DETAILS)
 DEFAULT_CFG_FILE += "\ntrim_temp_path = " + DEFAULT_TRIM_TEMP_PATH
-DEFAULT_CFG_FILE += "\ndisable_splash = " + str(DEFAULT_DISABLE_SPLASH)
+DEFAULT_CFG_FILE += "\nenable_splash = " + str(DEFAULT_ENABLE_SPLASH)
 DEFAULT_CFG_FILE += "\nreview_url = " + DEFAULT_REVIEW_URL
 DEFAULT_CFG_FILE += "\nroms_path = " + DEFAULT_ROMS_PATH
 DEFAULT_CFG_FILE += "\nunknown_roms_path = " + DEFAULT_UNKNOWN_ROMS_PATH
@@ -106,10 +106,10 @@ class Config():
             self.config.set(DEFAULT_CFG_SECTION, "trim_temp_path", DEFAULT_TRIM_TEMP_PATH)
             self.trim_temp_path = DEFAULT_TRIM_TEMP_PATH
         try:
-            self.disable_splash = self.config.getboolean(DEFAULT_CFG_SECTION, "disable_splash")
+            self.enable_splash = self.config.getboolean(DEFAULT_CFG_SECTION, "enable_splash")
         except NoOptionError:
-            self.config.set(DEFAULT_CFG_SECTION, "disable_splash", str(DEFAULT_DISABLE_SPLASH))
-            self.disable_splash = DEFAULT_DISABLE_SPLASH
+            self.config.set(DEFAULT_CFG_SECTION, "enable_splash", str(DEFAULT_ENABLE_SPLASH))
+            self.enable_splash = DEFAULT_ENABLE_SPLASH
         try:
             self.review_url = self.config.get(DEFAULT_CFG_SECTION, "review_url")
         except NoOptionError:
@@ -174,8 +174,8 @@ class Config():
             return self.show_trim_details
         if option == "trim_temp_path":
             return self.trim_temp_path
-        if option == "disable_splash":
-            return self.disable_splash
+        if option == "enable_splash":
+            return self.enable_splash
         if option == "roms_path":
             return self.roms_path
         if option == "unknown_roms_path":
@@ -209,8 +209,8 @@ class Config():
             return DEFAULT_SHOW_TRIM_DETAILS
         if option == "trim_temp_path":
             return DEFAULT_TRIM_TEMP_PATH
-        if option == "disable_splash":
-            return DEFAULT_DISABLE_SPLASH
+        if option == "enable_splash":
+            return DEFAULT_ENABLE_SPLASH
         if option == "roms_path":
             return DEFAULT_ROMS_PATH
         if option == "unknown_roms_path":
@@ -244,8 +244,8 @@ class Config():
             self.show_trim_details = value
         elif option == "trim_temp_path":
             self.trim_temp_path = value
-        elif option == "disable_splash":
-            self.disable_splash = value
+        elif option == "enable_splash":
+            self.enable_splash = value
         elif option == "roms_path":
             self.roms_path = value
         elif option == "unknown_roms_path":
@@ -280,8 +280,8 @@ class Config():
             self.show_trim_details = DEFAULT_SHOW_TRIM_DETAILS
         elif option == "trim_temp_path":
             self.trim_temp_path = DEFAULT_TRIM_TEMP_PATH
-        elif option == "disable_splash":
-            self.disable_splash = DEFAULT_DISABLE_SPLASH
+        elif option == "enable_splash":
+            self.enable_splash = DEFAULT_ENABLE_SPLASH
         elif option == "roms_path":
             self.roms_path = DEFAULT_ROMS_PATH
         elif option == "unknown_roms_path":
@@ -313,7 +313,7 @@ class Config():
         config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", self.unknown_roms_path)
         config.set(DEFAULT_CFG_SECTION, "roms_path", self.roms_path)
         config.set(DEFAULT_CFG_SECTION, "review_url", self.review_url)
-        config.set(DEFAULT_CFG_SECTION, "disable_splash", str(self.disable_splash))
+        config.set(DEFAULT_CFG_SECTION, "enable_splash", str(self.enable_splash))
         config.set(DEFAULT_CFG_SECTION, "trim_temp_path", self.trim_temp_path)
         config.set(DEFAULT_CFG_SECTION, "show_trim_details", str(self.show_trim_details))
         config.set(DEFAULT_CFG_SECTION, "trim_roms", str(self.trim_roms))

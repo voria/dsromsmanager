@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-08 12:09+0200\n"
+"POT-Creation-Date: 2009-07-08 17:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -294,23 +294,23 @@ msgstr ""
 msgid "Update DAT"
 msgstr ""
 
-#: ../src/gui.py:183 drm.glade.h:13
+#: ../src/gui.py:183 drm.glade.h:11
 msgid "Download images"
 msgstr ""
 
-#: ../src/gui.py:190 drm.glade.h:46
+#: ../src/gui.py:190 drm.glade.h:45
 msgid "Rescan archives"
 msgstr ""
 
-#: ../src/gui.py:195 drm.glade.h:34
+#: ../src/gui.py:195 drm.glade.h:33
 msgid "Rebuild archives"
 msgstr ""
 
-#: ../src/gui.py:202 drm.glade.h:49
+#: ../src/gui.py:202 drm.glade.h:48
 msgid "Reviews"
 msgstr ""
 
-#: ../src/gui.py:209 drm.glade.h:31
+#: ../src/gui.py:209 drm.glade.h:30
 msgid "Options"
 msgstr ""
 
@@ -483,7 +483,7 @@ msgid ""
 "Games list will be reloaded."
 msgstr ""
 
-#: ../src/gui.py:1519 drm.glade.h:22
+#: ../src/gui.py:1519 drm.glade.h:21
 msgid "Images"
 msgstr ""
 
@@ -636,91 +636,87 @@ msgstr ""
 msgid "Comment:"
 msgstr ""
 
-#: drm.glade.h:11
-msgid "Disable splash screen at startup"
-msgstr ""
-
 #: drm.glade.h:12
-msgid "Disable the splash screen at startup."
-msgstr ""
-
-#: drm.glade.h:14
 msgid "Download missing images for all the games. (Ctrl+D)"
 msgstr ""
 
-#: drm.glade.h:15
+#: drm.glade.h:13
 msgid "DsRomsManager"
 msgstr ""
 
-#: drm.glade.h:16
+#: drm.glade.h:14
+msgid "Enable splash screen at startup"
+msgstr ""
+
+#: drm.glade.h:15
 msgid "Extract"
 msgstr ""
 
-#: drm.glade.h:17
+#: drm.glade.h:16
 msgid "Extract in..."
 msgstr ""
 
-#: drm.glade.h:18
+#: drm.glade.h:17
 msgid "Extract in:"
 msgstr ""
 
-#: drm.glade.h:19
+#: drm.glade.h:18
 msgid "Extract selected games in a user selected directory."
 msgstr ""
 
-#: drm.glade.h:20
+#: drm.glade.h:19
 msgid "Extract selected games in the default directory."
 msgstr ""
 
-#: drm.glade.h:21
+#: drm.glade.h:20
 msgid "Filter by:"
 msgstr ""
 
-#: drm.glade.h:23
+#: drm.glade.h:22
 msgid "Images:"
 msgstr ""
 
-#: drm.glade.h:24
+#: drm.glade.h:23
 msgid "Informations"
 msgstr ""
 
-#: drm.glade.h:25
+#: drm.glade.h:24
 msgid "Language:"
 msgstr ""
 
-#: drm.glade.h:26
+#: drm.glade.h:25
 msgid "Location:"
 msgstr ""
 
-#: drm.glade.h:27
+#: drm.glade.h:26
 msgid "New roms:"
 msgstr ""
 
-#: drm.glade.h:28
+#: drm.glade.h:27
 msgid "No games in list"
 msgstr ""
 
-#: drm.glade.h:29
+#: drm.glade.h:28
 msgid "Not available games"
 msgstr ""
 
-#: drm.glade.h:30
+#: drm.glade.h:29
 msgid "Open the options window. (Ctrl+O)"
 msgstr ""
 
-#: drm.glade.h:32
+#: drm.glade.h:31
 msgid "Publisher:"
 msgstr ""
 
-#: drm.glade.h:33
+#: drm.glade.h:32
 msgid "Rebuild"
 msgstr ""
 
-#: drm.glade.h:35
+#: drm.glade.h:34
 msgid "Rebuild roms archives for selected games."
 msgstr ""
 
-#: drm.glade.h:36
+#: drm.glade.h:35
 msgid ""
 "Rebuild wrong roms archives, according to informations from DAT file. (Ctrl"
 "+F)\n"
@@ -730,11 +726,11 @@ msgid ""
 "GUI might not be fully responsive during the process."
 msgstr ""
 
-#: drm.glade.h:40
+#: drm.glade.h:39
 msgid "Rebuildable archives"
 msgstr ""
 
-#: drm.glade.h:41
+#: drm.glade.h:40
 msgid ""
 "Released under GPL3 terms\n"
 "\n"
@@ -743,72 +739,76 @@ msgid ""
 "vorione@gmail.com"
 msgstr ""
 
-#: drm.glade.h:47
+#: drm.glade.h:46
 msgid "Rescan roms archives on disk and reload the games list. (Ctrl+L)"
 msgstr ""
 
-#: drm.glade.h:48
+#: drm.glade.h:47
 msgid "Review URL:"
 msgstr ""
 
-#: drm.glade.h:50
+#: drm.glade.h:49
 msgid "Roms:"
 msgstr ""
 
-#: drm.glade.h:51
+#: drm.glade.h:50
 msgid "Save:"
 msgstr ""
 
-#: drm.glade.h:52
+#: drm.glade.h:51
 msgid "Scan automatically for roms archives on disk at startup."
 msgstr ""
 
-#: drm.glade.h:53
+#: drm.glade.h:52
 msgid "Scan automatically for roms archives on disk when DAT file got updated."
 msgstr ""
 
-#: drm.glade.h:54
+#: drm.glade.h:53
 msgid "Scan for roms archives at DAT file update"
 msgstr ""
 
-#: drm.glade.h:55
+#: drm.glade.h:54
 msgid "Scan for roms archives at startup"
 msgstr ""
 
-#: drm.glade.h:56
+#: drm.glade.h:55
 msgid "Search reviews for the selected game. (Ctrl+R)"
 msgstr ""
 
-#: drm.glade.h:57
+#: drm.glade.h:56
 msgid "Select a directory"
 msgstr ""
 
-#: drm.glade.h:58
+#: drm.glade.h:57
 msgid "Set here the default directory where to extract archives."
 msgstr ""
 
-#: drm.glade.h:59
+#: drm.glade.h:58
 msgid "Set here the directory where the downloaded images will be stored."
 msgstr ""
 
-#: drm.glade.h:60
+#: drm.glade.h:59
 msgid "Set here the directory where the roms are stored."
 msgstr ""
 
-#: drm.glade.h:61
+#: drm.glade.h:60
 msgid "Set here the directory where to move unknown roms."
 msgstr ""
 
-#: drm.glade.h:62
+#: drm.glade.h:61
 msgid "Show detailed informations"
 msgstr ""
 
-#: drm.glade.h:63
+#: drm.glade.h:62
 msgid "Show detailed informations for every rom while trimming."
 msgstr ""
 
-#: drm.glade.h:64
+#: drm.glade.h:63
 msgid "Show informations about 'DsRomsManager'."
+msgstr ""
+
+#: drm.glade.h:64
+msgid "Show the splash screen at startup."
 msgstr ""
 
 #: drm.glade.h:65
