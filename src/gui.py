@@ -1388,18 +1388,23 @@ class Gui(threading.Thread):
 				diu = DBImagesUpdater(self, images_path_new)
 				self.threads.append(diu)
 				diu.start()
-			if romspaths_changed and config.get_option("autoscan_archives_at_start"):
-				# we need to rescan for games on disk.
-				# Stop the archive rebuilding thread, if it's running.
-				for thread in self.threads:
-					if thread.isAlive() and thread.getName() == "RomArchivesRebuild":
-						self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton)
-						break
-				message = _("Roms paths have changed.")
-				message += _("\n\nGames list will be reloaded.")
-				self.show_info_dialog(message)
-				# Rescan archives
-				self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton, confirm = False)
+			if romspaths_changed:
+				if config.get_option("autoscan_archives_at_start"):
+					# we need to rescan for games on disk.
+					# Stop the archive rebuilding thread, if it's running.
+					for thread in self.threads:
+						if thread.isAlive() and thread.getName() == "RomArchivesRebuild":
+							self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton)
+							break
+					message = _("Roms paths have changed.")
+					message += _("\n\nGames list will be reloaded.")
+					self.show_info_dialog(message)
+					# Rescan archives
+					self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton, confirm = False)
+				else:
+					# Inform 'rescan archives' toolbutton that archives have not been scanned
+					self.archives_already_scanned = False
+					
 		# Re-enable options buttons and close dialog
 		self.options_toolbutton.set_sensitive(True)
 		self.options_menuitem.set_sensitive(True)
