@@ -76,6 +76,7 @@ class Gui(threading.Thread):
 		self.options_autoscan_archives_at_datupdate_checkbutton = self.builder.get_object("options_autoscan_archives_at_datupdate_checkbutton")
 		self.options_trim_roms_checkbutton = self.builder.get_object("options_trim_roms_checkbutton")
 		self.options_trim_roms_details_checkbutton = self.builder.get_object("options_trim_roms_details_checkbutton")
+		self.options_disable_splash_checkbutton = self.builder.get_object("options_disable_splash_checkbutton")
 		self.options_roms_path_filechooserbutton = self.builder.get_object("options_roms_path_filechooserbutton")
 		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
 		self.options_new_roms_path_filechooserbutton = self.builder.get_object("options_new_roms_path_filechooserbutton")
@@ -1227,6 +1228,7 @@ class Gui(threading.Thread):
 		self.options_autoscan_archives_at_datupdate_checkbutton.set_active(config.get_option("autoscan_archives_at_datupdate"))
 		self.options_trim_roms_checkbutton.set_active(config.get_option("trim_roms"))
 		self.options_trim_roms_details_checkbutton.set_active(config.get_option("show_trim_details"))
+		self.options_disable_splash_checkbutton.set_active(config.get_option("disable_splash"))
 		
 		# Check if 'trim' in installed and disable/enable options as needed
 		trim = None
@@ -1364,6 +1366,7 @@ class Gui(threading.Thread):
 			config.set_option("autoscan_archives_at_datupdate", self.options_autoscan_archives_at_datupdate_checkbutton.get_active())
 			config.set_option("trim_roms", self.options_trim_roms_checkbutton.get_active())
 			config.set_option("show_trim_details", self.options_trim_roms_details_checkbutton.get_active())
+			config.set_option("disable_splash", self.options_disable_splash_checkbutton.get_active())
 			# Save review_url
 			text = self.options_review_url_entry.get_text()
 			if len(text) != 0:
