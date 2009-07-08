@@ -74,6 +74,7 @@ class Gui(threading.Thread):
 		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
 		self.options_autoscan_archives_at_start_checkbutton = self.builder.get_object("options_autoscan_archives_at_start_checkbutton")
 		self.options_autoscan_archives_at_datupdate_checkbutton = self.builder.get_object("options_autoscan_archives_at_datupdate_checkbutton")
+		self.options_clear_filters_checkbutton = self.builder.get_object("options_clear_filters_checkbutton")
 		self.options_trim_roms_checkbutton = self.builder.get_object("options_trim_roms_checkbutton")
 		self.options_trim_roms_details_checkbutton = self.builder.get_object("options_trim_roms_details_checkbutton")
 		self.options_enable_splash_checkbutton = self.builder.get_object("options_enable_splash_checkbutton")
@@ -312,7 +313,9 @@ class Gui(threading.Thread):
 		self.main_window.connect("delete_event", self.on_main_window_delete_event)
 		self.statusbar.connect("text-pushed", self.on_statusbar_text_pushed)
 		self.dat_update_toolbutton.connect("clicked", self.on_dat_update_toolbutton_clicked)
+		self.images_download_toolbutton.connect("clicked", self.on_images_download_toolbutton_clicked)
 		self.rescan_roms_archives_toolbutton.connect("clicked", self.on_rescan_roms_archives_toolbutton_clicked)
+		self.rebuild_roms_archives_toolbutton.connect("clicked", self.on_rebuild_roms_archives_toolbutton_clicked)
 		self.filter_clear_button.connect("clicked", self.on_filter_clear_button_clicked)
 		self.options_toolbutton.connect("clicked", self.on_options_toolbutton_clicked)
 		self.options_dialog.connect("response", self.on_options_dialog_response)
@@ -328,9 +331,6 @@ class Gui(threading.Thread):
 		self.list_treeview_popup_extract_stop_menuitem.connect("activate", self.on_list_treeview_popup_extract_stop_menuitem_activate)
 		self.list_treeview_popup_rebuildarchive_menuitem.connect("activate", self.on_list_treeview_popup_rebuildarchive_menuitem_activate)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
-		self.games_check_ok_checkbutton.connect("toggled", self.on_games_check_ok_checkbutton_toggled)
-		self.games_check_no_checkbutton.connect("toggled", self.on_games_check_no_checkbutton_toggled)
-		self.games_check_convert_checkbutton.connect("toggled", self.on_games_check_convert_checkbutton_toggled)
 		self.options_trim_roms_checkbutton.connect("toggled", self.on_options_trim_roms_checkbutton_toggled)
 		self.trim_details_window.connect("delete_event", self.on_trim_details_window_delete_event)
 		if self.images_resize_rate != 1:
@@ -340,8 +340,9 @@ class Gui(threading.Thread):
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
 		self.flanc_sid = self.filter_language_combobox.connect("changed", self.on_filter_triggered)
 		self.fsc_sid = self.filter_size_combobox.connect("changed", self.on_filter_triggered)
-		self.aidtb_sid = self.images_download_toolbutton.connect("clicked", self.on_images_download_toolbutton_clicked)
-		self.rratb_sid = self.rebuild_roms_archives_toolbutton.connect("clicked", self.on_rebuild_roms_archives_toolbutton_clicked)
+		self.gcoc_sid = self.games_check_ok_checkbutton.connect("toggled", self.on_games_check_ok_checkbutton_toggled)
+		self.gcnc_sid = self.games_check_no_checkbutton.connect("toggled", self.on_games_check_no_checkbutton_toggled)
+		self.gccc_sid = self.games_check_convert_checkbutton.connect("toggled", self.on_games_check_convert_checkbutton_toggled)
 		self.ite_sid = None # info_title_eventbox signal
 		
 		self.quitting = False # Are we quitting?
@@ -1105,7 +1106,7 @@ class Gui(threading.Thread):
 					thread.stop()
 					break
 	
-	def on_filter_triggered(self, widget):
+	def on_filter_triggered(self, widget = None):
 		""" Filter list """
 		if self.quitting:
 			return
@@ -1226,6 +1227,7 @@ class Gui(threading.Thread):
 		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
 		self.options_autoscan_archives_at_start_checkbutton.set_active(config.get_option("autoscan_archives_at_start"))
 		self.options_autoscan_archives_at_datupdate_checkbutton.set_active(config.get_option("autoscan_archives_at_datupdate"))
+		self.options_clear_filters_checkbutton.set_active(config.get_option("clear_filters"))
 		self.options_trim_roms_checkbutton.set_active(config.get_option("trim_roms"))
 		self.options_trim_roms_details_checkbutton.set_active(config.get_option("show_trim_details"))
 		self.options_enable_splash_checkbutton.set_active(config.get_option("enable_splash"))
@@ -1364,6 +1366,7 @@ class Gui(threading.Thread):
 			config.set_option("check_images_crc", self.options_check_images_crc_checkbutton.get_active())
 			config.set_option("autoscan_archives_at_start", self.options_autoscan_archives_at_start_checkbutton.get_active())
 			config.set_option("autoscan_archives_at_datupdate", self.options_autoscan_archives_at_datupdate_checkbutton.get_active())
+			config.set_option("clear_filters", self.options_clear_filters_checkbutton.get_active())
 			config.set_option("trim_roms", self.options_trim_roms_checkbutton.get_active())
 			config.set_option("show_trim_details", self.options_trim_roms_details_checkbutton.get_active())
 			config.set_option("enable_splash", self.options_enable_splash_checkbutton.get_active())
@@ -2079,6 +2082,49 @@ class Gui(threading.Thread):
 		# Now we can exit
 		self.canexitnow = True
 		
+		# Interrupt now, if requested
+		if self.quitting:
+			return
+		
+		# Get total loaded games
+		games_number = self.gamesnumber_total
+		
+		# Clear up all filter if needed
+		if use_threads:
+				gdk.threads_enter()
+		if config.get_option("clear_filters"):
+			# Clear filters
+			self.filter_name_entry.handler_block(self.fne_sid)
+			self.filter_location_combobox.handler_block(self.flocc_sid)
+			self.filter_language_combobox.handler_block(self.flanc_sid)
+			self.filter_size_combobox.handler_block(self.fsc_sid)
+			self.filter_clear_button.clicked()
+			self.filter_name_entry.handler_unblock(self.fne_sid)
+			self.filter_location_combobox.handler_unblock(self.flocc_sid)
+			self.filter_language_combobox.handler_unblock(self.flanc_sid)
+			self.filter_size_combobox.handler_unblock(self.fsc_sid)
+			# Clear games checks checkbuttons
+			self.games_check_ok_checkbutton.handler_block(self.gcoc_sid)
+			self.games_check_ok_checkbutton.set_active(True)
+			self.games_check_ok_checkbutton.handler_unblock(self.gcoc_sid)
+			self.games_check_no_checkbutton.handler_block(self.gcnc_sid)
+			self.games_check_no_checkbutton.set_active(True)
+			self.games_check_no_checkbutton.handler_unblock(self.gcnc_sid)
+			self.games_check_convert_checkbutton.handler_block(self.gccc_sid)
+			self.games_check_convert_checkbutton.set_active(True)
+			self.games_check_convert_checkbutton.handler_unblock(self.gccc_sid)
+		else: # Do not clear filters
+			self.on_filter_triggered()
+			# Set back the games checks checkbuttons status
+			if not self.games_check_ok_checkbutton.get_active():
+				self.on_games_check_ok_checkbutton_toggled(self.games_check_ok_checkbutton)
+			if not self.games_check_no_checkbutton.get_active():
+				self.on_games_check_no_checkbutton_toggled(self.games_check_no_checkbutton)
+			if not self.games_check_convert_checkbutton.get_active():
+				self.on_games_check_convert_checkbutton_toggled(self.games_check_convert_checkbutton)
+		if use_threads:
+			gdk.threads_leave()
+		
 		# Set updated model back to treeview
 		if use_threads:
 			gdk.threads_enter()
@@ -2086,44 +2132,9 @@ class Gui(threading.Thread):
 		if use_threads:
 			gdk.threads_leave()
 		
-		# Get total loaded games
-		games_number = self.gamesnumber_total
-		
-		# Set back the games checks checkbuttons status
-		if self.quitting: # interrupt now, if requested
-			return
-		if use_threads:
-			gdk.threads_enter()
-		if not self.games_check_ok_checkbutton.get_active():
-			self.on_games_check_ok_checkbutton_toggled(self.games_check_ok_checkbutton)
-		if not self.games_check_no_checkbutton.get_active():
-			self.on_games_check_no_checkbutton_toggled(self.games_check_no_checkbutton)
-		if not self.games_check_convert_checkbutton.get_active():
-			self.on_games_check_convert_checkbutton_toggled(self.games_check_convert_checkbutton)
-		if use_threads:
-			gdk.threads_leave()
-		
+		# Inform the user we have done
 		text = _("%d games loaded succesfully.") % games_number
 		self.update_statusbar("Games", text, use_threads)
-		
-		# Clear up all filter
-		if self.quitting: # interrupt now, if requested
-			return
-		if use_threads:
-			gdk.threads_enter()
-		self.filter_name_entry.handler_block(self.fne_sid)
-		self.filter_location_combobox.handler_block(self.flocc_sid)
-		self.filter_language_combobox.handler_block(self.flanc_sid)
-		self.filter_size_combobox.handler_block(self.fsc_sid)
-		self.filter_clear_button.clicked()
-		self.filter_name_entry.handler_unblock(self.fne_sid)
-		self.filter_location_combobox.handler_unblock(self.flocc_sid)
-		self.filter_language_combobox.handler_unblock(self.flanc_sid)
-		self.filter_size_combobox.handler_unblock(self.fsc_sid)
-		if use_threads:
-			gdk.threads_leave()
-		
-		# Inform the user we have done
 		self.statusicon_start_blinking(use_threads)
 		
 		# Hide old infos

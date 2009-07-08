@@ -992,11 +992,24 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Scan automatically for roms archives on disk when DAT file got updated.</property>
+                <property name="tooltip_text" translatable="yes">Scan automatically for roms archives on disk when DAT file is updated.</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
                 <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkCheckButton" id="options_clear_filters_checkbutton">
+                <property name="label" translatable="yes">Clear all filters when the games list is reloaded</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Clear all filters when the games list is reloaded.</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="position">4</property>
               </packing>
             </child>
             <child>
@@ -1011,7 +1024,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
-                <property name="position">4</property>
+                <property name="position">5</property>
               </packing>
             </child>
             <child>
@@ -1043,7 +1056,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 </child>
               </object>
               <packing>
-                <property name="position">5</property>
+                <property name="position">6</property>
               </packing>
             </child>
             <child>
@@ -1052,7 +1065,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">6</property>
+                <property name="position">7</property>
               </packing>
             </child>
             <child>
@@ -1086,7 +1099,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">7</property>
+                <property name="position">8</property>
               </packing>
             </child>
             <child>
@@ -1120,7 +1133,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">8</property>
+                <property name="position">9</property>
               </packing>
             </child>
             <child>
@@ -1154,7 +1167,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">9</property>
+                <property name="position">10</property>
               </packing>
             </child>
             <child>
@@ -1163,7 +1176,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">10</property>
+                <property name="position">11</property>
               </packing>
             </child>
             <child>
@@ -1198,7 +1211,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">11</property>
+                <property name="position">12</property>
               </packing>
             </child>
             <child>
@@ -1207,7 +1220,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">12</property>
+                <property name="position">13</property>
               </packing>
             </child>
             <child>
@@ -1241,7 +1254,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">13</property>
+                <property name="position">14</property>
               </packing>
             </child>
             <child>
@@ -1256,7 +1269,7 @@ Click here to enable the 'Extract in' path to be modified.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">14</property>
+                <property name="position">15</property>
               </packing>
             </child>
             <child>
@@ -1265,7 +1278,7 @@ Click here to enable the 'Extract in' path to be modified.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">15</property>
+                <property name="position">16</property>
               </packing>
             </child>
             <child>
@@ -1302,7 +1315,7 @@ Set an empty string to use the default URL.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">16</property>
+                <property name="position">17</property>
               </packing>
             </child>
             <child>
@@ -1311,7 +1324,7 @@ Set an empty string to use the default URL.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">17</property>
+                <property name="position">18</property>
               </packing>
             </child>
           </object>
