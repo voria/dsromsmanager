@@ -1,3 +1,11 @@
+drm (0.9.9) jaunty; urgency=low
+
+  * Make the game title smaller.
+  * Fix images_window behaviour and images resizing logic.
+  * Make the about dialog not modal.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 09 Jul 2009 18:49:05 +0200
+
 drm (0.9.8) jaunty; urgency=low
 
   * When roms paths are changed in options dialog, autoscan new
