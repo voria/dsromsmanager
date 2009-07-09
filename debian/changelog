@@ -1,3 +1,10 @@
+drm (1.0~rc1) jaunty; urgency=low
+
+  * Make the splash screen centered on screen, not on parent window.
+  * Change icon for available games to gtk.STOCK_YES.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 10 Jul 2009 01:16:12 +0200
+
 drm (0.9.9) jaunty; urgency=low
 
   * Make the game title smaller.
