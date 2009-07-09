@@ -129,15 +129,15 @@ class Gui(threading.Thread):
 		self.images_hbox = self.builder.get_object("images_hbox")
 		self.info_label_vbox = self.builder.get_object("info_label_vbox")
 		
-		# Get screen's height and calculate the resize rate
-		self.screen_height = self.main_window.get_screen().get_height()
-		if self.screen_height <= 600:
+		# Get screen's vertical resolution and calculate the resize rate
+		screen_height = self.main_window.get_screen().get_height()
+		if screen_height <= 600:
 			self.images_resize_rate = 0.5 # 50% 
-		elif self.screen_height <= 800:
+		elif screen_height <= 800:
 			self.images_resize_rate = 0.75 # 75%
 		else:
 			self.images_resize_rate = 1 # 100 %
-		
+				
 		# resize images frames
 		size = self.image1_frame.size_request()
 		size_width = int(size[0] * self.images_resize_rate)
