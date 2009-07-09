@@ -137,6 +137,16 @@ class Gui(threading.Thread):
 			self.images_resize_rate = 0.75 # 75%
 		else:
 			self.images_resize_rate = 1 # 100 %
+		
+		# resize images frames
+		size = self.image1_frame.size_request()
+		size_width = int(size[0] * self.images_resize_rate)
+		size_height = int(size[1] * self.images_resize_rate)
+		self.image1_frame.set_size_request(size_width, size_height)
+		size = self.image2_frame.size_request()
+		size_width = int(size[0] * self.images_resize_rate)
+		size_height = int(size[1] * self.images_resize_rate)
+		self.image2_frame.set_size_request(size_width, size_height)
 			
 		self.main_window.set_title(APP_NAME + " - " + APP_VERSION)
 		self.about_dialog.set_version(APP_VERSION)
@@ -678,20 +688,17 @@ class Gui(threading.Thread):
 		
 		if os.path.exists(img1) and os.path.exists(img2):
 			try:
+				# set images
+				self.images_window_image1.set_from_file(img1)
+				self.images_window_image2.set_from_file(img2)
 				pixbuf1 = gdk.pixbuf_new_from_file(img1)
+				pixbuf1_new_width = int(pixbuf1.get_width() * self.images_resize_rate)
+				pixbuf1_new_height = int(pixbuf1.get_height() * self.images_resize_rate)
+				pixbuf1 = pixbuf1.scale_simple(pixbuf1_new_width, pixbuf1_new_height, gdk.INTERP_BILINEAR)
 				pixbuf2 = gdk.pixbuf_new_from_file(img2)
-				if self.images_resize_rate != 1: # resize images and enable images_window
-					self.images_window_image1.set_from_file(img1)
-					self.images_window_image2.set_from_file(img2)
-					pixbuf1_new_width = int(pixbuf1.get_width() * self.images_resize_rate)
-					pixbuf1_new_height = int(pixbuf1.get_height() * self.images_resize_rate)
-					pixbuf1 = pixbuf1.scale_simple(pixbuf1_new_width, pixbuf1_new_height, gdk.INTERP_BILINEAR)
-					pixbuf2_new_width = int(pixbuf2.get_width() * self.images_resize_rate)
-					pixbuf2_new_height = int(pixbuf2.get_height() * self.images_resize_rate)
-					pixbuf2 = pixbuf2.scale_simple(pixbuf2_new_width, pixbuf2_new_height, gdk.INTERP_BILINEAR)
-					# resize images frames too
-					self.image1_frame.set_size_request(pixbuf1.get_width(), pixbuf1.get_height())
-					self.image2_frame.set_size_request(pixbuf2.get_width(), pixbuf2.get_height())
+				pixbuf2_new_width = int(pixbuf2.get_width() * self.images_resize_rate)
+				pixbuf2_new_height = int(pixbuf2.get_height() * self.images_resize_rate)
+				pixbuf2 = pixbuf2.scale_simple(pixbuf2_new_width, pixbuf2_new_height, gdk.INTERP_BILINEAR)
 				self.image1.set_from_pixbuf(pixbuf1)
 				self.image2.set_from_pixbuf(pixbuf2)
 			except:
@@ -702,9 +709,8 @@ class Gui(threading.Thread):
 		else: # Images do not exist, download them
 			self.image1.clear()
 			self.image2.clear()
-			if self.images_resize_rate != 1:
-				self.images_window_image1.clear()
-				self.images_window_image2.clear()
+			self.images_window_image1.clear()
+			self.images_window_image2.clear()
 			thread = ImagesDownloader(self, game)
 			self.threads.append(thread)
 			thread.start()
@@ -1758,20 +1764,15 @@ class Gui(threading.Thread):
 			iter = model.get_iter(path)
 			if model.get_value(iter, TVC_RELEASE_NUMBER) == game_release_number:
 				pixbuf = gdk.pixbuf_new_from_file(filename)
-				if self.images_resize_rate != 1: #resize images
-					pixbuf_new_width = int(pixbuf.get_width() * self.images_resize_rate)
-					pixbuf_new_height = int(pixbuf.get_height() * self.images_resize_rate)
-					pixbuf = pixbuf.scale_simple(pixbuf_new_width, pixbuf_new_height, gdk.INTERP_BILINEAR)
+				pixbuf_new_width = int(pixbuf.get_width() * self.images_resize_rate)
+				pixbuf_new_height = int(pixbuf.get_height() * self.images_resize_rate)
+				pixbuf = pixbuf.scale_simple(pixbuf_new_width, pixbuf_new_height, gdk.INTERP_BILINEAR)
 				if image_index == 1:
 					self.image1.set_from_pixbuf(pixbuf)
-					self.image1_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
-					if self.images_resize_rate != None:
-						self.images_window_image1.set_from_file(filename)
+					self.images_window_image1.set_from_file(filename)
 				else:
 					self.image2.set_from_pixbuf(pixbuf)
-					self.image2_frame.set_size_request(pixbuf.get_width(), pixbuf.get_height())
-					if self.images_resize_rate != None:
-						self.images_window_image2.set_from_file(filename)
+					self.images_window_image2.set_from_file(filename)
 		except:
 			pass
 		finally:
