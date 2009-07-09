@@ -334,6 +334,7 @@ class Gui(threading.Thread):
 		self.images_window.connect("delete_event", self.on_images_window_delete_event)
 		self.about_toolbutton.connect("clicked", self.on_about_toolbutton_clicked)
 		self.about_dialog.connect("response", self.on_about_dialog_response)
+		self.about_dialog.connect("delete-event", self.on_about_dialog_response)
 		self.list_treeview.get_selection().connect("changed", self.on_list_treeview_selection_changed)
 		self.list_treeview.connect("button-press-event", self.on_list_treeview_button_press_event)
 		self.list_treeview_popup_extract_menuitem.connect("activate", self.on_list_treeview_popup_extract_menuitem_activate)
@@ -1443,13 +1444,14 @@ class Gui(threading.Thread):
 		""" Show the about dialog """
 		if self.quitting:
 			return
-		self.about_dialog.run()
+		self.about_dialog.show()
 	
 	def on_about_dialog_response(self, dialog, response_id):
 		""" Hide the about dialog """
 		if self.quitting:
-			return
+			return True
 		dialog.hide()
+		return True
 	
 	### General functions
 	
