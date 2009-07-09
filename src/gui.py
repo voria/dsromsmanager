@@ -260,7 +260,7 @@ class Gui(threading.Thread):
 		self.checks = []
 		image = gtk.Image()
 		self.checks.append(image.render_icon(gtk.STOCK_NO, gtk.ICON_SIZE_MENU))
-		self.checks.append(image.render_icon(gtk.STOCK_OK, gtk.ICON_SIZE_MENU))
+		self.checks.append(image.render_icon(gtk.STOCK_YES, gtk.ICON_SIZE_MENU))
 		self.checks.append(image.render_icon(gtk.STOCK_CONVERT, gtk.ICON_SIZE_MENU))
 		
 		# Setup all needed stuff for the main list treeview
