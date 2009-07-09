@@ -744,7 +744,7 @@ class Gui(threading.Thread):
 		if self.images_resize_rate != 1: # Use a normal size for title on small screens
 			self.info_title_label.set_markup("<span weight=\"bold\">" + title + "</span>")
 		else:
-			self.info_title_label.set_markup("<span size=\"x-large\" weight=\"bold\">" + title + "</span>")
+			self.info_title_label.set_markup("<span size=\"large\" weight=\"bold\">" + title + "</span>")
 		self.info_save_label.set_text(game[GAME_SAVE_TYPE])
 		size = game[GAME_ROM_SIZE] / 1048576
 		self.info_size_label.set_text(str(size) + " MB")
