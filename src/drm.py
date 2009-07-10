@@ -30,7 +30,11 @@ from downloaders import DatDownloader
 from dat import *
 from db import *
 
-if sys.version_info[0] != 2 or sys.version_info[1] < 6:
+try:
+	if sys.version_info[0] != 2 or sys.version_info[1] < 6:
+		print "This application requires at least Python 2.6 to run."
+		sys.exit()
+except AttributeError:
 	print "This application requires at least Python 2.6 to run."
 	sys.exit()
 
