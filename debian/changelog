@@ -1,3 +1,10 @@
+drm (1.0~rc2) jaunty; urgency=low
+
+  * Remove redundant files while scanning roms in a try statement.
+  * Check for python >=2.6 at startup.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sat, 11 Jul 2009 01:53:58 +0200
+
 drm (1.0~rc1) jaunty; urgency=low
 
   * Make the splash screen centered on screen, not on parent window.
