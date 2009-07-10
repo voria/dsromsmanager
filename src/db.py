@@ -16,14 +16,8 @@
 # See the GNU General Public License for more details.
 # <http://www.gnu.org/licenses/gpl.txt>
 
-try:
-	import sqlite3
-except:
-	print "This application requires at least Python 2.5 to run."
-	import sys
-	sys.exit(1)
-
 import os
+import sqlite3
 
 CREATE_GAMES_TABLE_QUERY = """CREATE TABLE IF NOT EXISTS games (
 							image_number TEXT,

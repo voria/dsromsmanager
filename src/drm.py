@@ -17,6 +17,7 @@
 # <http://www.gnu.org/licenses/gpl.txt>
 
 import os
+import sys
 import threading
 
 import locale, gettext
@@ -28,6 +29,10 @@ from gui import *
 from downloaders import DatDownloader
 from dat import *
 from db import *
+
+if sys.version_info[0] != 2 or sys.version_info[1] < 6:
+	print "This application requires at least Python 2.6 to run."
+	sys.exit()
 
 class Main(threading.Thread):
 	def __init__(self):
