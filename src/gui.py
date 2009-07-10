@@ -1959,9 +1959,12 @@ class Gui(threading.Thread):
 							shutil.move(file, new_roms_path)
 						except:
 							# Some kind of error. Well, redundant file anyway, remove it
-							os.remove(file)
-							message = _("'%s' was redundant. Deleted.") % file
-							self.show_info_dialog(message, use_threads)
+							try:
+								os.remove(file)
+								message = _("'%s' was redundant. Deleted.") % file
+								self.show_info_dialog(message, use_threads)
+							except:
+								pass
 		
 		if scan_archives and os.path.exists(roms_path):
 			# recursively check games in 'roms_path' directory.
@@ -2007,18 +2010,24 @@ class Gui(threading.Thread):
 											shutil.move(file, unknown_roms_path)
 										except:
 											# Some kind of error. Well, redundant file anyway, remove it
-											os.remove(file)
-											message = _("'%s' was redundant. Deleted.") % file
-											self.show_info_dialog(message, use_threads)
+											try:
+												os.remove(file)
+												message = _("'%s' was redundant. Deleted.") % file
+												self.show_info_dialog(message, use_threads)
+											except:
+												pass
 						else: # crc == None or crc not in self.checksums
 							if os.path.exists(unknown_roms_path) and os.access(unknown_roms_path, os.W_OK):
 								try:
 									shutil.move(file, unknown_roms_path)
 								except:
 									# Some kind of error. Well, redundant file anyway, remove it
-									os.remove(file)
-									message = _("'%s' was redundant. Deleted.") % file
-									self.show_info_dialog(message, use_threads)
+									try:
+										os.remove(file)
+										message = _("'%s' was redundant. Deleted.") % file
+										self.show_info_dialog(message, use_threads)
+									except:
+										pass
 		
 		if scan_archives and os.path.exists(new_roms_path) and new_roms_path != roms_path:
 			# check games in 'new_roms_path' directory.
@@ -2051,18 +2060,24 @@ class Gui(threading.Thread):
 									shutil.move(file, unknown_roms_path)
 								except:
 									# Some kind of error. Well, redundant file anyway, remove it
-									os.remove(file)
-									message = _("'%s' was redundant. Deleted.") % file
-									self.show_info_dialog(message, use_threads)
+									try:
+										os.remove(file)
+										message = _("'%s' was redundant. Deleted.") % file
+										self.show_info_dialog(message, use_threads)
+									except:
+										pass
 				else: # crc == None or crc not in self.checksums
 					if os.path.exists(unknown_roms_path) and os.access(unknown_roms_path, os.W_OK):
 						try:
 							shutil.move(file, unknown_roms_path)
 						except:
 							# Some kind of error. Well, redundant file anyway, remove it
-							os.remove(file)
-							message = _("'%s' was redundant. Deleted.") % file
-							self.show_info_dialog(message, use_threads)		
+							try:
+								os.remove(file)
+								message = _("'%s' was redundant. Deleted.") % file
+								self.show_info_dialog(message, use_threads)
+							except:
+								pass		
 		
 		self.update_statusbar("Games", _("Loading games list..."), use_threads)
 		
