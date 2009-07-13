@@ -73,6 +73,8 @@ class Dat():
 			info.append(g.get_comment())
 			info.append(g.get_duplicate_id())
 			db.add_game(info)
+		# Close the DAT file
+		dat.unlink()
 		# Save the newly create database on disk
 		db.save_as(DB_FILE)
 		# Close connection
