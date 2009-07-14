@@ -1,3 +1,16 @@
+drm (1.0~rc3) jaunty; urgency=low
+
+  * Close the DAT file when it's no more needed.
+  * Set options_trim_roms_details_checkbutton insensitive if
+    options_trim_roms_checkbutton is inactive when opening options dialog.
+  * Align options_trim_roms_details_checkbutton with all the other options.
+  * Destroy options dialog, images window and about dialog with
+    parent (main window).
+  * Do not show about dialog in the task.
+  * Update strings and translations.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 15 Jul 2009 00:40:20 +0200
+
 drm (1.0~rc2) jaunty; urgency=low
 
   * Remove redundant files while scanning roms in a try statement.
