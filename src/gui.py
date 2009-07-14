@@ -1252,7 +1252,12 @@ class Gui(threading.Thread):
 			self.options_trim_roms_details_checkbutton.set_sensitive(False)
 		else: # 'trim' available
 			self.options_trim_roms_checkbutton.set_sensitive(True)
+		
+		# Disable/enable 'show trim details' according to 'trim' checkbutton state
+		if self.options_trim_roms_checkbutton.get_active():
 			self.options_trim_roms_details_checkbutton.set_sensitive(True) 
+		else:
+			self.options_trim_roms_details_checkbutton.set_sensitive(False) 
 		
 		roms_path = config.get_option("roms_path")
 		if not os.path.exists(roms_path):
