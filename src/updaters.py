@@ -88,11 +88,14 @@ class DatUpdater(threading.Thread):
 					# Deactivate all widgets
 					self.gui.deactivate_widgets(True)
 					# Rename old DAT file, if it exists yet
-					backup = DAT_NAME + ".old"
+					DAT_BKP = DAT_NAME + ".old"
 					try:
-						shutil.move(DAT_NAME, backup)
+						shutil.move(DAT_NAME, DAT_BKP)
 					except:
 						pass
+					# Rename old database
+					DB_BKP = DB_FILE + ".old"
+					shutil.move(DB_FILE, DB_BKP)
 					# Download new DAT file
 					datdownloader = DatDownloader(self.gui)
 					datdownloader.start()
@@ -105,8 +108,9 @@ class DatUpdater(threading.Thread):
 							datdownloader.start()
 							datdownloader.join()
 						else:
-							shutil.move(backup, DAT_NAME)
-							message = _("Previous DAT file has been restored.")
+							shutil.move(DAT_BKP, DAT_NAME)
+							shutil.move(DB_BKP, DB_FILE)
+							message = _("Previous DAT file and database have been restored.")
 							self.gui.show_info_dialog(message, True)
 							return
 					# Now we have the DAT file
@@ -116,21 +120,23 @@ class DatUpdater(threading.Thread):
 					except: # something goes wrong while loading the new DAT file
 						# remove the problematic DAT file
 						os.remove(DAT_NAME)
-						if os.path.exists(backup): # restore backup if we have it
+						# restore old DAT file
+						if os.path.exists(DAT_BKP):
 							message = _("Error while loading the new DAT file. The old one will be restored.")
 							self.gui.show_error_dialog(message, True)
-							shutil.move(backup, DAT_NAME)
-							self.gui.update_statusbar("DatUpdater", _("Reloading the old DAT file and creating database..."), True)
-							dat = Dat(DAT_NAME)
+							shutil.move(DAT_BKP, DAT_NAME)
+							self.gui.update_statusbar("DatUpdater", _("Reloading the old DAT file and database..."), True)
 						else:
 							message = _("Error while loading the new DAT file!")
 							self.gui.show_error_dialog(message, True)
+						# restore  old database
+						if os.path.exists(DB_BKP):
+							shutil.move(DB_BKP, DB_FILE)
+						else: # DB backup not found, recreate it
+							dat = Dat(DAT_NAME)
 							
 					self.gui.update_statusbar("DatUpdater", _("Database created."), True)
-					if self.autorescan_archives:
-						self.gui.add_games(scan_anyway = True, use_threads = True)
-					else:
-						self.gui.add_games(scan_anyway = False, use_threads = True)
+					self.gui.add_games(scan_anyway = self.autorescan_archives, use_threads = True)
 				else:
 					self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date to the latest version."), True)
 			except:

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.3\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-15 00:28+0200\n"
-"PO-Revision-Date: 2009-07-15 00:28+0200\n"
+"POT-Creation-Date: 2009-07-20 21:57+0200\n"
+"PO-Revision-Date: 2009-07-20 21:53+0200\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr ""
 "\n"
 "Verrà scaricato un nuovo file DAT, e il database verrà ricreato."
 
-#: ../src/drm.py:81 ../src/updaters.py:102
+#: ../src/drm.py:81 ../src/updaters.py:105
 msgid "Unable to download DAT file. Retry?"
 msgstr "Impossibile scaricare il file DAT. Riprovare?"
 
@@ -90,7 +90,7 @@ msgstr "Impossibile scaricare il file DAT. Riprovare?"
 msgid "Loading DAT file and creating database..."
 msgstr "Caricamento del file DAT e creazione del database in corso..."
 
-#: ../src/drm.py:93 ../src/updaters.py:129
+#: ../src/drm.py:93 ../src/updaters.py:138
 msgid "Database created."
 msgstr "Database creato."
 
@@ -378,7 +378,7 @@ msgid "Waiting while the current archive rebuild is completed..."
 msgstr ""
 "In attesa che la ricostruzione dell'archivio corrente sia completata..."
 
-#: ../src/gui.py:1259
+#: ../src/gui.py:1265
 msgid ""
 "Current 'Roms' path does not exist.\n"
 "The default path will be used."
@@ -386,7 +386,7 @@ msgstr ""
 "Il percorso 'Roms' corrente non esiste.\n"
 "Verrà utilizzato il percorso di default."
 
-#: ../src/gui.py:1265
+#: ../src/gui.py:1271
 msgid ""
 "Current 'Unknown roms' path does not exist.\n"
 "The default path will be used."
@@ -394,7 +394,7 @@ msgstr ""
 "Il percorso 'Roms sconosciute' corrente non esiste.\n"
 "Verrà utilizzato il percorso di default."
 
-#: ../src/gui.py:1271
+#: ../src/gui.py:1277
 msgid ""
 "Current 'New roms' path does not exist.\n"
 "The default path will be used."
@@ -402,7 +402,7 @@ msgstr ""
 "Il percorso 'Nuove roms' corrente non esiste.\n"
 "Verrà utilizzato il percorso di default."
 
-#: ../src/gui.py:1277
+#: ../src/gui.py:1283
 msgid ""
 "Current 'Images' path does not exist.\n"
 "The default path will be used."
@@ -410,13 +410,13 @@ msgstr ""
 "Il percorso 'Immagini' corrente non esiste.\n"
 "Verrà utilizzato il percorso di default."
 
-#: ../src/gui.py:1312
+#: ../src/gui.py:1318
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Roms' path, but it "
 "can't be used."
 msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Roms', ma non può essere utilizzata."
 
-#: ../src/gui.py:1313
+#: ../src/gui.py:1319
 msgid ""
 "\n"
 "\n"
@@ -426,13 +426,13 @@ msgstr ""
 "\n"
 "Il percorso 'Roms' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1317
+#: ../src/gui.py:1323
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Unknown roms' path, "
 "but it can't be used."
 msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Roms sconosciute', ma non può essere utilizzata."
 
-#: ../src/gui.py:1318
+#: ../src/gui.py:1324
 msgid ""
 "\n"
 "\n"
@@ -442,13 +442,13 @@ msgstr ""
 "\n"
 "Il percorso 'Roms sconosciute' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1322
+#: ../src/gui.py:1328
 msgid ""
 "'DsRomsManager' working directory has been selected as 'New roms' path, but "
 "it can't be used."
 msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Nuove roms', ma non può essere utilizzata."
 
-#: ../src/gui.py:1323
+#: ../src/gui.py:1329
 msgid ""
 "\n"
 "\n"
@@ -458,11 +458,11 @@ msgstr ""
 "\n"
 "Il percorso 'Nuove roms' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1327
+#: ../src/gui.py:1333
 msgid "'Unknown roms' path can't be the same as 'Roms' or 'New roms' paths."
 msgstr "Il percorso 'Roms sconosciute' non può essere uguale ai percorsi 'Roms' o 'Nuove roms'."
 
-#: ../src/gui.py:1328 ../src/gui.py:1338 ../src/gui.py:1343
+#: ../src/gui.py:1334 ../src/gui.py:1344 ../src/gui.py:1349
 msgid ""
 "\n"
 "\n"
@@ -472,13 +472,13 @@ msgstr ""
 "\n"
 "Selezionare un percorso diverso."
 
-#: ../src/gui.py:1332
+#: ../src/gui.py:1338
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Images' path, but it "
 "can't be used."
 msgstr "E' stata selezionata la directory di lavoro 'DsRomsManager' come percorso 'Immagini', ma non può essere utilizzata."
 
-#: ../src/gui.py:1333
+#: ../src/gui.py:1339
 msgid ""
 "\n"
 "\n"
@@ -488,20 +488,20 @@ msgstr ""
 "\n"
 "Il percorso 'Immagini' verrà ripristinato al suo valore di default."
 
-#: ../src/gui.py:1337
+#: ../src/gui.py:1343
 msgid "'Images' path can't be the same as 'Roms' path."
 msgstr "Il percorso 'Immagini' non può essere uguale al percorso 'Roms'."
 
-#: ../src/gui.py:1342
+#: ../src/gui.py:1348
 msgid "Write permissions are not granted for the current 'Extract in' path."
 msgstr ""
 "Non si hanno i permessi di scrittura per il percorso 'Estrai in' corrente."
 
-#: ../src/gui.py:1395
+#: ../src/gui.py:1401
 msgid "'Images' path has changed."
 msgstr "Il percorso delle immagini è stato cambiato."
 
-#: ../src/gui.py:1396
+#: ../src/gui.py:1402
 msgid ""
 "\n"
 "\n"
@@ -511,11 +511,11 @@ msgstr ""
 "\n"
 "Il database verrà aggiornato con il nuovo percorso."
 
-#: ../src/gui.py:1410
+#: ../src/gui.py:1416
 msgid "Roms paths have changed."
 msgstr "Il percorso delle roms è stato cambiato."
 
-#: ../src/gui.py:1411
+#: ../src/gui.py:1417
 msgid ""
 "\n"
 "\n"
@@ -525,75 +525,75 @@ msgstr ""
 "\n"
 "La lista dei giochi verrà ricaricata."
 
-#: ../src/gui.py:1536 drm.glade.h:23
+#: ../src/gui.py:1542 drm.glade.h:23
 msgid "Images"
 msgstr "Immagini"
 
-#: ../src/gui.py:1607
+#: ../src/gui.py:1613
 msgid "_No to all"
 msgstr "_No a tutti"
 
-#: ../src/gui.py:1617
+#: ../src/gui.py:1623
 msgid "_Yes to all"
 msgstr "_Sì a tutti"
 
-#: ../src/gui.py:1677
+#: ../src/gui.py:1683
 #, python-format
 msgid "%d game shown"
 msgstr "%d gioco visualizzato"
 
-#: ../src/gui.py:1679
+#: ../src/gui.py:1685
 #, python-format
 msgid "%d games shown"
 msgstr "%d giochi visualizzati"
 
-#: ../src/gui.py:1681
+#: ../src/gui.py:1687
 #, python-format
 msgid " - %d available"
 msgstr " - %d disponibili"
 
-#: ../src/gui.py:1683
+#: ../src/gui.py:1689
 #, python-format
 msgid " - %d to rebuild"
 msgstr " - %d da ricostruire"
 
-#: ../src/gui.py:1685
+#: ../src/gui.py:1691
 #, python-format
 msgid " - %d not available"
 msgstr " - %d non disponibili"
 
-#: ../src/gui.py:1687
+#: ../src/gui.py:1693
 msgid "No games shown"
 msgstr "Nessun gioco visualizzato"
 
-#: ../src/gui.py:1837 ../src/gui.py:1838
+#: ../src/gui.py:1843 ../src/gui.py:1844
 msgid "Stop the download process."
 msgstr "Ferma il processo di download."
 
-#: ../src/gui.py:1859 ../src/gui.py:1860
+#: ../src/gui.py:1865 ../src/gui.py:1866
 msgid "Stop the rebuild process."
 msgstr "Ferma il processo di ricostruzione."
 
-#: ../src/gui.py:1920
+#: ../src/gui.py:1926
 msgid "Scanning roms on disk..."
 msgstr "Scansione delle roms su disco in corso..."
 
-#: ../src/gui.py:1964 ../src/gui.py:2015 ../src/gui.py:2027 ../src/gui.py:2065
-#: ../src/gui.py:2077
+#: ../src/gui.py:1970 ../src/gui.py:2021 ../src/gui.py:2033 ../src/gui.py:2071
+#: ../src/gui.py:2083
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr "'%s' era ridondante. Eliminato."
 
-#: ../src/gui.py:2003 ../src/gui.py:2053
+#: ../src/gui.py:2009 ../src/gui.py:2059
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr "Il file '%s' è un duplicato. Eliminare?"
 
-#: ../src/gui.py:2082
+#: ../src/gui.py:2088
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:2155
+#: ../src/gui.py:2161
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr "%d giochi caricati correttamente."
@@ -615,32 +615,31 @@ msgstr "Ricerca di un nuovo file DAT in corso..."
 msgid "New DAT file available!"
 msgstr "Nuovo file DAT disponibile!"
 
-#: ../src/updaters.py:109
-msgid "Previous DAT file has been restored."
-msgstr "Il file DAT precedente è stato ripristinato."
-
 #: ../src/updaters.py:113
+msgid "Previous DAT file and database have been restored."
+msgstr "Il file DAT e il database precedenti sono stati ripristinati."
+
+#: ../src/updaters.py:117
 msgid "Loading the new DAT file and creating database..."
 msgstr "Caricamento del nuovo file DAT e creazione del database in corso..."
 
-#: ../src/updaters.py:120
+#: ../src/updaters.py:125
 msgid "Error while loading the new DAT file. The old one will be restored."
 msgstr "Errore durante il caricamento del nuovo file DAT. Il vecchio file verrà ripristinato."
 
-#: ../src/updaters.py:123
-msgid "Reloading the old DAT file and creating database..."
-msgstr ""
-"Ricaricamento del vecchio file DAT e creazione del database in corso..."
+#: ../src/updaters.py:128
+msgid "Reloading the old DAT file and database..."
+msgstr "Ricaricamento del vecchio file DAT e del database in corso..."
 
-#: ../src/updaters.py:126
+#: ../src/updaters.py:130
 msgid "Error while loading the new DAT file!"
 msgstr "Errore durante il caricamento del nuovo file DAT!"
 
-#: ../src/updaters.py:135
+#: ../src/updaters.py:141
 msgid "DAT file is already up to date to the latest version."
 msgstr "Il file DAT è già aggiornato all'ultima versione."
 
-#: ../src/updaters.py:137
+#: ../src/updaters.py:143
 msgid "Can't download DAT version file!"
 msgstr "Non riesco a scaricare il file di controllo versione del DAT!"
 
