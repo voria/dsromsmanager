@@ -27,20 +27,29 @@ class Game():
 		self.release_number = infos.getElementsByTagName("releaseNumber")[0].firstChild.data
 		# Make sure the release number is 4-digit
 		while len(self.release_number) < 4:
-			self.release_number = "0" + self.release_number 
+			self.release_number = "0" + self.release_number
 		self.title = infos.getElementsByTagName("title")[0].firstChild.data
-		self.save_type = infos.getElementsByTagName("saveType")[0].firstChild.data
+		try:
+			self.save_type = infos.getElementsByTagName("saveType")[0].firstChild.data
+		except:
+			self.save_type = "---"
 		self.rom_size = int(infos.getElementsByTagName("romSize")[0].firstChild.data)
-		self.publisher = infos.getElementsByTagName("publisher")[0].firstChild.data
+		try:
+			self.publisher = infos.getElementsByTagName("publisher")[0].firstChild.data
+		except:
+			self.publisher = "---"
 		self.location = int(infos.getElementsByTagName("location")[0].firstChild.data)
-		self.source_rom = infos.getElementsByTagName("sourceRom")[0].firstChild.data
+		try:
+			self.source_rom = infos.getElementsByTagName("sourceRom")[0].firstChild.data
+		except:
+			self.source_rom = "---"
 		self.language = self.__dec2bin(int(infos.getElementsByTagName("language")[0].firstChild.data))
 		self.language = self.language.rjust(len(langs), "0")
 		self.language = self.language[::-1]
 		self.rom_crc = infos.getElementsByTagName("romCRC")[0].firstChild.data.upper()
 		self.im1_crc = infos.getElementsByTagName("im1CRC")[0].firstChild.data.upper()
 		self.im2_crc = infos.getElementsByTagName("im2CRC")[0].firstChild.data.upper()
-		try: # Comment can be empty
+		try:
 			self.comment = infos.getElementsByTagName("comment")[0].firstChild.data
 		except:
 			self.comment = "---"
