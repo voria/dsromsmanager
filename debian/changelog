@@ -1,3 +1,13 @@
+drm (1.0~rc4) jaunty; urgency=low
+
+  * Correctly set sensitiveness for options_trim_roms checkbuttons.
+  * Make a backup for the old DB too, when updating DAT file.
+    If something goes wrong, restore both the old DAT file and database.
+  * Do not fail while loading DAT file if a game's info is missing.
+  * Update strings and translations.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 21 Jul 2009 14:32:03 +0200
+
 drm (1.0~rc3) jaunty; urgency=low
 
   * Close the DAT file when it's no more needed.
