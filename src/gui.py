@@ -1037,6 +1037,8 @@ class Gui(threading.Thread):
 		buttons = [] # buttons that need to be disabled while updating
 		buttons.append(self.dat_update_toolbutton)
 		buttons.append(self.dat_update_menuitem)
+		buttons.append(self.rescan_roms_archives_toolbutton)
+		buttons.append(self.rescan_roms_archives_menuitem)
 		
 		# Check if we have to rescan roms archives after update
 		rescan = config.get_option("autoscan_archives_at_datupdate")		
