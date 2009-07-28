@@ -1,3 +1,9 @@
+drm (1.0~rc5) jaunty; urgency=low
+
+   * Immediately disable rescan_roms buttons when checking for a new DAT file. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 28 Jul 2009 21:37:57 +0200
+
 drm (1.0~rc4) jaunty; urgency=low
 
   * Correctly set sensitiveness for options_trim_roms checkbuttons.
