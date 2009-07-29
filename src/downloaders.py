@@ -22,7 +22,7 @@ import threading
 import gettext
 _ = gettext.gettext
 
-from urllib2 import urlopen, HTTPError
+from urllib2 import urlopen
 from zipfile import ZipFile
 
 from globals import *
@@ -91,7 +91,7 @@ class ImagesDownloader(threading.Thread):
 				for data in input:
 					output.write(data)
 				output.close()
-			except HTTPError:
+			except:
 				self.gui.update_statusbar("ImageDownloader",
 								_("Error while downloading image 1 for '%s': File not found.") % self.fullinfo, True)
 			else:
@@ -104,7 +104,7 @@ class ImagesDownloader(threading.Thread):
 				for data in input:
 					output.write(data)
 				output.close()
-			except HTTPError:
+			except:
 				self.gui.update_statusbar("ImageDownloader",
 								_("Error while downloading image 2 for '%s': File not found.") % self.fullinfo, True)
 			else:
@@ -164,7 +164,7 @@ class AllImagesDownloader(threading.Thread):
 					for data in input:
 						output.write(data)
 					output.close()
-				except HTTPError:
+				except:
 					pass
 
 			if not os.path.exists(img2):
