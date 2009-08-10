@@ -1,3 +1,9 @@
+drm (1.0) jaunty; urgency=low
+
+  * Handle all exceptions while downloading images. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 11 Aug 2009 01:22:56 +0200
+
 drm (1.0~rc5) jaunty; urgency=low
 
    * Immediately disable rescan_roms buttons when checking for a new DAT file. 
