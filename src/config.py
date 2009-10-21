@@ -28,6 +28,7 @@ DEFAULT_CFG_SECTION = "Main"
 DEFAULT_CHECK_IMAGES_CRC = False
 DEFAULT_AUTOSCAN_ARCHIVES_AT_START = True
 DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE = True
+DEFAULT_SCAN_FOR_NEW_ARCHIVES_ONLY = False
 DEFAULT_CLEAR_FILTERS = True
 DEFAULT_TRIM_ROMS = False
 DEFAULT_SHOW_TRIM_DETAILS = False
@@ -47,6 +48,7 @@ DEFAULT_CFG_FILE = "[" + DEFAULT_CFG_SECTION + "]"
 DEFAULT_CFG_FILE += "\ncheck_images_crc = " + str(DEFAULT_CHECK_IMAGES_CRC)
 DEFAULT_CFG_FILE += "\nautoscan_archives_at_start = " + str(DEFAULT_AUTOSCAN_ARCHIVES_AT_START)
 DEFAULT_CFG_FILE += "\nautoscan_archives_at_datupdate = " + str(DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE)
+DEFAULT_CFG_FILE += "\nscan_for_new_archives_only = " + str(DEFAULT_SCAN_FOR_NEW_ARCHIVES_ONLY)
 DEFAULT_CFG_FILE += "\nclear_filters = " + str(DEFAULT_CLEAR_FILTERS)
 DEFAULT_CFG_FILE += "\ntrim_roms = " + str(DEFAULT_TRIM_ROMS)
 DEFAULT_CFG_FILE += "\nshow_trim_details = " + str(DEFAULT_SHOW_TRIM_DETAILS)
@@ -92,6 +94,11 @@ class Config():
         except NoOptionError:
             self.config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_datupdate", str(DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE))
             self.autoscan_archives_at_datupdate = DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE
+        try:
+        	self.scan_for_new_archives_only = self.config.getboolean(DEFAULT_CFG_SECTION, "scan_for_new_archives_only")
+        except NoOptionError:
+        	self.config.set(DEFAULT_CFG_SECTION, "scan_for_new_archives_only", str(DEFAULT_SCAN_FOR_NEW_ARCHIVES_ONLY))
+        	self.scan_for_new_archives_only = DEFAULT_SCAN_FOR_NEW_ARCHIVES_ONLY        	
         try:
             self.clear_filters = self.config.getboolean(DEFAULT_CFG_SECTION, "clear_filters")
         except NoOptionError:
@@ -175,6 +182,8 @@ class Config():
             return self.autoscan_archives_at_start
         if option == "autoscan_archives_at_datupdate":
             return self.autoscan_archives_at_datupdate
+        if option == "scan_for_new_archives_only":
+        	return self.scan_for_new_archives_only
         if option == "clear_filters":
             return self.clear_filters
         if option == "trim_roms":
@@ -212,6 +221,8 @@ class Config():
             return DEFAULT_AUTOSCAN_ARCHIVES_AT_START
         if option == "autoscan_archives_at_datupdate":
             return DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE
+        if option == "scan_for_new_archives_only":
+        	return DEFAULT_SCAN_FOR_NEW_ARCHIVES_ONLY
         if option == "clear_filters":
             return DEFAULT_CLEAR_FILTERS
         if option == "trim_roms":
@@ -249,6 +260,8 @@ class Config():
             self.autoscan_archives_at_start = value
         elif option == "autoscan_archives_at_datupdate":
             self.autoscan_archives_at_datupdate = value
+        elif option == "scan_for_new_archives_only":
+        	self.scan_for_new_archives_only = value
         elif option == "clear_filters":
             self.clear_filters = value
         elif option == "trim_roms":
@@ -287,6 +300,8 @@ class Config():
             self.autoscan_archives_at_start = DEFAULT_AUTOSCAN_ARCHIVES_AT_START
         elif option == "autoscan_archives_at_datupdate":
             self.autoscan_archives_at_datupdate = DEFAULT_AUTOSCAN_ARCHIVES_AT_DATUPDATE
+        elif option == "scan_for_new_archives_only":
+        	self.scan_for_new_archives_only = DEFAULT_SCAN_FOR_NEW_ARCHIVES_ONLY
         elif option == "clear_filters":
             self.clear_filters = DEFAULT_CLEAR_FILTERS
         elif option == "trim_roms":
@@ -333,6 +348,7 @@ class Config():
         config.set(DEFAULT_CFG_SECTION, "show_trim_details", str(self.show_trim_details))
         config.set(DEFAULT_CFG_SECTION, "trim_roms", str(self.trim_roms))
         config.set(DEFAULT_CFG_SECTION, "clear_filters", str(self.clear_filters))
+        config.set(DEFAULT_CFG_SECTION, "scan_for_new_archives_only", str(self.scan_for_new_archives_only))
         config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_datupdate", str(self.autoscan_archives_at_datupdate))
         config.set(DEFAULT_CFG_SECTION, "autoscan_archives_at_start", str(self.autoscan_archives_at_start))
         config.set(DEFAULT_CFG_SECTION, "check_images_crc", str(self.check_images_crc))

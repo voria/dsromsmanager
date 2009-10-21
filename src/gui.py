@@ -74,6 +74,7 @@ class Gui(threading.Thread):
 		self.options_check_images_crc_checkbutton = self.builder.get_object("options_check_images_crc_checkbutton")
 		self.options_autoscan_archives_at_start_checkbutton = self.builder.get_object("options_autoscan_archives_at_start_checkbutton")
 		self.options_autoscan_archives_at_datupdate_checkbutton = self.builder.get_object("options_autoscan_archives_at_datupdate_checkbutton")
+		self.options_scan_new_archives_only_checkbutton = self.builder.get_object("options_scan_new_archives_only_checkbutton")
 		self.options_clear_filters_checkbutton = self.builder.get_object("options_clear_filters_checkbutton")
 		self.options_trim_roms_checkbutton = self.builder.get_object("options_trim_roms_checkbutton")
 		self.options_trim_roms_details_checkbutton = self.builder.get_object("options_trim_roms_details_checkbutton")
@@ -1237,6 +1238,7 @@ class Gui(threading.Thread):
 		self.options_check_images_crc_checkbutton.set_active(config.get_option("check_images_crc"))
 		self.options_autoscan_archives_at_start_checkbutton.set_active(config.get_option("autoscan_archives_at_start"))
 		self.options_autoscan_archives_at_datupdate_checkbutton.set_active(config.get_option("autoscan_archives_at_datupdate"))
+		self.options_scan_new_archives_only_checkbutton.set_active(config.get_option("scan_for_new_archives_only"))
 		self.options_clear_filters_checkbutton.set_active(config.get_option("clear_filters"))
 		self.options_trim_roms_checkbutton.set_active(config.get_option("trim_roms"))
 		self.options_trim_roms_details_checkbutton.set_active(config.get_option("show_trim_details"))
@@ -1382,6 +1384,7 @@ class Gui(threading.Thread):
 			config.set_option("check_images_crc", self.options_check_images_crc_checkbutton.get_active())
 			config.set_option("autoscan_archives_at_start", self.options_autoscan_archives_at_start_checkbutton.get_active())
 			config.set_option("autoscan_archives_at_datupdate", self.options_autoscan_archives_at_datupdate_checkbutton.get_active())
+			config.set_option("scan_for_new_archives_only", self.options_scan_new_archives_only_checkbutton.get_active())
 			config.set_option("clear_filters", self.options_clear_filters_checkbutton.get_active())
 			config.set_option("trim_roms", self.options_trim_roms_checkbutton.get_active())
 			config.set_option("show_trim_details", self.options_trim_roms_details_checkbutton.get_active())
@@ -1974,7 +1977,9 @@ class Gui(threading.Thread):
 							except:
 								pass
 		
-		if scan_archives and os.path.exists(roms_path):
+		if scan_archives and os.path.exists(roms_path) and \
+		(config.get_option("scan_for_new_archives_only") == False or \
+		(config.get_option("scan_for_new_archives_only") == True and new_roms_path == roms_path)):
 			# recursively check games in 'roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory,
 			# duplicate roms are moved to 'unknown_roms_path' or deleted.

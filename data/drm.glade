@@ -1002,6 +1002,19 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </packing>
             </child>
             <child>
+              <object class="GtkCheckButton" id="options_scan_new_archives_only_checkbutton">
+                <property name="label" translatable="yes">Scan for new roms archives only</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="tooltip_text" translatable="yes">Scan the 'Unknown roms' and 'New roms' paths only for searching for new roms archives.</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkCheckButton" id="options_clear_filters_checkbutton">
                 <property name="label" translatable="yes">Clear all filters when the games list is reloaded</property>
                 <property name="visible">True</property>
@@ -1011,7 +1024,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
-                <property name="position">4</property>
+                <property name="position">5</property>
               </packing>
             </child>
             <child>
@@ -1026,7 +1039,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
-                <property name="position">5</property>
+                <property name="position">6</property>
               </packing>
             </child>
             <child>
@@ -1039,7 +1052,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
-                <property name="position">6</property>
+                <property name="position">7</property>
               </packing>
             </child>
             <child>
@@ -1048,7 +1061,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">7</property>
+                <property name="position">8</property>
               </packing>
             </child>
             <child>
@@ -1070,9 +1083,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
-                    <property name="use_preview_label">False</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1082,7 +1095,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">8</property>
+                <property name="position">9</property>
               </packing>
             </child>
             <child>
@@ -1104,9 +1117,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
-                    <property name="use_preview_label">False</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1116,7 +1129,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">9</property>
+                <property name="position">10</property>
               </packing>
             </child>
             <child>
@@ -1138,9 +1151,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_new_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
-                    <property name="use_preview_label">False</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1150,7 +1163,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">10</property>
+                <property name="position">11</property>
               </packing>
             </child>
             <child>
@@ -1159,7 +1172,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">11</property>
+                <property name="position">12</property>
               </packing>
             </child>
             <child>
@@ -1181,10 +1194,10 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
                     <property name="show_hidden">True</property>
-                    <property name="use_preview_label">False</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1194,7 +1207,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">12</property>
+                <property name="position">13</property>
               </packing>
             </child>
             <child>
@@ -1203,7 +1216,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">13</property>
+                <property name="position">14</property>
               </packing>
             </child>
             <child>
@@ -1225,9 +1238,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_extractin_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
-                    <property name="use_preview_label">False</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1237,7 +1250,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">14</property>
+                <property name="position">15</property>
               </packing>
             </child>
             <child>
@@ -1252,7 +1265,7 @@ Click here to enable the 'Extract in' path to be modified.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">15</property>
+                <property name="position">16</property>
               </packing>
             </child>
             <child>
@@ -1261,7 +1274,7 @@ Click here to enable the 'Extract in' path to be modified.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">16</property>
+                <property name="position">17</property>
               </packing>
             </child>
             <child>
@@ -1298,7 +1311,7 @@ Set an empty string to use the default URL.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">17</property>
+                <property name="position">18</property>
               </packing>
             </child>
             <child>
@@ -1307,7 +1320,7 @@ Set an empty string to use the default URL.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">18</property>
+                <property name="position">19</property>
               </packing>
             </child>
           </object>
