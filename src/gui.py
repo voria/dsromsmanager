@@ -159,7 +159,7 @@ class Gui(threading.Thread):
 		gtk.about_dialog_set_url_hook(about_dialog_url_clicked, None)
 		
 		# Load icon and create different sizes
-		icon = gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.svg"))
+		icon = gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
 		icon16 = icon.scale_simple(16, 16, gdk.INTERP_BILINEAR)
 		icon24 = icon.scale_simple(24, 24, gdk.INTERP_BILINEAR)
 		icon48 = icon.scale_simple(48, 48, gdk.INTERP_BILINEAR)
