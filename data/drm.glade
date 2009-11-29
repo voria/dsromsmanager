@@ -390,7 +390,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                       <object class="GtkHBox" id="info_title_hbox">
                         <property name="visible">True</property>
                         <child>
-                          <object class="GtkFixed" id="info_title_fixed">
+                          <object class="GtkFixed" id="info_title_fixed1">
                             <property name="visible">True</property>
                           </object>
                           <packing>
@@ -414,7 +414,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                           </packing>
                         </child>
                         <child>
-                          <object class="GtkFixed" id="info_title_fixed4">
+                          <object class="GtkFixed" id="info_title_fixed2">
                             <property name="visible">True</property>
                           </object>
                           <packing>
@@ -433,6 +433,14 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <property name="visible">True</property>
                             <property name="spacing">5</property>
                             <child>
+                              <object class="GtkFixed" id="info_location_fixed1">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkLabel" id="info_location_fixed_label">
                                 <property name="visible">True</property>
                                 <property name="label" translatable="yes">Location:</property>
@@ -441,7 +449,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">0</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -453,7 +461,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFixed" id="info_location_fixed2">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -467,6 +483,14 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <property name="visible">True</property>
                             <property name="spacing">5</property>
                             <child>
+                              <object class="GtkFixed" id="info_publisher_fixed1">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkLabel" id="info_publisher_fixed_label">
                                 <property name="visible">True</property>
                                 <property name="label" translatable="yes">Publisher:</property>
@@ -475,7 +499,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">0</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -487,7 +511,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFixed" id="info_publisher_fixed2">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -501,6 +533,14 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <property name="visible">True</property>
                             <property name="spacing">5</property>
                             <child>
+                              <object class="GtkFixed" id="info_source_fixed1">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkLabel" id="info_source_fixed_label">
                                 <property name="visible">True</property>
                                 <property name="label" translatable="yes">Source:</property>
@@ -509,7 +549,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">0</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -521,7 +561,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFixed" id="info_source_fixed2">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -535,6 +583,14 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <property name="visible">True</property>
                             <property name="spacing">5</property>
                             <child>
+                              <object class="GtkFixed" id="info_save_fixed1">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkLabel" id="info_save_fixed_label">
                                 <property name="visible">True</property>
                                 <property name="label" translatable="yes">Save:</property>
@@ -543,7 +599,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">0</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -555,7 +611,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFixed" id="info_save_fixed2">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -569,6 +633,14 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <property name="visible">True</property>
                             <property name="spacing">5</property>
                             <child>
+                              <object class="GtkFixed" id="info_size_fixed1">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkLabel" id="info_size_fixed_label">
                                 <property name="visible">True</property>
                                 <property name="label" translatable="yes">Size:</property>
@@ -577,7 +649,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">0</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -589,7 +661,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFixed" id="info_size_fixed2">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -603,6 +683,14 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <property name="visible">True</property>
                             <property name="spacing">5</property>
                             <child>
+                              <object class="GtkFixed" id="info_comment_fixed1">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkLabel" id="info_comment_fixed_label">
                                 <property name="visible">True</property>
                                 <property name="label" translatable="yes">Comment:</property>
@@ -610,7 +698,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="position">0</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -623,7 +711,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFixed" id="info_comment_fixed2">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -637,6 +733,14 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <property name="visible">True</property>
                             <property name="spacing">5</property>
                             <child>
+                              <object class="GtkFixed" id="info_crc_fixed1">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkLabel" id="info_crc_fixed_label">
                                 <property name="visible">True</property>
                                 <property name="label" translatable="yes">CRC:</property>
@@ -645,7 +749,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">0</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -657,7 +761,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFixed" id="info_crc_fixed2">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -671,6 +783,14 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <property name="visible">True</property>
                             <property name="spacing">5</property>
                             <child>
+                              <object class="GtkFixed" id="info_language_fixed1">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
+                            </child>
+                            <child>
                               <object class="GtkLabel" id="info_language_fixed_label">
                                 <property name="visible">True</property>
                                 <property name="label" translatable="yes">Language:</property>
@@ -679,7 +799,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               <packing>
                                 <property name="expand">False</property>
                                 <property name="fill">False</property>
-                                <property name="position">0</property>
+                                <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
@@ -692,7 +812,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
-                                <property name="position">1</property>
+                                <property name="position">2</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkFixed" id="info_language_fixed2">
+                                <property name="visible">True</property>
+                              </object>
+                              <packing>
+                                <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
@@ -1080,8 +1208,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1114,8 +1242,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1148,8 +1276,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkFileChooserButton" id="options_new_roms_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1190,10 +1318,10 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="show_hidden">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="action">select-folder</property>
+                    <property name="show_hidden">True</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
@@ -1268,8 +1396,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkFileChooserButton" id="options_extractin_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="use_preview_label">False</property>
-                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
+                    <property name="action">select-folder</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
