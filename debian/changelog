@@ -1,3 +1,10 @@
+drm (1.0.4~karmic) karmic; urgency=low
+
+  * Fix hpaned position restoring at startup.
+  * Show all messages windows in center of the screen. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 29 Nov 2009 18:27:24 +0000
+
 drm (1.0.3~karmic) karmic; urgency=low
 
   * Add a new option for images scaling.
