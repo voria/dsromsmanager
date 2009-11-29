@@ -47,8 +47,6 @@ vorione@gmail.com</property>
     <property name="visible">True</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">DsRomsManager</property>
-    <property name="default_width">1024</property>
-    <property name="default_height">768</property>
     <property name="gravity">center</property>
     <child>
       <object class="GtkVBox" id="main_vbox">
@@ -205,8 +203,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
           <object class="GtkHPaned" id="hpaned">
             <property name="visible">True</property>
             <property name="can_focus">True</property>
-            <property name="position">512</property>
-            <property name="position_set">True</property>
             <child>
               <object class="GtkVBox" id="left_vbox">
                 <property name="visible">True</property>
@@ -1083,8 +1079,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
@@ -1117,8 +1113,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
@@ -1151,8 +1147,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_new_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
@@ -1195,8 +1191,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
                     <property name="show_hidden">True</property>
-                    <property name="action">select-folder</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
@@ -1271,8 +1267,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_extractin_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="action">select-folder</property>
                     <property name="use_preview_label">False</property>
+                    <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>

@@ -60,6 +60,7 @@ class Gui(threading.Thread):
 		self.builder.add_from_file(os.path.join(DATA_DIR, "drm.glade"))
 		
 		self.main_window = self.builder.get_object("main_window")
+		self.hpaned = self.builder.get_object("hpaned")
 		self.images_window = self.builder.get_object("images_window")
 		self.options_dialog = self.builder.get_object("options_dialog")
 		self.dat_update_toolbutton = self.builder.get_object("dat_update_toolbutton")
@@ -149,6 +150,10 @@ class Gui(threading.Thread):
 		self.about_dialog.set_version(APP_VERSION)
 		self.main_window_visible = True
 		
+		# Resize main window and set hpaned size
+		self.main_window.resize(config.get_option("window_width"), config.get_option("window_height"))
+		self.hpaned.set_position(config.get_option("paned_position"))
+				
 		# Enable click on website url in about dialog
 		def about_dialog_url_clicked(dialog, link, user_data):
 			pass
@@ -2214,6 +2219,11 @@ class Gui(threading.Thread):
 			return True
 		# Prepare for quitting
 		self.quitting = True
+		# Save last window size
+		size = self.main_window.get_size()
+		config.set_option("window_width", size[0])
+		config.set_option("window_height", size[1])
+		config.set_option("paned_position", self.hpaned.get_position())
 		# Save config file
 		config.save()
 		# Stop all threads
