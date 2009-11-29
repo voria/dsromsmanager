@@ -1,3 +1,12 @@
+drm (1.0.3~karmic) karmic; urgency=low
+
+  * Add a new option for images scaling.
+    The external images window can be shown only when size is <= 90%. 
+  * Restore the last size of main_window and hpaned at application startup.
+  * Set center position for all game infos in the right pane.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 29 Nov 2009 13:44:48 +0000
+
 drm (1.0.2~karmic) karmic; urgency=low
 
   * Change icon to .png format. It seems .svg support is not always available. 
