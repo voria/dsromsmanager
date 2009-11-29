@@ -136,13 +136,14 @@ class Gui(threading.Thread):
 		self.image1_frame_size = self.image1_frame.size_request()
 		self.image2_frame_size = self.image2_frame.size_request()
 		
-		# resize images frames
-		size_width = int(self.image1_frame_size[0] * self.images_resize_rate)
-		size_height = int(self.image1_frame_size[1] * self.images_resize_rate)
-		self.image1_frame.set_size_request(size_width, size_height)
-		size_width = int(self.image2_frame_size[0] * self.images_resize_rate)
-		size_height = int(self.image2_frame_size[1] * self.images_resize_rate)
-		self.image2_frame.set_size_request(size_width, size_height)
+		# resize images frames if needed
+		if self.images_resize_rate != 1:
+			size_width = int(self.image1_frame_size[0] * self.images_resize_rate)
+			size_height = int(self.image1_frame_size[1] * self.images_resize_rate)
+			self.image1_frame.set_size_request(size_width, size_height)
+			size_width = int(self.image2_frame_size[0] * self.images_resize_rate)
+			size_height = int(self.image2_frame_size[1] * self.images_resize_rate)
+			self.image2_frame.set_size_request(size_width, size_height)
 			
 		self.main_window.set_title(APP_NAME + " - " + APP_VERSION)
 		self.about_dialog.set_version(APP_VERSION)
@@ -341,7 +342,7 @@ class Gui(threading.Thread):
 		self.options_trim_roms_checkbutton.connect("toggled", self.on_options_trim_roms_checkbutton_toggled)
 		self.trim_details_window.connect("delete_event", self.on_trim_details_window_delete_event)
 		# We need signal id for the following signals, to block them when needed
-		if self.images_resize_rate != 1:
+		if self.images_resize_rate <= 0.9:
 			self.iwe_sid = self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
 			self.ie_sid = self.images_eventbox.connect("button-press-event", self.toggle_images_window)
 		else:
@@ -693,13 +694,14 @@ class Gui(threading.Thread):
 				self.images_window_image1.set_from_file(img1)
 				self.images_window_image2.set_from_file(img2)
 				pixbuf1 = gdk.pixbuf_new_from_file(img1)
-				pixbuf1_new_width = int(pixbuf1.get_width() * self.images_resize_rate)
-				pixbuf1_new_height = int(pixbuf1.get_height() * self.images_resize_rate)
-				pixbuf1 = pixbuf1.scale_simple(pixbuf1_new_width, pixbuf1_new_height, gdk.INTERP_BILINEAR)
 				pixbuf2 = gdk.pixbuf_new_from_file(img2)
-				pixbuf2_new_width = int(pixbuf2.get_width() * self.images_resize_rate)
-				pixbuf2_new_height = int(pixbuf2.get_height() * self.images_resize_rate)
-				pixbuf2 = pixbuf2.scale_simple(pixbuf2_new_width, pixbuf2_new_height, gdk.INTERP_BILINEAR)
+				if self.images_resize_rate != 1:
+					pixbuf1_new_width = int(pixbuf1.get_width() * self.images_resize_rate)
+					pixbuf1_new_height = int(pixbuf1.get_height() * self.images_resize_rate)
+					pixbuf1 = pixbuf1.scale_simple(pixbuf1_new_width, pixbuf1_new_height, gdk.INTERP_BILINEAR)
+					pixbuf2_new_width = int(pixbuf2.get_width() * self.images_resize_rate)
+					pixbuf2_new_height = int(pixbuf2.get_height() * self.images_resize_rate)
+					pixbuf2 = pixbuf2.scale_simple(pixbuf2_new_width, pixbuf2_new_height, gdk.INTERP_BILINEAR)
 				self.image1.set_from_pixbuf(pixbuf1)
 				self.image2.set_from_pixbuf(pixbuf2)
 			except:
@@ -721,7 +723,7 @@ class Gui(threading.Thread):
 			self.images_window_eventbox.disconnect(self.iwe_sid)
 		if self.ie_sid != None:
 			self.images_eventbox.disconnect(self.ie_sid)
-		if self.images_resize_rate != 1:
+		if self.images_resize_rate <= 0.9:
 			self.iwe_sid = self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
 			self.ie_sid = self.images_eventbox.connect("button-press-event", self.toggle_images_window, img1, img2)	
 				
@@ -753,7 +755,7 @@ class Gui(threading.Thread):
 		
 		# Show informations
 		title = game[GAME_FULLINFO].replace("&", "&amp;")
-		if self.images_resize_rate != 1: # Use a normal size for title
+		if self.images_resize_rate <= 0.9: # Use a normal size for title
 			self.info_title_label.set_markup("<span weight=\"bold\">" + title + "</span>")
 		else:
 			self.info_title_label.set_markup("<span size=\"large\" weight=\"bold\">" + title + "</span>")
@@ -1402,7 +1404,7 @@ class Gui(threading.Thread):
 				self.previous_selection_release_number = None
 				self.set_previous_treeview_cursor()
 				# Disable images events if not needed
-				if self.images_resize_rate == 1:
+				if self.images_resize_rate > 0.9:
 					if self.ie_sid != None:
 						self.images_eventbox.disconnect(self.ie_sid)
 						self.ie_sid = None
