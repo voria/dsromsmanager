@@ -150,9 +150,8 @@ class Gui(threading.Thread):
 		self.about_dialog.set_version(APP_VERSION)
 		self.main_window_visible = True
 		
-		# Resize main window and set hpaned size
+		# Resize main window
 		self.main_window.resize(config.get_option("window_width"), config.get_option("window_height"))
-		self.hpaned.set_position(config.get_option("paned_position"))
 				
 		# Enable click on website url in about dialog
 		def about_dialog_url_clicked(dialog, link, user_data):
@@ -172,7 +171,7 @@ class Gui(threading.Thread):
 			self.about_dialog.set_logo(icon48)
 		except:
 			pass
-		
+				
 		# Set icon for about_toolbutton
 		img = gtk.image_new_from_pixbuf(icon24)
 		img.show()
@@ -362,6 +361,7 @@ class Gui(threading.Thread):
 		self.gccc_sid = self.games_check_convert_checkbutton.connect("toggled", self.on_games_check_convert_checkbutton_toggled)
 		self.ite_sid = None # info_title_eventbox signal
 		
+		self.starting = True # Is application starting?
 		self.quitting = False # Are we quitting?
 		self.canexitnow = True # Can we exit now?
 		
@@ -2202,6 +2202,11 @@ class Gui(threading.Thread):
 		self.list_treeview.set_model(self.list_treeview_model)
 		if use_threads:
 			gdk.threads_leave()
+		
+		# Set back the hpaned position
+		if self.starting == True:
+			self.hpaned.set_position(config.get_option("paned_position"))
+			self.starting = False
 		
 		# Inform the user we have done
 		text = _("%d games loaded succesfully.") % games_number
