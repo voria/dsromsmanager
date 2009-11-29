@@ -83,6 +83,7 @@ class Gui(threading.Thread):
 		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
 		self.options_new_roms_path_filechooserbutton = self.builder.get_object("options_new_roms_path_filechooserbutton")
 		self.options_images_path_filechooserbutton = self.builder.get_object("options_images_path_filechooserbutton")
+		self.options_images_size_spinbutton = self.builder.get_object("options_images_size_spinbutton") 
 		self.options_extractin_path_hbox = self.builder.get_object("options_extractin_path_hbox")
 		self.options_extractin_path_filechooserbutton = self.builder.get_object("options_extractin_path_filechooserbutton")
 		self.options_extractin_path_enable_button = self.builder.get_object("options_extractin_path_enable_button")
@@ -130,23 +131,17 @@ class Gui(threading.Thread):
 		self.images_hbox = self.builder.get_object("images_hbox")
 		self.info_label_vbox = self.builder.get_object("info_label_vbox")
 		
-		# Get screen's vertical resolution and calculate the resize rate
-		screen_height = self.main_window.get_screen().get_height()
-		if screen_height <= 600:
-			self.images_resize_rate = 0.5 # 50% 
-		elif screen_height <= 800:
-			self.images_resize_rate = 0.75 # 75%
-		else:
-			self.images_resize_rate = 1 # 100 %
-				
+		# Get images resize rate and images frames original size
+		self.images_resize_rate = float(config.get_option("images_size")) / 100
+		self.image1_frame_size = self.image1_frame.size_request()
+		self.image2_frame_size = self.image2_frame.size_request()
+		
 		# resize images frames
-		size = self.image1_frame.size_request()
-		size_width = int(size[0] * self.images_resize_rate)
-		size_height = int(size[1] * self.images_resize_rate)
+		size_width = int(self.image1_frame_size[0] * self.images_resize_rate)
+		size_height = int(self.image1_frame_size[1] * self.images_resize_rate)
 		self.image1_frame.set_size_request(size_width, size_height)
-		size = self.image2_frame.size_request()
-		size_width = int(size[0] * self.images_resize_rate)
-		size_height = int(size[1] * self.images_resize_rate)
+		size_width = int(self.image2_frame_size[0] * self.images_resize_rate)
+		size_height = int(self.image2_frame_size[1] * self.images_resize_rate)
 		self.image2_frame.set_size_request(size_width, size_height)
 			
 		self.main_window.set_title(APP_NAME + " - " + APP_VERSION)
@@ -345,9 +340,13 @@ class Gui(threading.Thread):
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
 		self.options_trim_roms_checkbutton.connect("toggled", self.on_options_trim_roms_checkbutton_toggled)
 		self.trim_details_window.connect("delete_event", self.on_trim_details_window_delete_event)
-		if self.images_resize_rate != 1:
-			self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
 		# We need signal id for the following signals, to block them when needed
+		if self.images_resize_rate != 1:
+			self.iwe_sid = self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
+			self.ie_sid = self.images_eventbox.connect("button-press-event", self.toggle_images_window)
+		else:
+			self.iwe_sid = None
+			self.ie_sid = None
 		self.fne_sid = self.filter_name_entry.connect("changed", self.on_filter_triggered)
 		self.flocc_sid = self.filter_location_combobox.connect("changed", self.on_filter_triggered)
 		self.flanc_sid = self.filter_language_combobox.connect("changed", self.on_filter_triggered)
@@ -717,10 +716,15 @@ class Gui(threading.Thread):
 			self.threads.append(thread)
 			thread.start()
 		
-		# Connect signal on images_eventbox in needed
+		# Toggle signals on images_eventbox and images_window_eventbox, as needed
+		if self.iwe_sid != None:
+			self.images_window_eventbox.disconnect(self.iwe_sid)
+		if self.ie_sid != None:
+			self.images_eventbox.disconnect(self.ie_sid)
 		if self.images_resize_rate != 1:
-			self.images_eventbox.connect("button-press-event", self.toggle_images_window, img1, img2)
-			
+			self.iwe_sid = self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
+			self.ie_sid = self.images_eventbox.connect("button-press-event", self.toggle_images_window, img1, img2)	
+				
 		# Search for duplicates
 		duplicates_fullinfo = []
 		duplicates_relnum = []
@@ -749,7 +753,7 @@ class Gui(threading.Thread):
 		
 		# Show informations
 		title = game[GAME_FULLINFO].replace("&", "&amp;")
-		if self.images_resize_rate != 1: # Use a normal size for title on small screens
+		if self.images_resize_rate != 1: # Use a normal size for title
 			self.info_title_label.set_markup("<span weight=\"bold\">" + title + "</span>")
 		else:
 			self.info_title_label.set_markup("<span size=\"large\" weight=\"bold\">" + title + "</span>")
@@ -1288,6 +1292,8 @@ class Gui(threading.Thread):
 			images_path = config.get_option_default("images_path")
 		self.options_images_path_filechooserbutton.set_current_folder(images_path)
 		
+		self.options_images_size_spinbutton.set_value(config.get_option("images_size"))
+		
 		extractin_path = config.get_option("default_extract_directory")
 		if os.path.exists(extractin_path) and os.access(extractin_path, os.W_OK):
 			self.options_extractin_path_enable_button.hide()
@@ -1377,6 +1383,32 @@ class Gui(threading.Thread):
 				dbupdate = True
 			# Save new images path
 			config.set_option("images_path", images_path_new)
+			# Check if images size is changed
+			images_size_old = config.get_option("images_size")
+			images_size_new = self.options_images_size_spinbutton.get_value_as_int()
+			# Save new images size
+			config.set_option("images_size", images_size_new)
+			if images_size_old != images_size_new:
+				self.images_resize_rate = float(images_size_new) / 100
+				# resize images frames
+				size_width = int(self.image1_frame_size[0] * self.images_resize_rate)
+				size_height = int(self.image1_frame_size[1] * self.images_resize_rate)
+				self.image1_frame.set_size_request(size_width, size_height)
+				size_width = int(self.image2_frame_size[0] * self.images_resize_rate)
+				size_height = int(self.image2_frame_size[1] * self.images_resize_rate)
+				self.image2_frame.set_size_request(size_width, size_height)
+				# Clear current selection in treeview and hide infos
+				self.list_treeview.get_selection().unselect_all()
+				self.previous_selection_release_number = None
+				self.set_previous_treeview_cursor()
+				# Disable images events if not needed
+				if self.images_resize_rate == 1:
+					if self.ie_sid != None:
+						self.images_eventbox.disconnect(self.ie_sid)
+						self.ie_sid = None
+					if self.iwe_sid != None:
+						self.images_window_eventbox.disconnect(self.iwe_sid)
+						self.iwe_sid = None
 			# Save extract in path
 			if extractin_path_new != None:
 				config.set_option("default_extract_directory", extractin_path_new)
@@ -1537,9 +1569,9 @@ class Gui(threading.Thread):
 			gdk.threads_leave()
 		self.set_previous_treeview_cursor(use_threads = use_threads)
 	
-	def toggle_images_window(self, widget, event, img1 = None, img2 = None):
+	def toggle_images_window(self, widget = None, event = None, img1 = None, img2 = None):
 		""" When mouse button 1 is clicked, toggle images_window """
-		if self.quitting or event.button != 1:
+		if self.quitting or event == None or event.button != 1:
 			return
 		if img1 == None and img2 == None:
 			self.images_window.hide()

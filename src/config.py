@@ -39,6 +39,7 @@ DEFAULT_ROMS_PATH = ROMS_DIR
 DEFAULT_UNKNOWN_ROMS_PATH = UNKNOWN_ROMS_DIR
 DEFAULT_NEW_ROMS_PATH = DEFAULT_ROMS_PATH
 DEFAULT_IMAGES_PATH = IMG_DIR
+DEFAULT_IMAGES_SIZE = 100
 DEFAULT_DEFAULT_EXTRACT_DIRECTORY = os.path.expandvars("$HOME")
 DEFAULT_SHOW_AVAILABLE_GAMES = True
 DEFAULT_SHOW_NOT_AVAILABLE_GAMES = True
@@ -59,6 +60,7 @@ DEFAULT_CFG_FILE += "\nroms_path = " + DEFAULT_ROMS_PATH
 DEFAULT_CFG_FILE += "\nunknown_roms_path = " + DEFAULT_UNKNOWN_ROMS_PATH
 DEFAULT_CFG_FILE += "\nnew_roms_path = " + DEFAULT_NEW_ROMS_PATH
 DEFAULT_CFG_FILE += "\nimages_path = " + DEFAULT_IMAGES_PATH
+DEFAULT_CFG_FILE += "\nimages_size = " + str(DEFAULT_IMAGES_SIZE)
 DEFAULT_CFG_FILE += "\ndefault_extract_directory = " + DEFAULT_DEFAULT_EXTRACT_DIRECTORY
 DEFAULT_CFG_FILE += "\nshow_available_games = " + str(DEFAULT_SHOW_AVAILABLE_GAMES)
 DEFAULT_CFG_FILE += "\nshow_not_available_games = " + str(DEFAULT_SHOW_NOT_AVAILABLE_GAMES)
@@ -150,6 +152,11 @@ class Config():
             self.config.set(DEFAULT_CFG_SECTION, "images_path", DEFAULT_IMAGES_PATH)
             self.images_path = DEFAULT_IMAGES_PATH
         try:
+        	self.images_size = self.config.getint(DEFAULT_CFG_SECTION, "images_size")
+        except NoOptionError:
+        	self.config.set(DEFAULT_CFG_SECTION, "images_size", str(DEFAULT_IMAGES_SIZE))
+        	self.images_size = DEFAULT_IMAGES_SIZE
+        try:
             self.default_extract_directory = self.config.get(DEFAULT_CFG_SECTION, "default_extract_directory")
         except NoOptionError:
             self.config.set(DEFAULT_CFG_SECTION, "default_extract_directory", DEFAULT_DEFAULT_EXTRACT_DIRECTORY)
@@ -202,6 +209,8 @@ class Config():
             return self.new_roms_path
         if option == "images_path":
             return self.images_path
+        if option == "images_size":
+        	return self.images_size
         if option == "default_extract_directory":
             return self.default_extract_directory
         if option == "show_available_games":
@@ -241,6 +250,8 @@ class Config():
             return DEFAULT_NEW_ROMS_PATH
         if option == "images_path":
             return DEFAULT_IMAGES_PATH
+        if option == "images_size":
+        	return DEFAULT_IMAGES_SIZE
         if option == "default_extract_directory":
             return DEFAULT_DEFAULT_EXTRACT_DIRECTORY
         if option == "show_available_games":
@@ -280,6 +291,8 @@ class Config():
             self.new_roms_path = value
         elif option == "images_path":
             self.images_path = value
+        elif option == "images_size":
+        	self.images_size = value
         elif option == "default_extract_directory":
             self.default_extract_directory = value
         elif option == "show_available_games":
@@ -320,6 +333,8 @@ class Config():
             self.roms_path = DEFAULT_NEW_ROMS_PATH
         elif option == "images_path":
             self.images_path = DEFAULT_IMAGES_PATH
+        elif option == "images_size":
+        	self.images_size = DEFAULT_IMAGES_SIZE
         elif option == "default_extract_directory":
             self.default_extract_directory = DEFAULT_DEFAULT_EXTRACT_DIRECTORY
         elif option == "show_available_games":
@@ -338,6 +353,7 @@ class Config():
         config.set(DEFAULT_CFG_SECTION, "show_not_available_games", str(self.show_not_available_games))
         config.set(DEFAULT_CFG_SECTION, "show_available_games", str(self.show_available_games))
         config.set(DEFAULT_CFG_SECTION, "default_extract_directory", self.default_extract_directory)
+        config.set(DEFAULT_CFG_SECTION, "images_size", str(self.images_size))
         config.set(DEFAULT_CFG_SECTION, "images_path", self.images_path)
         config.set(DEFAULT_CFG_SECTION, "new_roms_path", self.new_roms_path)
         config.set(DEFAULT_CFG_SECTION, "unknown_roms_path", self.unknown_roms_path)
