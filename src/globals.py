@@ -60,7 +60,7 @@ CHECKS_CONVERT = 2
 langs = {
 		0 : _("French"),
 		1 : _("English"),
-		2 : _("Unknown"),
+		2 : _("Chinese"),
 		3 : _("Danish"),
 		4 : _("Dutch"),
 		5 : _("Finnish"),
