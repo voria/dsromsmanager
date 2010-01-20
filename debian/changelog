@@ -1,3 +1,9 @@
+drm (1.0.5~karmic) karmic; urgency=low
+
+  * Add 'chinese' to the list of recognized languages for roms. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 20 Jan 2010 22:59:43 +0100
+
 drm (1.0.4~karmic) karmic; urgency=low
 
   * Fix hpaned position restoring at startup.
