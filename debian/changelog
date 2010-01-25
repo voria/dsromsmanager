@@ -1,3 +1,9 @@
+drm (1.0.6~karmic) karmic; urgency=low
+
+  * Fix drm.glade file. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 25 Jan 2010 12:41:13 +0100
+
 drm (1.0.5~karmic) karmic; urgency=low
 
   * Add 'chinese' to the list of recognized languages for roms. 

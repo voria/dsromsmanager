@@ -23,7 +23,7 @@ LOCALE_DIR = "/usr/share/locale/"
 DATA_IMG_DIR = os.path.join(DATA_DIR, "images")
 
 APP_NAME = "DsRomsManager"
-APP_VERSION = "1.0.5"
+APP_VERSION = "1.0.6"
 
 import gettext
 _ = gettext.gettext
@@ -33,7 +33,7 @@ if not os.path.exists(WORK_DIR):
 	os.mkdir(WORK_DIR)
 IMG_DIR = os.path.join(WORK_DIR, "images")
 if not os.path.exists(IMG_DIR):
-    os.mkdir(IMG_DIR)
+	os.mkdir(IMG_DIR)
 ROMS_DIR = os.path.join(WORK_DIR, "roms")
 if not os.path.exists(ROMS_DIR):
 	os.mkdir(ROMS_DIR)
