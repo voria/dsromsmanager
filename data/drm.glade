@@ -25,6 +25,7 @@ vorione@gmail.com</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="about_dialog-vbox">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <placeholder/>
@@ -51,6 +52,7 @@ vorione@gmail.com</property>
     <child>
       <object class="GtkVBox" id="main_vbox">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkToolbar" id="toolbar">
             <property name="visible">True</property>
@@ -206,6 +208,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkVBox" id="left_vbox">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkScrolledWindow" id="list_scrolledwindow">
                     <property name="visible">True</property>
@@ -300,9 +303,11 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkVBox" id="right_vbox">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkVBox" id="info_vbox">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkHBox" id="images_hbox">
                         <property name="spacing">10</property>
@@ -389,6 +394,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                     <child>
                       <object class="GtkHBox" id="info_title_hbox">
                         <property name="visible">True</property>
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkFixed" id="info_title_fixed1">
                             <property name="visible">True</property>
@@ -428,6 +434,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                     </child>
                     <child>
                       <object class="GtkVBox" id="info_label_vbox">
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkHBox" id="info_location_hbox">
                             <property name="visible">True</property>
@@ -842,6 +849,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkVBox" id="search_vbox">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkHBox" id="filter_hbox">
                         <property name="visible">True</property>
@@ -1207,8 +1215,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
@@ -1241,8 +1249,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
@@ -1275,8 +1283,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_new_roms_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
@@ -1318,8 +1326,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="show_hidden">True</property>
                     <property name="title" translatable="yes">Select a directory</property>
@@ -1395,8 +1403,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_extractin_path_filechooserbutton">
                     <property name="visible">True</property>
-                    <property name="preview_widget_active">False</property>
                     <property name="action">select-folder</property>
+                    <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
