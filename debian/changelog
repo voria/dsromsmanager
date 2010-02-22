@@ -1,3 +1,9 @@
+drm (1.0.7~karmic) karmic; urgency=low
+
+  * Revert commit 242: "Show all messages windows in center of the screen." 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 22 Feb 2010 09:10:18 +0100
+
 drm (1.0.6~karmic) karmic; urgency=low
 
   * Fix drm.glade file. 
