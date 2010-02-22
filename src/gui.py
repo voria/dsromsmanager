@@ -1616,7 +1616,6 @@ class Gui(threading.Thread):
 		if use_threads:
 			gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_OK_CANCEL, message)
-		dialog.set_position(gtk.WIN_POS_CENTER)
 		response = dialog.run()
 		dialog.destroy()
 		if use_threads:
@@ -1636,7 +1635,6 @@ class Gui(threading.Thread):
 		if use_threads:
 			gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_QUESTION, gtk.BUTTONS_YES_NO, message)
-		dialog.set_position(gtk.WIN_POS_CENTER)
 		response = dialog.run()
 		dialog.destroy()
 		if use_threads:
@@ -1675,7 +1673,6 @@ class Gui(threading.Thread):
 		button.set_flags(gtk.CAN_DEFAULT)
 		button.show()
 		dialog.add_action_widget(button, 1)
-		dialog.set_position(gtk.WIN_POS_CENTER)
 		response = dialog.run()
 		dialog.destroy()
 		if use_threads:
@@ -1691,7 +1688,6 @@ class Gui(threading.Thread):
 		if use_threads:
 			gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_INFO, gtk.BUTTONS_OK, message)
-		dialog.set_position(gtk.WIN_POS_CENTER)
 		dialog.run()
 		dialog.destroy()
 		if use_threads:
@@ -1704,7 +1700,6 @@ class Gui(threading.Thread):
 		if use_threads:
 			gdk.threads_enter()
 		dialog = gtk.MessageDialog(self.main_window, 0, gtk.MESSAGE_ERROR, gtk.BUTTONS_OK, message)
-		dialog.set_position(gtk.WIN_POS_CENTER)
 		dialog.run()
 		dialog.destroy()
 		if use_threads:
