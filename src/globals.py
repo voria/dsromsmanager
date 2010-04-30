@@ -50,7 +50,7 @@ DAT_URL = "http://www.advanscene.com/offline/datas/ADVANsCEne_NDS_S.zip"
 DAT_NAME_ZIP = "ADVANsCEne_NDS_S.zip"
 DAT_NAME = "ADVANsCEne_NDS_S.xml"
 
-sizes = ["64 MBits", "128 MBits", "256 MBits", "512 MBits", "1024 MBits", "2048 MBits"]
+sizes = ["64 MBits", "128 MBits", "256 MBits", "512 MBits", "1024 MBits", "2048 MBits", "4096 MBits"]
 
 CHECKS_ERROR = -1
 CHECKS_NO = 0
