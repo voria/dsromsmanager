@@ -1237,7 +1237,7 @@ class Gui(threading.Thread):
 	def on_trim_details_window_delete_event(self, window, event):
 		""" Close the trim details window and clear the textbuffer """
 		if self.quitting:
-		  return True
+			return True
 		self.trim_details_textbuffer.set_text("")
 		self.trim_details_window.hide()
 		return True
