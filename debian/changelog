@@ -1,3 +1,11 @@
+drm (1.0.9~maverick) maverick; urgency=low
+
+  * Handle '.nd5' and '.dsi' file extensions (recognize them when scanning
+    and rename them as '.nds' when rebuilding archives).
+  * Update debian/control file. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sat, 20 Nov 2010 18:22:29 +0100
+
 drm (1.0.8~lucid) lucid; urgency=low
 
   * Add "4096 Mbits" rom size.

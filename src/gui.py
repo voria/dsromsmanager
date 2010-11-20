@@ -1997,11 +1997,13 @@ class Gui(threading.Thread):
 				if os.path.isdir(file):
 					continue # no recursive directory scan in 'unknown_roms_path'
 				crc = None
-				if file[len(file) - 4:].lower() == ".zip":
-					crc = get_crc32_zip(file)
-				elif file[len(file) - 4:].lower() == ".nds":
-					crc = get_crc32(file)
-				else: # Not a .zip or .nds file, leave it untouched and skip to next one.
+				extension = file[len(file) - 4:].lower()
+				if extension == ".zip" or extension == ".nds" or extension == ".nd5" or extension == ".dsi":
+					if extension == ".zip":
+						crc = get_crc32_zip(file)
+					else:
+						crc = get_crc32(file)
+				else: # Not a file we are interested to, leave it untouched and skip to next one.
 					continue
 				if crc != None and crc in self.checksums:
 					if os.path.exists(new_roms_path) and os.access(new_roms_path, os.W_OK):
@@ -2041,11 +2043,13 @@ class Gui(threading.Thread):
 								paths_to_check.append(file)
 					else: # 'file' is not a directory
 						crc = None
-						if file[len(file) - 4:].lower() == ".zip":
-							crc = get_crc32_zip(file)
-						elif file[len(file) - 4:].lower() == ".nds":
-							crc = get_crc32(file)
-						else: # Not a .zip or .nds file, leave it untouched and skip to next one.
+						extension = file[len(file) - 4:].lower()
+						if extension == ".zip" or extension == ".nds" or extension == ".nd5" or extension == ".dsi":
+							if extension == ".zip":
+								crc = get_crc32_zip(file)
+							else:
+								crc = get_crc32(file)
+						else: # Not a file we are interested to, leave it untouched and skip to next one.
 							continue
 						if crc != None and crc in self.checksums:
 							if self.checksums[crc] == None:
@@ -2091,11 +2095,13 @@ class Gui(threading.Thread):
 				if os.path.isdir(file):
 					continue # no recursive directory scan in 'new_roms_path'
 				crc = None
-				if file[len(file) - 4:].lower() == ".zip":
-					crc = get_crc32_zip(file)
-				elif file[len(file) - 4:].lower() == ".nds":
-					crc = get_crc32(file)
-				else: # Not a .zip or .nds file, leave it untouched and skip to next one.
+				extension = file[len(file) - 4:].lower()
+				if extension == ".zip" or extension == ".nds" or extension == ".nd5" or extension == ".dsi":
+					if extension == ".zip":
+						crc = get_crc32_zip(file)
+					else:
+						crc = get_crc32(file)
+				else: # Not a file we are interested to, leave it untouched and skip to next one.
 					continue
 				if crc != None and crc in self.checksums:
 					if self.checksums[crc] == None:

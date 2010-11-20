@@ -16,9 +16,9 @@ Description: DSRomsManager
  This is a short summary of what it can do:
  * Handle all games informations like region, title, language, etc.
  * Search for duplicates.
- * Manager roms archives on hard disk.
+ * Manager roms archives on hard disk (.nds, .nd5 and .dsi extensions).
  * Extract roms from archive.
- * Trim roms while extracting automatically. 
+ * Trim roms automatically while extracting.
  * Download games images automatically.
  * Update gameslist with just one click.
  * Search over the web for games reviews.

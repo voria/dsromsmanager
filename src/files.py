@@ -42,7 +42,7 @@ def get_crc32(filename):
 def get_crc32_zip(zipf):
     """
     Return CRC32 of .nds file contained in 'zipf'.
-    Return 'None' if no .nds file is found, or if .zip contains more files.
+    Return 'None' if no valid file is found, or if .zip contains more files.
     Try to remove invalid zip files.
     """
     result = None
@@ -51,7 +51,8 @@ def get_crc32_zip(zipf):
         if len(zip.infolist()) > 1:
             return result
         info = zip.infolist()[0]
-        if info.filename[len(info.filename) - 4:].lower() == ".nds":
+        extension = info.filename[len(info.filename) - 4:].lower()
+        if extension == ".nds" or extension == ".nd5" or extension == ".dsi":
             crc = struct.pack('>L', info.CRC)
             result = binascii.hexlify(crc)[:8].upper()
         zip.close()
@@ -305,7 +306,7 @@ class RomArchivesRebuild(threading.Thread):
             oldfile = self.games[key][1]
             if oldfile[len(oldfile) - 4:].lower() == ".zip":
                 self.is_zip = True
-            else: # '.nds' file
+            else: # not zipped file
                 self.is_zip = False
             dir = oldfile.rsplit(os.sep, 1)[0]
             newzipfile = os.path.join(dir, self.games[key][0] + ".zip")
