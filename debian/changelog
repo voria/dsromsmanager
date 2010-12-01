@@ -1,3 +1,9 @@
+drm (1.1~maverick) maverick; urgency=low
+
+  * 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Dec 2010 12:48:11 +0100
+
 drm (1.0.9~maverick) maverick; urgency=low
 
   * Handle '.nd5' and '.dsi' file extensions (recognize them when scanning
