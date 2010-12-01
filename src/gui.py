@@ -2126,6 +2126,10 @@ class Gui(threading.Thread):
 		
 		self.update_statusbar("Games", _("Loading games list..."), use_threads)
 		
+		# Set treeviewcolumn for release number in reversed order
+		self.list_treeview_tvc_relnum.clicked()
+		self.list_treeview_tvc_relnum.clicked()
+		
 		# Remove model from treeview for update
 		if use_threads:
 			gdk.threads_enter()
