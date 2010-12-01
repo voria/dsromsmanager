@@ -216,8 +216,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                       <object class="GtkTreeView" id="list_treeview">
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
-                        <property name="headers_visible">False</property>
-                        <property name="headers_clickable">False</property>
                         <property name="rules_hint">True</property>
                         <property name="enable_search">False</property>
                       </object>

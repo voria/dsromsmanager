@@ -740,14 +740,15 @@ class Gui(threading.Thread):
 		if id != 0: # Games with id == 0 have no duplicates
 			games = self.db.get_all_games()
 			for g in games:
-				if g[GAME_DUPLICATE_ID] == id and g[GAME_RELEASE_NUMBER] != relnum:
-					duplicates_fullinfo.append(g[GAME_FULLINFO])
+				if g[GAME_DUPLICATE_ID] == id:
 					duplicates_relnum.append(g[GAME_RELEASE_NUMBER])
+					if g[GAME_RELEASE_NUMBER] != relnum:
+						duplicates_fullinfo.append(g[GAME_FULLINFO])
 		
 		# Add duplicates to info_title_label tooltip
 		if len(duplicates_fullinfo) != 0:
 			text = _("Duplicates:")
-			for d in reversed(duplicates_fullinfo):
+			for d in duplicates_fullinfo:
 				text += "\n" + d
 				self.info_title_label.set_tooltip_text(text)
 		else:
@@ -793,54 +794,40 @@ class Gui(threading.Thread):
 			# Nothing to do
 			return
 
-		# search for the next game to show
-		next = 0
-		for d in duplicates:
-			# Take the max from the lessers
-			if d > next and d < current:
-				next = d
-		if next == 0:
-			# No max in the lessers, take the max from the greaters
-			for d in duplicates:
-				if d > next and d > current:
-					next = d
-		if next == 0: # Nothing to do then...
+		# search position of the current game in duplicates list
+		try:
+			pos = duplicates.index(current)
+		except:
+			# not found, nothing to do then...
 			return
-		
+ 
+ 		# select next game to show
+		pos = (pos + 1) % len(duplicates)
+		next = duplicates[pos]
+
 		iter = self.list_treeview_model.get_iter_first()
-		if self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) < next:
-			# Game not found in current treeview, it must be added on the top of the list
-			try:
-				game = self.db.get_game(next)
-			except:
-				self.open_db()
-				game = self.db.get_game(next)
-			# Insert game into the model, the next cycle will find the iter we are searching for
-			self.__add_game_to_list(game, insert_before_iter = iter, anyway = True)
-			self.update_list_game_label()
-			self.dirty_games.append(next)
-			iter = self.list_treeview_model.get_iter_first()
-		else:
-			while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != next:
-				next_iter = self.list_treeview_model.iter_next(iter)
-				if next_iter == None or self.list_treeview_model.get_value(next_iter, TVC_RELEASE_NUMBER) < next:
-					# Not found in current treeview. Then, add the game we need to the treeview
-					try:
-						game = self.db.get_game(next)
-					except:
-						self.open_db()
-						game = self.db.get_game(next)
-					# Insert game into the model, the next cycle will find the iter we are searching for
-					self.__add_game_to_list(game, insert_before_iter = next_iter, anyway = True)
-					self.update_list_game_label()
-					self.dirty_games.append(next)
-				else: # Not found yet
-					iter = next_iter
-		
+		while self.list_treeview_model.get_value(iter, TVC_RELEASE_NUMBER) != next:
+			next_iter = self.list_treeview_model.iter_next(iter)
+			if next_iter == None:
+				# Not found in current treeview. Then, add the game we need to the treeview
+				try:
+					game = self.db.get_game(next)
+				except:
+					self.open_db()
+					game = self.db.get_game(next)
+					
+				# Insert game into the model, the next cycle will find the iter we are searching for
+				self.__add_game_to_list(game, insert_before_iter = next_iter, anyway = True)
+				self.update_list_game_label()
+				self.dirty_games.append(next)
+				iter = self.list_treeview_model.get_iter_first()
+			else: # Not found yet
+				iter = next_iter
+				
 		# Finally, select the next game in the treeview
 		path = self.list_treeview_model.get_path(iter)
 		self.list_treeview.set_cursor(path)
-	
+
 	def on_list_treeview_button_press_event(self, treeview, event):
 		""" Open popup menu in treeview when mouse button 3 is pressed """
 		if self.quitting:
