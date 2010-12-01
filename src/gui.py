@@ -265,6 +265,13 @@ class Gui(threading.Thread):
 		self.checks.append(image.render_icon(gtk.STOCK_CONVERT, gtk.ICON_SIZE_MENU))
 		
 		# Setup all needed stuff for the main list treeview
+		# Keep track of how the treeview is sorted:
+		# -1: not sorted
+		#  0: sort for release number
+		#  1: sort for inversed release number
+		#  2: sort for title
+		#  3: sort for inversed title
+		self.treeview_sort_type = -1 
 		self.list_treeview.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
 		self.list_treeview_model = gtk.ListStore(gdk.Pixbuf, gdk.Pixbuf, int, str)
 		self.list_treeview.set_model(self.list_treeview_model)
@@ -342,6 +349,8 @@ class Gui(threading.Thread):
 		self.list_treeview_popup_extractin_menuitem.connect("activate", self.on_list_treeview_popup_extractin_menuitem_activate)
 		self.list_treeview_popup_extract_stop_menuitem.connect("activate", self.on_list_treeview_popup_extract_stop_menuitem_activate)
 		self.list_treeview_popup_rebuildarchive_menuitem.connect("activate", self.on_list_treeview_popup_rebuildarchive_menuitem_activate)
+		self.list_treeview_tvc_relnum.connect("clicked", self.on_list_treeviewcolumn_clicked)
+		self.list_treeview_tvc_name.connect("clicked", self.on_list_treeviewcolumn_clicked)
 		self.show_review_toolbutton.connect("clicked", self.on_show_review_toolbutton_clicked)
 		self.options_trim_roms_checkbutton.connect("toggled", self.on_options_trim_roms_checkbutton_toggled)
 		self.trim_details_window.connect("delete_event", self.on_trim_details_window_delete_event)
@@ -457,12 +466,13 @@ class Gui(threading.Thread):
 		self.list_treeview_model.insert_before(insert_before_iter, (check, flag, relnum, title))
 		if use_threads:
 			gdk.threads_leave()
+		
 		self.gamesnumber_total += 1
 		return returnvalue
 	
 	def __update_list(self, games, anyway = False, rebuild_dict = False, use_threads = False):
 		"""
-		List games fro 'games' list in treeview.
+		List games from 'games' list in treeview.
 		If 'anyway' is True add the game to the list even if it should be filtered.
 		If 'rebuild_dict' is True, rebuild dictionary containing games to rebuild.
 		"""
@@ -472,10 +482,10 @@ class Gui(threading.Thread):
 		if rebuild_dict:
 			# delete old dictionary
 			self.games_to_rebuild = {}
-			
+		
 		if use_threads:
 			gdk.threads_enter()
-		self.list_treeview_model.clear()
+		self.list_treeview_model = gtk.ListStore(gdk.Pixbuf, gdk.Pixbuf, int, str)
 		if use_threads:
 			gdk.threads_leave()
 		
@@ -484,7 +494,17 @@ class Gui(threading.Thread):
 		self.gamesnumber_fixable = 0
 		self.gamesnumber_not_available = 0
 		
-		for game in reversed(games):
+		# Sort games list according to current treeview sort type
+		if self.treeview_sort_type == -1 or self.treeview_sort_type == 0: # not sorted or sorted by release number
+			games.sort(cmp = lambda x, y: cmp(x[1], y[1]))
+		elif self.treeview_sort_type == 1: # sorted by inversed release number
+			games.sort(cmp = lambda x, y: cmp(x[1], y[1]), reverse = True)
+		elif self.treeview_sort_type == 2: # sorted by title
+			games.sort(cmp = lambda x, y: cmp(x[3].lower(), y[3].lower()))
+		else: # sorted by inversed title
+			games.sort(cmp = lambda x, y: cmp(x[3].lower(), y[3].lower()), reverse = True)
+
+		for game in games:
 			if self.quitting:
 				return
 			check = self.__add_game_to_list(game, anyway = anyway, use_threads = use_threads)
@@ -495,7 +515,7 @@ class Gui(threading.Thread):
 				crc = game[GAME_ROM_CRC]
 				relnum = game[GAME_RELEASE_NUMBER]
 				self.games_to_rebuild[fullinfo] = (filename, self.checksums[crc], relnum)
-				
+
 		if use_threads:
 			gdk.threads_enter()
 		self.update_list_game_label()
@@ -546,13 +566,32 @@ class Gui(threading.Thread):
 			try:
 				self.__update_list(self.db.filter_by(string, location, language, size))
 			except:
-				# Open a new database connection
 				self.open_db()
 				self.__update_list(self.db.filter_by(string, location, language, size))
-		self.show_review_toolbutton.set_sensitive(False)
-		self.show_review_menuitem.set_sensitive(False)
-		# Set the model back to treeview
-		self.list_treeview.set_model(self.list_treeview_model)
+			self.show_review_toolbutton.set_sensitive(False)
+			self.show_review_menuitem.set_sensitive(False)
+			# Set the model back to treeview
+			self.list_treeview.set_model(self.list_treeview_model)
+		
+			# Sort treeview
+			if self.treeview_sort_type == -1: # if treeview is not sorted, sort it for release number in reversed order
+				self.list_treeview_tvc_relnum.clicked()
+				self.list_treeview_tvc_relnum.clicked()
+			elif self.treeview_sort_type == 0: # by release number
+				self.list_treeview_tvc_relnum.clicked()
+				self.treeview_sort_type = 0
+			elif self.treeview_sort_type == 1: # by reversed release number
+				self.list_treeview_tvc_relnum.clicked()
+				self.list_treeview_tvc_relnum.clicked()
+				self.treeview_sort_type = 1
+			elif self.treeview_sort_type == 2: # by name
+				self.list_treeview_tvc_name.clicked()
+				self.treeview_sort_type = 2
+			elif self.treeview_sort_type == 3: # by reversed name
+				self.list_treeview_tvc_name.clicked()
+				self.list_treeview_tvc_name.clicked()
+				self.treeview_sort_type = 3
+		
 		# Restore previous selection
 		self.set_previous_treeview_cursor()
 	
@@ -1002,6 +1041,27 @@ class Gui(threading.Thread):
 			dict[game[GAME_FULLINFO]] = (game[GAME_FILENAME], self.checksums[game[GAME_ROM_CRC]], relnum)
 		
 		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton, dict = dict)
+	
+	def on_list_treeviewcolumn_clicked(self, treeviewcolumn):
+		"""
+		Update the current sort type for treeview.
+		Sort type can be:
+		# -1: not sorted
+		#  0: sort for release number
+		#  1: sort for inversed release number
+		#  2: sort for title
+		#  3: sort for inversed title
+		"""
+		if treeviewcolumn == self.list_treeview_tvc_relnum:
+			if self.treeview_sort_type == 0:
+				self.treeview_sort_type = 1
+			else:
+				self.treeview_sort_type = 0
+		else:
+			if self.treeview_sort_type == 2:
+				self.treeview_sort_type = 3
+			else:
+				self.treeview_sort_type = 2			
 			
 	def on_show_review_toolbutton_clicked(self, button):
 		"""
@@ -1940,6 +2000,7 @@ class Gui(threading.Thread):
 		"""
 		if self.quitting:
 			return
+
 		# Populate checksums dictionary
 		self.checksums = {}
 		try:
@@ -2126,10 +2187,6 @@ class Gui(threading.Thread):
 		
 		self.update_statusbar("Games", _("Loading games list..."), use_threads)
 		
-		# Set treeviewcolumn for release number in reversed order
-		self.list_treeview_tvc_relnum.clicked()
-		self.list_treeview_tvc_relnum.clicked()
-		
 		# Remove model from treeview for update
 		if use_threads:
 			gdk.threads_enter()
@@ -2197,6 +2254,15 @@ class Gui(threading.Thread):
 		if use_threads:
 			gdk.threads_enter()
 		self.list_treeview.set_model(self.list_treeview_model)
+		if use_threads:
+			gdk.threads_leave()
+		
+		# Sort treeview
+		if use_threads:
+			gdk.threads_enter()
+		if self.treeview_sort_type == -1: # if treeview is not sorted, sort it for release number in reversed order
+			self.list_treeview_tvc_relnum.clicked()
+			self.list_treeview_tvc_relnum.clicked()
 		if use_threads:
 			gdk.threads_leave()
 		
