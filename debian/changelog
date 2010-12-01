@@ -1,3 +1,9 @@
+drm (1.1.1~maverick) maverick; urgency=low
+
+  * 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Dec 2010 17:17:30 +0100
+
 drm (1.1~maverick) maverick; urgency=low
 
   * Make treeview columns sortable.
