@@ -8,10 +8,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-20 22:56+0100\n"
+"POT-Creation-Date: 2010-12-01 12:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -87,98 +88,98 @@ msgstr ""
 msgid "Database created."
 msgstr ""
 
-#: ../src/files.py:111
+#: ../src/files.py:113
 #, python-format
 msgid "Unable to extract archive to '%s'. "
 msgstr ""
 
-#: ../src/files.py:112
+#: ../src/files.py:114
 msgid "Check available space and write permissions for target directory."
 msgstr ""
 
-#: ../src/files.py:129
+#: ../src/files.py:131
 #, python-format
 msgid "Extracting archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:142
+#: ../src/files.py:144
 #, python-format
 msgid "Target file '%s' already exists. Overwrite?"
 msgstr ""
 
-#: ../src/files.py:172
+#: ../src/files.py:174
 #, python-format
 msgid "Unable to trim %s!"
 msgstr ""
 
-#: ../src/files.py:178
+#: ../src/files.py:180
 msgid " Leave it untrimmed?"
 msgstr ""
 
-#: ../src/files.py:187 ../src/files.py:219
+#: ../src/files.py:189 ../src/files.py:221
 #, python-format
 msgid ""
 "Not enough free space on target directory for '%s'. Extraction canceled."
 msgstr ""
 
-#: ../src/files.py:197
+#: ../src/files.py:199
 #, python-format
 msgid "Trimming '%s'..."
 msgstr ""
 
-#: ../src/files.py:212
+#: ../src/files.py:214
 msgid "Original size:"
 msgstr ""
 
-#: ../src/files.py:213
+#: ../src/files.py:215
 msgid "Trimmed size:"
 msgstr ""
 
-#: ../src/files.py:214
+#: ../src/files.py:216
 msgid "Saved space:"
 msgstr ""
 
-#: ../src/files.py:227
+#: ../src/files.py:229
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr ""
 
-#: ../src/files.py:230
+#: ../src/files.py:232
 #, python-format
 msgid "Unable to open '%s'."
 msgstr ""
 
-#: ../src/files.py:233
+#: ../src/files.py:235
 msgid "Done. Total saved space:"
 msgstr ""
 
-#: ../src/files.py:238
+#: ../src/files.py:240
 msgid "Extraction canceled."
 msgstr ""
 
-#: ../src/files.py:240
+#: ../src/files.py:242
 msgid "Extraction completed."
 msgstr ""
 
-#: ../src/files.py:244
+#: ../src/files.py:246
 msgid " Total saved space by trimming:"
 msgstr ""
 
-#: ../src/files.py:302
+#: ../src/files.py:304
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr ""
 
-#: ../src/files.py:355
+#: ../src/files.py:357
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr ""
 
-#: ../src/files.py:358
+#: ../src/files.py:360
 msgid "Rebuilding stopped."
 msgstr ""
 
-#: ../src/files.py:360
+#: ../src/files.py:362
 msgid "Rebuilding completed."
 msgstr ""
 
@@ -491,71 +492,71 @@ msgstr ""
 msgid "Images"
 msgstr ""
 
-#: ../src/gui.py:1659
+#: ../src/gui.py:1657
 msgid "_No to all"
 msgstr ""
 
-#: ../src/gui.py:1669
+#: ../src/gui.py:1667
 msgid "_Yes to all"
 msgstr ""
 
-#: ../src/gui.py:1732
+#: ../src/gui.py:1727
 #, python-format
 msgid "%d game shown"
 msgstr ""
 
-#: ../src/gui.py:1734
+#: ../src/gui.py:1729
 #, python-format
 msgid "%d games shown"
 msgstr ""
 
-#: ../src/gui.py:1736
+#: ../src/gui.py:1731
 #, python-format
 msgid " - %d available"
 msgstr ""
 
-#: ../src/gui.py:1738
+#: ../src/gui.py:1733
 #, python-format
 msgid " - %d to rebuild"
 msgstr ""
 
-#: ../src/gui.py:1740
+#: ../src/gui.py:1735
 #, python-format
 msgid " - %d not available"
 msgstr ""
 
-#: ../src/gui.py:1742
+#: ../src/gui.py:1737
 msgid "No games shown"
 msgstr ""
 
-#: ../src/gui.py:1892 ../src/gui.py:1893
+#: ../src/gui.py:1887 ../src/gui.py:1888
 msgid "Stop the download process."
 msgstr ""
 
-#: ../src/gui.py:1914 ../src/gui.py:1915
+#: ../src/gui.py:1909 ../src/gui.py:1910
 msgid "Stop the rebuild process."
 msgstr ""
 
-#: ../src/gui.py:1975
+#: ../src/gui.py:1970
 msgid "Scanning roms on disk..."
 msgstr ""
 
-#: ../src/gui.py:2019 ../src/gui.py:2072 ../src/gui.py:2084 ../src/gui.py:2122
-#: ../src/gui.py:2134
+#: ../src/gui.py:2016 ../src/gui.py:2071 ../src/gui.py:2083 ../src/gui.py:2123
+#: ../src/gui.py:2135
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr ""
 
-#: ../src/gui.py:2060 ../src/gui.py:2110
+#: ../src/gui.py:2059 ../src/gui.py:2111
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr ""
 
-#: ../src/gui.py:2139
+#: ../src/gui.py:2140
 msgid "Loading games list..."
 msgstr ""
 
-#: ../src/gui.py:2217
+#: ../src/gui.py:2218
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr ""
@@ -749,7 +750,7 @@ msgstr ""
 
 #: drm.glade.h:44
 msgid ""
-"Released under GPL3 terms\n"
+"Released under GPLv3 terms\n"
 "\n"
 "Copyleft by\n"
 "Fortunato Ventre (voRia)\n"

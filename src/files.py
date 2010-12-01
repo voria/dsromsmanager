@@ -41,7 +41,7 @@ def get_crc32(filename):
 
 def get_crc32_zip(zipf):
     """
-    Return CRC32 of .nds file contained in 'zipf'.
+    Return CRC32 of rom file contained in 'zipf'.
     Return 'None' if no valid file is found, or if .zip contains more files.
     Try to remove invalid zip files.
     """
@@ -66,7 +66,7 @@ def get_crc32_zip(zipf):
 
 def get_nds_filename_from_zip(zipf):
     """
-    Return the filename of .nds file contained in 'zipf'.
+    Return the filename of rom file contained in 'zipf'.
     Return 'None' if no .nds file is found, or if .zip contains more files.
     """
     result = None
@@ -75,7 +75,8 @@ def get_nds_filename_from_zip(zipf):
         if len(zip.infolist()) > 1:
             return result
         info = zip.infolist()[0]
-        if info.filename[len(info.filename) - 4:].lower() == ".nds":
+        extension = info.filename[len(info.filename) - 4:].lower()
+        if extension == ".nds" or extension == ".nd5" or extension == ".dsi":
             result = info.filename
         zip.close()
     except:

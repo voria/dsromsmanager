@@ -1,17 +1,17 @@
 # DRM - DsRomsManager
 # Copyleft (C) 2009 - Fortunato Ventre
 # This file is distributed under the same license as the DRM package.
-# Fortunato Ventre (voRia) - <vorione@gmail.com> - <http://www.voria.org>, 2009.
-#
 # Fortunato Ventre (voRia) <vorione@gmail.com>, 2009, 2010.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-01-20 22:56+0100\n"
-"PO-Revision-Date: 2010-01-20 22:57+0100\n"
+"POT-Creation-Date: 2010-12-01 12:42+0100\n"
+"PO-Revision-Date: 2010-12-01 12:43+0100\n"
 "Last-Translator: Fortunato Ventre (voRia) <vorione@gmail.com>\n"
 "Language-Team: Italian <vorione@gmail.com>\n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding:\n"
@@ -94,37 +94,37 @@ msgstr "Caricamento del file DAT e creazione del database in corso..."
 msgid "Database created."
 msgstr "Database creato."
 
-#: ../src/files.py:111
+#: ../src/files.py:113
 #, python-format
 msgid "Unable to extract archive to '%s'. "
 msgstr "Impossibile estrarre il file in '%s'. "
 
-#: ../src/files.py:112
+#: ../src/files.py:114
 msgid "Check available space and write permissions for target directory."
 msgstr ""
 "Controllare lo spazio disponibile e i permessi di scrittura della directory "
 "di destinazione."
 
-#: ../src/files.py:129
+#: ../src/files.py:131
 #, python-format
 msgid "Extracting archive for '%s'..."
 msgstr "Estrazione dell'archivio di '%s' in corso..."
 
-#: ../src/files.py:142
+#: ../src/files.py:144
 #, python-format
 msgid "Target file '%s' already exists. Overwrite?"
 msgstr "File destinazione '%s' già esistente. Sovrascrivere?"
 
-#: ../src/files.py:172
+#: ../src/files.py:174
 #, python-format
 msgid "Unable to trim %s!"
 msgstr "Impossibile eseguire il trim di '%s'!"
 
-#: ../src/files.py:178
+#: ../src/files.py:180
 msgid " Leave it untrimmed?"
 msgstr " Lasciarlo non trimmato?"
 
-#: ../src/files.py:187 ../src/files.py:219
+#: ../src/files.py:189 ../src/files.py:221
 #, python-format
 msgid ""
 "Not enough free space on target directory for '%s'. Extraction canceled."
@@ -132,64 +132,64 @@ msgstr ""
 "Spazio libero nella directory di destinazione non sufficiente per '%s'. "
 "Estrazione annullata."
 
-#: ../src/files.py:197
+#: ../src/files.py:199
 #, python-format
 msgid "Trimming '%s'..."
 msgstr "Trim di '%s' in corso..."
 
-#: ../src/files.py:212
+#: ../src/files.py:214
 msgid "Original size:"
 msgstr "Dimensione originale:"
 
-#: ../src/files.py:213
+#: ../src/files.py:215
 msgid "Trimmed size:"
 msgstr "Dimensione trimmata:"
 
-#: ../src/files.py:214
+#: ../src/files.py:216
 msgid "Saved space:"
 msgstr "Spazio recuperato:\t"
 
-#: ../src/files.py:227
+#: ../src/files.py:229
 #, python-format
 msgid "Unable to extract file from '%s'."
 msgstr "Impossibile estrarre il file da '%s'."
 
-#: ../src/files.py:230
+#: ../src/files.py:232
 #, python-format
 msgid "Unable to open '%s'."
 msgstr "Impossibile aprire '%s'."
 
-#: ../src/files.py:233
+#: ../src/files.py:235
 msgid "Done. Total saved space:"
 msgstr "Finito. Spazio totale recuperato:"
 
-#: ../src/files.py:238
+#: ../src/files.py:240
 msgid "Extraction canceled."
 msgstr "Estrazione annullata."
 
-#: ../src/files.py:240
+#: ../src/files.py:242
 msgid "Extraction completed."
 msgstr "Estrazione completata."
 
-#: ../src/files.py:244
+#: ../src/files.py:246
 msgid " Total saved space by trimming:"
 msgstr " Spazio totale recuperato dal trim:"
 
-#: ../src/files.py:302
+#: ../src/files.py:304
 #, python-format
 msgid "Rebuilding archive for '%s'..."
 msgstr "Ricostruzione dell'archivio di '%s' in corso..."
 
-#: ../src/files.py:355
+#: ../src/files.py:357
 #, python-format
 msgid "Error while building archive for '%s'!"
 msgstr "Errore durante la ricostruzione dell'archivio di '%s'!"
 
-#: ../src/files.py:358
+#: ../src/files.py:360
 msgid "Rebuilding stopped."
 msgstr "Ricostruzione fermata."
 
-#: ../src/files.py:360
+#: ../src/files.py:362
 msgid "Rebuilding completed."
 msgstr "Ricostruzione completata."
 
@@ -418,7 +418,9 @@ msgstr ""
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Roms' path, but it "
 "can't be used."
-msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Roms', ma non può essere utilizzata."
+msgstr ""
+"E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso "
+"'Roms', ma non può essere utilizzata."
 
 #: ../src/gui.py:1336
 msgid ""
@@ -434,7 +436,9 @@ msgstr ""
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Unknown roms' path, "
 "but it can't be used."
-msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Roms sconosciute', ma non può essere utilizzata."
+msgstr ""
+"E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso "
+"'Roms sconosciute', ma non può essere utilizzata."
 
 #: ../src/gui.py:1341
 msgid ""
@@ -450,7 +454,9 @@ msgstr ""
 msgid ""
 "'DsRomsManager' working directory has been selected as 'New roms' path, but "
 "it can't be used."
-msgstr "E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso 'Nuove roms', ma non può essere utilizzata."
+msgstr ""
+"E' stata selezionata la directory di lavoro di 'DsRomsManager' come percorso "
+"'Nuove roms', ma non può essere utilizzata."
 
 #: ../src/gui.py:1346
 msgid ""
@@ -464,7 +470,9 @@ msgstr ""
 
 #: ../src/gui.py:1350
 msgid "'Unknown roms' path can't be the same as 'Roms' or 'New roms' paths."
-msgstr "Il percorso 'Roms sconosciute' non può essere uguale ai percorsi 'Roms' o 'Nuove roms'."
+msgstr ""
+"Il percorso 'Roms sconosciute' non può essere uguale ai percorsi 'Roms' o "
+"'Nuove roms'."
 
 #: ../src/gui.py:1351 ../src/gui.py:1361 ../src/gui.py:1366
 msgid ""
@@ -480,7 +488,9 @@ msgstr ""
 msgid ""
 "'DsRomsManager' working directory has been selected as 'Images' path, but it "
 "can't be used."
-msgstr "E' stata selezionata la directory di lavoro 'DsRomsManager' come percorso 'Immagini', ma non può essere utilizzata."
+msgstr ""
+"E' stata selezionata la directory di lavoro 'DsRomsManager' come percorso "
+"'Immagini', ma non può essere utilizzata."
 
 #: ../src/gui.py:1356
 msgid ""
@@ -533,71 +543,71 @@ msgstr ""
 msgid "Images"
 msgstr "Immagini"
 
-#: ../src/gui.py:1659
+#: ../src/gui.py:1657
 msgid "_No to all"
 msgstr "_No a tutti"
 
-#: ../src/gui.py:1669
+#: ../src/gui.py:1667
 msgid "_Yes to all"
 msgstr "_Sì a tutti"
 
-#: ../src/gui.py:1732
+#: ../src/gui.py:1727
 #, python-format
 msgid "%d game shown"
 msgstr "%d gioco visualizzato"
 
-#: ../src/gui.py:1734
+#: ../src/gui.py:1729
 #, python-format
 msgid "%d games shown"
 msgstr "%d giochi visualizzati"
 
-#: ../src/gui.py:1736
+#: ../src/gui.py:1731
 #, python-format
 msgid " - %d available"
 msgstr " - %d disponibili"
 
-#: ../src/gui.py:1738
+#: ../src/gui.py:1733
 #, python-format
 msgid " - %d to rebuild"
 msgstr " - %d da ricostruire"
 
-#: ../src/gui.py:1740
+#: ../src/gui.py:1735
 #, python-format
 msgid " - %d not available"
 msgstr " - %d non disponibili"
 
-#: ../src/gui.py:1742
+#: ../src/gui.py:1737
 msgid "No games shown"
 msgstr "Nessun gioco visualizzato"
 
-#: ../src/gui.py:1892 ../src/gui.py:1893
+#: ../src/gui.py:1887 ../src/gui.py:1888
 msgid "Stop the download process."
 msgstr "Ferma il processo di download."
 
-#: ../src/gui.py:1914 ../src/gui.py:1915
+#: ../src/gui.py:1909 ../src/gui.py:1910
 msgid "Stop the rebuild process."
 msgstr "Ferma il processo di ricostruzione."
 
-#: ../src/gui.py:1975
+#: ../src/gui.py:1970
 msgid "Scanning roms on disk..."
 msgstr "Scansione delle roms su disco in corso..."
 
-#: ../src/gui.py:2019 ../src/gui.py:2072 ../src/gui.py:2084 ../src/gui.py:2122
-#: ../src/gui.py:2134
+#: ../src/gui.py:2016 ../src/gui.py:2071 ../src/gui.py:2083 ../src/gui.py:2123
+#: ../src/gui.py:2135
 #, python-format
 msgid "'%s' was redundant. Deleted."
 msgstr "'%s' era ridondante. Eliminato."
 
-#: ../src/gui.py:2060 ../src/gui.py:2110
+#: ../src/gui.py:2059 ../src/gui.py:2111
 #, python-format
 msgid "'%s' is a duplicate file. Delete?"
 msgstr "Il file '%s' è un duplicato. Eliminare?"
 
-#: ../src/gui.py:2139
+#: ../src/gui.py:2140
 msgid "Loading games list..."
 msgstr "Caricamento della lista dei giochi in corso..."
 
-#: ../src/gui.py:2217
+#: ../src/gui.py:2218
 #, python-format
 msgid "%d games loaded succesfully."
 msgstr "%d giochi caricati correttamente."
@@ -629,7 +639,9 @@ msgstr "Caricamento del nuovo file DAT e creazione del database in corso..."
 
 #: ../src/updaters.py:125
 msgid "Error while loading the new DAT file. The old one will be restored."
-msgstr "Errore durante il caricamento del nuovo file DAT. Il vecchio file verrà ripristinato."
+msgstr ""
+"Errore durante il caricamento del nuovo file DAT. Il vecchio file verrà "
+"ripristinato."
 
 #: ../src/updaters.py:128
 msgid "Reloading the old DAT file and database..."
@@ -801,13 +813,13 @@ msgstr "Archivi ricostruibili"
 
 #: drm.glade.h:44
 msgid ""
-"Released under GPL3 terms\n"
+"Released under GPLv3 terms\n"
 "\n"
 "Copyleft by\n"
 "Fortunato Ventre (voRia)\n"
 "vorione@gmail.com"
 msgstr ""
-"Rilasciato con licenza GPL3\n"
+"Rilasciato con licenza GPLv3\n"
 "\n"
 "Copyleft by\n"
 "Fortunato Ventre (voRia)\n"
@@ -929,8 +941,10 @@ msgid ""
 "is just temporary not available.\n"
 "Click here to enable the 'Extract in' path to be modified."
 msgstr ""
-"Il percorso 'Estrai in' precedentemente selezionato non esiste più, oppure non si hanno i permessi di scrittura.\n"
-"Probabilmente puntava ad un supporto rimovibile (come una chiavetta USB o una SD) che è solo temporaneamente non disponibile.\n"
+"Il percorso 'Estrai in' precedentemente selezionato non esiste più, oppure "
+"non si hanno i permessi di scrittura.\n"
+"Probabilmente puntava ad un supporto rimovibile (come una chiavetta USB o "
+"una SD) che è solo temporaneamente non disponibile.\n"
 "Clicca qui per abilitare la modifica del percorso 'Estrai in'."
 
 #: drm.glade.h:79
@@ -949,7 +963,8 @@ msgid ""
 msgstr ""
 "Esegue automaticamente il trim delle roms durante l'estrazione.\n"
 "\n"
-"L'utility da linea di comando 'trim' è richiesta per abilitare questa opzione."
+"L'utility da linea di comando 'trim' è richiesta per abilitare questa "
+"opzione."
 
 #: drm.glade.h:84
 msgid "Unknown roms:"
