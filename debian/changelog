@@ -1,6 +1,9 @@
 drm (1.1~maverick) maverick; urgency=low
 
-  * 
+  * Make treeview columns sortable.
+  * Set treeview ordered by reversed release numbers by default.
+  * Fix get_nds_filename_from_zip().
+  * Update translations.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Dec 2010 12:48:11 +0100
 
