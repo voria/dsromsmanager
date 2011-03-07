@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
@@ -24,6 +24,7 @@ vorione@gmail.com</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="about_dialog-vbox">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <placeholder/>
@@ -50,6 +51,7 @@ vorione@gmail.com</property>
     <child>
       <object class="GtkVBox" id="main_vbox">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <child>
           <object class="GtkToolbar" id="toolbar">
             <property name="visible">True</property>
@@ -205,6 +207,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkVBox" id="left_vbox">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkScrolledWindow" id="list_scrolledwindow">
                     <property name="visible">True</property>
@@ -297,9 +300,11 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkVBox" id="right_vbox">
                 <property name="visible">True</property>
+                <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkVBox" id="info_vbox">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkHBox" id="images_hbox">
                         <property name="spacing">10</property>
@@ -425,6 +430,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                     </child>
                     <child>
                       <object class="GtkVBox" id="info_label_vbox">
+                        <property name="orientation">vertical</property>
                         <child>
                           <object class="GtkHBox" id="info_location_hbox">
                             <property name="visible">True</property>
@@ -839,6 +845,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkVBox" id="search_vbox">
                     <property name="visible">True</property>
+                    <property name="orientation">vertical</property>
                     <child>
                       <object class="GtkHBox" id="filter_hbox">
                         <property name="visible">True</property>
@@ -1061,10 +1068,12 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
     <child internal-child="vbox">
       <object class="GtkVBox" id="options_dialog-vbox">
         <property name="visible">True</property>
+        <property name="orientation">vertical</property>
         <property name="spacing">2</property>
         <child>
           <object class="GtkVBox" id="options_vbox">
             <property name="visible">True</property>
+            <property name="orientation">vertical</property>
             <property name="spacing">5</property>
             <child>
               <object class="GtkCheckButton" id="options_enable_splash_checkbutton">
@@ -1347,7 +1356,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkSpinButton" id="options_images_size_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">•</property>
+                    <property name="invisible_char">&#x2022;</property>
                     <property name="adjustment">options_images_size_adjustment</property>
                     <property name="climb_rate">1</property>
                     <property name="numeric">True</property>
@@ -1453,7 +1462,7 @@ Set an empty string to use the default URL.</property>
                   <object class="GtkEntry" id="options_review_url_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">●</property>
+                    <property name="invisible_char">&#x25CF;</property>
                   </object>
                   <packing>
                     <property name="position">1</property>
