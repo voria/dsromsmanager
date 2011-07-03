@@ -1079,6 +1079,7 @@ class Gui(threading.Thread):
 		title = model.get_value(iter, TVC_TITLE)
 		title = title.replace("&", " ")
 		title = title.replace("-", " ")
+		title = title.replace("(DSi Enhanced)", "")
 		url = config.get_option("review_url").replace("{TITLE}", title).replace("{RELNUM}", relnum)
 		import webbrowser
 		webbrowser.open(url)
