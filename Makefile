@@ -1,15 +1,19 @@
+install_dir=install -d -m 755
+install_file=install -m 644
+install_script=install -m 755
+
 install:
-	mkdir -p $(DESTDIR)/usr/share/dsromsmanager/
-	cp src/*.py $(DESTDIR)/usr/share/dsromsmanager/
-	cp -r data/ $(DESTDIR)/usr/share/dsromsmanager/
-	mkdir -p $(DESTDIR)/usr/share/locale/it/
-	cp -r po/locale/it/* $(DESTDIR)/usr/share/locale/it/
-	mkdir -p $(DESTDIR)/usr/share/applications/
-	cp dsromsmanager.desktop $(DESTDIR)/usr/share/applications/
-	mkdir -p $(DESTDIR)/usr/bin/
-	cp drm $(DESTDIR)/usr/bin/
-	chown root:root $(DESTDIR)/usr/bin/drm
-	chmod 755 $(DESTDIR)/usr/bin/drm
+	$(install_dir) $(DESTDIR)/usr/share/dsromsmanager/
+	$(install_file) src/*.py $(DESTDIR)/usr/share/dsromsmanager/
+	$(install_dir) $(DESTDIR)/usr/share/dsromsmanager/data/images/
+	$(install_file) data/images/* $(DESTDIR)/usr/share/dsromsmanager/data/images
+	$(install_file) data/drm.glade $(DESTDIR)/usr/share/dsromsmanager/data/
+	$(install_dir) $(DESTDIR)/usr/share/locale/it/
+	$(install_file) po/locale/it/* $(DESTDIR)/usr/share/locale/it/
+	$(install_dir) $(DESTDIR)/usr/share/applications/
+	$(install_file) dsromsmanager.desktop $(DESTDIR)/usr/share/applications/
+	$(install_dir) $(DESTDIR)/usr/bin/
+	$(install_script) drm $(DESTDIR)/usr/bin/
 
 uninstall:
 	rm -rf $(DESTDIR)/usr/bin/drm
