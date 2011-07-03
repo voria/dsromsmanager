@@ -8,8 +8,8 @@ install:
 	$(install_dir) $(DESTDIR)/usr/share/dsromsmanager/data/images/
 	$(install_file) data/images/* $(DESTDIR)/usr/share/dsromsmanager/data/images
 	$(install_file) data/drm.glade $(DESTDIR)/usr/share/dsromsmanager/data/
-	$(install_dir) $(DESTDIR)/usr/share/locale/it/
-	$(install_file) po/locale/it/* $(DESTDIR)/usr/share/locale/it/
+	$(install_dir) $(DESTDIR)/usr/share/locale/it/LC_MESSAGES/
+	$(install_file) po/locale/it/LC_MESSAGES/* $(DESTDIR)/usr/share/locale/it/LC_MESSAGES/
 	$(install_dir) $(DESTDIR)/usr/share/applications/
 	$(install_file) dsromsmanager.desktop $(DESTDIR)/usr/share/applications/
 	$(install_dir) $(DESTDIR)/usr/bin/
