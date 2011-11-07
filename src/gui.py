@@ -155,7 +155,8 @@ class Gui(threading.Thread):
 				
 		# Enable click on website url in about dialog
 		def about_dialog_url_clicked(dialog, link, user_data):
-			pass
+			import webbrowser
+			webbrowser.open(link)
 		gtk.about_dialog_set_url_hook(about_dialog_url_clicked, None)
 		
 		# Load icon and create different sizes
