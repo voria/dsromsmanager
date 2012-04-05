@@ -1,25 +1,34 @@
-# Contributor: Fortunato Ventre (voRia) <vorione@gmail.com>
+# Contributor: Fortunato Ventre (voRia) <vorione AT gmail DOT com>
 
-pkgname=drm
-pkgver=1.1.2
+pkgname=('dsromsmanager' 'dsromstrimmer')
+pkgbase="dsromsmanager"
+pkgver=1.4
 pkgrel=1
-pkgdesc="Nintendo DS roms manager"
-arch=('any')
 url="http://www.voria.org/dsromsmanager/"
-license=('GPL')
-depends=('pygtk')
-optdepends=('trim: for NDS roms trimming')
-source=(http://www.voria.org/files/nds/drm/$pkgname-$pkgver.tar.gz fix_shebangs.patch fix_launcher.patch)
-md5sums=('1bfbd795b91b51df719ce0a093dd4834'
-         'aac8a8092b7da207543f92fed19ab339'
-         '881a7cef3ad66c9b93ccf3d51e39a114')
+license=('GPLv3')
+source=(http://www.voria.org/files/nds/dsromsmanager/$pkgname-$pkgver.tar.gz)
+md5sums=('eb6c09ce97a3d123327886157782494b')
+arch=('any')
 
 build() {
-  cd "$srcdir/$pkgname-$pkgver"
-
-  patch -p1 -i "$srcdir/fix_shebangs.patch"
-  patch -p1 -i "$srcdir/fix_launcher.patch"
-
-  make DESTDIR="$pkgdir/" install || return 1
+	# Copy sources
+	cp -r ${srcdir}/dsromsmanager-${pkgver} ${srcdir}/dsromstrimmer-${pkgver}
 }
 
+package_dsromsmanager() {
+	pkgdesc="Nintendo DS Roms Manager"
+	arch=('any')
+	depends=('pygtk')
+	optdepends=('dsromstrimmer: for NDS roms trimming')
+	
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" manager_install || return 1
+}
+
+package_dsromstrimmer() {
+	pkgdesc="Nintendo DS Roms Trimmer"
+	arch=('i686' 'x86_64')
+	
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" trimmer_install || return 1
+}
