@@ -1,8 +1,9 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
   <object class="GtkAboutDialog" id="about_dialog">
+    <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Informations</property>
     <property name="resizable">False</property>
@@ -24,40 +25,173 @@ vorione@gmail.com</property>
     <child internal-child="vbox">
       <object class="GtkVBox" id="about_dialog-vbox">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
+        <property name="can_focus">False</property>
         <property name="spacing">2</property>
-        <child>
-          <placeholder/>
-        </child>
         <child internal-child="action_area">
           <object class="GtkHButtonBox" id="about_dialog-action_area">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="layout_style">end</property>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="pack_type">end</property>
             <property name="position">0</property>
           </packing>
         </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="images_window">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Images</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="transient_for">main_window</property>
+    <child>
+      <object class="GtkEventBox" id="images_window_eventbox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="visible_window">False</property>
+        <child>
+          <object class="GtkHBox" id="images_window_hbox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="spacing">10</property>
+            <child>
+              <object class="GtkFrame" id="images_window_image1_frame">
+                <property name="width_request">214</property>
+                <property name="height_request">384</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="images_window_image1_alignment">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImage" id="images_window_image1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="xpad">5</property>
+                        <property name="stock">gtk-missing-image</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame" id="images_window_image2_frame">
+                <property name="width_request">256</property>
+                <property name="height_request">384</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="images_window_image2_alignment">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImage" id="images_window_image2">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-missing-image</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkMenu" id="list_treeview_popup_menu">
+    <property name="visible">True</property>
+    <property name="can_focus">False</property>
+    <child>
+      <object class="GtkMenuItem" id="list_treeview_popup_extract_menuitem">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Extract selected games in the default directory.</property>
+        <property name="label" translatable="yes">Extract</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="list_treeview_popup_extractin_menuitem">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Extract selected games in a user selected directory.</property>
+        <property name="label" translatable="yes">Extract in...</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="list_treeview_popup_extract_stop_menuitem">
+        <property name="use_action_appearance">False</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Stop the current extraction process.</property>
+        <property name="label" translatable="yes">Stop extraction</property>
+        <property name="use_underline">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="list_treeview_popup_separatormenuitem">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="list_treeview_popup_rebuildarchive_menuitem">
+        <property name="use_action_appearance">False</property>
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="tooltip_text" translatable="yes">Rebuild roms archives for selected games.</property>
+        <property name="label" translatable="yes">Rebuild</property>
+        <property name="use_underline">True</property>
       </object>
     </child>
   </object>
   <object class="GtkWindow" id="main_window">
     <property name="visible">True</property>
+    <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">DsRomsManager</property>
     <property name="gravity">center</property>
     <child>
       <object class="GtkVBox" id="main_vbox">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
+        <property name="can_focus">False</property>
         <child>
           <object class="GtkToolbar" id="toolbar">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <child>
               <object class="GtkToolButton" id="dat_update_toolbutton">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
                 <property name="tooltip_text" translatable="yes">Check if a new DAT file is available. (Ctrl+U)</property>
                 <property name="label" translatable="yes">Update DAT</property>
@@ -72,7 +206,9 @@ vorione@gmail.com</property>
             </child>
             <child>
               <object class="GtkToolButton" id="images_download_toolbutton">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
                 <property name="tooltip_text" translatable="yes">Download missing images for all the games. (Ctrl+D)</property>
                 <property name="label" translatable="yes">Download images</property>
@@ -88,6 +224,7 @@ vorione@gmail.com</property>
             <child>
               <object class="GtkSeparatorToolItem" id="separatortoolitem1">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -95,7 +232,9 @@ vorione@gmail.com</property>
             </child>
             <child>
               <object class="GtkToolButton" id="rescan_roms_archives_toolbutton">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="tooltip_text" translatable="yes">Rescan roms archives on disk and reload the games list. (Ctrl+L)</property>
                 <property name="label" translatable="yes">Rescan archives</property>
                 <property name="use_underline">True</property>
@@ -109,7 +248,9 @@ vorione@gmail.com</property>
             </child>
             <child>
               <object class="GtkToolButton" id="rebuild_roms_archives_toolbutton">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
                 <property name="tooltip_text" translatable="yes">Rebuild wrong roms archives, according to informations from DAT file. (Ctrl+F)
 
@@ -128,6 +269,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkSeparatorToolItem" id="separatortoolitem2">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -135,7 +277,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             </child>
             <child>
               <object class="GtkToolButton" id="show_review_toolbutton">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
                 <property name="tooltip_text" translatable="yes">Search reviews for the selected game. (Ctrl+R)</property>
                 <property name="label" translatable="yes">Reviews</property>
@@ -151,6 +295,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkSeparatorToolItem" id="separatortoolitem3">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -159,7 +304,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             </child>
             <child>
               <object class="GtkToolButton" id="options_toolbutton">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
                 <property name="tooltip_text" translatable="yes">Open the options window. (Ctrl+O)</property>
                 <property name="label" translatable="yes">Options</property>
@@ -175,6 +322,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkSeparatorToolItem" id="separatortoolitem4">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -182,7 +330,9 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             </child>
             <child>
               <object class="GtkToolButton" id="about_toolbutton">
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
                 <property name="tooltip_text" translatable="yes">Show informations about 'DsRomsManager'.</property>
                 <property name="label" translatable="yes">About</property>
@@ -197,6 +347,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">0</property>
           </packing>
         </child>
@@ -207,7 +358,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkVBox" id="left_vbox">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
+                <property name="can_focus">False</property>
                 <child>
                   <object class="GtkScrolledWindow" id="list_scrolledwindow">
                     <property name="visible">True</property>
@@ -225,15 +376,19 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkHBox" id="games_checks_hbox">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <child>
                       <object class="GtkCheckButton" id="games_check_ok_checkbutton">
                         <property name="label" translatable="yes">Available games</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -243,12 +398,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <accelerator key="1" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="games_check_no_checkbutton">
                         <property name="label" translatable="yes">Not available games</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -258,12 +416,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <accelerator key="2" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkCheckButton" id="games_check_convert_checkbutton">
                         <property name="label" translatable="yes">Rebuildable archives</property>
+                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -272,22 +433,27 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <accelerator key="3" signal="activate" modifiers="GDK_CONTROL_MASK"/>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkLabel" id="list_games_label">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="label" translatable="yes">No games in list</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="fill">True</property>
                     <property name="position">2</property>
                   </packing>
                 </child>
@@ -300,41 +466,50 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkVBox" id="right_vbox">
                 <property name="visible">True</property>
-                <property name="orientation">vertical</property>
+                <property name="can_focus">False</property>
                 <child>
                   <object class="GtkVBox" id="info_vbox">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
+                    <property name="can_focus">False</property>
                     <child>
                       <object class="GtkHBox" id="images_hbox">
+                        <property name="can_focus">False</property>
                         <property name="spacing">10</property>
                         <child>
                           <object class="GtkFixed" id="fixed1">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
                           <object class="GtkEventBox" id="images_eventbox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <child>
                               <object class="GtkHBox" id="images_eventbox_hbox">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <child>
                                   <object class="GtkFrame" id="image1_frame">
                                     <property name="width_request">214</property>
                                     <property name="height_request">384</property>
                                     <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
                                     <property name="label_xalign">0</property>
                                     <property name="shadow_type">none</property>
                                     <child>
                                       <object class="GtkAlignment" id="image1_alignment">
                                         <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
                                         <child>
                                           <object class="GtkImage" id="image1">
                                             <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
                                             <property name="stock">gtk-missing-image</property>
                                           </object>
                                         </child>
@@ -342,6 +517,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                                     </child>
                                   </object>
                                   <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
                                     <property name="position">0</property>
                                   </packing>
                                 </child>
@@ -350,14 +527,17 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                                     <property name="width_request">256</property>
                                     <property name="height_request">384</property>
                                     <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
                                     <property name="label_xalign">0</property>
                                     <property name="shadow_type">none</property>
                                     <child>
                                       <object class="GtkAlignment" id="image2_alignment">
                                         <property name="visible">True</property>
+                                        <property name="can_focus">False</property>
                                         <child>
                                           <object class="GtkImage" id="image2">
                                             <property name="visible">True</property>
+                                            <property name="can_focus">False</property>
                                             <property name="stock">gtk-missing-image</property>
                                           </object>
                                         </child>
@@ -365,6 +545,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                                     </child>
                                   </object>
                                   <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
@@ -372,39 +554,52 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             </child>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
                         </child>
                         <child>
                           <object class="GtkFixed" id="fixed2">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="position">2</property>
                           </packing>
                         </child>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkHBox" id="info_title_hbox">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <child>
                           <object class="GtkFixed" id="info_title_fixed1">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
                           <object class="GtkEventBox" id="info_title_eventbox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="visible_window">False</property>
                             <child>
                               <object class="GtkLabel" id="info_title_label">
+                                <property name="can_focus">False</property>
                                 <property name="label">???</property>
                                 <property name="justify">center</property>
                                 <property name="wrap">True</property>
@@ -412,40 +607,52 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             </child>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="position">1</property>
                           </packing>
                         </child>
                         <child>
                           <object class="GtkFixed" id="info_title_fixed2">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="position">2</property>
                           </packing>
                         </child>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="position">1</property>
                       </packing>
                     </child>
                     <child>
                       <object class="GtkVBox" id="info_label_vbox">
-                        <property name="orientation">vertical</property>
+                        <property name="can_focus">False</property>
                         <child>
                           <object class="GtkHBox" id="info_location_hbox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkFixed" id="info_location_fixed1">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkLabel" id="info_location_fixed_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Location:</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -458,25 +665,32 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <child>
                               <object class="GtkLabel" id="info_location_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkFixed" id="info_location_fixed2">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="padding">2</property>
                             <property name="position">0</property>
                           </packing>
@@ -484,18 +698,23 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkHBox" id="info_publisher_hbox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkFixed" id="info_publisher_fixed1">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkLabel" id="info_publisher_fixed_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Publisher:</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -508,25 +727,32 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <child>
                               <object class="GtkLabel" id="info_publisher_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkFixed" id="info_publisher_fixed2">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="padding">2</property>
                             <property name="position">1</property>
                           </packing>
@@ -534,18 +760,23 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkHBox" id="info_source_hbox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkFixed" id="info_source_fixed1">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkLabel" id="info_source_fixed_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Source:</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -558,25 +789,32 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <child>
                               <object class="GtkLabel" id="info_source_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkFixed" id="info_source_fixed2">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="padding">2</property>
                             <property name="position">2</property>
                           </packing>
@@ -584,18 +822,23 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkHBox" id="info_save_hbox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkFixed" id="info_save_fixed1">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkLabel" id="info_save_fixed_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Save:</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -608,25 +851,32 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <child>
                               <object class="GtkLabel" id="info_save_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkFixed" id="info_save_fixed2">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="padding">2</property>
                             <property name="position">3</property>
                           </packing>
@@ -634,18 +884,23 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkHBox" id="info_size_hbox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkFixed" id="info_size_fixed1">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkLabel" id="info_size_fixed_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Size:</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -658,25 +913,32 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <child>
                               <object class="GtkLabel" id="info_size_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkFixed" id="info_size_fixed2">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="padding">2</property>
                             <property name="position">4</property>
                           </packing>
@@ -684,29 +946,36 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkHBox" id="info_comment_hbox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkFixed" id="info_comment_fixed1">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkLabel" id="info_comment_fixed_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Comment:</property>
                                 <property name="single_line_mode">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">1</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkLabel" id="info_comment_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label">?</property>
                                 <property name="wrap">True</property>
                                 <property name="wrap_mode">word-char</property>
@@ -714,19 +983,25 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkFixed" id="info_comment_fixed2">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="padding">2</property>
                             <property name="position">5</property>
                           </packing>
@@ -734,18 +1009,23 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkHBox" id="info_crc_hbox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkFixed" id="info_crc_fixed1">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkLabel" id="info_crc_fixed_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">CRC:</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -758,25 +1038,32 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <child>
                               <object class="GtkLabel" id="info_crc_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label">?</property>
                                 <property name="selectable">True</property>
                                 <property name="single_line_mode">True</property>
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkFixed" id="info_crc_fixed2">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="padding">2</property>
                             <property name="position">6</property>
                           </packing>
@@ -784,18 +1071,23 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkHBox" id="info_language_hbox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="spacing">5</property>
                             <child>
                               <object class="GtkFixed" id="info_language_fixed1">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">0</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkLabel" id="info_language_fixed_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label" translatable="yes">Language:</property>
                                 <property name="single_line_mode">True</property>
                               </object>
@@ -808,6 +1100,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                             <child>
                               <object class="GtkLabel" id="info_language_label">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                                 <property name="label">?</property>
                                 <property name="wrap">True</property>
                                 <property name="wrap_mode">word-char</property>
@@ -815,55 +1108,71 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                               </object>
                               <packing>
                                 <property name="expand">False</property>
+                                <property name="fill">True</property>
                                 <property name="position">2</property>
                               </packing>
                             </child>
                             <child>
                               <object class="GtkFixed" id="info_language_fixed2">
                                 <property name="visible">True</property>
+                                <property name="can_focus">False</property>
                               </object>
                               <packing>
+                                <property name="expand">True</property>
+                                <property name="fill">True</property>
                                 <property name="position">3</property>
                               </packing>
                             </child>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="padding">2</property>
                             <property name="position">7</property>
                           </packing>
                         </child>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="position">2</property>
                       </packing>
                     </child>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
                   <object class="GtkVBox" id="search_vbox">
                     <property name="visible">True</property>
-                    <property name="orientation">vertical</property>
+                    <property name="can_focus">False</property>
                     <child>
                       <object class="GtkHBox" id="filter_hbox">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <child>
                           <object class="GtkFixed" id="filter_fixed1">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="position">0</property>
                           </packing>
                         </child>
                         <child>
                           <object class="GtkLabel" id="filter_name_label">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Filter by:</property>
                           </object>
                           <packing>
                             <property name="expand">False</property>
+                            <property name="fill">True</property>
                             <property name="padding">5</property>
                             <property name="position">1</property>
                           </packing>
@@ -872,14 +1181,21 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                           <object class="GtkEntry" id="filter_name_entry">
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
+                            <property name="primary_icon_activatable">False</property>
+                            <property name="secondary_icon_activatable">False</property>
+                            <property name="primary_icon_sensitive">True</property>
+                            <property name="secondary_icon_sensitive">True</property>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="position">2</property>
                           </packing>
                         </child>
                         <child>
                           <object class="GtkButton" id="filter_clear_button">
                             <property name="label" translatable="yes">Clear</property>
+                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -890,6 +1206,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                           </object>
                           <packing>
                             <property name="expand">False</property>
+                            <property name="fill">True</property>
                             <property name="padding">5</property>
                             <property name="position">3</property>
                           </packing>
@@ -897,13 +1214,18 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkFixed" id="filter_fixed2">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
+                            <property name="expand">True</property>
+                            <property name="fill">True</property>
                             <property name="position">4</property>
                           </packing>
                         </child>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="padding">10</property>
                         <property name="position">0</property>
                       </packing>
@@ -911,6 +1233,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                     <child>
                       <object class="GtkTable" id="filter_table">
                         <property name="visible">True</property>
+                        <property name="can_focus">False</property>
                         <property name="n_rows">2</property>
                         <property name="n_columns">5</property>
                         <property name="column_spacing">5</property>
@@ -918,6 +1241,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkFixed" id="filter_table_fixed4">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
                             <property name="left_attach">4</property>
@@ -929,6 +1253,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkFixed" id="filter_table_fixed3">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
                             <property name="left_attach">4</property>
@@ -938,6 +1263,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkFixed" id="filter_table_fixed2">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
                             <property name="top_attach">1</property>
@@ -947,11 +1273,13 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkFixed" id="filter_table_fixed1">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                         </child>
                         <child>
                           <object class="GtkComboBox" id="filter_location_combobox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
                             <property name="left_attach">1</property>
@@ -963,6 +1291,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkComboBox" id="filter_language_combobox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
                             <property name="left_attach">2</property>
@@ -974,6 +1303,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkComboBox" id="filter_size_combobox">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                           </object>
                           <packing>
                             <property name="left_attach">3</property>
@@ -985,6 +1315,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkLabel" id="filter_location_label">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Location:</property>
                           </object>
                           <packing>
@@ -995,6 +1326,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkLabel" id="filter_language_label">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Language:</property>
                           </object>
                           <packing>
@@ -1005,6 +1337,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkLabel" id="filter_size_label">
                             <property name="visible">True</property>
+                            <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Size:</property>
                           </object>
                           <packing>
@@ -1014,6 +1347,8 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         </child>
                       </object>
                       <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
                         <property name="padding">5</property>
                         <property name="position">1</property>
                       </packing>
@@ -1021,6 +1356,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   </object>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
@@ -1032,26 +1368,32 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             </child>
           </object>
           <packing>
+            <property name="expand">True</property>
+            <property name="fill">True</property>
             <property name="position">1</property>
           </packing>
         </child>
         <child>
           <object class="GtkHSeparator" id="main_hseparator">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">2</property>
           </packing>
         </child>
         <child>
           <object class="GtkStatusbar" id="statusbar">
             <property name="visible">True</property>
+            <property name="can_focus">False</property>
             <property name="spacing">2</property>
             <property name="has_resize_grip">False</property>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">3</property>
           </packing>
         </child>
@@ -1059,6 +1401,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
     </child>
   </object>
   <object class="GtkDialog" id="options_dialog">
+    <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Options</property>
     <property name="window_position">center-on-parent</property>
@@ -1068,16 +1411,63 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
     <child internal-child="vbox">
       <object class="GtkVBox" id="options_dialog-vbox">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
+        <property name="can_focus">False</property>
         <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="options_dialog-action_area">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="options_cancel_button">
+                <property name="label">gtk-cancel</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="has_default">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="options_ok_button">
+                <property name="label">gtk-ok</property>
+                <property name="use_action_appearance">False</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="can_default">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
         <child>
           <object class="GtkVBox" id="options_vbox">
             <property name="visible">True</property>
-            <property name="orientation">vertical</property>
+            <property name="can_focus">False</property>
             <property name="spacing">5</property>
             <child>
               <object class="GtkCheckButton" id="options_enable_splash_checkbutton">
                 <property name="label" translatable="yes">Enable splash screen at startup</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1085,12 +1475,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">0</property>
               </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="options_check_images_crc_checkbutton">
                 <property name="label" translatable="yes">Check integrity while downloading images</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1099,12 +1492,14 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">1</property>
               </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="options_autoscan_archives_at_start_checkbutton">
                 <property name="label" translatable="yes">Scan for roms archives at startup</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1112,12 +1507,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">2</property>
               </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="options_autoscan_archives_at_datupdate_checkbutton">
                 <property name="label" translatable="yes">Scan for roms archives at DAT file update</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1125,12 +1523,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">3</property>
               </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="options_scan_new_archives_only_checkbutton">
                 <property name="label" translatable="yes">Scan for new roms archives only</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1138,12 +1539,15 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">4</property>
               </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="options_clear_filters_checkbutton">
                 <property name="label" translatable="yes">Clear all filters when the games list is reloaded</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1151,53 +1555,65 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">5</property>
               </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="options_trim_roms_checkbutton">
                 <property name="label" translatable="yes">Trim roms during extraction</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="tooltip_text" translatable="yes">Trim roms during extraction automatically.
 
-'trim' command line utility is required to enable this option.</property>
+'dsromstrimmer' command line utility is required to enable this option.</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">6</property>
               </packing>
             </child>
             <child>
               <object class="GtkCheckButton" id="options_trim_roms_details_checkbutton">
                 <property name="label" translatable="yes">Show detailed informations while trimming</property>
+                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
-                <property name="tooltip_text" translatable="yes">Show detailed informations for every rom while trimming.</property>
+                <property name="tooltip_text" translatable="yes">Show detailed informations while trimming.</property>
                 <property name="draw_indicator">True</property>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">7</property>
               </packing>
             </child>
             <child>
               <object class="GtkHSeparator" id="options_hseparator1">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">8</property>
               </packing>
             </child>
             <child>
               <object class="GtkHBox" id="options_roms_path_hbox">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="options_roms_path_label">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Set here the directory where the roms are stored.</property>
                     <property name="label" translatable="yes">Roms:</property>
                   </object>
@@ -1210,28 +1626,34 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_roms_path_filechooserbutton">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">9</property>
               </packing>
             </child>
             <child>
               <object class="GtkHBox" id="options_unknown_roms_path_hbox">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="options_unknown_roms_path_label">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Set here the directory where to move unknown roms.</property>
                     <property name="label" translatable="yes">Unknown roms:</property>
                   </object>
@@ -1244,28 +1666,34 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_unknown_roms_path_filechooserbutton">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">10</property>
               </packing>
             </child>
             <child>
               <object class="GtkHBox" id="options_new_roms_path_hbox">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="options_new_roms_path_label">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">When the DAT file is updated, sometime previously unknown roms became known. Set here the directory where to move them.</property>
                     <property name="label" translatable="yes">New roms:</property>
                   </object>
@@ -1278,37 +1706,45 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_new_roms_path_filechooserbutton">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">11</property>
               </packing>
             </child>
             <child>
               <object class="GtkHSeparator" id="options_hseparator2">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">12</property>
               </packing>
             </child>
             <child>
               <object class="GtkHBox" id="options_images_path_hbox">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="options_images_path_label">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Set here the directory where the downloaded images will be stored.</property>
                     <property name="label" translatable="yes">Images:</property>
                   </object>
@@ -1321,6 +1757,7 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_images_path_filechooserbutton">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="show_hidden">True</property>
@@ -1328,27 +1765,33 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">13</property>
               </packing>
             </child>
             <child>
               <object class="GtkHBox" id="options_images_size_hbox">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="options_images_size_label">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Set here the factor for images scaling.</property>
                     <property name="label" translatable="yes">Images size (%)</property>
                   </object>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="fill">True</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -1356,36 +1799,48 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                   <object class="GtkSpinButton" id="options_images_size_spinbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x2022;</property>
+                    <property name="invisible_char">•</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
                     <property name="adjustment">options_images_size_adjustment</property>
                     <property name="climb_rate">1</property>
                     <property name="numeric">True</property>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
                 <property name="position">14</property>
               </packing>
             </child>
             <child>
               <object class="GtkHSeparator" id="options_hseparator3">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">15</property>
               </packing>
             </child>
             <child>
               <object class="GtkHBox" id="options_extractin_path_hbox">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="options_extractin_path_label">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Set here the default directory where to extract archives.</property>
                     <property name="label" translatable="yes">Extract in:</property>
                   </object>
@@ -1398,24 +1853,29 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                 <child>
                   <object class="GtkFileChooserButton" id="options_extractin_path_filechooserbutton">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="action">select-folder</property>
                     <property name="preview_widget_active">False</property>
                     <property name="use_preview_label">False</property>
                     <property name="title" translatable="yes">Select a directory</property>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">16</property>
               </packing>
             </child>
             <child>
               <object class="GtkButton" id="options_extractin_path_enable_button">
                 <property name="label" translatable="yes">'Extract in' path currently not available</property>
+                <property name="use_action_appearance">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">The previously selected 'Extract in' path does not exist anymore, or write permissions are not granted on it.
@@ -1425,25 +1885,30 @@ Click here to enable the 'Extract in' path to be modified.</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">17</property>
               </packing>
             </child>
             <child>
               <object class="GtkHSeparator" id="options_hseparator4">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">18</property>
               </packing>
             </child>
             <child>
               <object class="GtkHBox" id="options_review_hbox">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
                 <property name="spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="options_review_url_label">
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Use '{TITLE}' and '{RELNUM}' (without quotes) in the search URL as substitutes of the game title and the game release number, respectively.
 
 Example:
@@ -1462,73 +1927,41 @@ Set an empty string to use the default URL.</property>
                   <object class="GtkEntry" id="options_review_url_entry">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
-                    <property name="invisible_char">&#x25CF;</property>
+                    <property name="invisible_char">●</property>
+                    <property name="primary_icon_activatable">False</property>
+                    <property name="secondary_icon_activatable">False</property>
+                    <property name="primary_icon_sensitive">True</property>
+                    <property name="secondary_icon_sensitive">True</property>
                   </object>
                   <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">19</property>
               </packing>
             </child>
             <child>
               <object class="GtkHSeparator" id="options_hseparator5">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
               </object>
               <packing>
                 <property name="expand">False</property>
+                <property name="fill">True</property>
                 <property name="position">20</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">False</property>
+            <property name="fill">True</property>
             <property name="position">1</property>
-          </packing>
-        </child>
-        <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="options_dialog-action_area">
-            <property name="visible">True</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="options_cancel_button">
-                <property name="label">gtk-cancel</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="has_default">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="options_ok_button">
-                <property name="label">gtk-ok</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="can_default">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
           </packing>
         </child>
       </object>
@@ -1538,111 +1971,28 @@ Set an empty string to use the default URL.</property>
       <action-widget response="0">options_ok_button</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkWindow" id="images_window">
-    <property name="title" translatable="yes">Images</property>
-    <property name="window_position">center-on-parent</property>
+  <object class="GtkAdjustment" id="options_images_size_adjustment">
+    <property name="lower">10</property>
+    <property name="upper">100</property>
+    <property name="value">100</property>
+    <property name="step_increment">1</property>
+  </object>
+  <object class="GtkWindow" id="splash_window">
+    <property name="can_focus">False</property>
+    <property name="type">popup</property>
+    <property name="resizable">False</property>
+    <property name="window_position">center</property>
     <property name="destroy_with_parent">True</property>
     <property name="transient_for">main_window</property>
     <child>
-      <object class="GtkEventBox" id="images_window_eventbox">
+      <object class="GtkImage" id="splash_window_image">
         <property name="visible">True</property>
-        <property name="visible_window">False</property>
-        <child>
-          <object class="GtkHBox" id="images_window_hbox">
-            <property name="visible">True</property>
-            <property name="spacing">10</property>
-            <child>
-              <object class="GtkFrame" id="images_window_image1_frame">
-                <property name="width_request">214</property>
-                <property name="height_request">384</property>
-                <property name="visible">True</property>
-                <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
-                <child>
-                  <object class="GtkAlignment" id="images_window_image1_alignment">
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkImage" id="images_window_image1">
-                        <property name="visible">True</property>
-                        <property name="xpad">5</property>
-                        <property name="stock">gtk-missing-image</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkFrame" id="images_window_image2_frame">
-                <property name="width_request">256</property>
-                <property name="height_request">384</property>
-                <property name="visible">True</property>
-                <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
-                <child>
-                  <object class="GtkAlignment" id="images_window_image2_alignment">
-                    <property name="visible">True</property>
-                    <child>
-                      <object class="GtkImage" id="images_window_image2">
-                        <property name="visible">True</property>
-                        <property name="stock">gtk-missing-image</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkMenu" id="list_treeview_popup_menu">
-    <property name="visible">True</property>
-    <child>
-      <object class="GtkMenuItem" id="list_treeview_popup_extract_menuitem">
-        <property name="visible">True</property>
-        <property name="tooltip_text" translatable="yes">Extract selected games in the default directory.</property>
-        <property name="label" translatable="yes">Extract</property>
-        <property name="use_underline">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="list_treeview_popup_extractin_menuitem">
-        <property name="visible">True</property>
-        <property name="tooltip_text" translatable="yes">Extract selected games in a user selected directory.</property>
-        <property name="label" translatable="yes">Extract in...</property>
-        <property name="use_underline">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="list_treeview_popup_extract_stop_menuitem">
-        <property name="tooltip_text" translatable="yes">Stop the current extraction process.</property>
-        <property name="label" translatable="yes">Stop extraction</property>
-        <property name="use_underline">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkSeparatorMenuItem" id="list_treeview_popup_separatormenuitem">
-        <property name="visible">True</property>
-      </object>
-    </child>
-    <child>
-      <object class="GtkMenuItem" id="list_treeview_popup_rebuildarchive_menuitem">
-        <property name="visible">True</property>
-        <property name="tooltip_text" translatable="yes">Rebuild roms archives for selected games.</property>
-        <property name="label" translatable="yes">Rebuild</property>
-        <property name="use_underline">True</property>
+        <property name="can_focus">False</property>
       </object>
     </child>
   </object>
   <object class="GtkWindow" id="trim_details_window">
+    <property name="can_focus">False</property>
     <property name="title" translatable="yes">Trim Detailed Informations</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_width">600</property>
@@ -1665,23 +2015,5 @@ Set an empty string to use the default URL.</property>
         </child>
       </object>
     </child>
-  </object>
-  <object class="GtkWindow" id="splash_window">
-    <property name="type">popup</property>
-    <property name="resizable">False</property>
-    <property name="window_position">center</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="transient_for">main_window</property>
-    <child>
-      <object class="GtkImage" id="splash_window_image">
-        <property name="visible">True</property>
-      </object>
-    </child>
-  </object>
-  <object class="GtkAdjustment" id="options_images_size_adjustment">
-    <property name="value">100</property>
-    <property name="lower">10</property>
-    <property name="upper">100</property>
-    <property name="step_increment">1</property>
   </object>
 </interface>

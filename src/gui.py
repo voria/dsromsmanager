@@ -998,7 +998,7 @@ class Gui(threading.Thread):
 		trim = None
 		if config.get_option("trim_roms"): # we want to trim, check if we can
 			for path in os.path.expandvars("$PATH").split(":"):
-				temp = os.path.join(path, "trim")
+				temp = os.path.join(path, "dsromstrimmer")
 				if os.path.exists(temp):
 					trim = temp
 					break
@@ -1307,7 +1307,7 @@ class Gui(threading.Thread):
 		# Check if 'trim' in installed and disable/enable options as needed
 		trim = None
 		for path in os.path.expandvars("$PATH").split(":"):
-			temp = os.path.join(path, "trim")
+			temp = os.path.join(path, "dsromstrimmer")
 			if os.path.exists(temp):
 				trim = temp
 				break
