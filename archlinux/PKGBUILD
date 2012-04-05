@@ -7,7 +7,7 @@ pkgrel=1
 url="http://www.voria.org/dsromsmanager/"
 license=('GPLv3')
 source=(http://www.voria.org/files/nds/dsromsmanager/$pkgname-$pkgver.tar.gz)
-md5sums=('eb6c09ce97a3d123327886157782494b')
+md5sums=('a8ee76425bb382903b64d6248eaf10a6')
 arch=('any')
 
 build() {
