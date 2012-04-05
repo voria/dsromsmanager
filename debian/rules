@@ -31,7 +31,7 @@ install:
 	dh_installchangelogs
 	dh_installdocs
 	# Install DsRomsManager.
-	$(MAKE) DESTDIR=$(CURDIR)/debian/drm install
+	$(MAKE) DESTDIR=$(CURDIR)/debian/dsromsmanager install
 
 # Build architecture-independent files here.
 binary-indep: install

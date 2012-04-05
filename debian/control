@@ -1,12 +1,12 @@
-Source: drm
+Source: dsromsmanager
 Section: games
 Priority: extra
 Maintainer: Fortunato Ventre (voRia) <vorione@gmail.com>
-Build-Depends: debhelper (>= 7)
+Build-Depends: debhelper (>= 8)
 Standards-Version: 3.8.0
-Homepage: http://www.voria.org
+Homepage: http://www.voria.org/dsromsmanager
 
-Package: drm
+Package: dsromsmanager
 Architecture: all
 Depends: python-gtk2
 Description: DSRomsManager

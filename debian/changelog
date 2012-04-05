@@ -1,3 +1,13 @@
+dsromsmanager (1.4~precise) precise; urgency=low
+
+  * Rename the package as "dsromsmanager".
+  * Now the command line utility for trimming roms is included in this
+    package.
+  * Fix click on URL in about dialog.
+  * Specify the use of python2, because now python3 is the new default.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 03 Jul 2011 14:05:35 +0200
+
 drm (1.1.2~natty) natty; urgency=low
 
   * When searching for reviews, filter out the "(DSi Enhanced)" from the game's
