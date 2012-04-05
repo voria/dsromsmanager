@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if ps ux | grep drm.py | grep -v grep > /dev/null; then
+if ps ux | grep dsromsmanager.py | grep -v grep > /dev/null; then
 	# an instance is already running
-	echo "'drm' is already running."
+	echo "DSRomsManager is already running."
 	exit 1
 fi
 
@@ -11,4 +11,4 @@ if [ ! -d $HOME/.dsromsmanager ]; then
 fi
 
 cd /usr/share/dsromsmanager/
-python -OO ./drm.py
+python -OO ./dsromsmanager.py

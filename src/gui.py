@@ -50,15 +50,15 @@ class Gui(threading.Thread):
 	def __init__(self, threads):
 		""" Init Gui """
 		threading.Thread.__init__(self, name = "Gui")
-		
+
 		self.threads = threads
-		
+
 		gdk.threads_init()
-		
+
 		self.builder = gtk.Builder()
 		self.builder.set_translation_domain(APP_NAME.lower())
-		self.builder.add_from_file(os.path.join(DATA_DIR, "drm.glade"))
-		
+		self.builder.add_from_file(os.path.join(DATA_DIR, "dsromsmanager.glade"))
+
 		self.main_window = self.builder.get_object("main_window")
 		self.hpaned = self.builder.get_object("hpaned")
 		self.images_window = self.builder.get_object("images_window")
@@ -84,7 +84,7 @@ class Gui(threading.Thread):
 		self.options_unknown_roms_path_filechooserbutton = self.builder.get_object("options_unknown_roms_path_filechooserbutton")
 		self.options_new_roms_path_filechooserbutton = self.builder.get_object("options_new_roms_path_filechooserbutton")
 		self.options_images_path_filechooserbutton = self.builder.get_object("options_images_path_filechooserbutton")
-		self.options_images_size_spinbutton = self.builder.get_object("options_images_size_spinbutton") 
+		self.options_images_size_spinbutton = self.builder.get_object("options_images_size_spinbutton")
 		self.options_extractin_path_hbox = self.builder.get_object("options_extractin_path_hbox")
 		self.options_extractin_path_filechooserbutton = self.builder.get_object("options_extractin_path_filechooserbutton")
 		self.options_extractin_path_enable_button = self.builder.get_object("options_extractin_path_enable_button")
@@ -131,12 +131,12 @@ class Gui(threading.Thread):
 		# Widgets needed for hiding informations
 		self.images_hbox = self.builder.get_object("images_hbox")
 		self.info_label_vbox = self.builder.get_object("info_label_vbox")
-		
+
 		# Get images resize rate and images frames original size
 		self.images_resize_rate = float(config.get_option("images_size")) / 100
 		self.image1_frame_size = self.image1_frame.size_request()
 		self.image2_frame_size = self.image2_frame.size_request()
-		
+
 		# resize images frames if needed
 		if self.images_resize_rate != 1:
 			size_width = int(self.image1_frame_size[0] * self.images_resize_rate)
@@ -145,26 +145,26 @@ class Gui(threading.Thread):
 			size_width = int(self.image2_frame_size[0] * self.images_resize_rate)
 			size_height = int(self.image2_frame_size[1] * self.images_resize_rate)
 			self.image2_frame.set_size_request(size_width, size_height)
-			
+
 		self.main_window.set_title(APP_NAME + " - " + APP_VERSION)
 		self.about_dialog.set_version(APP_VERSION)
 		self.main_window_visible = True
-		
+
 		# Resize main window
 		self.main_window.resize(config.get_option("window_width"), config.get_option("window_height"))
-				
+
 		# Enable click on website url in about dialog
 		def about_dialog_url_clicked(dialog, link, user_data):
 			import webbrowser
 			webbrowser.open(link)
 		gtk.about_dialog_set_url_hook(about_dialog_url_clicked, None)
-		
+
 		# Load icon and create different sizes
 		icon = gdk.pixbuf_new_from_file(os.path.join(DATA_IMG_DIR, "icon.png"))
 		icon16 = icon.scale_simple(16, 16, gdk.INTERP_BILINEAR)
 		icon24 = icon.scale_simple(24, 24, gdk.INTERP_BILINEAR)
 		icon48 = icon.scale_simple(48, 48, gdk.INTERP_BILINEAR)
-		
+
 		# Set icon and logo for main_window and about_dialog
 		try:
 			self.main_window.set_icon(icon)
@@ -172,12 +172,12 @@ class Gui(threading.Thread):
 			self.about_dialog.set_logo(icon48)
 		except:
 			pass
-				
+
 		# Set icon for about_toolbutton
 		img = gtk.image_new_from_pixbuf(icon24)
 		img.show()
 		self.about_toolbutton.set_icon_widget(img)
-		
+
 		## StatusIcon stuff
 		# popup menu
 		self.popup_menu = gtk.Menu()
@@ -245,26 +245,26 @@ class Gui(threading.Thread):
 		self.statusicon.connect('activate', self.on_statusicon_activate)
 		self.statusicon.connect('popup-menu', self.on_statusicon_popup_menu, self.popup_menu)
 		self.statusicon.set_visible(True)
-		
+
 		# Clear images
 		self.image1.clear()
 		self.image2.clear()
 		self.images_window_image1.clear()
 		self.images_window_image2.clear()
-		
+
 		# Load flags images
 		self.flags = []
 		for i in countries_short.keys():
 			file = os.path.join(DATA_IMG_DIR, countries_short[i].lower() + ".png")
 			self.flags.append(gdk.pixbuf_new_from_file(file))
-		
+
 		# Load checks images
 		self.checks = []
 		image = gtk.Image()
 		self.checks.append(image.render_icon(gtk.STOCK_NO, gtk.ICON_SIZE_MENU))
 		self.checks.append(image.render_icon(gtk.STOCK_YES, gtk.ICON_SIZE_MENU))
 		self.checks.append(image.render_icon(gtk.STOCK_CONVERT, gtk.ICON_SIZE_MENU))
-		
+
 		# Setup all needed stuff for the main list treeview
 		# Keep track of how the treeview is sorted:
 		# -1: not sorted
@@ -272,7 +272,7 @@ class Gui(threading.Thread):
 		#  1: sort for inversed release number
 		#  2: sort for title
 		#  3: sort for inversed title
-		self.treeview_sort_type = -1 
+		self.treeview_sort_type = -1
 		self.list_treeview.get_selection().set_mode(gtk.SELECTION_MULTIPLE)
 		self.list_treeview_model = gtk.ListStore(gdk.Pixbuf, gdk.Pixbuf, int, str)
 		self.list_treeview.set_model(self.list_treeview_model)
@@ -288,46 +288,46 @@ class Gui(threading.Thread):
 		self.list_treeview_tvc_name = gtk.TreeViewColumn(_("Title"), self.list_treeview_crt, text = TVC_TITLE)
 		self.list_treeview_tvc_name.set_sort_column_id(TVC_TITLE)
 		self.list_treeview.append_column(self.list_treeview_tvc_name)
-		
+
 		# Setup all needed stuff for location combobox
 		self.filter_location_model = gtk.ListStore(str, str)
 		self.filter_location_combobox.set_model(self.filter_location_model)
 		self.filter_location_crt = gtk.CellRendererText()
 		self.filter_location_combobox.pack_start(self.filter_location_crt)
-		self.filter_location_combobox.add_attribute(self.filter_location_crt, 'text', 0)  
+		self.filter_location_combobox.add_attribute(self.filter_location_crt, 'text', 0)
 		self.filter_location_model.append([_("All"), "All"])
 		for i in countries.keys():
 			self.filter_location_model.append([_(countries[i]), countries[i]])
 		self.filter_location_combobox.set_active(0)
-		
+
 		# Setup all needed stuff for language combobox
 		self.filter_language_model = gtk.ListStore(str, str)
 		self.filter_language_combobox.set_model(self.filter_language_model)
 		self.filter_language_crt = gtk.CellRendererText()
 		self.filter_language_combobox.pack_start(self.filter_language_crt)
-		self.filter_language_combobox.add_attribute(self.filter_language_crt, 'text', 0)  
+		self.filter_language_combobox.add_attribute(self.filter_language_crt, 'text', 0)
 		self.filter_language_model.append([_("All"), "All"])
 		for i in langs.keys():
 			if langs[i] != "Unknown":
 				self.filter_language_model.append([_(langs[i]), langs[i]])
 		self.filter_language_combobox.set_active(0)
-		
+
 		# Setup all needed stuff for size combobox
 		self.filter_size_model = gtk.ListStore(str, str)
 		self.filter_size_combobox.set_model(self.filter_size_model)
 		self.filter_size_crt = gtk.CellRendererText()
 		self.filter_size_combobox.pack_start(self.filter_size_crt)
-		self.filter_size_combobox.add_attribute(self.filter_size_crt, 'text', 0)  
+		self.filter_size_combobox.add_attribute(self.filter_size_crt, 'text', 0)
 		self.filter_size_model.append([_("All"), "All"])
 		for size in sizes:
 			self.filter_size_model.append([_(size), size])
 		self.filter_size_combobox.set_active(0)
-		
+
 		# Set games checks filters
 		self.games_check_ok_checkbutton.set_active(config.get_option("show_available_games"))
 		self.games_check_no_checkbutton.set_active(config.get_option("show_not_available_games"))
 		self.games_check_convert_checkbutton.set_active(config.get_option("show_rebuildable_games"))
-		
+
 		# Connect signals
 		self.main_window.connect("delete_event", self.on_main_window_delete_event)
 		self.statusbar.connect("text-pushed", self.on_statusbar_text_pushed)
@@ -370,44 +370,44 @@ class Gui(threading.Thread):
 		self.gcnc_sid = self.games_check_no_checkbutton.connect("toggled", self.on_games_check_no_checkbutton_toggled)
 		self.gccc_sid = self.games_check_convert_checkbutton.connect("toggled", self.on_games_check_convert_checkbutton_toggled)
 		self.ite_sid = None # info_title_eventbox signal
-		
+
 		self.starting = True # Is application starting?
 		self.quitting = False # Are we quitting?
 		self.canexitnow = True # Can we exit now?
-		
+
 		self.db = None
-		
+
 		self.gamesnumber_total = 0 # Number of all games shown in treeview
 		self.gamesnumber_available = 0 # Number of available games shown in treeview
 		self.gamesnumber_not_available = 0 # Number of not available games shown in treeview
 		self.gamesnumber_fixable = 0 # Number of fixable games shown in treeview
 		self.games_to_rebuild = {} # Dictionary of all the games to rebuild in the format { fullinfo : (filename, oldfile, relnum) }
-		
+
 		# A list of games that should be filtered
 		self.dirty_games = []
-		
+
 		self.previous_selection_release_number = None
-		
+
 		# Dictionary of all the games checksums as keys, pointing to roms paths on the disk. Format: { crc : pathondisk }
 		self.checksums = {}
-		
+
 		self.autoscan_archives_at_start = config.get_option("autoscan_archives_at_start")
 		self.archives_already_scanned = False # Have archives been already scanned?
-		
+
 		self.options_save_extractin_path = True # Should we save the 'Extract in' path in options window?
-				
+
 		self.deactivate_widgets()
-		
+
 	def run(self):
 		""" Start thread """
 		gtk.main()
-	
+
 	def stop(self):
 		""" Stop thread """
 		self.quit()
-	
+
 	### Private functions
-	
+
 	def __add_game_to_list(self, game, anyway = False, insert_before_iter = None, use_threads = False):
 		"""
 		Add 'game' in treeview and return it's archive state (CHECKS_OK, CHECKS_NO, CHECKS_CONVERT).
@@ -418,7 +418,7 @@ class Gui(threading.Thread):
 		returnvalue = CHECKS_ERROR
 		if self.quitting:
 			return returnvalue
-		
+
 		relnum = game[GAME_RELEASE_NUMBER]
 		title = game[GAME_TITLE]
 		region = game[GAME_LOCATION_INDEX]
@@ -433,7 +433,7 @@ class Gui(threading.Thread):
 		check_convert_active = self.games_check_convert_checkbutton.get_active()
 		if use_threads:
 			gdk.threads_leave()
-		
+
 		if self.checksums[crc] == None: # we dont have the game
 			returnvalue = CHECKS_NO
 			if anyway or check_no_active:
@@ -461,16 +461,16 @@ class Gui(threading.Thread):
 					self.gamesnumber_fixable += 1
 				else:
 					return returnvalue
-		
+
 		if use_threads:
 			gdk.threads_enter()
 		self.list_treeview_model.insert_before(insert_before_iter, (check, flag, relnum, title))
 		if use_threads:
 			gdk.threads_leave()
-		
+
 		self.gamesnumber_total += 1
 		return returnvalue
-	
+
 	def __update_list(self, games, anyway = False, rebuild_dict = False, use_threads = False):
 		"""
 		List games from 'games' list in treeview.
@@ -479,22 +479,22 @@ class Gui(threading.Thread):
 		"""
 		if self.quitting:
 			return
-		
+
 		if rebuild_dict:
 			# delete old dictionary
 			self.games_to_rebuild = {}
-		
+
 		if use_threads:
 			gdk.threads_enter()
 		self.list_treeview_model = gtk.ListStore(gdk.Pixbuf, gdk.Pixbuf, int, str)
 		if use_threads:
 			gdk.threads_leave()
-		
+
 		self.gamesnumber_total = 0
 		self.gamesnumber_available = 0
 		self.gamesnumber_fixable = 0
 		self.gamesnumber_not_available = 0
-		
+
 		# Sort games list according to current treeview sort type
 		if self.treeview_sort_type == -1 or self.treeview_sort_type == 0: # not sorted or sorted by release number
 			games.sort(cmp = lambda x, y: cmp(x[1], y[1]))
@@ -522,7 +522,7 @@ class Gui(threading.Thread):
 		self.update_list_game_label()
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def __filter(self):
 		"""
 		If 'self.dirty_games' is empty, rebuild list according to filters.
@@ -540,7 +540,7 @@ class Gui(threading.Thread):
 				relnum = model.get_value(iter, TVC_RELEASE_NUMBER)
 				if relnum in self.dirty_games:
 					# Remove the games from the model and from the dirty games list
-					model.remove(iter) 
+					model.remove(iter)
 					self.dirty_games.remove(relnum)
 					# Update counters
 					self.gamesnumber_total -= 1
@@ -573,7 +573,7 @@ class Gui(threading.Thread):
 			self.show_review_menuitem.set_sensitive(False)
 			# Set the model back to treeview
 			self.list_treeview.set_model(self.list_treeview_model)
-		
+
 			# Sort treeview
 			if self.treeview_sort_type == -1: # if treeview is not sorted, sort it for release number in reversed order
 				self.list_treeview_tvc_relnum.clicked()
@@ -592,10 +592,10 @@ class Gui(threading.Thread):
 				self.list_treeview_tvc_name.clicked()
 				self.list_treeview_tvc_name.clicked()
 				self.treeview_sort_type = 3
-		
+
 		# Restore previous selection
 		self.set_previous_treeview_cursor()
-	
+
 	def __hide_infos(self):
 		""" Hide game's info and disable review buttons """
 		if self.quitting:
@@ -606,7 +606,7 @@ class Gui(threading.Thread):
 		self.images_window.hide()
 		self.show_review_toolbutton.set_sensitive(False)
 		self.show_review_menuitem.set_sensitive(False)
-	
+
 	def __show_infos(self):
 		""" Show game's info and enable review buttons"""
 		if self.quitting:
@@ -616,16 +616,16 @@ class Gui(threading.Thread):
 		self.info_label_vbox.show()
 		self.show_review_toolbutton.set_sensitive(True)
 		self.show_review_menuitem.set_sensitive(True)
-	
+
 	### Callback functions
-	
+
 	def on_main_window_delete_event(self, window, event):
 		""" Exit Application """
 		if self.quitting: # we are already quitting
 			return True
 		self.quit()
 		return True
-	
+
 	def on_statusicon_activate(self, statusicon):
 		""" Hide/Restore the application in/from systray """
 		if self.quitting:
@@ -644,43 +644,43 @@ class Gui(threading.Thread):
 			self.toggle_main_window_menuitem.set_tooltip_text(_("Hide main window."))
 			self.main_window_visible = True
 			self.statusicon.set_blinking(False)
-	
+
 	def on_statusicon_toggle_main_window_activate(self, widget):
 		""" Hide/Restore the application in/from systray """
 		self.on_statusicon_activate(self.statusicon)
-	
+
 	def on_statusicon_dat_update_activate(self, widget):
 		""" Start DAT Update """
 		self.on_dat_update_toolbutton_clicked(self.dat_update_toolbutton)
-	
+
 	def on_statusicon_images_download_activate(self, widget):
 		""" Start/Stop downloading of all images """
 		self.on_images_download_toolbutton_clicked(self.images_download_toolbutton)
-	
+
 	def on_statusicon_rescan_roms_archives_activate(self, widget):
 		""" Start rescan of roms archives """
 		self.on_rescan_roms_archives_toolbutton_clicked(self.rescan_roms_archives_toolbutton)
-	
+
 	def on_statusicon_rebuild_roms_archives_activate(self, widget):
 		""" Start/Stop rebuilding of roms archives """
 		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton)
-	
+
 	def on_statusicon_show_review_activate(self, widget):
 		""" Show reviews for the current selected game """
 		self.on_show_review_toolbutton_clicked(self.show_review_toolbutton)
-	
+
 	def on_statusicon_options_activate(self, widget):
 		""" Show the options dialog """
 		self.on_options_toolbutton_clicked(self.options_toolbutton)
-	
+
 	def on_statusicon_about_activate(self, widget):
 		""" Show the info dialog """
 		self.on_about_toolbutton_clicked(self.about_toolbutton)
-	
+
 	def on_statusicon_quit_activate(self, widget, data = None):
 		""" Exit Application """
 		self.quit()
-	
+
 	def on_statusicon_popup_menu(self, widget, button, time, data = None):
 		""" Show the statusicon popup menu """
 		if self.quitting:
@@ -690,11 +690,11 @@ class Gui(threading.Thread):
 				data.show_all()
 				data.popup(None, None, None, button, time)
 		pass
-	
+
 	def on_statusbar_text_pushed(self, statusbar, context_id, text):
 		""" When text is pushed in statusbar, update statusicon tooltip """
 		self.statusicon.set_tooltip(text)
-	
+
 	def on_list_treeview_selection_changed(self, selection):
 		""" Show game info for the current selected game """
 		if self.quitting:
@@ -704,35 +704,35 @@ class Gui(threading.Thread):
 		if self.ite_sid != None:
 			self.info_title_eventbox.disconnect(self.ite_sid)
 			self.ite_sid = None
-		
+
 		# If more games are selected, return
 		if selection.count_selected_rows() > 1:
 			# There is no more a previous selected game
 			self.previous_selection_release_number = None
 			self.set_previous_treeview_cursor()
 			return
-		
+
 		model, paths = selection.get_selected_rows()
 		try:
 			iter = model.get_iter(paths[0])
 		except:
 			return # treeview is changing
-		
+
 		try:
 			relnum = model.get_value(iter, TVC_RELEASE_NUMBER)
 		except:
 			return # model is empty
-		
+
 		try:
 			game = self.db.get_game(relnum)
 		except:
 			self.open_db()
 			game = self.db.get_game(relnum)
-		
+
 		# Show images if available, or else download them
 		img1 = game[GAME_IMG1_LOCAL_PATH]
 		img2 = game[GAME_IMG2_LOCAL_PATH]
-		
+
 		if os.path.exists(img1) and os.path.exists(img2):
 			try:
 				# set images
@@ -753,7 +753,7 @@ class Gui(threading.Thread):
 				# Probably we were still downloading image files when we tried to load them.
 				# In other words, file exists but it's not complete yet (ie, corrupt).
 				# Well, ignore the problem.
-				pass				
+				pass
 		else: # Images do not exist, download them
 			self.image1.clear()
 			self.image2.clear()
@@ -762,7 +762,7 @@ class Gui(threading.Thread):
 			thread = ImagesDownloader(self, game)
 			self.threads.append(thread)
 			thread.start()
-		
+
 		# Toggle signals on images_eventbox and images_window_eventbox, as needed
 		if self.iwe_sid != None:
 			self.images_window_eventbox.disconnect(self.iwe_sid)
@@ -770,8 +770,8 @@ class Gui(threading.Thread):
 			self.images_eventbox.disconnect(self.ie_sid)
 		if self.images_resize_rate <= 0.9:
 			self.iwe_sid = self.images_window_eventbox.connect("button-press-event", self.toggle_images_window)
-			self.ie_sid = self.images_eventbox.connect("button-press-event", self.toggle_images_window, img1, img2)	
-				
+			self.ie_sid = self.images_eventbox.connect("button-press-event", self.toggle_images_window, img1, img2)
+
 		# Search for duplicates
 		duplicates_fullinfo = []
 		duplicates_relnum = []
@@ -784,7 +784,7 @@ class Gui(threading.Thread):
 					duplicates_relnum.append(g[GAME_RELEASE_NUMBER])
 					if g[GAME_RELEASE_NUMBER] != relnum:
 						duplicates_fullinfo.append(g[GAME_FULLINFO])
-		
+
 		# Add duplicates to info_title_label tooltip
 		if len(duplicates_fullinfo) != 0:
 			text = _("Duplicates:")
@@ -793,12 +793,12 @@ class Gui(threading.Thread):
 				self.info_title_label.set_tooltip_text(text)
 		else:
 			self.info_title_label.set_tooltip_text(_("No duplicates"))
-		
+
 		# Enable info_title_eventbox to catch button presses in order to cycle duplicates
 		self.ite_sid = self.info_title_eventbox.connect("button-press-event",
 													    self.on_info_title_eventbox_button_press_event,
 													    relnum, duplicates_relnum)
-		
+
 		# Show informations
 		title = game[GAME_FULLINFO].replace("&", "&amp;")
 		if self.images_resize_rate <= 0.9: # Use a normal size for title
@@ -819,11 +819,11 @@ class Gui(threading.Thread):
 		self.info_language_label.set_text(language)
 		self.info_crc_label.set_text(game[GAME_ROM_CRC])
 		self.info_comment_label.set_text(game[GAME_COMMENT])
-		
+
 		# Enable review buttons
 		self.show_review_toolbutton.set_sensitive(True)
 		self.show_review_menuitem.set_sensitive(True)
-		
+
 		# This game now is the previous selected game
 		self.previous_selection_release_number = game[GAME_RELEASE_NUMBER]
 		self.__show_infos()
@@ -840,7 +840,7 @@ class Gui(threading.Thread):
 		except:
 			# not found, nothing to do then...
 			return
- 
+
  		# select next game to show
 		pos = (pos + 1) % len(duplicates)
 		next = duplicates[pos]
@@ -855,7 +855,7 @@ class Gui(threading.Thread):
 				except:
 					self.open_db()
 					game = self.db.get_game(next)
-					
+
 				# Insert game into the model, the next cycle will find the iter we are searching for
 				self.__add_game_to_list(game, insert_before_iter = next_iter, anyway = True)
 				self.update_list_game_label()
@@ -863,7 +863,7 @@ class Gui(threading.Thread):
 				iter = self.list_treeview_model.get_iter_first()
 			else: # Not found yet
 				iter = next_iter
-				
+
 		# Finally, select the next game in the treeview
 		path = self.list_treeview_model.get_path(iter)
 		self.list_treeview.set_cursor(path)
@@ -884,16 +884,16 @@ class Gui(threading.Thread):
 			selection = treeview.get_selection()
 			# Get selected paths
 			model, paths = selection.get_selected_rows()
-			
+
 			# Check if clicked item is in selected paths.
 			# If not, move cursor on it and create a new 'paths'.
 			if not path in paths:
 				treeview.set_cursor(path)
 				paths = [path, ]
-			
+
 			check_yes = False
 			check_convert = False
-			
+
 			# get selected games check status in order to check what options we can enable
 			for p in paths:
 				iter = model.get_iter(p)
@@ -904,7 +904,7 @@ class Gui(threading.Thread):
 					check_yes = True
 				elif check == self.checks[CHECKS_CONVERT]:
 					check_convert = True
-			
+
 			# Let's see what options we can enable
 			if check_yes and check_convert:
 				self.list_treeview_popup_extract_menuitem.set_sensitive(True)
@@ -928,29 +928,29 @@ class Gui(threading.Thread):
 			default_extract_directory = config.get_option("default_extract_directory")
 			if not os.path.exists(default_extract_directory) or not os.access(default_extract_directory, os.W_OK):
 				self.list_treeview_popup_extract_menuitem.set_sensitive(False)
-			
+
 			# If we are already rebuilding archives, we can't start another process
 			for thread in self.threads:
 				if thread.isAlive() and thread.getName() == "RomArchivesRebuild":
 					self.list_treeview_popup_rebuildarchive_menuitem.set_sensitive(False)
 					break
-			
+
 			# If we are already extracting archives, it's better if we avoid to start a new extract process
 			for thread in self.threads:
 				if thread.isAlive() and thread.getName() == "RomArchivesExtract":
 					self.list_treeview_popup_extract_menuitem.set_sensitive(False)
 					self.list_treeview_popup_extractin_menuitem.set_sensitive(False)
 					break
-			
+
 			# Finally show the popup menu
-			self.list_treeview_popup_menu.popup(None, None, None, event.button, event.time)			
+			self.list_treeview_popup_menu.popup(None, None, None, event.button, event.time)
 			return True
-	
+
 	def on_list_treeview_popup_extract_menuitem_activate(self, button):
 		""" Extract selected games in the default extract directory """
 		target = config.get_option("default_extract_directory")
 		self.on_list_treeview_popup_extractin_menuitem_activate(button, target = target)
-	
+
 	def on_list_treeview_popup_extractin_menuitem_activate(self, button, target = None):
 		"""
 		Extract selected games in 'target'.
@@ -961,10 +961,10 @@ class Gui(threading.Thread):
 			return
 
 		dict = {} # games to extract, in format { fullinfo : zipfile }
-		
+
 		selection = self.list_treeview.get_selection()
 		model, paths = selection.get_selected_rows()
-		
+
 		# Add all selected games with CHECKS_YES status to games dictionary
 		for path in paths:
 			iter = model.get_iter(path)
@@ -980,7 +980,7 @@ class Gui(threading.Thread):
 			zipfile = self.checksums[game[GAME_ROM_CRC]]
 			# Add game to games dictionary
 			dict[game[GAME_FULLINFO]] = zipfile
-		
+
 		if target == None:
 			# Open a filechooserdialog to select the target directory
 			fcd = gtk.FileChooserDialog(_("Select destination directory"),
@@ -993,7 +993,7 @@ class Gui(threading.Thread):
 			fcd.destroy()
 			if target == None:
 				return
-		
+
 		# Check if we want and we can trim
 		trim = None
 		if config.get_option("trim_roms"): # we want to trim, check if we can
@@ -1017,17 +1017,17 @@ class Gui(threading.Thread):
 				thread.stop()
 				break
 		self.list_treeview_popup_extract_stop_menuitem.set_sensitive(False)
-	
+
 	def on_list_treeview_popup_rebuildarchive_menuitem_activate(self, button):
 		""" Rebuild archives for selected games. """
 		if self.quitting:
 			return
-		
+
 		dict = {} # games to extract, in format { fullinfo : (filename, fileondisk, relnum) }
-		
+
 		selection = self.list_treeview.get_selection()
 		model, paths = selection.get_selected_rows()
-		
+
 		# Add all selected games with CHECKS_CONVERT status to games dictionary
 		for path in paths:
 			iter = model.get_iter(path)
@@ -1040,9 +1040,9 @@ class Gui(threading.Thread):
 				self.open_db()
 				game = self.db.get_game(relnum)
 			dict[game[GAME_FULLINFO]] = (game[GAME_FILENAME], self.checksums[game[GAME_ROM_CRC]], relnum)
-		
+
 		self.on_rebuild_roms_archives_toolbutton_clicked(self.rebuild_roms_archives_toolbutton, dict = dict)
-	
+
 	def on_list_treeviewcolumn_clicked(self, treeviewcolumn):
 		"""
 		Update the current sort type for treeview.
@@ -1062,8 +1062,8 @@ class Gui(threading.Thread):
 			if self.treeview_sort_type == 2:
 				self.treeview_sort_type = 3
 			else:
-				self.treeview_sort_type = 2			
-			
+				self.treeview_sort_type = 2
+
 	def on_show_review_toolbutton_clicked(self, button):
 		"""
 		Open the web browser to show reviews for the current selected game.
@@ -1084,7 +1084,7 @@ class Gui(threading.Thread):
 		url = config.get_option("review_url").replace("{TITLE}", title).replace("{RELNUM}", relnum)
 		import webbrowser
 		webbrowser.open(url)
-	
+
 	def on_dat_update_toolbutton_clicked(self, button):
 		""" Check if DAT can be updated. If so, update it. """
 		if self.quitting:
@@ -1094,20 +1094,20 @@ class Gui(threading.Thread):
 		except:
 			self.open_db()
 			info = self.db.get_info()
-		
+
 		buttons = [] # buttons that need to be disabled while updating
 		buttons.append(self.dat_update_toolbutton)
 		buttons.append(self.dat_update_menuitem)
 		buttons.append(self.rescan_roms_archives_toolbutton)
 		buttons.append(self.rescan_roms_archives_menuitem)
-		
+
 		# Check if we have to rescan roms archives after update
-		rescan = config.get_option("autoscan_archives_at_datupdate")		
-		
+		rescan = config.get_option("autoscan_archives_at_datupdate")
+
 		thread = DatUpdater(self, self.threads, buttons, info[INFO_DAT_VERSION], info[INFO_DAT_VERSION_URL], rescan)
 		self.threads.append(thread)
 		thread.start()
-	
+
 	def on_images_download_toolbutton_clicked(self, button):
 		""" Start/Stop all images download """
 		if self.quitting:
@@ -1117,7 +1117,7 @@ class Gui(threading.Thread):
 		except:
 			self.open_db()
 			games_number = self.db.get_games_number()
-		
+
 		if button.get_stock_id() == gtk.STOCK_JUMP_TO: # Let's start download
 			if games_number == 0:
 				return
@@ -1133,7 +1133,7 @@ class Gui(threading.Thread):
 				if thread.isAlive() and thread.getName() == "AllImagesDownloader":
 					thread.stop()
 					break
-	
+
 	def on_rescan_roms_archives_toolbutton_clicked(self, button, confirm = True):
 		"""
 		Rescan for roms archives on disk.
@@ -1149,7 +1149,7 @@ class Gui(threading.Thread):
 		rar = RomArchivesRescan(self)
 		self.threads.append(rar)
 		rar.start()
-	
+
 	def on_rebuild_roms_archives_toolbutton_clicked(self, button, dict = None):
 		"""
 		Start rebuilding of archives for games listed in 'dict'.
@@ -1164,7 +1164,7 @@ class Gui(threading.Thread):
 			widgets.append(self.dat_update_menuitem)
 			widgets.append(self.rescan_roms_archives_toolbutton)
 			widgets.append(self.rescan_roms_archives_menuitem)
-			
+
 			if dict == None:
 				dict = self.games_to_rebuild
 
@@ -1179,14 +1179,14 @@ class Gui(threading.Thread):
 				if thread.isAlive() and thread.getName() == "RomArchivesRebuild":
 					thread.stop()
 					break
-	
+
 	def on_filter_triggered(self, widget = None):
 		""" Filter list """
 		if self.quitting:
 			return
 		self.dirty_games = []
 		self.__filter()
-	
+
 	def on_filter_clear_button_clicked(self, button):
 		"""
 		If global variable 'self.dirty_games' is empty and filters are not cleared, clear all filters.
@@ -1204,11 +1204,11 @@ class Gui(threading.Thread):
 			filter = 3
 		if self.filter_size_combobox.get_active() != 0:
 			filter = 4
-			
+
 		if len(self.dirty_games) != 0:
 			self.__filter()
 			return
-		
+
 		if filter == 0:
 			# Just clear current selection in treeview and hide infos
 			self.list_treeview.get_selection().unselect_all()
@@ -1258,22 +1258,22 @@ class Gui(threading.Thread):
 			self.filter_name_entry.handler_unblock(self.fne_sid)
 			self.filter_location_combobox.handler_unblock(self.flocc_sid)
 			self.filter_language_combobox.handler_unblock(self.flanc_sid)
-	
+
 	def on_games_check_ok_checkbutton_toggled(self, widget):
 		""" Set/unset filter of games with CHECKS_OK status  """
 		config.set_option("show_available_games", widget.get_active())
 		self.__filter()
-	
+
 	def on_games_check_no_checkbutton_toggled(self, widget):
 		""" Set/unset filter of games with CHECKS_NO status  """
 		config.set_option("show_not_available_games", widget.get_active())
 		self.__filter()
-	
+
 	def on_games_check_convert_checkbutton_toggled(self, widget):
 		""" Set/unset filter of games with CHECKS_CONVERT status  """
 		config.set_option("show_rebuildable_games", widget.get_active())
 		self.__filter()
-	
+
 	def on_options_trim_roms_checkbutton_toggled(self, widget):
 		"""	Enable/disable all the other options depending on 'options_trim_roms_checkbutton' """
 		if not self.options_trim_roms_checkbutton.get_property("sensitive"):
@@ -1282,7 +1282,7 @@ class Gui(threading.Thread):
 			self.options_trim_roms_details_checkbutton.set_sensitive(True)
 		else:
 			self.options_trim_roms_details_checkbutton.set_sensitive(False)
-	
+
 	def on_trim_details_window_delete_event(self, window, event):
 		""" Close the trim details window and clear the textbuffer """
 		if self.quitting:
@@ -1290,7 +1290,7 @@ class Gui(threading.Thread):
 		self.trim_details_textbuffer.set_text("")
 		self.trim_details_window.hide()
 		return True
-	
+
 	def on_options_toolbutton_clicked(self, menuitem):
 		""" Open the options dialog """
 		if self.quitting:
@@ -1303,7 +1303,7 @@ class Gui(threading.Thread):
 		self.options_trim_roms_checkbutton.set_active(config.get_option("trim_roms"))
 		self.options_trim_roms_details_checkbutton.set_active(config.get_option("show_trim_details"))
 		self.options_enable_splash_checkbutton.set_active(config.get_option("enable_splash"))
-		
+
 		# Check if 'trim' in installed and disable/enable options as needed
 		trim = None
 		for path in os.path.expandvars("$PATH").split(":"):
@@ -1317,39 +1317,39 @@ class Gui(threading.Thread):
 		else: # 'trim' available
 			self.options_trim_roms_checkbutton.set_sensitive(True)
 			self.options_trim_roms_details_checkbutton.set_sensitive(True)
-		
+
 		# Disable/enable 'show trim details' according to 'trim' checkbutton state
 		if self.options_trim_roms_checkbutton.get_property('sensitive') and self.options_trim_roms_checkbutton.get_active():
-			self.options_trim_roms_details_checkbutton.set_sensitive(True) 
+			self.options_trim_roms_details_checkbutton.set_sensitive(True)
 		else:
-			self.options_trim_roms_details_checkbutton.set_sensitive(False) 
-		
+			self.options_trim_roms_details_checkbutton.set_sensitive(False)
+
 		roms_path = config.get_option("roms_path")
 		if not os.path.exists(roms_path):
 			self.show_info_dialog(_("Current 'Roms' path does not exist.\nThe default path will be used."))
 			roms_path = config.get_option_default("roms_path")
 		self.options_roms_path_filechooserbutton.set_current_folder(roms_path)
-		
+
 		unknown_roms_path = config.get_option("unknown_roms_path")
 		if not os.path.exists(unknown_roms_path):
 			self.show_info_dialog(_("Current 'Unknown roms' path does not exist.\nThe default path will be used."))
 			unknown_roms_path = config.get_option_default("unknown_roms_path")
 		self.options_unknown_roms_path_filechooserbutton.set_current_folder(unknown_roms_path)
-		
+
 		new_roms_path = config.get_option("new_roms_path")
 		if not os.path.exists(new_roms_path):
 			self.show_info_dialog(_("Current 'New roms' path does not exist.\nThe default path will be used."))
 			new_roms_path = config.get_option_default("new_roms_path")
 		self.options_new_roms_path_filechooserbutton.set_current_folder(new_roms_path)
-		
+
 		images_path = config.get_option("images_path")
 		if not os.path.exists(images_path):
 			self.show_info_dialog(_("Current 'Images' path does not exist.\nThe default path will be used."))
 			images_path = config.get_option_default("images_path")
 		self.options_images_path_filechooserbutton.set_current_folder(images_path)
-		
+
 		self.options_images_size_spinbutton.set_value(config.get_option("images_size"))
-		
+
 		extractin_path = config.get_option("default_extract_directory")
 		if os.path.exists(extractin_path) and os.access(extractin_path, os.W_OK):
 			self.options_extractin_path_enable_button.hide()
@@ -1358,14 +1358,14 @@ class Gui(threading.Thread):
 			self.options_extractin_path_enable_button.show()
 			self.options_extractin_path_hbox.hide()
 			extractin_path = config.get_option_default("default_extract_directory")
-		self.options_extractin_path_filechooserbutton.set_current_folder(extractin_path)			
-		
+		self.options_extractin_path_filechooserbutton.set_current_folder(extractin_path)
+
 		self.options_review_url_entry.set_text(config.get_option("review_url"))
-				
+
 		self.options_toolbutton.set_sensitive(False)
 		self.options_menuitem.set_sensitive(False)
 		self.options_dialog.show()
-	
+
 	def on_options_dialog_response(self, dialog, response_id):
 		""" Check if options in options dialog are valid, then save them in 'config' """
 		if self.quitting:
@@ -1389,7 +1389,7 @@ class Gui(threading.Thread):
 				message = _("'DsRomsManager' working directory has been selected as 'Unknown roms' path, but it can't be used.")
 				message += _("\n\nThe 'Unknown roms' path will be restored to its default value.")
 				unknown_roms_path_new = config.get_option_default("unknown_roms_path")
-				self.show_info_dialog(message)			 	 
+				self.show_info_dialog(message)
 			if new_roms_path_new == WORK_DIR:
 				message = _("'DsRomsManager' working directory has been selected as 'New roms' path, but it can't be used.")
 				message += _("\n\nThe 'New roms' path will be restored to its default value.")
@@ -1482,7 +1482,7 @@ class Gui(threading.Thread):
 			if len(text) != 0:
 				config.set_option("review_url", text)
 			else: # An empty text means 'use the default url'
-				config.set_option_default("review_url")			
+				config.set_option_default("review_url")
 			# Apply changes
 			if dbupdate:
 				# We need to update images paths into database with the new path.
@@ -1514,46 +1514,46 @@ class Gui(threading.Thread):
 				else:
 					# Inform 'rescan archives' toolbutton that archives have not been scanned
 					self.archives_already_scanned = False
-					
+
 		# Re-enable options buttons and close dialog
 		self.options_toolbutton.set_sensitive(True)
 		self.options_menuitem.set_sensitive(True)
 		dialog.hide()
-	
+
 	def on_options_extractin_path_enable_button_clicked(self, button):
 		""" Enable the 'Extract in' path to be changed """
 		self.options_extractin_path_hbox.show()
 		self.options_extractin_path_enable_button.hide()
-	
+
 	def on_images_window_delete_event(self, window, event):
 		""" Hide images_window """
 		if self.quitting:
 			return True
 		window.hide()
 		return True
-	
+
 	def on_options_dialog_delete_event(self, window, event):
 		""" Close options dialog without saving changes to options """
 		if self.quitting:
 			return True
 		window.hide()
 		return True
-	
+
 	def on_about_toolbutton_clicked(self, button):
 		""" Show the about dialog """
 		if self.quitting:
 			return
 		self.about_dialog.show()
-	
+
 	def on_about_dialog_response(self, dialog, response_id):
 		""" Hide the about dialog """
 		if self.quitting:
 			return True
 		dialog.hide()
 		return True
-	
+
 	### General functions
-	
+
 	def deactivate_widgets(self, use_threads = False):
 		""" Disable all widgets' sensitiveness """
 		if self.quitting:
@@ -1588,7 +1588,7 @@ class Gui(threading.Thread):
 		self.__hide_infos()
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def activate_widgets(self, use_threads = False):
 		""" Enable all widgets' sensitiveness """
 		if self.quitting:
@@ -1624,7 +1624,7 @@ class Gui(threading.Thread):
 		if use_threads:
 			gdk.threads_leave()
 		self.set_previous_treeview_cursor(use_threads = use_threads)
-	
+
 	def toggle_images_window(self, widget = None, event = None, img1 = None, img2 = None):
 		""" When mouse button 1 is clicked, toggle images_window """
 		if self.quitting or event == None or event.button != 1:
@@ -1642,7 +1642,7 @@ class Gui(threading.Thread):
 			else:
 				self.images_window_image2.clear()
 			self.images_window.show()
-	
+
 	def show_splash_screen(self, timeout = 3000, use_threads = False):
 		""" Show a splash screen for 'timeout' milliseconds """
 		if use_threads:
@@ -1654,7 +1654,7 @@ class Gui(threading.Thread):
 		gobject.timeout_add(timeout, splash_window.hide)
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def show_okcancel_question_dialog(self, message, use_threads = False):
 		"""
 		Show a question dialog with 'OK' and 'Cancel' buttons, showing 'message'.
@@ -1668,12 +1668,12 @@ class Gui(threading.Thread):
 		response = dialog.run()
 		dialog.destroy()
 		if use_threads:
-			gdk.threads_leave()		
+			gdk.threads_leave()
 		if response == gtk.RESPONSE_OK:
 			return True
 		else:
 			return False
-	
+
 	def show_yesno_question_dialog(self, message, use_threads = False):
 		"""
 		Show a question dialog with 'Yes' and 'No' buttons, showing 'message'.
@@ -1687,12 +1687,12 @@ class Gui(threading.Thread):
 		response = dialog.run()
 		dialog.destroy()
 		if use_threads:
-			gdk.threads_leave()		
+			gdk.threads_leave()
 		if response == gtk.RESPONSE_YES:
 			return True
 		else:
 			return False
-	
+
 	def show_yesnoalwaysnever_question_dialog(self, message, use_threads = False):
 		"""
 		Show a question dialog with 'Yes', 'Yes for all', 'No', 'No for all' buttons, showing 'message'.
@@ -1729,7 +1729,7 @@ class Gui(threading.Thread):
 		if response == gtk.RESPONSE_DELETE_EVENT: # user has closed the dialog: return 'No'
 			response = 0
 		return response
-	
+
 	def show_info_dialog(self, message, use_threads = False):
 		""" Show an info dialog with an OK button, showing 'message' """
 		if self.quitting:
@@ -1741,7 +1741,7 @@ class Gui(threading.Thread):
 		dialog.destroy()
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def show_error_dialog(self, message, use_threads = False):
 		""" Show an error dialog with an OK button, showing 'message' """
 		if self.quitting:
@@ -1753,7 +1753,7 @@ class Gui(threading.Thread):
 		dialog.destroy()
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def show_trim_details_window(self, text, use_threads = False):
 		""" Show the trim details window and add 'text' to its textbuffer """
 		if self.quitting:
@@ -1766,7 +1766,7 @@ class Gui(threading.Thread):
 		self.trim_details_textview.scroll_to_mark(self.trim_details_textbuffer.get_insert(), 0)
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def update_list_game_label(self):
 		""" Update games statistics labels """
 		if self.quitting:
@@ -1785,7 +1785,7 @@ class Gui(threading.Thread):
 		else:
 			text = _("No games shown")
 		self.list_game_label.set_text(text)
-		
+
 	def update_statusbar(self, context, text, use_threads = False):
 		""" Push 'text' in the statusbar, using 'context' as context """
 		if self.quitting:
@@ -1795,7 +1795,7 @@ class Gui(threading.Thread):
 		self.statusbar.push(self.statusbar.get_context_id(context), text)
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def update_game(self, game_release_number, new_zip_file, use_threads = False):
 		""" Update game's check status in treeview """
 		if self.quitting:
@@ -1805,10 +1805,10 @@ class Gui(threading.Thread):
 			game = self.db.get_game(game_release_number)
 		except:
 			self.open_db()
-			game = self.db.get_game(game_release_number)	
-		
+			game = self.db.get_game(game_release_number)
+
 		self.checksums[game[GAME_ROM_CRC]] = new_zip_file
-		
+
 		try:
 			if use_threads:
 				gdk.threads_enter()
@@ -1832,7 +1832,7 @@ class Gui(threading.Thread):
 		finally:
 			if use_threads:
 				gdk.threads_leave()
-	
+
 	def statusicon_start_blinking(self, use_threads = False):
 		""" If window is hidden, make the statusicon blinking """
 		if self.quitting or self.main_window_visible:
@@ -1842,7 +1842,7 @@ class Gui(threading.Thread):
 		self.statusicon.set_blinking(True)
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def update_image(self, game_release_number, image_index, filename, use_threads = False):
 		""" Update shown image if needed """
 		if self.quitting:
@@ -1879,7 +1879,7 @@ class Gui(threading.Thread):
 		finally:
 			if use_threads:
 				gdk.threads_leave()
-	
+
 	def set_previous_treeview_cursor(self, use_threads = False):
 		"""
 		If there was a previous treeview selection, restore it.
@@ -1921,7 +1921,7 @@ class Gui(threading.Thread):
 		finally:
 			if use_threads:
 				gdk.threads_leave()
-	
+
 	def toggle_images_download_toolbutton(self, use_threads = False):
 		""" Toggle icon and tooltip on 'Download images' toolbutton and menuitem """
 		if self.quitting:
@@ -1943,7 +1943,7 @@ class Gui(threading.Thread):
 			self.images_download_menuitem.set_tooltip_text(self.old_aidt_tooltip_text)
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def toggle_rebuild_roms_archives_toolbutton(self, use_threads = False):
 		""" Toggle icon and tooltip on 'Rebuild archives' toolbutton and menuitem """
 		if self.quitting:
@@ -1970,7 +1970,7 @@ class Gui(threading.Thread):
 				self.rebuild_roms_archives_menuitem.set_sensitive(True)
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def toggle_extract_options_in_treeview_popupmenu(self, use_threads = False):
 		""" Toggle extract, extractin and stop options in treeview popup menu"""
 		if self.quitting:
@@ -1990,11 +1990,11 @@ class Gui(threading.Thread):
 			self.list_treeview_popup_extractin_menuitem.hide()
 		if use_threads:
 			gdk.threads_leave()
-	
+
 	def open_db(self):
 		""" Open database """
 		self.db = DB(DB_FILE)
-	
+
 	def add_games(self, scan_anyway = False, use_threads = False):
 		"""
 		Add games from database to the treeview model.
@@ -2012,13 +2012,13 @@ class Gui(threading.Thread):
 			crcs = self.db.get_all_games_crc()
 		for crc in crcs:
 			self.checksums[crc[0]] = None
-		
+
 		# Deactivate widgets
 		self.deactivate_widgets(use_threads)
-		
+
 		## Check the games we have on disk
 		self.update_statusbar("Games", _("Scanning roms on disk..."), use_threads)
-		
+
 		# Check roms on disk
 		unknown_roms_path = config.get_option("unknown_roms_path")
 		roms_path = config.get_option("roms_path")
@@ -2037,7 +2037,7 @@ class Gui(threading.Thread):
 		else:
 			self.archives_already_scanned = False
 			scan_archives = False
-					
+
 		if scan_archives and os.path.exists(unknown_roms_path):
 			# check in 'unknown_roms_path' directory for new roms.
 			# If one is found, move it in 'new_roms_path' directory.
@@ -2067,7 +2067,7 @@ class Gui(threading.Thread):
 								self.show_info_dialog(message, use_threads)
 							except:
 								pass
-		
+
 		if scan_archives and os.path.exists(roms_path) and \
 		(config.get_option("scan_for_new_archives_only") == False or \
 		(config.get_option("scan_for_new_archives_only") == True and new_roms_path == roms_path)):
@@ -2134,7 +2134,7 @@ class Gui(threading.Thread):
 										self.show_info_dialog(message, use_threads)
 									except:
 										pass
-		
+
 		if scan_archives and os.path.exists(new_roms_path) and new_roms_path != roms_path:
 			# check games in 'new_roms_path' directory.
 			# unknown roms are moved in 'unknown_roms_path' directory,
@@ -2185,37 +2185,37 @@ class Gui(threading.Thread):
 								message = _("'%s' was redundant. Deleted.") % file
 								self.show_info_dialog(message, use_threads)
 							except:
-								pass		
-		
+								pass
+
 		self.update_statusbar("Games", _("Loading games list..."), use_threads)
-		
+
 		# Remove model from treeview for update
 		if use_threads:
 			gdk.threads_enter()
 		self.list_treeview.set_model(None)
 		if use_threads:
 			gdk.threads_leave()
-		
+
 		# We can't exit while updating list
 		self.canexitnow = False
-		
+
 		# Add games to model and rebuild dictionary of games to rebuild.
 		try:
 			self.__update_list(self.db.get_all_games(), anyway = True, rebuild_dict = True, use_threads = use_threads)
 		except:
 			self.open_db()
 			self.__update_list(self.db.get_all_games(), anyway = True, rebuild_dict = True, use_threads = use_threads)
-		
+
 		# Now we can exit
 		self.canexitnow = True
-		
+
 		# Interrupt now, if requested
 		if self.quitting:
 			return
-		
+
 		# Get total loaded games
 		games_number = self.gamesnumber_total
-		
+
 		# Clear up all filter if needed
 		if use_threads:
 				gdk.threads_enter()
@@ -2251,14 +2251,14 @@ class Gui(threading.Thread):
 				self.on_games_check_convert_checkbutton_toggled(self.games_check_convert_checkbutton)
 		if use_threads:
 			gdk.threads_leave()
-		
+
 		# Set updated model back to treeview
 		if use_threads:
 			gdk.threads_enter()
 		self.list_treeview.set_model(self.list_treeview_model)
 		if use_threads:
 			gdk.threads_leave()
-		
+
 		# Sort treeview
 		if use_threads:
 			gdk.threads_enter()
@@ -2267,21 +2267,21 @@ class Gui(threading.Thread):
 			self.list_treeview_tvc_relnum.clicked()
 		if use_threads:
 			gdk.threads_leave()
-		
+
 		# Set back the hpaned position
 		if self.starting == True:
 			self.hpaned.set_position(config.get_option("paned_position"))
 			self.starting = False
-		
+
 		# Inform the user we have done
 		text = _("%d games loaded succesfully.") % games_number
 		self.update_statusbar("Games", text, use_threads)
 		self.statusicon_start_blinking(use_threads)
-		
+
 		# Hide old infos
 		self.previous_selection_release_number = None
 		self.activate_widgets(use_threads)
-	
+
 	def quit(self):
 		# Check if we can exit now
 		if not self.canexitnow:
