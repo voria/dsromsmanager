@@ -1,34 +1,22 @@
 # Contributor: Fortunato Ventre (voRia) <vorione AT gmail DOT com>
 
-pkgname=('dsromsmanager' 'dsromstrimmer')
-pkgbase="dsromsmanager"
+pkgname=dsromsmanager
 pkgver=1.4
 pkgrel=1
+pkgdesc="Nintendo DS Roms Manager"
 url="http://www.voria.org/dsromsmanager/"
 license=('GPLv3')
+depends=('pygtk')
+arch=('i686' 'x86_64')
 source=(http://www.voria.org/files/nds/dsromsmanager/$pkgname-$pkgver.tar.gz)
 md5sums=('a8ee76425bb382903b64d6248eaf10a6')
-arch=('any')
 
 build() {
-	# Copy sources
-	cp -r ${srcdir}/dsromsmanager-${pkgver} ${srcdir}/dsromstrimmer-${pkgver}
+	cd "${srcdir}/${pkgname}-${pkgver}"
+	make DESTDIR="${pkgdir}" trimmer_build || return 1
 }
 
-package_dsromsmanager() {
-	pkgdesc="Nintendo DS Roms Manager"
-	arch=('any')
-	depends=('pygtk')
-	optdepends=('dsromstrimmer: for NDS roms trimming')
-	
+package() {
 	cd "${srcdir}/${pkgname}-${pkgver}"
-	make DESTDIR="${pkgdir}" manager_install || return 1
-}
-
-package_dsromstrimmer() {
-	pkgdesc="Nintendo DS Roms Trimmer"
-	arch=('i686' 'x86_64')
-	
-	cd "${srcdir}/${pkgname}-${pkgver}"
-	make DESTDIR="${pkgdir}" trimmer_install || return 1
+	make DESTDIR="${pkgdir}" install || return 1
 }
