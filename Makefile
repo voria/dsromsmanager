@@ -2,7 +2,13 @@ install_dir=install -d -m 755
 install_file=install -m 644
 install_script=install -m 755
 
-install:
+all: trimmer_build
+
+install: manager_install trimmer_install
+
+uninstall: manager_uninstall trimmer_uninstall
+
+manager_install:
 	$(install_dir) $(DESTDIR)/usr/share/dsromsmanager/
 	$(install_file) src/*.py $(DESTDIR)/usr/share/dsromsmanager/
 	$(install_dir) $(DESTDIR)/usr/share/dsromsmanager/data/images/
@@ -15,8 +21,21 @@ install:
 	$(install_dir) $(DESTDIR)/usr/bin/
 	$(install_script) dsromsmanager $(DESTDIR)/usr/bin/
 
-uninstall:
+manager_uninstall:
 	rm -rf $(DESTDIR)/usr/bin/dsromsmanager
 	rm -rf $(DESTDIR)/usr/share/applications/dsromsmanager.desktop
 	rm -rf $(DESTDIR)/usr/share/locale/it/LC_MESSAGES/dsromsmanager.po 
 	rm -rf $(DESTDIR)/usr/share/dsromsmanager/
+
+trimmer_build:
+	gcc dsromstrimmer/dsromstrimmer.c -o dsromstrimmer/dsromstrimmer
+	
+trimmer_install: trimmer_build
+	$(install_dir) $(DESTDIR)/usr/bin/
+	$(install_script) dsromstrimmer/dsromstrimmer $(DESTDIR)/usr/bin/
+	
+trimmer_uninstall:
+	rm -rf $(DESTDIR)/usr/bin/dsromstrimmer
+	
+clean:
+	rm -rf dsromstrimmer/dsromstrimmer
