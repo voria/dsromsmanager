@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # DRM - DsRomsManager
 #
@@ -110,47 +110,47 @@ class DB():
 		# Count games in database
 		self.cursor.execute("SELECT * FROM games")
 		self.games = len(self.cursor.fetchall())
-	
+
 	def add_game(self, game_info):
-		"""	Add 'game_info' to database """		
+		"""	Add 'game_info' to database """
 		self.cursor.execute(INSERT_GAME_QUERY, tuple(game_info))
 		self.connection.commit()
 		self.games += 1
-	
+
 	def add_info(self, info):
 		""" Add 'info' to database """
 		self.cursor.execute(INSERT_INFO_QUERY, tuple(info))
 		self.connection.commit()
-	
+
 	def get_info(self):
 		""" Return info """
 		self.cursor.execute("SELECT * FROM info")
 		return self.cursor.fetchone()
-	
+
 	def get_all_games(self):
 		""" Return all games """
 		self.cursor.execute("SELECT * FROM games")
 		return self.cursor.fetchall()
-	
+
 	def get_all_games_crc(self):
 		""" Return all games crc """
 		self.cursor.execute("SELECT rom_crc FROM games")
 		return self.cursor.fetchall()
-	
+
 	def get_game(self, release_number):
 		""" Return info for game number 'release_number' """
 		self.cursor.execute("SELECT * FROM games WHERE release_number = " + str(release_number))
 		return self.cursor.fetchone()
-	
+
 	def get_game_crc(self, release_number):
 		""" Return crc for game number 'release_number' """
 		self.cursor.execute("SELECT rom_crc FROM games WHERE release_number = " + str(release_number))
 		return self.cursor.fetchone()
-		
+
 	def get_games_number(self):
 		""" Return the number of games in database """
 		return self.games
-	
+
 	def update_images_path(self, path):
 		""" Update all images path to the new path 'path'. """
 		self.cursor.execute("SELECT release_number, img1_local_path, img2_local_path FROM games")
@@ -163,7 +163,7 @@ class DB():
 			command += "' WHERE release_number = " + str(relnum)
 			self.cursor.execute(command)
 		self.connection.commit()
-			
+
 	def filter_by(self, string, location, language, size):
 		""" Return games filtered by location, language and size infos """
 		command = "SELECT * FROM games WHERE"
@@ -182,7 +182,7 @@ class DB():
 			command = command[:len(command) - 6]
 		self.cursor.execute(command)
 		return self.cursor.fetchall()
-	
+
 	def save_as(self, filename):
 		""" Save database in memory on disk as 'filename' """
 		# Remove old database, if any

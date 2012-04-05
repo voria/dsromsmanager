@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # DRM - DsRomsManager
 #
@@ -43,19 +43,19 @@ class Main(threading.Thread):
 		threading.Thread.__init__(self, name = "Main")
 		self.threads = [] # Keep track of all threads
 		self.threads.append(self)
-		
+
 	def run(self):
-		
+
 		os.chdir(WORK_DIR)
-		
+
 		self.gui = Gui(self.threads)
 		self.gui.start()
-		
+
 		if config.get_option("enable_splash"):
 			self.gui.show_splash_screen(3000, True)
-		
+
 		db_deleted = False
-		
+
 		if os.path.exists(DB_FILE):
 			# check db version
 			self.db = DB(DB_FILE)
@@ -64,7 +64,7 @@ class Main(threading.Thread):
 				# current db is out of date, remove it
 				os.remove(DB_FILE)
 				db_deleted = True
-				
+
 		if not os.path.exists(DB_FILE):
 			if db_deleted:
 				self.gui.show_info_dialog(_("""Database out of date or corrupt, it has been deleted.\n
@@ -79,7 +79,7 @@ A new DAT file will be automatically downloaded and a new database will be creat
 			# Check if we really have the DAT file
 			while not os.path.exists(DAT_NAME):
 				message = _("Unable to download DAT file. Retry?")
-				if self.gui.show_okcancel_question_dialog(message, True) == True: 
+				if self.gui.show_okcancel_question_dialog(message, True) == True:
 					datdownloader = DatDownloader(self.gui)
 					self.threads.append(datdownloader)
 					datdownloader.start()
@@ -96,7 +96,7 @@ A new DAT file will be automatically downloaded and a new database will be creat
 
 	def stop(self):
 		return
-		
+
 if __name__ == "__main__":
 	try:
 		locale.setlocale(locale.LC_ALL, '')

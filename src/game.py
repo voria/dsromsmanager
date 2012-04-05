@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # DRM - DsRomsManager
 #
@@ -54,7 +54,7 @@ class Game():
 		except:
 			self.comment = "---"
 		self.duplicate_id = int(infos.getElementsByTagName("duplicateID")[0].firstChild.data)
-	
+
 	def __dec2bin(self, n):
 		""" Convert an integer 'n' to a string representing its binary representation """
 		s = ""
@@ -64,7 +64,7 @@ class Game():
 			s = str(n % 2) + s
 			n = n >> 1
 		return s
-	
+
 	def __get_range(self):
 		"""
 		Return a string with the name of the directory in which
@@ -74,7 +74,7 @@ class Game():
 		imgRangeStart = (imgCoc * 500) + 1
 		imgRange = str(imgRangeStart) + "-" + str(imgRangeStart + 499)
 		return imgRange
-	
+
 	def get_fullinfo(self):
 		""" Return game's main informations in a printable form """
 		s = str(int(self.release_number)) + " - " + self.title + " (" + self.get_location_short() + ")"
@@ -82,7 +82,7 @@ class Game():
 		if len(temp) != 1:
 			s += "(M" + str(len(temp)) + ")"
 		return s
-	
+
 	def get_filename(self):
 		""" Return the correct filename for the game (without extension) """
 		s = self.release_number + " - " + self.title + " (" + self.get_location_short() + ")"
@@ -90,71 +90,71 @@ class Game():
 		if len(temp) != 1:
 			s += "(M" + str(len(temp)) + ")"
 		return s
-	
+
 	def get_image_number(self):
 		""" Return game's image number """
 		return self.image_number
-	
+
 	def get_img_range(self):
 		""" Return game's image range """
 		return self.__get_range()
-	
+
 	def get_img1_local(self, path):
 		""" Return absolute local path of img1 """
 		return os.path.join(path, self.__get_range(), self.image_number + "a.png")
-		
+
 	def get_img2_local(self, path):
 		""" Return absolute local path of img2 """
 		return os.path.join(path, self.__get_range(), self.image_number + "b.png")
-	
+
 	def get_img1_url(self, url):
 		""" Return remote URL of img1 """
 		return os.path.join(url, self.__get_range(), self.image_number + "a.png")
-						
+
 	def get_img2_url(self, url):
 		""" Return remote URL of img2 """
 		return os.path.join(url, self.__get_range(), self.image_number + "b.png")
-	
+
 	def get_release_number(self):
 		""" Return game's release number as int """
 		return int(self.release_number)
-	
+
 	def get_release_number_text(self):
 		""" Return game's release number as text (with leading zeroes, if any) """
 		return self.release_number
-	
+
 	def get_title(self):
 		""" Return game's title """
 		return self.title
-	
+
 	def get_save_type(self):
 		""" Return game's save type """
 		return self.save_type
-	
+
 	def get_rom_size(self):
 		""" Return game's rom size """
 		return self.rom_size
-	
+
 	def get_publisher(self):
 		""" Return game's publisher """
 		return self.publisher
-	
+
 	def get_location_index(self):
 		""" Return game's location as a key of 'countries' dictionary """
 		return self.location
-	
+
 	def get_location(self):
 		""" Return game's location in the long form """
 		return countries[self.location]
-	
+
 	def get_location_short(self):
 		""" Return game's location in the short form """
 		return countries_short[self.location]
-	
+
 	def get_source_rom(self):
 		""" Return game's source rom """
 		return self.source_rom
-	
+
 	def get_language(self):
 		""" Return a string containing all game's languages """
 		languages = ""
@@ -162,23 +162,23 @@ class Game():
 			if self.language[i] == '1':
 				languages += langs[i] + " - "
 		return languages[:len(languages) - 3]
-	
+
 	def get_rom_crc(self):
 		""" Return rom's crc """
 		return self.rom_crc
-			
+
 	def get_img1_crc(self):
 		""" Return image1 crc """
 		return self.im1_crc
-	
+
 	def get_img2_crc(self):
 		""" Return image2 crc """
 		return self.im2_crc
-		
+
 	def get_comment(self):
 		""" Return game's comment """
 		return self.comment
-	
+
 	def get_duplicate_id(self):
 		""" Return game's duplicate ID """
 		return self.duplicate_id

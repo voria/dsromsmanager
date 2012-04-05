@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # DRM - DsRomsManager
 #
@@ -121,7 +121,7 @@ class Config():
 			self.scan_for_new_archives_only = self.config.getboolean(DEFAULT_CFG_SECTION, "scan_for_new_archives_only")
 		except NoOptionError:
 			self.config.set(DEFAULT_CFG_SECTION, "scan_for_new_archives_only", str(DEFAULT_SCAN_FOR_NEW_ARCHIVES_ONLY))
-			self.scan_for_new_archives_only = DEFAULT_SCAN_FOR_NEW_ARCHIVES_ONLY			
+			self.scan_for_new_archives_only = DEFAULT_SCAN_FOR_NEW_ARCHIVES_ONLY
 		try:
 			self.clear_filters = self.config.getboolean(DEFAULT_CFG_SECTION, "clear_filters")
 		except NoOptionError:
@@ -200,7 +200,7 @@ class Config():
 
 	def get_all_options(self):
 		return self.config.options(DEFAULT_CFG_SECTION)
-	
+
 	def get_option(self, option):
 		if option == "window_width":
 			return self.window_width
@@ -247,7 +247,7 @@ class Config():
 		if option == "show_rebuildable_games":
 			return self.show_rebuildable_games
 		raise Exception
-	
+
 	def get_option_default(self, option):
 		if option == "window_width":
 			return DEFAULT_WINDOW_WIDTH
@@ -294,7 +294,7 @@ class Config():
 		if option == "show_rebuildable_games":
 			return DEFAULT_SHOW_REBUILDABLE_GAMES
 		raise Exception
-	
+
 	def set_option(self, option, value):
 		if option == "window_width":
 			self.window_width = value
@@ -341,8 +341,8 @@ class Config():
 		elif option == "show_rebuildable_games":
 			self.show_rebuildable_games = value
 		else:
-			raise Exception		
-	
+			raise Exception
+
 	def set_option_default(self, option):
 		if option == "window_width":
 			self.window_width = DEFAULT_WINDOW_WIDTH
@@ -390,7 +390,7 @@ class Config():
 			self.show_rebuildable_games = DEFAULT_SHOW_REBUILDABLE_GAMES
 		else:
 			raise Exception
-	
+
 	def save(self):
 		config = SafeConfigParser()
 		config.add_section(DEFAULT_CFG_SECTION)

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # DRM - DsRomsManager
 #
@@ -25,7 +25,7 @@ from db import DB
 
 class Dat():
 	""" Holds all DAT info """
-	def __init__(self, filename):		
+	def __init__(self, filename):
 		dat = xml.dom.minidom.parse(filename)
 		# Create a new database
 		db = DB()

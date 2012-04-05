@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # DRM - DsRomsManager
 #
@@ -106,18 +106,18 @@ class RomArchivesExtract(threading.Thread):
         self.overwrite = False
         self.ask_for_overwrite = True
         self.stopnow = False
-    
+
     def run(self):
         """ Start thread """
         if not os.access(self.target, os.W_OK):
             text = _("Unable to extract archive to '%s'. ") % self.target
-            text += _("Check available space and write permissions for target directory.") 
+            text += _("Check available space and write permissions for target directory.")
             self.gui.update_statusbar("RomArchivesExtract", text, True)
             return
-        
+
         # Disable extract options in treeview popup menu
         self.gui.toggle_extract_options_in_treeview_popupmenu(True)
-        
+
         for key in sorted(self.games.iterkeys()):
             if self.stopnow:
                 break
@@ -130,11 +130,11 @@ class RomArchivesExtract(threading.Thread):
                 text = ""
             text += _("Extracting archive for '%s'...") % game
             self.gui.update_statusbar("RomArchivesExtract", text, True)
-        
+
             # Get free space on target directory (in KB)
             stats = os.statvfs(self.target)
             free_space = stats[statvfs.F_BSIZE] * stats[statvfs.F_BAVAIL] / 1024
-        
+
             try:
                 zip = zipfile.ZipFile(zipf, "r")
                 try:
@@ -215,7 +215,7 @@ class RomArchivesExtract(threading.Thread):
                             output += _("Trimmed size:") + "\t" + str(trimmed_size) + " KB\n\t"
                             output += _("Saved space:") + "\t" + str(saved_space) + " KB\n"
                             self.gui.show_trim_details_window(output, True)
-                    
+
                     else: # No trim, extract in 'target' directory directly
                         if info.file_size / 1024 > free_space:
                             message = _("Not enough free space on target directory for '%s'. Extraction canceled.") % game
@@ -230,7 +230,7 @@ class RomArchivesExtract(threading.Thread):
                 zip.close()
             except:
                 self.gui.show_error_dialog(_("Unable to open '%s'.") % zipf, True)
-        
+
         if self.trim != None and self.show_trim_details and self.gamesnumber_extracted > 0:
             message = "\n" + _("Done. Total saved space:")
             message += " " + str(self.total_saved_space) + " KB (~" + str(self.total_saved_space / 1024) + " MB)\n"
@@ -240,18 +240,18 @@ class RomArchivesExtract(threading.Thread):
             message = _("Extraction canceled.")
         else:
             message = _("Extraction completed.")
-        
+
         if self.gamesnumber_extracted > 0:
             if self.total_saved_space > 0 and not self.show_trim_details: # add info about trimming on statusbar 
                 message += _(" Total saved space by trimming:")
                 message += " " + str(self.total_saved_space) + " KB (~" + str(self.total_saved_space / 1024) + " MB)"
-        
+
         self.gui.update_statusbar("RomArchivesExtract", message, True)
         # Restore extract options in treeview popup menu
         self.gui.toggle_extract_options_in_treeview_popupmenu(True)
         # Inform the user we have done
         self.gui.statusicon_start_blinking(True)
-        
+
     def stop(self):
         """ Stop thread """
         self.stopnow = True
@@ -262,11 +262,11 @@ class RomArchivesRescan(threading.Thread):
         """ Prepare thread """
         threading.Thread.__init__(self, name = "RomArchivesRescan")
         self.gui = gui
-    
+
     def run(self):
         """ Start thread """
         self.gui.add_games(scan_anyway = True, use_threads = True)
-        
+
     def stop(self):
         """ Stop thread """
         return
@@ -288,11 +288,11 @@ class RomArchivesRebuild(threading.Thread):
         # Deactivate widgets
         for widget in widgets:
             widget.set_sensitive(False)
-    
+
     def run(self):
         """ Start thread """
         self.gui.toggle_rebuild_roms_archives_toolbutton(True)
-        
+
         for key in sorted(self.games.iterkeys()):
             if self.stopnow:
                 break
@@ -303,7 +303,7 @@ class RomArchivesRebuild(threading.Thread):
                 text = ""
             text += _("Rebuilding archive for '%s'...") % key
             self.gui.update_statusbar("RomArchivesRebuild", text, True)
-            
+
             oldfile = self.games[key][1]
             if oldfile[len(oldfile) - 4:].lower() == ".zip":
                 self.is_zip = True
@@ -312,7 +312,7 @@ class RomArchivesRebuild(threading.Thread):
             dir = oldfile.rsplit(os.sep, 1)[0]
             newzipfile = os.path.join(dir, self.games[key][0] + ".zip")
             newndsname = self.games[key][0] + ".nds"
-            
+
             try:
                 if self.is_zip:
                     zip = zipfile.ZipFile(oldfile, "r")
@@ -342,9 +342,9 @@ class RomArchivesRebuild(threading.Thread):
                     zip.close()
                     os.remove(oldfile)
                     oldfile = os.path.join(dir, oldndsname)
-                
+
                 # Now we can work with oldfile
-                
+
                 # Open the new zip file and write in it the 'oldfile' as 'newndsname'
                 zip = zipfile.ZipFile(newzipfile, "w", zipfile.ZIP_DEFLATED)
                 zip.write(oldfile, newndsname)
@@ -355,19 +355,19 @@ class RomArchivesRebuild(threading.Thread):
                 self.gui.update_game(self.games[key][2], newzipfile, True)
             except:
                 self.gui.update_statusbar("RomArchivesRebuild", _("Error while building archive for '%s'!") % key, True)
-        
+
         if self.stopnow:
             self.gui.update_statusbar("RomArchivesRebuild", _("Rebuilding stopped."), True)
         else:
             self.gui.update_statusbar("RomArchivesRebuild", _("Rebuilding completed."), True)
-        
+
         # restore original button
         self.gui.toggle_rebuild_roms_archives_toolbutton(True)
         # reactivate all widgets
         self.gui.activate_widgets(True)
         # Inform the user we have done
         self.gui.statusicon_start_blinking(True)
-                    
+
     def stop(self):
         """ Stop the thread """
         self.stopnow = True

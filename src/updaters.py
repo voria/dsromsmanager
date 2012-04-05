@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # DRM - DsRomsManager
 #
@@ -37,18 +37,18 @@ class DBImagesUpdater(threading.Thread):
 		threading.Thread.__init__(self, name = "DBImagesUpdater")
 		self.gui = gui
 		self.path = path
-	
+
 	def run(self):
 		""" Start thread """
 		self.gui.deactivate_widgets(True)
 		self.gui.update_statusbar("DBImagesUpdater", _("Updating database with the new 'Images' path..."), True)
-		
+
 		db = DB(DB_FILE)
 		db.update_images_path(self.path)
 
 		self.gui.update_statusbar("DBImagesUpdater", _("Database updated."), True)
 		self.gui.activate_widgets(True)
-	
+
 	def stop(self):
 		""" Stop thread """
 		return
@@ -64,10 +64,10 @@ class DatUpdater(threading.Thread):
 		self.gui = gui
 		self.threads = threads
 		self.buttons = buttons
-		
+
 		for button in self.buttons:
 			button.set_sensitive(False)
-	
+
 	def run(self):
 		""" Start thread """
 		try:
@@ -75,7 +75,7 @@ class DatUpdater(threading.Thread):
 			try:
 				new_version_file = urlopen(self.dat_version_url)
 				new_version = new_version_file.read()
-							
+
 				if int(self.dat_version) < int(new_version):
 					self.gui.update_statusbar("DatUpdater", _("New DAT file available!"), True)
 					# Make sure we are not downloading all images
@@ -134,7 +134,7 @@ class DatUpdater(threading.Thread):
 							shutil.move(DB_BKP, DB_FILE)
 						else: # DB backup not found, recreate it
 							dat = Dat(DAT_NAME)
-							
+
 					self.gui.update_statusbar("DatUpdater", _("Database created."), True)
 					self.gui.add_games(scan_anyway = self.autorescan_archives, use_threads = True)
 				else:
@@ -144,7 +144,7 @@ class DatUpdater(threading.Thread):
 		finally:
 			# reactivate widgets
 			self.gui.activate_widgets(True)
-		
+
 	def stop(self):
 		""" Stop thread """
 		return
