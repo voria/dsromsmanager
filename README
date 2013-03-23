@@ -1,1 +1,16 @@
-Look at debian/README.Debian
+DsRomsManager
+Released under GPL3 terms - See 'copyright' for more details
+
+Copyleft by
+Fortunato Ventre (voRia) - vorione@gmail.com - http://www.voria.org
+
+If you have something to say about this software or you have found a bug (I bet on this :P), visit:
+<http://www.voria.org/dsromsmanager/>
+
+Bug reports and comments (yes, the bad ones too!) are welcome!
+Thanks! ;)
+
+*************
+
+You need at least Python 2.6 to run this application.
+Also, you have to install pygtk.
