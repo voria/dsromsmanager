@@ -24,18 +24,18 @@
 #include <unistd.h>
 #include <string.h>
 
-#define VERSION		"1.4"
+#define VERSION "1.4"
 
 /* 1 MB */
-#define BUFSIZE 	1048576
+#define BUFSIZE 1048576
 
 /* offsets */
-#define ROMSIZE		0x80
+#define ROMSIZE 0x80
 
 struct rom_t {
-	unsigned int filesize;		/* Untrimmed file size */
+	unsigned int filesize; /* Untrimmed file size */
 	char gametitle[13];
-	unsigned int size;			/* Trimmed file size, 4 bytes long */
+	unsigned int size; /* Trimmed file size, 4 bytes long */
 };
 
 /*
@@ -45,7 +45,7 @@ struct rom_t {
  * For minimizing the risk of faulty trims, we save a bit more bytes too.
  * I like number '256'. :p
  */
-#define WIFIDATA	256
+#define WIFIDATA 256
 
 void usage(char *argv[]) {
 	printf("Nintendo DS Roms Trimmer ");
@@ -73,19 +73,14 @@ char *abs_path(const char *path) {
 	char *cwd = NULL;
 	char *result = NULL;
 
-	/* Get current working dir */
 	cwd = getcwd(NULL, 0);
-
-	/* Change to 'path' dir */
 	if (chdir(path) != 0) {
 		free(cwd);
 		return NULL;
 	}
 
-	/* Get 'path' dir in absolute form */
+	/* Get 'path' dir in absolute form and return to initial working dir */
 	result = getcwd(NULL, 0);
-
-	/* Return to initial working dir */
 	if (chdir(cwd) != 0) {
 		fprintf(stderr, "ERROR: Unable to change back to original working directory!\n");
 		free(cwd);
@@ -105,19 +100,22 @@ char *get_filename(const char *path) {
 	char *result = NULL;
 	char *delpos = NULL; /* Pointer to position of the last path delimiter */
 
-	/* Check for the last path delimiter */
 	delpos = strrchr(path, '/');
 
 #ifdef _WINDOWS_
-	if (delpos == NULL) { delpos = strrchr(path, '\\'); }
+	if (delpos == NULL) {delpos = strrchr(path, '\\');}
 #endif
 
 	if (delpos == NULL) {
-		if ((result = malloc(strlen(path)+1)) != NULL) { strcpy(result, path); }
+		if ((result = malloc(strlen(path) + 1)) != NULL) {
+			strcpy(result, path);
+		}
 		return result;
 	}
 
-	if ((result = malloc(strlen(delpos)+1)) != NULL) { strcpy(result, delpos+1); }
+	if ((result = malloc(strlen(delpos) + 1)) != NULL) {
+		strcpy(result, delpos + 1);
+	}
 	return result;
 }
 
@@ -133,24 +131,25 @@ char *get_path(const char *path) {
 	char *delpos = NULL;
 	int i;
 
-	/* Check for the last path delimiter */
 	delpos = strrchr(path, '/');
 
 #ifdef _WINDOWS_
-	if (delpos == NULL) { delpos = strrchr(path, '\\'); }
+	if (delpos == NULL) {delpos = strrchr(path, '\\');}
 #endif
 
-	if (delpos == NULL) {	/* Delimiter not found, path only contains filename */
+	if (delpos == NULL) {
+		/* Delimiter not found, path only contains filename */
 		result = getcwd(NULL, 0);
 		return result;
 	}
 
 	i = strlen(path) - strlen(delpos);
-	if ((temp = malloc(i+1)) == NULL) { return NULL; }
+	if ((temp = malloc(i + 1)) == NULL) {
+		return NULL;
+	}
 	strncpy(temp, path, i);
 	temp[i] = '\0';
 
-	/* Get absolute path */
 	result = abs_path(temp);
 
 	free(temp);
@@ -170,8 +169,8 @@ int main(int argc, char *argv[]) {
 	char *backupname = NULL;
 
 	char buffer[BUFSIZE];
-	unsigned int pos;		/* Actual position in input file. Used while copying data */
-	unsigned int nextdata;	/* Next data to copy */
+	unsigned int pos; /* Actual position in input file. Used while copying data */
+	unsigned int nextdata; /* Next data to copy */
 
 	struct rom_t rom;
 
@@ -226,12 +225,11 @@ int main(int argc, char *argv[]) {
 		exit(1);
 	}
 
-	/* Get current working directory */
 	currentdir = getcwd(NULL, 0);
 
 	/* Make sure that outputdir is in absolute form */
-	 if (outputdir != NULL) {	/* outputdir specified on command line */
-	 	if ((romdir = abs_path(outputdir)) == NULL) { /* romdir var used as temp var */
+	if (outputdir != NULL) { /* outputdir specified on command line */
+		if ((romdir = abs_path(outputdir)) == NULL) { /* romdir var used as temp var */
 			fprintf(stderr, "ERROR: Can't get absolute path for '%s'. Aborted.\n", outputdir);
 			exit(3);
 		}
@@ -239,7 +237,7 @@ int main(int argc, char *argv[]) {
 		outputdir = romdir;
 		romdir = NULL;
 	}
-	else {	/* outputdir NOT specified on command line */
+	else { /* outputdir NOT specified on command line */
 		outputdir = getcwd(NULL, 0);
 	}
 
@@ -247,10 +245,12 @@ int main(int argc, char *argv[]) {
 	for (i = optind; i < argc; i++) {
 		/*
 		 * Test if file is a NDS rom by extension.
-		 * I know this is not the best way to do it, but I'm too lazy to implement a better check.
-		 * It just works for me.
+		 * This is not the best way to do it, but I'm too lazy to implement a better check.
+		 * It just works.
 		 */
-		if (strcasecmp(argv[i]+strlen(argv[i])-4, ".nds") != 0) { continue; }
+		if (strcasecmp(argv[i] + strlen(argv[i]) - 4, ".nds") != 0) {
+			continue;
+		}
 
 		/* Get absolute path of rom directory */
 		if ((romdir = get_path(argv[i])) == NULL) {
@@ -261,8 +261,8 @@ int main(int argc, char *argv[]) {
 		/* Open input file */
 		if ((fin = fopen(argv[i], "rb")) == NULL) {
 			fprintf(stderr, "\tWARNING: Can't open input file for reading. Skipped.\n");
-			/* Free memory */
-			free(romdir); romdir = NULL;
+			free(romdir);
+			romdir = NULL;
 			continue;
 		}
 
@@ -289,13 +289,14 @@ int main(int argc, char *argv[]) {
 		/*
 		 * Some (few) roms do not respect NDS file format specifications.
 		 * As result, the reading of rom size at offset 0x80 returns a 0 bytes size.
-		 * We can't trim them (for now).
+		 * We can't trim them.
 		 */
 		if (rom.size == 0) {
 			fprintf(stderr, "\tWARNING: Not a standard rom. Skipped.\n");
-			/* Free memory and close input file */
-			free(outputname); outputname = NULL;
-			free(romdir); romdir = NULL;
+			free(outputname);
+			outputname = NULL;
+			free(romdir);
+			romdir = NULL;
 			fclose(fin);
 			continue;
 		}
@@ -309,16 +310,17 @@ int main(int argc, char *argv[]) {
 
 		/* Print stats */
 		if (!quiet) {
-			printf("\tOriginal Size:\t%6.d kB\n", rom.filesize/1024);
-			printf("\tTrimmed Size:\t%6.d kB\n", rom.size/1024);
+			printf("\tOriginal Size:\t%6.d kB\n", rom.filesize / 1024);
+			printf("\tTrimmed Size:\t%6.d kB\n", rom.size / 1024);
 		}
 
 		/* Check if trimmed rom size is greater than original size. This should never happen... */
 		if (rom.filesize < rom.size) {
 			fprintf(stderr, "\tWARNING: Strange things happened. Skipped.\n");
-			/* Free memory and close input file */
-			free(outputname); outputname = NULL;
-			free(romdir); romdir = NULL;
+			free(outputname);
+			outputname = NULL;
+			free(romdir);
+			romdir = NULL;
 			fclose(fin);
 			continue;
 		}
@@ -326,15 +328,16 @@ int main(int argc, char *argv[]) {
 		/* Check if trimming is really needed */
 		if (rom.filesize == rom.size) {
 			fprintf(stderr, "\tWARNING: No need to trim. Skipped.\n");
-			/* Free memory and close input file */
-			free(outputname); outputname = NULL;
-			free(romdir); romdir = NULL;
+			free(outputname);
+			outputname = NULL;
+			free(romdir);
+			romdir = NULL;
 			fclose(fin);
 			continue;
 		}
 
 		if (!quiet) {
-			printf("\tSaved Space:\t%6.d kB\n", (rom.filesize-rom.size)/1024);
+			printf("\tSaved Space:\t%6.d kB\n", (rom.filesize - rom.size) / 1024);
 		}
 
 		/*
@@ -344,9 +347,10 @@ int main(int argc, char *argv[]) {
 		if (simulation) {
 			savedspace += rom.filesize - rom.size;
 			trimmedroms++;
-			/* Free memory and close input file */
-			free(outputname); outputname = NULL;
-			free(romdir); romdir = NULL;
+			free(outputname);
+			outputname = NULL;
+			free(romdir);
+			romdir = NULL;
 			fclose(fin);
 			continue;
 		}
@@ -354,9 +358,10 @@ int main(int argc, char *argv[]) {
 		/* Prepare temp name */
 		if ((tempname = malloc(strlen(outputname) + 9)) == NULL) {
 			fprintf(stderr, "\tWARNING: Can't allocate memory for temp name. Skipped.\n");
-			/* Free memory prior to skip to next file */
-			free(outputname); outputname = NULL;
-			free(romdir); romdir = NULL;
+			free(outputname);
+			outputname = NULL;
+			free(romdir);
+			romdir = NULL;
 			continue;
 		}
 		strcpy(tempname, outputname);
@@ -371,10 +376,12 @@ int main(int argc, char *argv[]) {
 		/* Open temp file */
 		if ((fout = fopen(tempname, "wb")) == NULL) {
 			fprintf(stderr, "\tWARNING: Can't open output file for writing. Skipped.\n");
-			/* Free memory and close input file before to skip to next file */
-			free(tempname);	tempname = NULL;
-			free(outputname); outputname = NULL;
-			free(romdir); romdir = NULL;
+			free(tempname);
+			tempname = NULL;
+			free(outputname);
+			outputname = NULL;
+			free(romdir);
+			romdir = NULL;
 			fclose(fin);
 			continue;
 
@@ -419,10 +426,12 @@ int main(int argc, char *argv[]) {
 				if ((backupname = malloc(strlen(outputname) + 5)) == NULL) {
 					fprintf(stderr, "\tWARNING: Can't allocate memory for backup name. ");
 					fprintf(stderr, "Trimmed file has '.trimmed' extension.\n");
-					/* Free memory prior to skip to next file */
-					free(tempname);	tempname = NULL;
-					free(outputname); outputname = NULL;
-					free(romdir); romdir = NULL;
+					free(tempname);
+					tempname = NULL;
+					free(outputname);
+					outputname = NULL;
+					free(romdir);
+					romdir = NULL;
 					continue;
 				}
 				strcpy(backupname, outputname);
@@ -438,21 +447,23 @@ int main(int argc, char *argv[]) {
 					fprintf(stderr, "\tWARNING: Unable to rename original file. ");
 					fprintf(stderr, "Trimmed file has '.trimmed' extension.\n");
 				}
-				/* Free memory */
-				free(backupname); backupname = NULL;
+				free(backupname);
+				backupname = NULL;
 			}
 		}
-		else {	/* outputdir != romdir */
+		else { /* outputdir != romdir */
 			if (rename(tempname, outputname) != 0) {
 				fprintf(stderr, "\tWARNING: Unable to rename trimmed file. ");
 				fprintf(stderr, "It has '.trimmed' extension.\n");
 			}
 		}
 
-		/* Free memory */
-		free(tempname);	tempname = NULL;
-		free(outputname); outputname = NULL;
-		free(romdir); romdir = NULL;
+		free(tempname);
+		tempname = NULL;
+		free(outputname);
+		outputname = NULL;
+		free(romdir);
+		romdir = NULL;
 
 		/* Change back to currentdir */
 		if (chdir(currentdir) != 0) {
@@ -462,18 +473,17 @@ int main(int argc, char *argv[]) {
 	}
 	/* End main loop */
 
-	/* Free memory */
 	free(currentdir);
 	free(outputdir);
 
 	if (trimmedroms > 0) {
 		if (simulation) {
 			printf("\nSimulation performed on %d rom(s). ", trimmedroms);
-			printf("A trim can save: %d kB\n", savedspace/1024);
+			printf("A trim can save: %d kB\n", savedspace / 1024);
 		}
 		else {
 			printf("\n%d rom(s) trimmed. ", trimmedroms);
-			printf("Total saved space: %d kB\n", savedspace/1024);
+			printf("Total saved space: %d kB\n", savedspace / 1024);
 		}
 	}
 	else {
