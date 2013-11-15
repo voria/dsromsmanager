@@ -24,9 +24,9 @@ manager_install:
 	$(install_script) dsromsmanager $(DESTDIR)$(PREFIX)/bin/
 
 manager_uninstall:
-	rm -rf $(DESTDIR)$(PREFIX)/bin/dsromsmanager
-	rm -rf $(DESTDIR)$(PREFIX)/share/applications/dsromsmanager.desktop
-	rm -rf $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES/dsromsmanager.po 
+	rm -f $(DESTDIR)$(PREFIX)/bin/dsromsmanager
+	rm -f $(DESTDIR)$(PREFIX)/share/applications/dsromsmanager.desktop
+	rm -f $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES/dsromsmanager.po
 	rm -rf $(DESTDIR)$(PREFIX)/share/dsromsmanager/
 
 trimmer_build:
@@ -37,7 +37,7 @@ trimmer_install: trimmer_build
 	$(install_script) dsromstrimmer/dsromstrimmer $(DESTDIR)$(PREFIX)/bin/
 	
 trimmer_uninstall:
-	rm -rf $(DESTDIR)$(PREFIX)/bin/dsromstrimmer
+	rm -f $(DESTDIR)$(PREFIX)/bin/dsromstrimmer
 	
 clean:
-	rm -rf dsromstrimmer/dsromstrimmer
+	rm -f dsromstrimmer/dsromstrimmer
