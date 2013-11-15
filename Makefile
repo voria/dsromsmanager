@@ -16,7 +16,7 @@ manager_install:
 	$(install_file) data/images/* $(DESTDIR)$(PREFIX)/share/dsromsmanager/data/images
 	$(install_file) data/dsromsmanager.glade $(DESTDIR)$(PREFIX)/share/dsromsmanager/data/
 	$(install_dir) $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES/
-	$(install_file) po/locale/it/LC_MESSAGES/* $(DESTDIR)/usr/share/locale/it/LC_MESSAGES/
+	$(install_file) po/locale/it/LC_MESSAGES/* $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES/
 	$(install_dir) $(DESTDIR)$(PREFIX)/share/applications/
 	$(install_file) dsromsmanager.desktop $(DESTDIR)$(PREFIX)/share/applications/
 	$(install_dir) $(DESTDIR)$(PREFIX)/bin/
