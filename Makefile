@@ -17,7 +17,7 @@ manager_install:
 	$(install_file) data/images/* $(DESTDIR)$(PREFIX)/share/dsromsmanager/data/images
 	$(install_file) data/dsromsmanager.glade $(DESTDIR)$(PREFIX)/share/dsromsmanager/data/
 	$(install_dir) $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES/
-	$(install_file) po/locale/it/LC_MESSAGES/* $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES/
+	$(install_file) po/locale/it/LC_MESSAGES/dsromsmanager.mo $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES/
 	$(install_dir) $(DESTDIR)$(PREFIX)/share/applications/
 	$(install_file) dsromsmanager.desktop $(DESTDIR)$(PREFIX)/share/applications/
 	$(install_dir) $(DESTDIR)$(PREFIX)/bin/
@@ -26,7 +26,7 @@ manager_install:
 manager_uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/dsromsmanager
 	rm -f $(DESTDIR)$(PREFIX)/share/applications/dsromsmanager.desktop
-	rm -f $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES/dsromsmanager.po
+	rm -f $(DESTDIR)$(PREFIX)/share/locale/it/LC_MESSAGES/dsromsmanager.mo
 	rm -rf $(DESTDIR)$(PREFIX)/share/dsromsmanager/
 
 trimmer_build:
