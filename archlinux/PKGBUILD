@@ -1,8 +1,8 @@
 # Maintainer: Fortunato Ventre (voRia) <vorione AT gmail DOT com>
 
 pkgname=dsromsmanager
-pkgver=1.4
-pkgrel=2
+pkgver=1.5
+pkgrel=1
 pkgdesc="Nintendo DS Roms Manager"
 url="http://www.voria.org/dsromsmanager/"
 license=('GPL3')

@@ -1,3 +1,13 @@
+dsromsmanager (1.5-1~saucy) saucy; urgency=low
+
+  * Add support for norwegian titles.
+  * Add support for danish titles.
+  * Add support for finnish titles.
+  * Update Debian files.
+  * Update ArchLinux files. 
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 15 Nov 2013 12:25:33 +0100
+
 dsromsmanager (1.4~precise) precise; urgency=low
 
   * Rename the package as "dsromsmanager".
