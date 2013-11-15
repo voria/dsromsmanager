@@ -10,6 +10,7 @@ install: manager_install trimmer_install
 uninstall: manager_uninstall trimmer_uninstall
 
 manager_install:
+	$(shell ./set_prefix.sh $(PREFIX))
 	$(install_dir) $(DESTDIR)$(PREFIX)/share/dsromsmanager/
 	$(install_file) src/*.py $(DESTDIR)$(PREFIX)/share/dsromsmanager/
 	$(install_dir) $(DESTDIR)$(PREFIX)/share/dsromsmanager/data/images/
