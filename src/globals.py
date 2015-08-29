@@ -89,6 +89,7 @@ countries = {
 			10 : _("Denmark"),
 			11 : _("Finland"),
 			12 : _("Norway"),
+			15 : _("Sweden"),
 			19 : _("Australia"),
 			22 : _("South Korea")
 			}
@@ -105,6 +106,7 @@ countries_short = {
 			10 : "DA",
 			11 : "FI",
 			12 : "NO",
+			15 : "SE",
 			19 : "AU",
 			22 : "KS"
 			}
