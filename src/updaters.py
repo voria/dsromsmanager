@@ -31,120 +31,120 @@ from dat import *
 from db import *
 
 class DBImagesUpdater(threading.Thread):
-	""" Update images paths in database """
-	def __init__(self, gui, path):
-		""" Prepare thread """
-		threading.Thread.__init__(self, name = "DBImagesUpdater")
-		self.gui = gui
-		self.path = path
+    """ Update images paths in database """
+    def __init__(self, gui, path):
+        """ Prepare thread """
+        threading.Thread.__init__(self, name = "DBImagesUpdater")
+        self.gui = gui
+        self.path = path
 
-	def run(self):
-		""" Start thread """
-		self.gui.deactivate_widgets(True)
-		self.gui.update_statusbar("DBImagesUpdater", _("Updating database with the new 'Images' path..."), True)
+    def run(self):
+        """ Start thread """
+        self.gui.deactivate_widgets(True)
+        self.gui.update_statusbar("DBImagesUpdater", _("Updating database with the new 'Images' path..."), True)
 
-		db = DB(DB_FILE)
-		db.update_images_path(self.path)
+        db = DB(DB_FILE)
+        db.update_images_path(self.path)
 
-		self.gui.update_statusbar("DBImagesUpdater", _("Database updated."), True)
-		self.gui.activate_widgets(True)
+        self.gui.update_statusbar("DBImagesUpdater", _("Database updated."), True)
+        self.gui.activate_widgets(True)
 
-	def stop(self):
-		""" Stop thread """
-		return
+    def stop(self):
+        """ Stop thread """
+        return
 
 class DatUpdater(threading.Thread):
-	""" Update DAT file if needed """
-	def __init__(self, gui, threads, buttons, dat_version, dat_version_url, autorescan_archives):
-		""" Prepare thread """
-		threading.Thread.__init__(self, name = "DatUpdater")
-		self.dat_version = dat_version
-		self.dat_version_url = dat_version_url
-		self.autorescan_archives = autorescan_archives
-		self.gui = gui
-		self.threads = threads
-		self.buttons = buttons
+    """ Update DAT file if needed """
+    def __init__(self, gui, threads, buttons, dat_version, dat_version_url, autorescan_archives):
+        """ Prepare thread """
+        threading.Thread.__init__(self, name = "DatUpdater")
+        self.dat_version = dat_version
+        self.dat_version_url = dat_version_url
+        self.autorescan_archives = autorescan_archives
+        self.gui = gui
+        self.threads = threads
+        self.buttons = buttons
 
-		for button in self.buttons:
-			button.set_sensitive(False)
+        for button in self.buttons:
+            button.set_sensitive(False)
 
-	def run(self):
-		""" Start thread """
-		try:
-			self.gui.update_statusbar("DatUpdater", _("Searching for a new DAT file..."), True)
-			try:
-				new_version_file = urlopen(self.dat_version_url)
-				new_version = new_version_file.read()
+    def run(self):
+        """ Start thread """
+        try:
+            self.gui.update_statusbar("DatUpdater", _("Searching for a new DAT file..."), True)
+            try:
+                new_version_file = urlopen(self.dat_version_url)
+                new_version = new_version_file.read()
 
-				if int(self.dat_version) < int(new_version):
-					self.gui.update_statusbar("DatUpdater", _("New DAT file available!"), True)
-					# Make sure we are not downloading all images
-					# No need to check if we are rebuilding archives, because we can't be here if it's so.
-					for thread in self.threads:
-						if thread.isAlive() and thread.getName() == "AllImagesDownloader":
-							thread.stop()
-							thread.join()
-							break
-					# Deactivate all widgets
-					self.gui.deactivate_widgets(True)
-					# Rename old DAT file, if it exists yet
-					DAT_BKP = DAT_NAME + ".old"
-					try:
-						shutil.move(DAT_NAME, DAT_BKP)
-					except:
-						pass
-					# Rename old database
-					DB_BKP = DB_FILE + ".old"
-					shutil.move(DB_FILE, DB_BKP)
-					# Download new DAT file
-					datdownloader = DatDownloader(self.gui)
-					datdownloader.start()
-					datdownloader.join()
-					# Check if we really have the new DAT file
-					while not os.path.exists(DAT_NAME):
-						message = _("Unable to download DAT file. Retry?")
-						if self.gui.show_okcancel_question_dialog(message, True) == True:
-							datdownloader = DatDownloader(self.gui)
-							datdownloader.start()
-							datdownloader.join()
-						else:
-							shutil.move(DAT_BKP, DAT_NAME)
-							shutil.move(DB_BKP, DB_FILE)
-							message = _("Previous DAT file and database have been restored.")
-							self.gui.show_info_dialog(message, True)
-							return
-					# Now we have the DAT file
-					self.gui.update_statusbar("DatUpdater", _("Loading the new DAT file and creating database..."), True)
-					try:
-						dat = Dat(DAT_NAME)
-					except: # something goes wrong while loading the new DAT file
-						# remove the problematic DAT file
-						os.remove(DAT_NAME)
-						# restore old DAT file
-						if os.path.exists(DAT_BKP):
-							message = _("Error while loading the new DAT file. The old one will be restored.")
-							self.gui.show_error_dialog(message, True)
-							shutil.move(DAT_BKP, DAT_NAME)
-							self.gui.update_statusbar("DatUpdater", _("Reloading the old DAT file and database..."), True)
-						else:
-							message = _("Error while loading the new DAT file!")
-							self.gui.show_error_dialog(message, True)
-						# restore  old database
-						if os.path.exists(DB_BKP):
-							shutil.move(DB_BKP, DB_FILE)
-						else: # DB backup not found, recreate it
-							dat = Dat(DAT_NAME)
+                if int(self.dat_version) < int(new_version):
+                    self.gui.update_statusbar("DatUpdater", _("New DAT file available!"), True)
+                    # Make sure we are not downloading all images
+                    # No need to check if we are rebuilding archives, because we can't be here if it's so.
+                    for thread in self.threads:
+                        if thread.isAlive() and thread.getName() == "AllImagesDownloader":
+                            thread.stop()
+                            thread.join()
+                            break
+                    # Deactivate all widgets
+                    self.gui.deactivate_widgets(True)
+                    # Rename old DAT file, if it exists yet
+                    DAT_BKP = DAT_NAME + ".old"
+                    try:
+                        shutil.move(DAT_NAME, DAT_BKP)
+                    except:
+                        pass
+                    # Rename old database
+                    DB_BKP = DB_FILE + ".old"
+                    shutil.move(DB_FILE, DB_BKP)
+                    # Download new DAT file
+                    datdownloader = DatDownloader(self.gui)
+                    datdownloader.start()
+                    datdownloader.join()
+                    # Check if we really have the new DAT file
+                    while not os.path.exists(DAT_NAME):
+                        message = _("Unable to download DAT file. Retry?")
+                        if self.gui.show_okcancel_question_dialog(message, True) == True:
+                            datdownloader = DatDownloader(self.gui)
+                            datdownloader.start()
+                            datdownloader.join()
+                        else:
+                            shutil.move(DAT_BKP, DAT_NAME)
+                            shutil.move(DB_BKP, DB_FILE)
+                            message = _("Previous DAT file and database have been restored.")
+                            self.gui.show_info_dialog(message, True)
+                            return
+                    # Now we have the DAT file
+                    self.gui.update_statusbar("DatUpdater", _("Loading the new DAT file and creating database..."), True)
+                    try:
+                        dat = Dat(DAT_NAME)
+                    except: # something goes wrong while loading the new DAT file
+                        # remove the problematic DAT file
+                        os.remove(DAT_NAME)
+                        # restore old DAT file
+                        if os.path.exists(DAT_BKP):
+                            message = _("Error while loading the new DAT file. The old one will be restored.")
+                            self.gui.show_error_dialog(message, True)
+                            shutil.move(DAT_BKP, DAT_NAME)
+                            self.gui.update_statusbar("DatUpdater", _("Reloading the old DAT file and database..."), True)
+                        else:
+                            message = _("Error while loading the new DAT file!")
+                            self.gui.show_error_dialog(message, True)
+                        # restore  old database
+                        if os.path.exists(DB_BKP):
+                            shutil.move(DB_BKP, DB_FILE)
+                        else: # DB backup not found, recreate it
+                            dat = Dat(DAT_NAME)
 
-					self.gui.update_statusbar("DatUpdater", _("Database created."), True)
-					self.gui.add_games(scan_anyway = self.autorescan_archives, use_threads = True)
-				else:
-					self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date to the latest version."), True)
-			except:
-				self.gui.update_statusbar("DatUpdater", _("Can't download DAT version file!"), True)
-		finally:
-			# reactivate widgets
-			self.gui.activate_widgets(True)
+                    self.gui.update_statusbar("DatUpdater", _("Database created."), True)
+                    self.gui.add_games(scan_anyway = self.autorescan_archives, use_threads = True)
+                else:
+                    self.gui.update_statusbar("DatUpdater", _("DAT file is already up to date to the latest version."), True)
+            except:
+                self.gui.update_statusbar("DatUpdater", _("Can't download DAT version file!"), True)
+        finally:
+            # reactivate widgets
+            self.gui.activate_widgets(True)
 
-	def stop(self):
-		""" Stop thread """
-		return
+    def stop(self):
+        """ Stop thread """
+        return

@@ -21,164 +21,164 @@ import os
 from globals import *
 
 class Game():
-	""" Hold informations about a game """
-	def __init__(self, infos):
-		self.image_number = infos.getElementsByTagName("imageNumber")[0].firstChild.data
-		self.release_number = infos.getElementsByTagName("releaseNumber")[0].firstChild.data
-		# Make sure the release number is 4-digit
-		while len(self.release_number) < 4:
-			self.release_number = "0" + self.release_number
-		self.title = infos.getElementsByTagName("title")[0].firstChild.data
-		try:
-			self.save_type = infos.getElementsByTagName("saveType")[0].firstChild.data
-		except:
-			self.save_type = "---"
-		self.rom_size = int(infos.getElementsByTagName("romSize")[0].firstChild.data)
-		try:
-			self.publisher = infos.getElementsByTagName("publisher")[0].firstChild.data
-		except:
-			self.publisher = "---"
-		self.location = int(infos.getElementsByTagName("location")[0].firstChild.data)
-		try:
-			self.source_rom = infos.getElementsByTagName("sourceRom")[0].firstChild.data
-		except:
-			self.source_rom = "---"
-		self.language = self.__dec2bin(int(infos.getElementsByTagName("language")[0].firstChild.data))
-		self.language = self.language.rjust(len(langs), "0")
-		self.language = self.language[::-1]
-		self.rom_crc = infos.getElementsByTagName("romCRC")[0].firstChild.data.upper()
-		self.im1_crc = infos.getElementsByTagName("im1CRC")[0].firstChild.data.upper()
-		self.im2_crc = infos.getElementsByTagName("im2CRC")[0].firstChild.data.upper()
-		try:
-			self.comment = infos.getElementsByTagName("comment")[0].firstChild.data
-		except:
-			self.comment = "---"
-		self.duplicate_id = int(infos.getElementsByTagName("duplicateID")[0].firstChild.data)
+    """ Hold informations about a game """
+    def __init__(self, infos):
+        self.image_number = infos.getElementsByTagName("imageNumber")[0].firstChild.data
+        self.release_number = infos.getElementsByTagName("releaseNumber")[0].firstChild.data
+        # Make sure the release number is 4-digit
+        while len(self.release_number) < 4:
+            self.release_number = "0" + self.release_number
+        self.title = infos.getElementsByTagName("title")[0].firstChild.data
+        try:
+            self.save_type = infos.getElementsByTagName("saveType")[0].firstChild.data
+        except:
+            self.save_type = "---"
+        self.rom_size = int(infos.getElementsByTagName("romSize")[0].firstChild.data)
+        try:
+            self.publisher = infos.getElementsByTagName("publisher")[0].firstChild.data
+        except:
+            self.publisher = "---"
+        self.location = int(infos.getElementsByTagName("location")[0].firstChild.data)
+        try:
+            self.source_rom = infos.getElementsByTagName("sourceRom")[0].firstChild.data
+        except:
+            self.source_rom = "---"
+        self.language = self.__dec2bin(int(infos.getElementsByTagName("language")[0].firstChild.data))
+        self.language = self.language.rjust(len(langs), "0")
+        self.language = self.language[::-1]
+        self.rom_crc = infos.getElementsByTagName("romCRC")[0].firstChild.data.upper()
+        self.im1_crc = infos.getElementsByTagName("im1CRC")[0].firstChild.data.upper()
+        self.im2_crc = infos.getElementsByTagName("im2CRC")[0].firstChild.data.upper()
+        try:
+            self.comment = infos.getElementsByTagName("comment")[0].firstChild.data
+        except:
+            self.comment = "---"
+        self.duplicate_id = int(infos.getElementsByTagName("duplicateID")[0].firstChild.data)
 
-	def __dec2bin(self, n):
-		""" Convert an integer 'n' to a string representing its binary representation """
-		s = ""
-		if n == 0:
-			return "0"
-		while n > 0:
-			s = str(n % 2) + s
-			n = n >> 1
-		return s
+    def __dec2bin(self, n):
+        """ Convert an integer 'n' to a string representing its binary representation """
+        s = ""
+        if n == 0:
+            return "0"
+        while n > 0:
+            s = str(n % 2) + s
+            n = n >> 1
+        return s
 
-	def __get_range(self):
-		"""
-		Return a string with the name of the directory in which
-		the image is stored, following the offlinelist convention
-		"""
-		imgCoc = (int(self.image_number) - 1) / 500
-		imgRangeStart = (imgCoc * 500) + 1
-		imgRange = str(imgRangeStart) + "-" + str(imgRangeStart + 499)
-		return imgRange
+    def __get_range(self):
+        """
+        Return a string with the name of the directory in which
+        the image is stored, following the offlinelist convention
+        """
+        imgCoc = (int(self.image_number) - 1) / 500
+        imgRangeStart = (imgCoc * 500) + 1
+        imgRange = str(imgRangeStart) + "-" + str(imgRangeStart + 499)
+        return imgRange
 
-	def get_fullinfo(self):
-		""" Return game's main informations in a printable form """
-		s = str(int(self.release_number)) + " - " + self.title + " (" + self.get_location_short() + ")"
-		temp = self.get_language().split(" - ")
-		if len(temp) != 1:
-			s += "(M" + str(len(temp)) + ")"
-		return s
+    def get_fullinfo(self):
+        """ Return game's main informations in a printable form """
+        s = str(int(self.release_number)) + " - " + self.title + " (" + self.get_location_short() + ")"
+        temp = self.get_language().split(" - ")
+        if len(temp) != 1:
+            s += "(M" + str(len(temp)) + ")"
+        return s
 
-	def get_filename(self):
-		""" Return the correct filename for the game (without extension) """
-		s = self.release_number + " - " + self.title + " (" + self.get_location_short() + ")"
-		temp = self.get_language().split(" - ")
-		if len(temp) != 1:
-			s += "(M" + str(len(temp)) + ")"
-		return s
+    def get_filename(self):
+        """ Return the correct filename for the game (without extension) """
+        s = self.release_number + " - " + self.title + " (" + self.get_location_short() + ")"
+        temp = self.get_language().split(" - ")
+        if len(temp) != 1:
+            s += "(M" + str(len(temp)) + ")"
+        return s
 
-	def get_image_number(self):
-		""" Return game's image number """
-		return self.image_number
+    def get_image_number(self):
+        """ Return game's image number """
+        return self.image_number
 
-	def get_img_range(self):
-		""" Return game's image range """
-		return self.__get_range()
+    def get_img_range(self):
+        """ Return game's image range """
+        return self.__get_range()
 
-	def get_img1_local(self, path):
-		""" Return absolute local path of img1 """
-		return os.path.join(path, self.__get_range(), self.image_number + "a.png")
+    def get_img1_local(self, path):
+        """ Return absolute local path of img1 """
+        return os.path.join(path, self.__get_range(), self.image_number + "a.png")
 
-	def get_img2_local(self, path):
-		""" Return absolute local path of img2 """
-		return os.path.join(path, self.__get_range(), self.image_number + "b.png")
+    def get_img2_local(self, path):
+        """ Return absolute local path of img2 """
+        return os.path.join(path, self.__get_range(), self.image_number + "b.png")
 
-	def get_img1_url(self, url):
-		""" Return remote URL of img1 """
-		return os.path.join(url, self.__get_range(), self.image_number + "a.png")
+    def get_img1_url(self, url):
+        """ Return remote URL of img1 """
+        return os.path.join(url, self.__get_range(), self.image_number + "a.png")
 
-	def get_img2_url(self, url):
-		""" Return remote URL of img2 """
-		return os.path.join(url, self.__get_range(), self.image_number + "b.png")
+    def get_img2_url(self, url):
+        """ Return remote URL of img2 """
+        return os.path.join(url, self.__get_range(), self.image_number + "b.png")
 
-	def get_release_number(self):
-		""" Return game's release number as int """
-		return int(self.release_number)
+    def get_release_number(self):
+        """ Return game's release number as int """
+        return int(self.release_number)
 
-	def get_release_number_text(self):
-		""" Return game's release number as text (with leading zeroes, if any) """
-		return self.release_number
+    def get_release_number_text(self):
+        """ Return game's release number as text (with leading zeroes, if any) """
+        return self.release_number
 
-	def get_title(self):
-		""" Return game's title """
-		return self.title
+    def get_title(self):
+        """ Return game's title """
+        return self.title
 
-	def get_save_type(self):
-		""" Return game's save type """
-		return self.save_type
+    def get_save_type(self):
+        """ Return game's save type """
+        return self.save_type
 
-	def get_rom_size(self):
-		""" Return game's rom size """
-		return self.rom_size
+    def get_rom_size(self):
+        """ Return game's rom size """
+        return self.rom_size
 
-	def get_publisher(self):
-		""" Return game's publisher """
-		return self.publisher
+    def get_publisher(self):
+        """ Return game's publisher """
+        return self.publisher
 
-	def get_location_index(self):
-		""" Return game's location as a key of 'countries' dictionary """
-		return self.location
+    def get_location_index(self):
+        """ Return game's location as a key of 'countries' dictionary """
+        return self.location
 
-	def get_location(self):
-		""" Return game's location in the long form """
-		return countries[self.location]
+    def get_location(self):
+        """ Return game's location in the long form """
+        return countries[self.location]
 
-	def get_location_short(self):
-		""" Return game's location in the short form """
-		return countries_short[self.location]
+    def get_location_short(self):
+        """ Return game's location in the short form """
+        return countries_short[self.location]
 
-	def get_source_rom(self):
-		""" Return game's source rom """
-		return self.source_rom
+    def get_source_rom(self):
+        """ Return game's source rom """
+        return self.source_rom
 
-	def get_language(self):
-		""" Return a string containing all game's languages """
-		languages = ""
-		for i in range(len(langs)):
-			if self.language[i] == '1':
-				languages += langs[i] + " - "
-		return languages[:len(languages) - 3]
+    def get_language(self):
+        """ Return a string containing all game's languages """
+        languages = ""
+        for i in range(len(langs)):
+            if self.language[i] == '1':
+                languages += langs[i] + " - "
+        return languages[:len(languages) - 3]
 
-	def get_rom_crc(self):
-		""" Return rom's crc """
-		return self.rom_crc
+    def get_rom_crc(self):
+        """ Return rom's crc """
+        return self.rom_crc
 
-	def get_img1_crc(self):
-		""" Return image1 crc """
-		return self.im1_crc
+    def get_img1_crc(self):
+        """ Return image1 crc """
+        return self.im1_crc
 
-	def get_img2_crc(self):
-		""" Return image2 crc """
-		return self.im2_crc
+    def get_img2_crc(self):
+        """ Return image2 crc """
+        return self.im2_crc
 
-	def get_comment(self):
-		""" Return game's comment """
-		return self.comment
+    def get_comment(self):
+        """ Return game's comment """
+        return self.comment
 
-	def get_duplicate_id(self):
-		""" Return game's duplicate ID """
-		return self.duplicate_id
+    def get_duplicate_id(self):
+        """ Return game's duplicate ID """
+        return self.duplicate_id

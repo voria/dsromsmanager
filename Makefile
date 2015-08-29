@@ -31,13 +31,13 @@ manager_uninstall:
 
 trimmer_build:
 	gcc dsromstrimmer/dsromstrimmer.c -o dsromstrimmer/dsromstrimmer
-	
+
 trimmer_install: trimmer_build
 	$(install_dir) $(DESTDIR)$(PREFIX)/bin/
 	$(install_script) dsromstrimmer/dsromstrimmer $(DESTDIR)$(PREFIX)/bin/
-	
+
 trimmer_uninstall:
 	rm -f $(DESTDIR)$(PREFIX)/bin/dsromstrimmer
-	
+
 clean:
 	rm -f dsromstrimmer/dsromstrimmer

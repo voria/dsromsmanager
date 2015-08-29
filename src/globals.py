@@ -30,16 +30,16 @@ _ = gettext.gettext
 
 WORK_DIR = os.path.expanduser("~") + "/." + APP_NAME.lower()
 if not os.path.exists(WORK_DIR):
-	os.mkdir(WORK_DIR)
+    os.mkdir(WORK_DIR)
 IMG_DIR = os.path.join(WORK_DIR, "images")
 if not os.path.exists(IMG_DIR):
-	os.mkdir(IMG_DIR)
+    os.mkdir(IMG_DIR)
 ROMS_DIR = os.path.join(WORK_DIR, "roms")
 if not os.path.exists(ROMS_DIR):
-	os.mkdir(ROMS_DIR)
+    os.mkdir(ROMS_DIR)
 UNKNOWN_ROMS_DIR = os.path.join(ROMS_DIR, "unknown")
 if not os.path.exists(UNKNOWN_ROMS_DIR):
-	os.mkdir(UNKNOWN_ROMS_DIR)
+    os.mkdir(UNKNOWN_ROMS_DIR)
 DB_FILE = os.path.join(WORK_DIR, "db")
 DB_VERSION = "6"
 
@@ -58,55 +58,55 @@ CHECKS_YES = 1
 CHECKS_CONVERT = 2
 
 langs = {
-		0 : _("French"),
-		1 : _("English"),
-		2 : _("Chinese"),
-		3 : _("Danish"),
-		4 : _("Dutch"),
-		5 : _("Finnish"),
-		6 : _("German"),
-		7 : _("Italian"),
-		8 : _("Japanese"),
-		9 : _("Norwegian"),
-		10 : _("Polish"),
-		11 : _("Portuguese"),
-		12 : _("Spanish"),
-		13 : _("Swedish"),
-		14 : _("Unknown"),
-		15 : _("Unknown"),
-		16 : _("Korean")
-		}
+        0 : _("French"),
+        1 : _("English"),
+        2 : _("Chinese"),
+        3 : _("Danish"),
+        4 : _("Dutch"),
+        5 : _("Finnish"),
+        6 : _("German"),
+        7 : _("Italian"),
+        8 : _("Japanese"),
+        9 : _("Norwegian"),
+        10 : _("Polish"),
+        11 : _("Portuguese"),
+        12 : _("Spanish"),
+        13 : _("Swedish"),
+        14 : _("Unknown"),
+        15 : _("Unknown"),
+        16 : _("Korean")
+        }
 
 countries = {
-			0 : _("Europe"),
-			1 : _("USA"),
-			2 : _("Germany"),
-			4 : _("Spain"),
-			5 : _("France"),
-			6 : _("Italy"),
-			7 : _("Japan"),
-			8 : _("Netherlands"),
-			10 : _("Denmark"),
-			11 : _("Finland"),
-			12 : _("Norway"),
-			15 : _("Sweden"),
-			19 : _("Australia"),
-			22 : _("South Korea")
-			}
+        0 : _("Europe"),
+        1 : _("USA"),
+        2 : _("Germany"),
+        4 : _("Spain"),
+        5 : _("France"),
+        6 : _("Italy"),
+        7 : _("Japan"),
+        8 : _("Netherlands"),
+        10 : _("Denmark"),
+        11 : _("Finland"),
+        12 : _("Norway"),
+        15 : _("Sweden"),
+        19 : _("Australia"),
+        22 : _("South Korea")
+        }
 
 countries_short = {
-			0 : "EU",
-			1 : "US",
-			2 : "DE",
-			4 : "ES",
-			5 : "FR",
-			6 : "IT",
-			7 : "JP",
-			8 : "NL",
-			10 : "DA",
-			11 : "FI",
-			12 : "NO",
-			15 : "SE",
-			19 : "AU",
-			22 : "KS"
-			}
+        0 : "EU",
+        1 : "US",
+        2 : "DE",
+        4 : "ES",
+        5 : "FR",
+        6 : "IT",
+        7 : "JP",
+        8 : "NL",
+        10 : "DA",
+        11 : "FI",
+        12 : "NO",
+        15 : "SE",
+        19 : "AU",
+        22 : "KS"
+        }
