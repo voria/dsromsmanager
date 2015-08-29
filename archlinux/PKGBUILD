@@ -1,7 +1,7 @@
 # Maintainer: Fortunato Ventre (voRia) <vorione AT gmail DOT com>
 
 pkgname=dsromsmanager
-pkgver=1.5
+pkgver=1.6
 pkgrel=1
 pkgdesc="Nintendo DS Roms Manager"
 url="http://www.voria.org/dsromsmanager/"
@@ -9,7 +9,7 @@ license=('GPL3')
 depends=('pygtk')
 arch=('i686' 'x86_64')
 source=(http://www.voria.org/files/nds/dsromsmanager/$pkgname-$pkgver.tar.gz)
-md5sums=('22cbafdf478142b8c5c44c980f28756e')
+md5sums=('e856c867fc4cd43e6e7d88afaddcb2b3')
 
 build() {
   cd "${srcdir}/${pkgname}-${pkgver}"
