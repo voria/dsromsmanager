@@ -5,7 +5,7 @@
 #
 
 Name:           dsromsmanager
-Version:        1.6
+Version:        1.6.1
 Release:        1%{?dist}
 Summary:        An utility to manage Nintendo DS roms
 
@@ -41,5 +41,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc README LICENSE
 
 %changelog
-* Sat Aug 29 2015 Fortunato Ventre <vorione@gmail.com>
+* Fri Mar 03 2017 Fortunato Ventre <vorione@gmail.com> - 1.6.1-1
+- Fix short country code for Denmark
+
+* Sat Aug 29 2015 Fortunato Ventre <vorione@gmail.com> - 1.6-1
 - Packaged for Fedora 22

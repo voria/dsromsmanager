@@ -1,3 +1,9 @@
+dsromsmanager (1.6.1-1) UNRELEASED; urgency=low
+
+  * Fix short country code for Denmark.
+
+ -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 03 Mar 2017 23:10:03 +0100
+
 dsromsmanager (1.6-1) UNRELEASED; urgency=low
 
   * Add support for swedish titles.
@@ -11,7 +17,7 @@ dsromsmanager (1.5-1~saucy) saucy; urgency=low
   * Add support for danish titles.
   * Add support for finnish titles.
   * Update Debian files.
-  * Update ArchLinux files. 
+  * Update ArchLinux files.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 15 Nov 2013 12:25:33 +0100
 
@@ -52,46 +58,46 @@ drm (1.0.9~maverick) maverick; urgency=low
 
   * Handle '.nd5' and '.dsi' file extensions (recognize them when scanning
     and rename them as '.nds' when rebuilding archives).
-  * Update debian/control file. 
+  * Update debian/control file.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sat, 20 Nov 2010 18:22:29 +0100
 
 drm (1.0.8~lucid) lucid; urgency=low
 
   * Add "4096 Mbits" rom size.
-  * First release for Lucid. 
+  * First release for Lucid.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 30 Apr 2010 16:58:33 +0200
 
 drm (1.0.7~karmic) karmic; urgency=low
 
-  * Revert commit 242: "Show all messages windows in center of the screen." 
+  * Revert commit 242: "Show all messages windows in center of the screen."
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 22 Feb 2010 09:10:18 +0100
 
 drm (1.0.6~karmic) karmic; urgency=low
 
-  * Fix drm.glade file. 
+  * Fix drm.glade file.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 25 Jan 2010 12:41:13 +0100
 
 drm (1.0.5~karmic) karmic; urgency=low
 
-  * Add 'chinese' to the list of recognized languages for roms. 
+  * Add 'chinese' to the list of recognized languages for roms.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 20 Jan 2010 22:59:43 +0100
 
 drm (1.0.4~karmic) karmic; urgency=low
 
   * Fix hpaned position restoring at startup.
-  * Show all messages windows in center of the screen. 
+  * Show all messages windows in center of the screen.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 29 Nov 2009 18:27:24 +0000
 
 drm (1.0.3~karmic) karmic; urgency=low
 
   * Add a new option for images scaling.
-    The external images window can be shown only when size is <= 90%. 
+    The external images window can be shown only when size is <= 90%.
   * Restore the last size of main_window and hpaned at application startup.
   * Set center position for all game infos in the right pane.
 
@@ -99,7 +105,7 @@ drm (1.0.3~karmic) karmic; urgency=low
 
 drm (1.0.2~karmic) karmic; urgency=low
 
-  * Change icon to .png format. It seems .svg support is not always available. 
+  * Change icon to .png format. It seems .svg support is not always available.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 29 Oct 2009 22:52:49 +0100
 
@@ -112,13 +118,13 @@ drm (1.0.1) jaunty; urgency=low
 
 drm (1.0) jaunty; urgency=low
 
-  * Handle all exceptions while downloading images. 
+  * Handle all exceptions while downloading images.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 11 Aug 2009 01:22:56 +0200
 
 drm (1.0~rc5) jaunty; urgency=low
 
-   * Immediately disable rescan_roms buttons when checking for a new DAT file. 
+   * Immediately disable rescan_roms buttons when checking for a new DAT file.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 28 Jul 2009 21:37:57 +0200
 
@@ -179,7 +185,7 @@ drm (0.9.8) jaunty; urgency=low
     it was checked only against games checks checkbuttons).
   * Fix a bug when a new game has to be manually added on the top
     of the list.
-  * Update strings and translations.  
+  * Update strings and translations.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 09 Jul 2009 01:18:19 +0200
 
@@ -200,7 +206,7 @@ drm (0.9.6) jaunty; urgency=low
 
 drm (0.9.5) jaunty; urgency=low
 
-  * Add a splash screen at application startup (thanks to Daneel_87). 
+  * Add a splash screen at application startup (thanks to Daneel_87).
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 08 Jul 2009 01:40:58 +0200
 
@@ -312,7 +318,7 @@ drm (0.6) jaunty; urgency=low
     from intermediate directory.
   * When treeview_model has to be updated, remove it from treeview and
     when it's updated, set it back.
-  * Update translations. 
+  * Update translations.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 03 Jul 2009 21:28:25 +0200
 
@@ -320,7 +326,7 @@ drm (0.5) jaunty; urgency=low
 
   * Hide 'Extract in' filechooserdialog when the current path is invalid.
   * Add trim support (it requires 'trim' command line utility).
-  * Update translations. 
+  * Update translations.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 02 Jul 2009 18:38:53 +0200
 
@@ -341,13 +347,13 @@ drm (0.4.8) jaunty; urgency=low
 
   * Resize images to 50% if vertical screen resolution is <= 600,
     to 75% if vertical screen resolution <= 800.
-    For bigger resolutions use the native size. 
+    For bigger resolutions use the native size.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Jul 2009 16:39:12 +0200
 
 drm (0.4.7.1) jaunty; urgency=low
 
-  * Fix translations. 
+  * Fix translations.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Jul 2009 15:17:45 +0200
 
@@ -375,13 +381,13 @@ drm (0.4.7) jaunty; urgency=low
   * Add tooltips in statusicon popup menu.
   * Add tooltips in treeview popup menu.
   * Add a quit button.
-  * Update translations. 
+  * Update translations.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Jul 2009 15:01:49 +0200
 
 drm (0.4.6.1) jaunty; urgency=low
 
-  * Fix a typo in src/downloaders.py. 
+  * Fix a typo in src/downloaders.py.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 20:35:35 +0200
 
@@ -392,7 +398,7 @@ drm (0.4.6) jaunty; urgency=low
     the treeview is instantly updated.
   * Add support for .nds files, in addition to .zip files.
     When a .nds file is found and the relative game archive is rebuilt,
-    a new .zip archive is created and the original .nds file is deleted.  
+    a new .zip archive is created and the original .nds file is deleted.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 20:27:55 +0200
 
@@ -418,7 +424,7 @@ drm (0.4.4) jaunty; urgency=low
 drm (0.4.3) jaunty; urgency=low
 
   * Handle an exception when trying to open a zip file that
-    does not exist anymore, due to the roms archives rebuild in progress. 
+    does not exist anymore, due to the roms archives rebuild in progress.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 03:14:59 +0200
 
@@ -433,7 +439,7 @@ drm (0.4.2) jaunty; urgency=low
 drm (0.4.1) jaunty; urgency=low
 
   * Enable compression while rebuilding roms archives.
-  * Rebuild roms archives in a sorted order. 
+  * Rebuild roms archives in a sorted order.
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 02:21:15 +0200
 
@@ -447,7 +453,7 @@ drm (0.4) jaunty; urgency=low
   * Add a config file, saved in working directory.
   * Add option menu, with the ability to customize URL for games reviews.
   * Add support for internationalization.
-  * Manage games on hard disk (finally). 
+  * Manage games on hard disk (finally).
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 01:01:24 +0200
 
@@ -456,7 +462,7 @@ drm (0.3) jaunty; urgency=low
   * Do not pass gui elements to external functions.
     Instead, pass the gui reference and use its specific
     methods to update elements.
-  * Fix random hangs with Ubuntu 9.04 
+  * Fix random hangs with Ubuntu 9.04
 
  -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 17 Jun 2009 23:42:55 +0200
 drm (0.2-4) jaunty; urgency=low
