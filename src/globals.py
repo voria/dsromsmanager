@@ -103,7 +103,7 @@ countries_short = {
         6 : "IT",
         7 : "JP",
         8 : "NL",
-        10 : "DA",
+        10 : "DK",
         11 : "FI",
         12 : "NO",
         15 : "SE",
