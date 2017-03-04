@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-04 12:05+0100\n"
+"POT-Creation-Date: 2017-03-04 12:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,38 +29,43 @@ msgstr ""
 msgid "Unzipping the new DAT file..."
 msgstr ""
 
-#: ../src/downloaders.py:96
+#: ../src/downloaders.py:88
+#, python-format
+msgid "Download of images for '%s' failed."
+msgstr ""
+
+#: ../src/downloaders.py:100
 #, python-format
 msgid "Error while downloading image 1 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:109
+#: ../src/downloaders.py:113
 #, python-format
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:132
+#: ../src/downloaders.py:136
 msgid "Downloading all images..."
 msgstr ""
 
-#: ../src/downloaders.py:154
+#: ../src/downloaders.py:158
 msgid "Checking images integrity..."
 msgstr ""
 
-#: ../src/downloaders.py:162
+#: ../src/downloaders.py:166
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr ""
 
-#: ../src/downloaders.py:186
+#: ../src/downloaders.py:190
 msgid "Download of all images stopped."
 msgstr ""
 
-#: ../src/downloaders.py:188
+#: ../src/downloaders.py:192
 msgid "Download of all images failed."
 msgstr ""
 
-#: ../src/downloaders.py:190
+#: ../src/downloaders.py:194
 msgid "Download of all images completed."
 msgstr ""
 

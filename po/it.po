@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-04 12:05+0100\n"
-"PO-Revision-Date: 2017-03-04 12:06+0100\n"
+"POT-Creation-Date: 2017-03-04 12:38+0100\n"
+"PO-Revision-Date: 2017-03-04 12:39+0100\n"
 "Last-Translator: Fortunato Ventre <vorione@gmail.com>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
@@ -30,38 +30,43 @@ msgstr "Non riesco a scaricare il file DAT!"
 msgid "Unzipping the new DAT file..."
 msgstr "Estrazione del nuovo file DAT in corso..."
 
-#: ../src/downloaders.py:96
+#: ../src/downloaders.py:88
+#, python-format
+msgid "Download of images for '%s' failed."
+msgstr "Download delle immagini di '%s' fallito."
+
+#: ../src/downloaders.py:100
 #, python-format
 msgid "Error while downloading image 1 for '%s': File not found."
 msgstr "Errore durante il download dell'immagine 1 di '%s': File non trovato."
 
-#: ../src/downloaders.py:109
+#: ../src/downloaders.py:113
 #, python-format
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr "Errore durante il download dell'immagine 2 di '%s': File non trovato."
 
-#: ../src/downloaders.py:132
+#: ../src/downloaders.py:136
 msgid "Downloading all images..."
 msgstr "Download di tutte le immagini in corso..."
 
-#: ../src/downloaders.py:154
+#: ../src/downloaders.py:158
 msgid "Checking images integrity..."
 msgstr "Controllo integrità delle immagini in corso..."
 
-#: ../src/downloaders.py:162
+#: ../src/downloaders.py:166
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr "Download delle immagini di '%s' in corso..."
 
-#: ../src/downloaders.py:186
+#: ../src/downloaders.py:190
 msgid "Download of all images stopped."
 msgstr "Download di tutte le immagini fermato."
 
-#: ../src/downloaders.py:188
+#: ../src/downloaders.py:192
 msgid "Download of all images failed."
 msgstr "Download di tutte le immagini fallito."
 
-#: ../src/downloaders.py:190
+#: ../src/downloaders.py:194
 msgid "Download of all images completed."
 msgstr "Download di tutte le immagini completato."
 

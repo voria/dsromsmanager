@@ -82,7 +82,11 @@ class ImagesDownloader(threading.Thread):
     def run(self):
         """ Start thread """
         if not os.path.exists(self.range_dir):
-            os.mkdir(self.range_dir)
+            try:
+                os.mkdir(self.range_dir)
+            except:
+                self.gui.update_statusbar("ImageDownloader", _("Download of images for '%s' failed.") % self.fullinfo, True)
+                return
 
         if not os.path.exists(self.filename1):
             try:
