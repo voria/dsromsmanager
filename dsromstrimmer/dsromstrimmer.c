@@ -24,7 +24,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#define VERSION "1.6.2"
+#define VERSION "1.6.3"
 
 /* 1 MB */
 #define BUFSIZE 1048576
