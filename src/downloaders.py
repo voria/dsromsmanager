@@ -124,6 +124,7 @@ class AllImagesDownloader(threading.Thread):
         self.check_images_crc = config.get_option("check_images_crc")
         self.check_images_notified = False
         self.stopnow = False
+        self.failed = False
 
     def run(self):
         """ Start thread """
@@ -141,7 +142,11 @@ class AllImagesDownloader(threading.Thread):
             url2 = game[GAME_IMG2_REMOTE_URL]
 
             if not os.path.exists(range_dir):
-                os.mkdir(range_dir)
+                try:
+                    os.mkdir(range_dir)
+                except:
+                    self.failed = True
+                    break
 
             # check images CRC
             if self.check_images_crc:
@@ -179,6 +184,8 @@ class AllImagesDownloader(threading.Thread):
 
         if self.stopnow:
             self.gui.update_statusbar("AllImagesDownloader", _("Download of all images stopped."), True)
+        elif self.failed:
+            self.gui.update_statusbar("AllImagesDownloader", _("Download of all images failed."), True)
         else:
             self.gui.update_statusbar("AllImagesDownloader", _("Download of all images completed."), True)
         # restore original button

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-29 18:03+0200\n"
+"POT-Creation-Date: 2017-03-04 11:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,24 +39,28 @@ msgstr ""
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr ""
 
-#: ../src/downloaders.py:131
+#: ../src/downloaders.py:132
 msgid "Downloading all images..."
 msgstr ""
 
-#: ../src/downloaders.py:149
+#: ../src/downloaders.py:154
 msgid "Checking images integrity..."
 msgstr ""
 
-#: ../src/downloaders.py:157
+#: ../src/downloaders.py:162
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr ""
 
-#: ../src/downloaders.py:181
+#: ../src/downloaders.py:186
 msgid "Download of all images stopped."
 msgstr ""
 
-#: ../src/downloaders.py:183
+#: ../src/downloaders.py:188
+msgid "Download of all images failed."
+msgstr ""
+
+#: ../src/downloaders.py:190
 msgid "Download of all images completed."
 msgstr ""
 

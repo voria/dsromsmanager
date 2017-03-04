@@ -1,14 +1,14 @@
 # DRM - DsRomsManager
 # Copyleft (C) 2009 - Fortunato Ventre
 # This file is distributed under the same license as the DRM package.
-# Fortunato Ventre <vorione@gmail.com>, 2009, 2010, 2012, 2013, 2015.
+# Fortunato Ventre <vorione@gmail.com>, 2009, 2010, 2012, 2013, 2015, 2017.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-08-29 18:03+0200\n"
-"PO-Revision-Date: 2015-08-29 18:09+0200\n"
+"POT-Creation-Date: 2017-03-04 11:36+0100\n"
+"PO-Revision-Date: 2017-03-04 11:43+0100\n"
 "Last-Translator: Fortunato Ventre <vorione@gmail.com>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
@@ -40,24 +40,28 @@ msgstr "Errore durante il download dell'immagine 1 di '%s': File non trovato."
 msgid "Error while downloading image 2 for '%s': File not found."
 msgstr "Errore durante il download dell'immagine 2 di '%s': File non trovato."
 
-#: ../src/downloaders.py:131
+#: ../src/downloaders.py:132
 msgid "Downloading all images..."
 msgstr "Download di tutte le immagini in corso..."
 
-#: ../src/downloaders.py:149
+#: ../src/downloaders.py:154
 msgid "Checking images integrity..."
 msgstr "Controllo integrità delle immagini in corso..."
 
-#: ../src/downloaders.py:157
+#: ../src/downloaders.py:162
 #, python-format
 msgid "Downloading images for '%s'..."
 msgstr "Download delle immagini di '%s' in corso..."
 
-#: ../src/downloaders.py:181
+#: ../src/downloaders.py:186
 msgid "Download of all images stopped."
 msgstr "Download di tutte le immagini fermato."
 
-#: ../src/downloaders.py:183
+#: ../src/downloaders.py:188
+msgid "Download of all images failed."
+msgstr "Download di tutte le immagini fallito."
+
+#: ../src/downloaders.py:190
 msgid "Download of all images completed."
 msgstr "Download di tutte le immagini completato."
 
