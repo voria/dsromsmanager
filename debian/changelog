@@ -1,3 +1,10 @@
+dsromsmanager (1.6.4-1) UNRELEASED; urgency=low
+
+  * Update italian translation.
+
+ -- Fortunato Ventre <vorione@gmail.com>  Sat, 04 Mar 2017 12:51:33 +0100
+
+
 dsromsmanager (1.6.3-1) UNRELEASED; urgency=low
 
   * Handle error when downloading images in a non-existing directory for a

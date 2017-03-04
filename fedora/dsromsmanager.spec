@@ -5,7 +5,7 @@
 #
 
 Name:           dsromsmanager
-Version:        1.6.3
+Version:        1.6.4
 Release:        1%{?dist}
 Summary:        An utility to manage Nintendo DS roms
 
@@ -41,6 +41,9 @@ rm -rf $RPM_BUILD_ROOT
 %doc README LICENSE
 
 %changelog
+* Sat Mar 04 2017 Fortunato Ventre <vorione@gmail.com> - 1.6.4-1
+- Update italian translation.
+
 * Sat Mar 04 2017 Fortunato Ventre <vorione@gmail.com> - 1.6.3-1
 - Handle error when downloading images in a non-existing directory for a single game.
 
