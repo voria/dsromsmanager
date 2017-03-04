@@ -113,13 +113,13 @@ char *get_filename(const char *path)
 #endif
 
 	if (delpos == NULL) {
-		if ((result = malloc(strlen(path) + 1)) != NULL) {
+		if ((result = (char *) malloc(strlen(path) + 1)) != NULL) {
 			strcpy(result, path);
 		}
 		return result;
 	}
 
-	if ((result = malloc(strlen(delpos) + 1)) != NULL) {
+	if ((result = (char *) malloc(strlen(delpos) + 1)) != NULL) {
 		strcpy(result, delpos + 1);
 	}
 	return result;
@@ -153,7 +153,7 @@ char *get_path(const char *path)
 	}
 
 	i = strlen(path) - strlen(delpos);
-	if ((temp = malloc(i + 1)) == NULL) {
+	if ((temp = (char *) malloc(i + 1)) == NULL) {
 		return NULL;
 	}
 	strncpy(temp, path, i);
@@ -203,7 +203,7 @@ int main(int argc, char *argv[])
 			nobackup = 1;
 			break;
 		case 'd':
-			if ((outputdir = malloc(strlen(optarg))) == NULL) {
+			if ((outputdir = (char *) malloc(strlen(optarg))) == NULL) {
 				fprintf(stderr, "ERROR: Can't allocate memory for output directory. Aborted.\n");
 				exit(3);
 			}
@@ -364,7 +364,7 @@ int main(int argc, char *argv[])
 		}
 
 		/* Prepare temp name */
-		if ((tempname = malloc(strlen(outputname) + 9)) == NULL) {
+		if ((tempname = (char *) malloc(strlen(outputname) + 9)) == NULL) {
 			fprintf(stderr, "\tWARNING: Can't allocate memory for temp name. Skipped.\n");
 			free(outputname);
 			outputname = NULL;
@@ -428,7 +428,7 @@ int main(int argc, char *argv[])
 				}
 			} else {
 				/* Prepare backup name */
-				if ((backupname = malloc(strlen(outputname) + 5)) == NULL) {
+				if ((backupname = (char *) malloc(strlen(outputname) + 5)) == NULL) {
 					fprintf(stderr, "\tWARNING: Can't allocate memory for backup name. ");
 					fprintf(stderr, "Trimmed file has '.trimmed' extension.\n");
 					free(tempname);
