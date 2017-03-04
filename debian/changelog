@@ -1,3 +1,10 @@
+dsromsmanager (1.6.2-1) UNRELEASED; urgency=low
+
+  * Handle error when downloading images in a non-existing directory.
+  * Other minor fixes and changes.
+
+ -- Fortunato Ventre <vorione@gmail.com>  Sat, 04 Mar 2017 12:22:14 +0100
+
 dsromsmanager (1.6.1-1) UNRELEASED; urgency=low
 
   * Fix short country code for Denmark.
