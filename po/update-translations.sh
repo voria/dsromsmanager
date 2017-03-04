@@ -16,8 +16,8 @@ rm *.glade.h
 
 echo
 for file in *.po; do
-    echo "*** Updating '$file'..."
-    msgmerge -U "$file" messages.pot
+	echo "*** Updating '$file'..."
+	msgmerge -U "$file" messages.pot
 done
 
 echo

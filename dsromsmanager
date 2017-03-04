@@ -1,13 +1,13 @@
 #!/bin/bash
 
 if ps ux | grep dsromsmanager.py | grep -v grep > /dev/null; then
-    # an instance is already running
-    echo "DsRomsManager is already running."
-    exit 1
+	# an instance is already running
+	echo "DsRomsManager is already running."
+	exit 1
 fi
 
 if [ ! -d $HOME/.dsromsmanager ]; then
-    mkdir $HOME/.dsromsmanager
+	mkdir $HOME/.dsromsmanager
 fi
 
 cd /usr/share/dsromsmanager/
