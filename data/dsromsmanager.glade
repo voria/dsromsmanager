@@ -2,134 +2,11 @@
 <interface>
   <requires lib="gtk+" version="2.16"/>
   <!-- interface-naming-policy project-wide -->
-  <object class="GtkAboutDialog" id="about_dialog">
-    <property name="can_focus">False</property>
-    <property name="border_width">5</property>
-    <property name="title" translatable="yes">Informations</property>
-    <property name="resizable">False</property>
-    <property name="window_position">center-on-parent</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="transient_for">main_window</property>
-    <property name="program_name">DsRomsManager</property>
-    <property name="version">X.X</property>
-    <property name="copyright" translatable="yes">Released under GPLv3 terms
-
-Copyleft by
-Fortunato Ventre (voRia)
-vorione@gmail.com</property>
-    <property name="website">http://www.voria.org</property>
-    <property name="website_label" translatable="yes">http://www.voria.org</property>
-    <accelerator key="c" signal="close" modifiers="GDK_CONTROL_MASK"/>
-    <child internal-child="vbox">
-      <object class="GtkVBox" id="about_dialog-vbox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkHButtonBox" id="about_dialog-action_area">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <placeholder/>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkWindow" id="images_window">
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Images</property>
-    <property name="window_position">center-on-parent</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="transient_for">main_window</property>
-    <child>
-      <object class="GtkEventBox" id="images_window_eventbox">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-        <property name="visible_window">False</property>
-        <child>
-          <object class="GtkHBox" id="images_window_hbox">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <property name="spacing">10</property>
-            <child>
-              <object class="GtkFrame" id="images_window_image1_frame">
-                <property name="width_request">214</property>
-                <property name="height_request">384</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
-                <child>
-                  <object class="GtkAlignment" id="images_window_image1_alignment">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkImage" id="images_window_image1">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="xpad">5</property>
-                        <property name="stock">gtk-missing-image</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkFrame" id="images_window_image2_frame">
-                <property name="width_request">256</property>
-                <property name="height_request">384</property>
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label_xalign">0</property>
-                <property name="shadow_type">none</property>
-                <child>
-                  <object class="GtkAlignment" id="images_window_image2_alignment">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <child>
-                      <object class="GtkImage" id="images_window_image2">
-                        <property name="visible">True</property>
-                        <property name="can_focus">False</property>
-                        <property name="stock">gtk-missing-image</property>
-                      </object>
-                    </child>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
   <object class="GtkMenu" id="list_treeview_popup_menu">
     <property name="visible">True</property>
     <property name="can_focus">False</property>
     <child>
       <object class="GtkMenuItem" id="list_treeview_popup_extract_menuitem">
-        <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="tooltip_text" translatable="yes">Extract selected games in the default directory.</property>
@@ -139,7 +16,6 @@ vorione@gmail.com</property>
     </child>
     <child>
       <object class="GtkMenuItem" id="list_treeview_popup_extractin_menuitem">
-        <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="tooltip_text" translatable="yes">Extract selected games in a user selected directory.</property>
@@ -149,7 +25,6 @@ vorione@gmail.com</property>
     </child>
     <child>
       <object class="GtkMenuItem" id="list_treeview_popup_extract_stop_menuitem">
-        <property name="use_action_appearance">False</property>
         <property name="can_focus">False</property>
         <property name="tooltip_text" translatable="yes">Stop the current extraction process.</property>
         <property name="label" translatable="yes">Stop extraction</property>
@@ -164,7 +39,6 @@ vorione@gmail.com</property>
     </child>
     <child>
       <object class="GtkMenuItem" id="list_treeview_popup_rebuildarchive_menuitem">
-        <property name="use_action_appearance">False</property>
         <property name="visible">True</property>
         <property name="can_focus">False</property>
         <property name="tooltip_text" translatable="yes">Rebuild roms archives for selected games.</property>
@@ -189,7 +63,6 @@ vorione@gmail.com</property>
             <property name="can_focus">False</property>
             <child>
               <object class="GtkToolButton" id="dat_update_toolbutton">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
@@ -206,7 +79,6 @@ vorione@gmail.com</property>
             </child>
             <child>
               <object class="GtkToolButton" id="images_download_toolbutton">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
@@ -232,7 +104,6 @@ vorione@gmail.com</property>
             </child>
             <child>
               <object class="GtkToolButton" id="rescan_roms_archives_toolbutton">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="tooltip_text" translatable="yes">Rescan roms archives on disk and reload the games list. (Ctrl+L)</property>
@@ -248,7 +119,6 @@ vorione@gmail.com</property>
             </child>
             <child>
               <object class="GtkToolButton" id="rebuild_roms_archives_toolbutton">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
@@ -277,7 +147,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             </child>
             <child>
               <object class="GtkToolButton" id="show_review_toolbutton">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
@@ -304,7 +173,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             </child>
             <child>
               <object class="GtkToolButton" id="options_toolbutton">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
@@ -330,7 +198,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             </child>
             <child>
               <object class="GtkToolButton" id="about_toolbutton">
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="has_tooltip">True</property>
@@ -388,7 +255,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                     <child>
                       <object class="GtkCheckButton" id="games_check_ok_checkbutton">
                         <property name="label" translatable="yes">Available games</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -406,7 +272,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                     <child>
                       <object class="GtkCheckButton" id="games_check_no_checkbutton">
                         <property name="label" translatable="yes">Not available games</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -424,7 +289,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                     <child>
                       <object class="GtkCheckButton" id="games_check_convert_checkbutton">
                         <property name="label" translatable="yes">Rebuildable archives</property>
-                        <property name="use_action_appearance">False</property>
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
@@ -1195,7 +1059,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
                         <child>
                           <object class="GtkButton" id="filter_clear_button">
                             <property name="label" translatable="yes">Clear</property>
-                            <property name="use_action_appearance">False</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">True</property>
@@ -1400,6 +1263,173 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
       </object>
     </child>
   </object>
+  <object class="GtkAboutDialog" id="about_dialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">5</property>
+    <property name="title" translatable="yes">Informations</property>
+    <property name="resizable">False</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="type_hint">dialog</property>
+    <property name="skip_taskbar_hint">True</property>
+    <property name="transient_for">main_window</property>
+    <property name="program_name">DsRomsManager</property>
+    <property name="version">X.X</property>
+    <property name="copyright" translatable="yes">Released under GPLv3 terms
+
+Copyleft by
+Fortunato Ventre
+vorione@gmail.com</property>
+    <property name="website">http://www.voria.org</property>
+    <property name="website_label" translatable="yes">http://www.voria.org</property>
+    <accelerator key="c" signal="close" modifiers="GDK_CONTROL_MASK"/>
+    <child internal-child="vbox">
+      <object class="GtkVBox" id="about_dialog-vbox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkHButtonBox" id="about_dialog-action_area">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <placeholder/>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="images_window">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Images</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="transient_for">main_window</property>
+    <child>
+      <object class="GtkEventBox" id="images_window_eventbox">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+        <property name="visible_window">False</property>
+        <child>
+          <object class="GtkHBox" id="images_window_hbox">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="spacing">10</property>
+            <child>
+              <object class="GtkFrame" id="images_window_image1_frame">
+                <property name="width_request">214</property>
+                <property name="height_request">384</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="images_window_image1_alignment">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImage" id="images_window_image1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="xpad">5</property>
+                        <property name="stock">gtk-missing-image</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame" id="images_window_image2_frame">
+                <property name="width_request">256</property>
+                <property name="height_request">384</property>
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="images_window_image2_alignment">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkImage" id="images_window_image2">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="stock">gtk-missing-image</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="splash_window">
+    <property name="can_focus">False</property>
+    <property name="type">popup</property>
+    <property name="resizable">False</property>
+    <property name="window_position">center</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="transient_for">main_window</property>
+    <child>
+      <object class="GtkImage" id="splash_window_image">
+        <property name="visible">True</property>
+        <property name="can_focus">False</property>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="trim_details_window">
+    <property name="can_focus">False</property>
+    <property name="title" translatable="yes">Trim Detailed Informations</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="default_width">600</property>
+    <property name="default_height">200</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="transient_for">main_window</property>
+    <child>
+      <object class="GtkScrolledWindow" id="trim_details_scrolledwindow">
+        <property name="visible">True</property>
+        <property name="can_focus">True</property>
+        <property name="hscrollbar_policy">automatic</property>
+        <property name="vscrollbar_policy">automatic</property>
+        <child>
+          <object class="GtkTextView" id="trim_details_textview">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="editable">False</property>
+            <property name="cursor_visible">False</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkAdjustment" id="options_images_size_adjustment">
+    <property name="lower">10</property>
+    <property name="upper">100</property>
+    <property name="value">100</property>
+    <property name="step_increment">1</property>
+  </object>
   <object class="GtkDialog" id="options_dialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
@@ -1421,7 +1451,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkButton" id="options_cancel_button">
                 <property name="label">gtk-cancel</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
@@ -1438,7 +1467,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkButton" id="options_ok_button">
                 <property name="label">gtk-ok</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
@@ -1467,7 +1495,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkCheckButton" id="options_enable_splash_checkbutton">
                 <property name="label" translatable="yes">Enable splash screen at startup</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1483,7 +1510,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkCheckButton" id="options_check_images_crc_checkbutton">
                 <property name="label" translatable="yes">Check integrity while downloading images</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1499,7 +1525,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkCheckButton" id="options_autoscan_archives_at_start_checkbutton">
                 <property name="label" translatable="yes">Scan for roms archives at startup</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1515,7 +1540,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkCheckButton" id="options_autoscan_archives_at_datupdate_checkbutton">
                 <property name="label" translatable="yes">Scan for roms archives at DAT file update</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1531,7 +1555,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkCheckButton" id="options_scan_new_archives_only_checkbutton">
                 <property name="label" translatable="yes">Scan for new roms archives only</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1547,7 +1570,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkCheckButton" id="options_clear_filters_checkbutton">
                 <property name="label" translatable="yes">Clear all filters when the games list is reloaded</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1563,7 +1585,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkCheckButton" id="options_trim_roms_checkbutton">
                 <property name="label" translatable="yes">Trim roms during extraction</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1581,7 +1602,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkCheckButton" id="options_trim_roms_details_checkbutton">
                 <property name="label" translatable="yes">Show detailed informations while trimming</property>
-                <property name="use_action_appearance">False</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
@@ -1875,7 +1895,6 @@ Due to the heavy load of I/O operations needed for rebuilding archives, the GUI 
             <child>
               <object class="GtkButton" id="options_extractin_path_enable_button">
                 <property name="label" translatable="yes">'Extract in' path currently not available</property>
-                <property name="use_action_appearance">False</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="tooltip_text" translatable="yes">The previously selected 'Extract in' path does not exist anymore, or write permissions are not granted on it.
@@ -1970,50 +1989,5 @@ Set an empty string to use the default URL.</property>
       <action-widget response="1">options_cancel_button</action-widget>
       <action-widget response="0">options_ok_button</action-widget>
     </action-widgets>
-  </object>
-  <object class="GtkAdjustment" id="options_images_size_adjustment">
-    <property name="lower">10</property>
-    <property name="upper">100</property>
-    <property name="value">100</property>
-    <property name="step_increment">1</property>
-  </object>
-  <object class="GtkWindow" id="splash_window">
-    <property name="can_focus">False</property>
-    <property name="type">popup</property>
-    <property name="resizable">False</property>
-    <property name="window_position">center</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="transient_for">main_window</property>
-    <child>
-      <object class="GtkImage" id="splash_window_image">
-        <property name="visible">True</property>
-        <property name="can_focus">False</property>
-      </object>
-    </child>
-  </object>
-  <object class="GtkWindow" id="trim_details_window">
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Trim Detailed Informations</property>
-    <property name="window_position">center-on-parent</property>
-    <property name="default_width">600</property>
-    <property name="default_height">200</property>
-    <property name="destroy_with_parent">True</property>
-    <property name="transient_for">main_window</property>
-    <child>
-      <object class="GtkScrolledWindow" id="trim_details_scrolledwindow">
-        <property name="visible">True</property>
-        <property name="can_focus">True</property>
-        <property name="hscrollbar_policy">automatic</property>
-        <property name="vscrollbar_policy">automatic</property>
-        <child>
-          <object class="GtkTextView" id="trim_details_textview">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="editable">False</property>
-            <property name="cursor_visible">False</property>
-          </object>
-        </child>
-      </object>
-    </child>
   </object>
 </interface>

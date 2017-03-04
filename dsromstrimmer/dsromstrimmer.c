@@ -2,7 +2,7 @@
  *   NDS Roms Trimmer
  *
  *   Copyleft (C) 2008 by
- *   Fortunato Ventre (voRia) - <vorione@gmail.com> - <http://www.voria.org>
+ *   Fortunato Ventre - <vorione@gmail.com> - <http://www.voria.org>
  *
  *   'Trim' is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License as published by
@@ -51,7 +51,7 @@ void usage(char *argv[]) {
     printf("Nintendo DS Roms Trimmer ");
     printf(VERSION);
     printf("\nCopyleft by\n");
-    printf("Fortunato Ventre (voRia) - vorione@gmail.com - http://www.voria.org\n\n");
+    printf("Fortunato Ventre - vorione@gmail.com - http://www.voria.org\n\n");
     printf("USAGE: %s [OPTIONS] rom1 rom2 ...\n", argv[0]);
     printf("\nOPTIONS:\n");
     printf("  -b\t\tDo NOT preserve original rom(s) as backup.\n");

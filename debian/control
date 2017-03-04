@@ -1,10 +1,10 @@
 Source: dsromsmanager
 Section: games
 Priority: extra
-Maintainer: Fortunato Ventre (voRia) <vorione@gmail.com>
+Maintainer: Fortunato Ventre <vorione@gmail.com>
 Build-Depends: debhelper (>= 8)
 Standards-Version: 3.8.0
-Homepage: http://www.voria.org/dsromsmanager
+Homepage: https://github.com/voria/dsromsmanager
 
 Package: dsromsmanager
 Architecture: all

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-04 11:36+0100\n"
-"PO-Revision-Date: 2017-03-04 11:43+0100\n"
+"POT-Creation-Date: 2017-03-04 12:05+0100\n"
+"PO-Revision-Date: 2017-03-04 12:06+0100\n"
 "Last-Translator: Fortunato Ventre <vorione@gmail.com>\n"
 "Language-Team: Italiano <>\n"
 "Language: it\n"
@@ -326,31 +326,31 @@ msgstr "Nascondi"
 msgid "Hide main window."
 msgstr "Nasconde la finestra principale."
 
-#: ../src/gui.py:191 dsromsmanager.glade.h:19
+#: ../src/gui.py:191 dsromsmanager.glade.h:11
 msgid "Update DAT"
 msgstr "Aggiorna DAT"
 
-#: ../src/gui.py:196 dsromsmanager.glade.h:21
+#: ../src/gui.py:196 dsromsmanager.glade.h:13
 msgid "Download images"
 msgstr "Scarica immagini"
 
-#: ../src/gui.py:203 dsromsmanager.glade.h:23
+#: ../src/gui.py:203 dsromsmanager.glade.h:15
 msgid "Rescan archives"
 msgstr "Riscansiona archivi"
 
-#: ../src/gui.py:208 dsromsmanager.glade.h:28
+#: ../src/gui.py:208 dsromsmanager.glade.h:20
 msgid "Rebuild archives"
 msgstr "Ricostruisci archivi"
 
-#: ../src/gui.py:215 dsromsmanager.glade.h:30
+#: ../src/gui.py:215 dsromsmanager.glade.h:22
 msgid "Reviews"
 msgstr "Recensioni"
 
-#: ../src/gui.py:222 dsromsmanager.glade.h:32
+#: ../src/gui.py:222 dsromsmanager.glade.h:24
 msgid "Options"
 msgstr "Opzioni"
 
-#: ../src/gui.py:229 dsromsmanager.glade.h:34
+#: ../src/gui.py:229 dsromsmanager.glade.h:26
 msgid "About"
 msgstr "Informazioni"
 
@@ -560,7 +560,7 @@ msgstr ""
 "\n"
 "La lista dei giochi verrà ricaricata."
 
-#: ../src/gui.py:1635 dsromsmanager.glade.h:8
+#: ../src/gui.py:1635 dsromsmanager.glade.h:49
 msgid "Images"
 msgstr "Immagini"
 
@@ -681,78 +681,56 @@ msgid "Can't download DAT version file!"
 msgstr "Non riesco a scaricare il file di controllo versione del DAT!"
 
 #: dsromsmanager.glade.h:1
-msgid "Informations"
-msgstr "Informazioni"
-
-#: dsromsmanager.glade.h:2
-msgid ""
-"Released under GPLv3 terms\n"
-"\n"
-"Copyleft by\n"
-"Fortunato Ventre (voRia)\n"
-"vorione@gmail.com"
-msgstr ""
-"Rilasciato con licenza GPLv3\n"
-"\n"
-"Copyleft by\n"
-"Fortunato Ventre (voRia)\n"
-"vorione@gmail.com"
-
-#: dsromsmanager.glade.h:7
-msgid "http://www.voria.org"
-msgstr "http://www.voria.org"
-
-#: dsromsmanager.glade.h:9
 msgid "Extract selected games in the default directory."
 msgstr "Estrae i giochi selezionati nella directory predefinita."
 
-#: dsromsmanager.glade.h:10
+#: dsromsmanager.glade.h:2
 msgid "Extract"
 msgstr "Estrai"
 
-#: dsromsmanager.glade.h:11
+#: dsromsmanager.glade.h:3
 msgid "Extract selected games in a user selected directory."
 msgstr "Estrae i giochi selezionati in una directory a scelta dell'utente."
 
-#: dsromsmanager.glade.h:12
+#: dsromsmanager.glade.h:4
 msgid "Extract in..."
 msgstr "Estrai in..."
 
-#: dsromsmanager.glade.h:13
+#: dsromsmanager.glade.h:5
 msgid "Stop the current extraction process."
 msgstr "Ferma il processo di estrazione in corso."
 
-#: dsromsmanager.glade.h:14
+#: dsromsmanager.glade.h:6
 msgid "Stop extraction"
 msgstr "Ferma estrazione"
 
-#: dsromsmanager.glade.h:15
+#: dsromsmanager.glade.h:7
 msgid "Rebuild roms archives for selected games."
 msgstr "Ricostruisce gli archivi delle roms dei giochi selezionati."
 
-#: dsromsmanager.glade.h:16
+#: dsromsmanager.glade.h:8
 msgid "Rebuild"
 msgstr "Ricostruisci"
 
-#: dsromsmanager.glade.h:17
+#: dsromsmanager.glade.h:9
 msgid "DsRomsManager"
 msgstr "DsRomsManager"
 
-#: dsromsmanager.glade.h:18
+#: dsromsmanager.glade.h:10
 msgid "Check if a new DAT file is available. (Ctrl+U)"
 msgstr "Controlla se è disponibile un nuovo file DAT. (Ctrl+U)"
 
-#: dsromsmanager.glade.h:20
+#: dsromsmanager.glade.h:12
 msgid "Download missing images for all the games. (Ctrl+D)"
 msgstr "Scarica le immagini mancanti di tutti i giochi. (Ctrl+D)"
 
-#: dsromsmanager.glade.h:22
+#: dsromsmanager.glade.h:14
 msgid "Rescan roms archives on disk and reload the games list. (Ctrl+L)"
 msgstr ""
 "Riscansiona gli archivi delle roms su disco e ricarica la lista dei giochi. "
 "(Ctrl+L)"
 
-#: dsromsmanager.glade.h:24
+#: dsromsmanager.glade.h:16
 msgid ""
 "Rebuild wrong roms archives, according to informations from DAT file. (Ctrl"
 "+F)\n"
@@ -769,119 +747,145 @@ msgstr ""
 "ricostruzione degli archivi, la GUI potrebbe non essere molto reattiva "
 "durante il processo."
 
-#: dsromsmanager.glade.h:29
+#: dsromsmanager.glade.h:21
 msgid "Search reviews for the selected game. (Ctrl+R)"
 msgstr "Cerca recensioni per il gioco selezionato. (Ctrl+R)"
 
-#: dsromsmanager.glade.h:31
+#: dsromsmanager.glade.h:23
 msgid "Open the options window. (Ctrl+O)"
 msgstr "Apre la finestra delle opzioni. (Ctrl+O)"
 
-#: dsromsmanager.glade.h:33
+#: dsromsmanager.glade.h:25
 msgid "Show informations about 'DsRomsManager'."
 msgstr "Mostra informazioni su 'DsRomsManager'."
 
-#: dsromsmanager.glade.h:35
+#: dsromsmanager.glade.h:27
 msgid "Available games"
 msgstr "Giochi disponibili"
 
-#: dsromsmanager.glade.h:36
+#: dsromsmanager.glade.h:28
 msgid "Not available games"
 msgstr "Giochi non disponibili"
 
-#: dsromsmanager.glade.h:37
+#: dsromsmanager.glade.h:29
 msgid "Rebuildable archives"
 msgstr "Archivi ricostruibili"
 
-#: dsromsmanager.glade.h:38
+#: dsromsmanager.glade.h:30
 msgid "No games in list"
 msgstr "Nessun gioco in lista"
 
-#: dsromsmanager.glade.h:39
+#: dsromsmanager.glade.h:31
 msgid "Location:"
 msgstr "Regione:"
 
-#: dsromsmanager.glade.h:40
+#: dsromsmanager.glade.h:32
 msgid "Publisher:"
 msgstr "Publisher:"
 
-#: dsromsmanager.glade.h:41
+#: dsromsmanager.glade.h:33
 msgid "Source:"
 msgstr "Sorgente:"
 
-#: dsromsmanager.glade.h:42
+#: dsromsmanager.glade.h:34
 msgid "Save:"
 msgstr "Salvataggio:"
 
-#: dsromsmanager.glade.h:43
+#: dsromsmanager.glade.h:35
 msgid "Size:"
 msgstr "Dimensione:"
 
-#: dsromsmanager.glade.h:44
+#: dsromsmanager.glade.h:36
 msgid "Comment:"
 msgstr "Commento:"
 
-#: dsromsmanager.glade.h:45
+#: dsromsmanager.glade.h:37
 msgid "CRC:"
 msgstr "CRC:"
 
-#: dsromsmanager.glade.h:46
+#: dsromsmanager.glade.h:38
 msgid "Language:"
 msgstr "Lingua:"
 
-#: dsromsmanager.glade.h:47
+#: dsromsmanager.glade.h:39
 msgid "Filter by:"
 msgstr "Filtra:"
 
-#: dsromsmanager.glade.h:48
+#: dsromsmanager.glade.h:40
 msgid "Clear"
 msgstr "Pulisci"
 
-#: dsromsmanager.glade.h:49
+#: dsromsmanager.glade.h:41
 msgid "Clear all filters and restore the games list. (Ctrl+C)"
 msgstr "Pulisce tutti i filtri e ripristina la lista dei giochi. (Ctrl+C)"
 
+#: dsromsmanager.glade.h:42
+msgid "Informations"
+msgstr "Informazioni"
+
+#: dsromsmanager.glade.h:43
+msgid ""
+"Released under GPLv3 terms\n"
+"\n"
+"Copyleft by\n"
+"Fortunato Ventre\n"
+"vorione@gmail.com"
+msgstr ""
+"Rilasciato con licenza GPLv3\n"
+"\n"
+"Copyleft by\n"
+"Fortunato Ventre\n"
+"vorione@gmail.com"
+
+#: dsromsmanager.glade.h:48
+msgid "http://www.voria.org"
+msgstr "http://www.voria.org"
+
 #: dsromsmanager.glade.h:50
+msgid "Trim Detailed Informations"
+msgstr "Informazioni Dettagliate Trim"
+
+#: dsromsmanager.glade.h:51
 msgid "Enable splash screen at startup"
 msgstr "Abilita lo splash screen all'avvio"
 
-#: dsromsmanager.glade.h:51
+#: dsromsmanager.glade.h:52
 msgid "Show the splash screen at startup."
 msgstr "Mostra lo splash screen all'avvio."
 
-#: dsromsmanager.glade.h:52
+#: dsromsmanager.glade.h:53
 msgid "Check integrity while downloading images"
 msgstr "Controlla integrità durante il download delle immagini"
 
-#: dsromsmanager.glade.h:53
+#: dsromsmanager.glade.h:54
 msgid "Check if downloaded images are valid against the info in DAT file."
 msgstr ""
 "Controlla se le immagini scaricate sono valide, confrontandole con le "
 "informazioni del file DAT."
 
-#: dsromsmanager.glade.h:54
+#: dsromsmanager.glade.h:55
 msgid "Scan for roms archives at startup"
 msgstr "Scansiona gli archivi delle roms all'avvio"
 
-#: dsromsmanager.glade.h:55
+#: dsromsmanager.glade.h:56
 msgid "Scan automatically for roms archives on disk at startup."
 msgstr "Scansiona automaticamente gli archivi delle roms su disco all'avvio."
 
-#: dsromsmanager.glade.h:56
+#: dsromsmanager.glade.h:57
 msgid "Scan for roms archives at DAT file update"
 msgstr "Scansiona gli archivi delle roms dopo l'aggiornamento del file DAT"
 
-#: dsromsmanager.glade.h:57
+#: dsromsmanager.glade.h:58
 msgid "Scan automatically for roms archives on disk when DAT file is updated."
 msgstr ""
 "Scansiona automaticamente gli archivi delle roms su disco quando il file DAT "
 "viene aggiornato."
 
-#: dsromsmanager.glade.h:58
+#: dsromsmanager.glade.h:59
 msgid "Scan for new roms archives only"
 msgstr "Scansiona solo i nuovi archivi delle roms"
 
-#: dsromsmanager.glade.h:59
+#: dsromsmanager.glade.h:60
 msgid ""
 "Scan the 'Unknown roms' and 'New roms' paths only for searching for new roms "
 "archives."
@@ -889,19 +893,19 @@ msgstr ""
 "Scansiona solo i percorsi 'Roms sconosciute' e 'Nuove roms' per la ricerca "
 "di nuovi archivi delle roms."
 
-#: dsromsmanager.glade.h:60
+#: dsromsmanager.glade.h:61
 msgid "Clear all filters when the games list is reloaded"
 msgstr "Pulisci tutti i filtri quando la lista dei giochi viene ricaricata"
 
-#: dsromsmanager.glade.h:61
+#: dsromsmanager.glade.h:62
 msgid "Clear all filters when the games list is reloaded."
 msgstr "Pulisci tutti i filtri quando la lista dei giochi viene ricaricata."
 
-#: dsromsmanager.glade.h:62
+#: dsromsmanager.glade.h:63
 msgid "Trim roms during extraction"
 msgstr "Esegui il trim delle roms durante l'estrazione"
 
-#: dsromsmanager.glade.h:63
+#: dsromsmanager.glade.h:64
 msgid ""
 "Trim roms during extraction automatically.\n"
 "\n"
@@ -912,35 +916,35 @@ msgstr ""
 "L'utility da linea di comando 'dsromstrimmer' è richiesta per abilitare "
 "questa opzione."
 
-#: dsromsmanager.glade.h:66
+#: dsromsmanager.glade.h:67
 msgid "Show detailed informations while trimming"
 msgstr "Mostra informazioni dettagliate durante il trim"
 
-#: dsromsmanager.glade.h:67
+#: dsromsmanager.glade.h:68
 msgid "Show detailed informations while trimming."
 msgstr "Mostra informazioni dettagliate durante il trim."
 
-#: dsromsmanager.glade.h:68
+#: dsromsmanager.glade.h:69
 msgid "Set here the directory where the roms are stored."
 msgstr "Imposta qui la directory contenente le roms."
 
-#: dsromsmanager.glade.h:69
+#: dsromsmanager.glade.h:70
 msgid "Roms:"
 msgstr "Roms:"
 
-#: dsromsmanager.glade.h:70
+#: dsromsmanager.glade.h:71
 msgid "Select a directory"
 msgstr "Seleziona una directory"
 
-#: dsromsmanager.glade.h:71
+#: dsromsmanager.glade.h:72
 msgid "Set here the directory where to move unknown roms."
 msgstr "Imposta qui la directory in cui spostare le roms sconosciute."
 
-#: dsromsmanager.glade.h:72
+#: dsromsmanager.glade.h:73
 msgid "Unknown roms:"
 msgstr "Roms sconosciute:"
 
-#: dsromsmanager.glade.h:73
+#: dsromsmanager.glade.h:74
 msgid ""
 "When the DAT file is updated, sometime previously unknown roms became known. "
 "Set here the directory where to move them."
@@ -948,40 +952,40 @@ msgstr ""
 "Quando il file DAT viene aggiornato, a volte le roms precedentemente "
 "sconosciute diventano conosciute. Imposta qui la directory in cui spostarle."
 
-#: dsromsmanager.glade.h:74
+#: dsromsmanager.glade.h:75
 msgid "New roms:"
 msgstr "Nuove roms:"
 
-#: dsromsmanager.glade.h:75
+#: dsromsmanager.glade.h:76
 msgid "Set here the directory where the downloaded images will be stored."
 msgstr "Imposta qui la directory in cui salvare le immagini scaricate."
 
-#: dsromsmanager.glade.h:76
+#: dsromsmanager.glade.h:77
 msgid "Images:"
 msgstr "Immagini:"
 
-#: dsromsmanager.glade.h:77
+#: dsromsmanager.glade.h:78
 msgid "Set here the factor for images scaling."
 msgstr "Imposta qui la percentuale con cui le immagini devono essere scalate."
 
-#: dsromsmanager.glade.h:79
+#: dsromsmanager.glade.h:80
 #, no-c-format
 msgid "Images size (%)"
 msgstr "Dimensione immagini (%)"
 
-#: dsromsmanager.glade.h:80
+#: dsromsmanager.glade.h:81
 msgid "Set here the default directory where to extract archives."
 msgstr "Imposta qui la directory predefinita in cui estrarre gli archivi."
 
-#: dsromsmanager.glade.h:81
+#: dsromsmanager.glade.h:82
 msgid "Extract in:"
 msgstr "Estrai in:"
 
-#: dsromsmanager.glade.h:82
+#: dsromsmanager.glade.h:83
 msgid "'Extract in' path currently not available"
 msgstr "Percorso 'Estrai in' al momento non disponibile"
 
-#: dsromsmanager.glade.h:83
+#: dsromsmanager.glade.h:84
 msgid ""
 "The previously selected 'Extract in' path does not exist anymore, or write "
 "permissions are not granted on it.\n"
@@ -995,7 +999,7 @@ msgstr ""
 "una SD) che è solo temporaneamente non disponibile.\n"
 "Clicca qui per abilitare la modifica del percorso 'Estrai in'."
 
-#: dsromsmanager.glade.h:86
+#: dsromsmanager.glade.h:87
 msgid ""
 "Use '{TITLE}' and '{RELNUM}' (without quotes) in the search URL as "
 "substitutes of the game title and the game release number, respectively.\n"
@@ -1013,13 +1017,9 @@ msgstr ""
 "\n"
 "Imposta una stringa vuota per usare l'URL di default."
 
-#: dsromsmanager.glade.h:92
+#: dsromsmanager.glade.h:93
 msgid "Review URL:"
 msgstr "URL recensioni:"
-
-#: dsromsmanager.glade.h:93
-msgid "Trim Detailed Informations"
-msgstr "Informazioni Dettagliate Trim"
 
 #~ msgid "Show detailed informations for every rom while trimming."
 #~ msgstr "Mostra informazioni dettagliate per ogni rom durante il trim."

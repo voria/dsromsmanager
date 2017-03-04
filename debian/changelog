@@ -2,14 +2,14 @@ dsromsmanager (1.6.1-1) UNRELEASED; urgency=low
 
   * Fix short country code for Denmark.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 03 Mar 2017 23:10:03 +0100
+ -- Fortunato Ventre <vorione@gmail.com>  Fri, 03 Mar 2017 23:10:03 +0100
 
 dsromsmanager (1.6-1) UNRELEASED; urgency=low
 
   * Add support for swedish titles.
   * Various code improvements.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 29 Aug 2015 18:25:13 +0100
+ -- Fortunato Ventre <vorione@gmail.com>  Fri, 29 Aug 2015 18:25:13 +0100
 
 dsromsmanager (1.5-1~saucy) saucy; urgency=low
 
@@ -19,7 +19,7 @@ dsromsmanager (1.5-1~saucy) saucy; urgency=low
   * Update Debian files.
   * Update ArchLinux files.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 15 Nov 2013 12:25:33 +0100
+ -- Fortunato Ventre <vorione@gmail.com>  Fri, 15 Nov 2013 12:25:33 +0100
 
 dsromsmanager (1.4~precise) precise; urgency=low
 
@@ -29,7 +29,7 @@ dsromsmanager (1.4~precise) precise; urgency=low
   * Fix click on URL in about dialog.
   * Specify the use of python2, because now python3 is the new default.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 03 Jul 2011 14:05:35 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Sun, 03 Jul 2011 14:05:35 +0200
 
 drm (1.1.2~natty) natty; urgency=low
 
@@ -37,13 +37,13 @@ drm (1.1.2~natty) natty; urgency=low
     name.
   * Updated Makefile and launcher script.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 03 Jul 2011 14:05:35 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Sun, 03 Jul 2011 14:05:35 +0200
 
 drm (1.1.1~maverick) maverick; urgency=low
 
   * Make treeview columns reordering much faster.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Dec 2010 17:17:30 +0100
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 01 Dec 2010 17:17:30 +0100
 
 drm (1.1~maverick) maverick; urgency=low
 
@@ -52,7 +52,7 @@ drm (1.1~maverick) maverick; urgency=low
   * Fix get_nds_filename_from_zip().
   * Update translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Dec 2010 12:48:11 +0100
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 01 Dec 2010 12:48:11 +0100
 
 drm (1.0.9~maverick) maverick; urgency=low
 
@@ -60,39 +60,39 @@ drm (1.0.9~maverick) maverick; urgency=low
     and rename them as '.nds' when rebuilding archives).
   * Update debian/control file.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sat, 20 Nov 2010 18:22:29 +0100
+ -- Fortunato Ventre <vorione@gmail.com>  Sat, 20 Nov 2010 18:22:29 +0100
 
 drm (1.0.8~lucid) lucid; urgency=low
 
   * Add "4096 Mbits" rom size.
   * First release for Lucid.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 30 Apr 2010 16:58:33 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Fri, 30 Apr 2010 16:58:33 +0200
 
 drm (1.0.7~karmic) karmic; urgency=low
 
   * Revert commit 242: "Show all messages windows in center of the screen."
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 22 Feb 2010 09:10:18 +0100
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 22 Feb 2010 09:10:18 +0100
 
 drm (1.0.6~karmic) karmic; urgency=low
 
   * Fix drm.glade file.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 25 Jan 2010 12:41:13 +0100
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 25 Jan 2010 12:41:13 +0100
 
 drm (1.0.5~karmic) karmic; urgency=low
 
   * Add 'chinese' to the list of recognized languages for roms.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 20 Jan 2010 22:59:43 +0100
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 20 Jan 2010 22:59:43 +0100
 
 drm (1.0.4~karmic) karmic; urgency=low
 
   * Fix hpaned position restoring at startup.
   * Show all messages windows in center of the screen.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 29 Nov 2009 18:27:24 +0000
+ -- Fortunato Ventre <vorione@gmail.com>  Sun, 29 Nov 2009 18:27:24 +0000
 
 drm (1.0.3~karmic) karmic; urgency=low
 
@@ -101,32 +101,32 @@ drm (1.0.3~karmic) karmic; urgency=low
   * Restore the last size of main_window and hpaned at application startup.
   * Set center position for all game infos in the right pane.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 29 Nov 2009 13:44:48 +0000
+ -- Fortunato Ventre <vorione@gmail.com>  Sun, 29 Nov 2009 13:44:48 +0000
 
 drm (1.0.2~karmic) karmic; urgency=low
 
   * Change icon to .png format. It seems .svg support is not always available.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 29 Oct 2009 22:52:49 +0100
+ -- Fortunato Ventre <vorione@gmail.com>  Thu, 29 Oct 2009 22:52:49 +0100
 
 drm (1.0.1) jaunty; urgency=low
 
   * Add a new option to scan for new roms archives in the 'Unknown roms' and
     'New roms' paths only.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 21 Oct 2009 13:06:45 +0000
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 21 Oct 2009 13:06:45 +0000
 
 drm (1.0) jaunty; urgency=low
 
   * Handle all exceptions while downloading images.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 11 Aug 2009 01:22:56 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Tue, 11 Aug 2009 01:22:56 +0200
 
 drm (1.0~rc5) jaunty; urgency=low
 
    * Immediately disable rescan_roms buttons when checking for a new DAT file.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 28 Jul 2009 21:37:57 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Tue, 28 Jul 2009 21:37:57 +0200
 
 drm (1.0~rc4) jaunty; urgency=low
 
@@ -136,7 +136,7 @@ drm (1.0~rc4) jaunty; urgency=low
   * Do not fail while loading DAT file if a game's info is missing.
   * Update strings and translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 21 Jul 2009 14:32:03 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Tue, 21 Jul 2009 14:32:03 +0200
 
 drm (1.0~rc3) jaunty; urgency=low
 
@@ -149,21 +149,21 @@ drm (1.0~rc3) jaunty; urgency=low
   * Do not show about dialog in the task.
   * Update strings and translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 15 Jul 2009 00:40:20 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 15 Jul 2009 00:40:20 +0200
 
 drm (1.0~rc2) jaunty; urgency=low
 
   * Remove redundant files while scanning roms in a try statement.
   * Check for python >=2.6 at startup.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sat, 11 Jul 2009 01:53:58 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Sat, 11 Jul 2009 01:53:58 +0200
 
 drm (1.0~rc1) jaunty; urgency=low
 
   * Make the splash screen centered on screen, not on parent window.
   * Change icon for available games to gtk.STOCK_YES.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 10 Jul 2009 01:16:12 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Fri, 10 Jul 2009 01:16:12 +0200
 
 drm (0.9.9) jaunty; urgency=low
 
@@ -171,7 +171,7 @@ drm (0.9.9) jaunty; urgency=low
   * Fix images_window behaviour and images resizing logic.
   * Make the about dialog not modal.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 09 Jul 2009 18:49:05 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Thu, 09 Jul 2009 18:49:05 +0200
 
 drm (0.9.8) jaunty; urgency=low
 
@@ -187,7 +187,7 @@ drm (0.9.8) jaunty; urgency=low
     of the list.
   * Update strings and translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 09 Jul 2009 01:18:19 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Thu, 09 Jul 2009 01:18:19 +0200
 
 drm (0.9.7) jaunty; urgency=low
 
@@ -195,20 +195,20 @@ drm (0.9.7) jaunty; urgency=low
   * Rename 'disable_splash' config option in 'enable_splash'.
   * Update strings and translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 08 Jul 2009 17:17:21 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 08 Jul 2009 17:17:21 +0200
 
 drm (0.9.6) jaunty; urgency=low
 
   * Add an option to disable splash screen at startup.
   * Update translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 08 Jul 2009 12:27:24 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 08 Jul 2009 12:27:24 +0200
 
 drm (0.9.5) jaunty; urgency=low
 
   * Add a splash screen at application startup (thanks to Daneel_87).
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 08 Jul 2009 01:40:58 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 08 Jul 2009 01:40:58 +0200
 
 drm (0.9.4) jaunty; urgency=low
 
@@ -217,14 +217,14 @@ drm (0.9.4) jaunty; urgency=low
   * When main window is hidden and any job is finished , make the statusicon
     blinking to inform the user.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 08 Jul 2009 01:14:43 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 08 Jul 2009 01:14:43 +0200
 
 drm (0.9.3) jaunty; urgency=low
 
   * Fix typo in gui.py, causing rebuilt game to not be removed from
     'self.games_to_rebuild' dictionary.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 07 Jul 2009 17:08:11 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Tue, 07 Jul 2009 17:08:11 +0200
 
 drm (0.9.2) jaunty; urgency=low
 
@@ -234,7 +234,7 @@ drm (0.9.2) jaunty; urgency=low
   * Add a new item to treeview popup menu to stop current extraction process.
   * Update strings and translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 07 Jul 2009 16:33:58 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Tue, 07 Jul 2009 16:33:58 +0200
 
 drm (0.9.1) jaunty; urgency=low
 
@@ -246,7 +246,7 @@ drm (0.9.1) jaunty; urgency=low
   * Update tooltip for review URL in options_dialog.
   * Update translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Tue, 07 Jul 2009 12:22:35 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Tue, 07 Jul 2009 12:22:35 +0200
 
 drm (0.9) jaunty; urgency=low
 
@@ -256,7 +256,7 @@ drm (0.9) jaunty; urgency=low
     when extracting archives.
   * Update strings and translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 06 Jul 2009 20:06:51 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 06 Jul 2009 20:06:51 +0200
 
 drm (0.8) jaunty; urgency=low
 
@@ -266,7 +266,7 @@ drm (0.8) jaunty; urgency=low
   * Disable accelerator key for about dialog.
   * Update strings and translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 05 Jul 2009 12:58:55 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Sun, 05 Jul 2009 12:58:55 +0200
 
 drm (0.7) jaunty; urgency=low
 
@@ -286,7 +286,7 @@ drm (0.7) jaunty; urgency=low
     and remove no more needed files.
   * Install copyright, readme and changelog in /usr/share/doc/drm/.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 05 Jul 2009 01:11:36 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Sun, 05 Jul 2009 01:11:36 +0200
 
 drm (0.6) jaunty; urgency=low
 
@@ -320,7 +320,7 @@ drm (0.6) jaunty; urgency=low
     when it's updated, set it back.
   * Update translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Fri, 03 Jul 2009 21:28:25 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Fri, 03 Jul 2009 21:28:25 +0200
 
 drm (0.5) jaunty; urgency=low
 
@@ -328,7 +328,7 @@ drm (0.5) jaunty; urgency=low
   * Add trim support (it requires 'trim' command line utility).
   * Update translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 02 Jul 2009 18:38:53 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Thu, 02 Jul 2009 18:38:53 +0200
 
 drm (0.4.9) jaunty; urgency=low
 
@@ -341,7 +341,7 @@ drm (0.4.9) jaunty; urgency=low
     in the default directory.
   * Update translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 02 Jul 2009 15:02:27 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Thu, 02 Jul 2009 15:02:27 +0200
 
 drm (0.4.8) jaunty; urgency=low
 
@@ -349,13 +349,13 @@ drm (0.4.8) jaunty; urgency=low
     to 75% if vertical screen resolution <= 800.
     For bigger resolutions use the native size.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Jul 2009 16:39:12 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 01 Jul 2009 16:39:12 +0200
 
 drm (0.4.7.1) jaunty; urgency=low
 
   * Fix translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Jul 2009 15:17:45 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 01 Jul 2009 15:17:45 +0200
 
 drm (0.4.7) jaunty; urgency=low
 
@@ -383,13 +383,13 @@ drm (0.4.7) jaunty; urgency=low
   * Add a quit button.
   * Update translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 01 Jul 2009 15:01:49 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 01 Jul 2009 15:01:49 +0200
 
 drm (0.4.6.1) jaunty; urgency=low
 
   * Fix a typo in src/downloaders.py.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 20:35:35 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 29 Jun 2009 20:35:35 +0200
 
 drm (0.4.6) jaunty; urgency=low
 
@@ -400,7 +400,7 @@ drm (0.4.6) jaunty; urgency=low
     When a .nds file is found and the relative game archive is rebuilt,
     a new .zip archive is created and the original .nds file is deleted.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 20:27:55 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 29 Jun 2009 20:27:55 +0200
 
 drm (0.4.5) jaunty; urgency=low
 
@@ -411,7 +411,7 @@ drm (0.4.5) jaunty; urgency=low
     if possible restore the selection.
   * Update translations.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 16:03:09 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 29 Jun 2009 16:03:09 +0200
 
 drm (0.4.4) jaunty; urgency=low
 
@@ -419,14 +419,14 @@ drm (0.4.4) jaunty; urgency=low
   * Avoid flood in statusbar when check images integrity while
     downloading is enabled.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 03:34:28 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 29 Jun 2009 03:34:28 +0200
 
 drm (0.4.3) jaunty; urgency=low
 
   * Handle an exception when trying to open a zip file that
     does not exist anymore, due to the roms archives rebuild in progress.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 03:14:59 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 29 Jun 2009 03:14:59 +0200
 
 drm (0.4.2) jaunty; urgency=low
 
@@ -434,14 +434,14 @@ drm (0.4.2) jaunty; urgency=low
     games not showed.
   * Fix typos in src/files.py.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 02:55:11 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 29 Jun 2009 02:55:11 +0200
 
 drm (0.4.1) jaunty; urgency=low
 
   * Enable compression while rebuilding roms archives.
   * Rebuild roms archives in a sorted order.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 02:21:15 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 29 Jun 2009 02:21:15 +0200
 
 drm (0.4) jaunty; urgency=low
 
@@ -455,7 +455,7 @@ drm (0.4) jaunty; urgency=low
   * Add support for internationalization.
   * Manage games on hard disk (finally).
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Mon, 29 Jun 2009 01:01:24 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Mon, 29 Jun 2009 01:01:24 +0200
 
 drm (0.3) jaunty; urgency=low
 
@@ -464,16 +464,16 @@ drm (0.3) jaunty; urgency=low
     methods to update elements.
   * Fix random hangs with Ubuntu 9.04
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Wed, 17 Jun 2009 23:42:55 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Wed, 17 Jun 2009 23:42:55 +0200
 drm (0.2-4) jaunty; urgency=low
 
   * Disabled CRC check for images.
   * Moved from libglade to gtkbuilder.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Thu, 30 Apr 2009 18:49:31 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Thu, 30 Apr 2009 18:49:31 +0200
 
 drm (0.1) jaunty; urgency=low
 
   * Initial Release.
 
- -- Fortunato Ventre (voRia) <vorione@gmail.com>  Sun, 05 Oct 2008 20:55:41 +0200
+ -- Fortunato Ventre <vorione@gmail.com>  Sun, 05 Oct 2008 20:55:41 +0200

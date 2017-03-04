@@ -11,7 +11,7 @@ Summary:        An utility to manage Nintendo DS roms
 
 Group:          Amusements/Games
 License:        GPLv3+
-URL:            http://www.voria.org/dsromsmanager
+URL:            https://github.com/voria/dsromsmanager
 Source0:        http://www.voria.org/files/nds/%{name}/%{name}-%{version}.tar.gz
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
