@@ -161,6 +161,8 @@ class Game():
         for i in range(len(langs)):
             if self.language[i] == '1':
                 languages += langs[i] + " - "
+        if len(languages) == 0:
+            return langs[-1]; # Unknown languages
         return languages[:len(languages) - 3]
 
     def get_rom_crc(self):

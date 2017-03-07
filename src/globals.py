@@ -58,6 +58,7 @@ CHECKS_YES = 1
 CHECKS_CONVERT = 2
 
 langs = {
+        -1 : _("Unknown"),
         0 : _("French"),
         1 : _("English"),
         2 : _("Chinese"),
