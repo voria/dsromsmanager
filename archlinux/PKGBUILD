@@ -1,7 +1,7 @@
 # Maintainer: Fortunato Ventre <vorione AT gmail DOT com>
 
 pkgname=dsromsmanager
-pkgver=1.6.4
+pkgver=1.7
 pkgrel=1
 pkgdesc="Nintendo DS Roms Manager"
 url="https://github.com/voria/dsromsmanager/"

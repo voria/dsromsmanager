@@ -5,7 +5,7 @@
 #
 
 Name:           dsromsmanager
-Version:        1.6.4
+Version:        1.7
 Release:        1%{?dist}
 Summary:        An utility to manage Nintendo DS roms
 
@@ -41,6 +41,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc README LICENSE
 
 %changelog
+* Tue Mar 07 2017 Fortunato Ventre <vorione@gmail.com> - 1.7-1
+- Add all languages and countries as for DAT format specification.
+- Update italian translation.
+
 * Sat Mar 04 2017 Fortunato Ventre <vorione@gmail.com> - 1.6.4-1
 - Update italian translation.
 
