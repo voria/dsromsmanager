@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-04 12:38+0100\n"
+"POT-Creation-Date: 2017-03-07 12:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,123 +192,123 @@ msgstr ""
 msgid "Rebuilding completed."
 msgstr ""
 
-#: ../src/globals.py:61
-msgid "French"
-msgstr ""
-
-#: ../src/globals.py:62
-msgid "English"
-msgstr ""
-
-#: ../src/globals.py:63
-msgid "Chinese"
-msgstr ""
-
-#: ../src/globals.py:64
-msgid "Danish"
-msgstr ""
-
-#: ../src/globals.py:65
-msgid "Dutch"
-msgstr ""
-
-#: ../src/globals.py:66
-msgid "Finnish"
-msgstr ""
-
-#: ../src/globals.py:67
-msgid "German"
-msgstr ""
-
-#: ../src/globals.py:68
-msgid "Italian"
-msgstr ""
-
-#: ../src/globals.py:69
-msgid "Japanese"
-msgstr ""
-
-#: ../src/globals.py:70
-msgid "Norwegian"
-msgstr ""
-
-#: ../src/globals.py:71
-msgid "Polish"
-msgstr ""
-
-#: ../src/globals.py:72
-msgid "Portuguese"
-msgstr ""
-
-#: ../src/globals.py:73
-msgid "Spanish"
-msgstr ""
-
-#: ../src/globals.py:74
-msgid "Swedish"
-msgstr ""
-
-#: ../src/globals.py:75 ../src/globals.py:76
+#: ../src/globals.py:61 ../src/globals.py:76 ../src/globals.py:77
 msgid "Unknown"
 msgstr ""
 
-#: ../src/globals.py:77
+#: ../src/globals.py:62
+msgid "French"
+msgstr ""
+
+#: ../src/globals.py:63
+msgid "English"
+msgstr ""
+
+#: ../src/globals.py:64
+msgid "Chinese"
+msgstr ""
+
+#: ../src/globals.py:65
+msgid "Danish"
+msgstr ""
+
+#: ../src/globals.py:66
+msgid "Dutch"
+msgstr ""
+
+#: ../src/globals.py:67
+msgid "Finnish"
+msgstr ""
+
+#: ../src/globals.py:68
+msgid "German"
+msgstr ""
+
+#: ../src/globals.py:69
+msgid "Italian"
+msgstr ""
+
+#: ../src/globals.py:70
+msgid "Japanese"
+msgstr ""
+
+#: ../src/globals.py:71
+msgid "Norwegian"
+msgstr ""
+
+#: ../src/globals.py:72
+msgid "Polish"
+msgstr ""
+
+#: ../src/globals.py:73
+msgid "Portuguese"
+msgstr ""
+
+#: ../src/globals.py:74
+msgid "Spanish"
+msgstr ""
+
+#: ../src/globals.py:75
+msgid "Swedish"
+msgstr ""
+
+#: ../src/globals.py:78
 msgid "Korean"
 msgstr ""
 
-#: ../src/globals.py:81
+#: ../src/globals.py:82
 msgid "Europe"
 msgstr ""
 
-#: ../src/globals.py:82
+#: ../src/globals.py:83
 msgid "USA"
 msgstr ""
 
-#: ../src/globals.py:83
+#: ../src/globals.py:84
 msgid "Germany"
 msgstr ""
 
-#: ../src/globals.py:84
+#: ../src/globals.py:85
 msgid "Spain"
 msgstr ""
 
-#: ../src/globals.py:85
+#: ../src/globals.py:86
 msgid "France"
 msgstr ""
 
-#: ../src/globals.py:86
+#: ../src/globals.py:87
 msgid "Italy"
 msgstr ""
 
-#: ../src/globals.py:87
+#: ../src/globals.py:88
 msgid "Japan"
 msgstr ""
 
-#: ../src/globals.py:88
+#: ../src/globals.py:89
 msgid "Netherlands"
 msgstr ""
 
-#: ../src/globals.py:89
+#: ../src/globals.py:90
 msgid "Denmark"
 msgstr ""
 
-#: ../src/globals.py:90
+#: ../src/globals.py:91
 msgid "Finland"
 msgstr ""
 
-#: ../src/globals.py:91
+#: ../src/globals.py:92
 msgid "Norway"
 msgstr ""
 
-#: ../src/globals.py:92
+#: ../src/globals.py:93
 msgid "Sweden"
 msgstr ""
 
-#: ../src/globals.py:93
+#: ../src/globals.py:94
 msgid "Australia"
 msgstr ""
 
-#: ../src/globals.py:94
+#: ../src/globals.py:95
 msgid "South Korea"
 msgstr ""
 
