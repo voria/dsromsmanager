@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-07 12:14+0100\n"
+"POT-Creation-Date: 2017-03-07 13:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,7 +192,7 @@ msgstr ""
 msgid "Rebuilding completed."
 msgstr ""
 
-#: ../src/globals.py:61 ../src/globals.py:76 ../src/globals.py:77
+#: ../src/globals.py:61
 msgid "Unknown"
 msgstr ""
 
@@ -256,60 +256,124 @@ msgstr ""
 msgid "Korean"
 msgstr ""
 
+#: ../src/globals.py:79
+msgid "Russian"
+msgstr ""
+
+#: ../src/globals.py:80
+msgid "Greek"
+msgstr ""
+
+#: ../src/globals.py:81
+msgid "Turkish"
+msgstr ""
+
 #: ../src/globals.py:82
-msgid "Europe"
+msgid "Czech"
 msgstr ""
 
 #: ../src/globals.py:83
-msgid "USA"
-msgstr ""
-
-#: ../src/globals.py:84
-msgid "Germany"
-msgstr ""
-
-#: ../src/globals.py:85
-msgid "Spain"
-msgstr ""
-
-#: ../src/globals.py:86
-msgid "France"
+msgid "Hungarian"
 msgstr ""
 
 #: ../src/globals.py:87
-msgid "Italy"
+msgid "Europe"
 msgstr ""
 
 #: ../src/globals.py:88
-msgid "Japan"
+msgid "USA"
 msgstr ""
 
 #: ../src/globals.py:89
-msgid "Netherlands"
+msgid "Germany"
 msgstr ""
 
 #: ../src/globals.py:90
-msgid "Denmark"
+msgid "China"
 msgstr ""
 
 #: ../src/globals.py:91
-msgid "Finland"
+msgid "Spain"
 msgstr ""
 
 #: ../src/globals.py:92
-msgid "Norway"
+msgid "France"
 msgstr ""
 
 #: ../src/globals.py:93
-msgid "Sweden"
+msgid "Italy"
 msgstr ""
 
 #: ../src/globals.py:94
-msgid "Australia"
+msgid "Japan"
 msgstr ""
 
 #: ../src/globals.py:95
+msgid "Netherlands"
+msgstr ""
+
+#: ../src/globals.py:96
+msgid "United Kingdom"
+msgstr ""
+
+#: ../src/globals.py:97
+msgid "Denmark"
+msgstr ""
+
+#: ../src/globals.py:98
+msgid "Finland"
+msgstr ""
+
+#: ../src/globals.py:99
+msgid "Norway"
+msgstr ""
+
+#: ../src/globals.py:100
+msgid "Poland"
+msgstr ""
+
+#: ../src/globals.py:101
+msgid "Portugal"
+msgstr ""
+
+#: ../src/globals.py:102
+msgid "Sweden"
+msgstr ""
+
+#: ../src/globals.py:106
+msgid "Australia"
+msgstr ""
+
+#: ../src/globals.py:107
+msgid "North Korea"
+msgstr ""
+
+#: ../src/globals.py:108
+msgid "Brazil"
+msgstr ""
+
+#: ../src/globals.py:109
 msgid "South Korea"
+msgstr ""
+
+#: ../src/globals.py:113
+msgid "Russia"
+msgstr ""
+
+#: ../src/globals.py:115
+msgid "Greece"
+msgstr ""
+
+#: ../src/globals.py:116
+msgid "Turkey"
+msgstr ""
+
+#: ../src/globals.py:117
+msgid "Czech Republic"
+msgstr ""
+
+#: ../src/globals.py:118
+msgid "Hungary"
 msgstr ""
 
 #: ../src/gui.py:184 ../src/gui.py:643
